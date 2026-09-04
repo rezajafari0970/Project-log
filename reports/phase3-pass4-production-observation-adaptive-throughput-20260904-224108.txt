@@ -1,0 +1,40 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass4-production-observation-adaptive-throughput
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T22:41:08+00:00
+
+End:
+2026-09-04T22:41:51+00:00
+
+Service:
+config-location-retest.service
+
+Mode:
+ADAPTIVE PRODUCTION
+
+Concurrency:
+1..3
+
+Adaptive batch:
+2..9
+
+Observation:
+/root/project-log/discovery/2026-09-04/phase3-pass4-production-observation-adaptive-throughput-20260904-224108.json
+
+Status:
+/var/lib/config-location/retest/status.json
+
+Backup:
+/root/3245/phase3-pass4-production-observation-adaptive-throughput-backup-20260904-224108
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass4-production-observation-adaptive-throughput-20260904-224108.log
+
+Errors:
+
