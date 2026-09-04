@@ -1,0 +1,44 @@
+================================================
+ PHASE 1 PASS 4
+ SETTINGS UI RECOVERY
+================================================
+START=2026-09-04T15:00:14+00:00
+HOST=serverprojects.ptr.network
+
+========== PRECHECK ==========
+SERVER_OK
+
+========== FIND SAFE SETTINGS_UI BACKUP ==========
+SAFE_UI=/root/3245/phase2-control-plane-backup-20260904-144634/panel/settings_ui.py
+
+========== RESTORE COMPILE TEST ==========
+RESTORE_COMPILE_OK
+
+========== PATCH LOCK-SAFE SETTINGS PAGE ==========
+SETTINGS_UI_SAFE_PATCH_OK
+
+========== COMPILE AFTER PATCH ==========
+COMPILE_OK
+
+========== IMPORT TEST ==========
+SETTINGS_UI_IMPORT_OK
+
+========== SETTINGS ENGINE TEST AS SERVICE USER ==========
+Traceback (most recent call last):
+  File "<stdin>", line 3, in <module>
+  File "/opt/config-location/app/settings/engine.py", line 1167, in get_settings
+    return STORE.read()
+           ~~~~~~~~~~^^
+  File "/opt/config-location/app/settings/engine.py", line 873, in read
+    fd = self._lock()
+  File "/opt/config-location/app/settings/engine.py", line 756, in _lock
+    fd = os.open(
+        self.lock_path,
+    ...<2 lines>...
+        0o600,
+    )
+PermissionError: [Errno 13] Permission denied: '/run/config-location/settings.lock'
+
+========== FINAL ==========
+RESULT=FAILED
+END=2026-09-04T15:00:16+00:00

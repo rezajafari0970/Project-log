@@ -1,0 +1,19 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase1-pass4-settings-ui-recovery
+
+Result:
+FAILED
+
+Time:
+2026-09-04T15:00:16+00:00
+
+Backup:
+/root/3245/phase1-pass4-settings-ui-recovery-backup-20260904-150014
+
+Log:
+/root/project-log/executions/2026-09-04/phase1-pass4-settings-ui-recovery-20260904-150014.log
+
+Errors:
+\nscript exit code 1
