@@ -1,0 +1,44 @@
+{
+  "top_level_keys": [
+    "adaptive_health",
+    "cleanup",
+    "config_lifetime",
+    "country",
+    "features",
+    "fetcher",
+    "health",
+    "health_retest",
+    "meta",
+    "publish",
+    "removal",
+    "resources",
+    "schema_version",
+    "source_intelligence"
+  ],
+  "retest_matches": [
+    {
+      "path": "features.health_retest",
+      "value": false
+    },
+    {
+      "path": "health_retest.interval_seconds",
+      "value": 420
+    },
+    {
+      "path": "health_retest.maximum_interval_seconds",
+      "value": 86400
+    },
+    {
+      "path": "health_retest.minimum_interval_seconds",
+      "value": 60
+    }
+  ],
+  "resources": {
+    "cpu_warning_percent": 98.0,
+    "cpu_critical_percent": 99.0,
+    "ram_warning_percent": 98.0,
+    "ram_critical_percent": 99.0,
+    "disk_warning_percent": 98.0,
+    "disk_critical_percent": 99.0
+  }
+}

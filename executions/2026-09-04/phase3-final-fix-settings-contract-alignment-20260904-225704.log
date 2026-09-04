@@ -1,0 +1,192 @@
+================================================
+ PHASE 3 FINAL FIX
+ SETTINGS CONTRACT ALIGNMENT
+================================================
+
+========== [1/12] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/12] BACKUP ==========
+BACKUP_OK
+
+========== [3/12] COMPILE ==========
+COMPILE_OK
+
+========== [4/12] DISCOVER SETTINGS CONTRACT ==========
+{
+  "top_level_keys": [
+    "adaptive_health",
+    "cleanup",
+    "config_lifetime",
+    "country",
+    "features",
+    "fetcher",
+    "health",
+    "health_retest",
+    "meta",
+    "publish",
+    "removal",
+    "resources",
+    "schema_version",
+    "source_intelligence"
+  ],
+  "retest_matches": [
+    {
+      "path": "features.health_retest",
+      "value": false
+    },
+    {
+      "path": "health_retest.interval_seconds",
+      "value": 420
+    },
+    {
+      "path": "health_retest.maximum_interval_seconds",
+      "value": 86400
+    },
+    {
+      "path": "health_retest.minimum_interval_seconds",
+      "value": 60
+    }
+  ],
+  "resources": {
+    "cpu_warning_percent": 98.0,
+    "cpu_critical_percent": 99.0,
+    "ram_warning_percent": 98.0,
+    "ram_critical_percent": 99.0,
+    "disk_warning_percent": 98.0,
+    "disk_critical_percent": 99.0
+  }
+}
+SETTINGS_DISCOVERY_OK
+
+========== [5/12] RETEST CONTRACT ==========
+CANONICAL_RETEST_MINUTES= 5
+PLAN_INTERVAL_SECONDS= 300
+RETEST_CONTRACT_OK
+
+========== [6/12] RESOURCE CONTRACT ==========
+RESOURCE_CONTRACT_OK
+GUARDIAN= {'cpu_warning_pct': 98.0, 'cpu_critical_pct': 99.0, 'ram_warning_pct': 98.0, 'ram_critical_pct': 99.0, 'disk_warning_pct': 98.0, 'disk_critical_pct': 99.0, 'sources': {'cpu_warning_pct': 'resources.cpu_warning_percent', 'cpu_critical_pct': 'resources.cpu_critical_percent', 'ram_warning_pct': 'resources.ram_warning_percent', 'ram_critical_pct': 'resources.ram_critical_percent', 'disk_warning_pct': 'resources.disk_warning_percent', 'disk_critical_pct': 'resources.disk_critical_percent'}}
+POLICY= {'workers': 1, 'batch': 2, 'idle': 30, 'level': 'critical', 'reason': 'resource_guardian_critical', 'guardian': {'cpu_warning_pct': 98.0, 'cpu_critical_pct': 99.0, 'ram_warning_pct': 98.0, 'ram_critical_pct': 99.0, 'disk_warning_pct': 98.0, 'disk_critical_pct': 99.0, 'sources': {'cpu_warning_pct': 'resources.cpu_warning_percent', 'cpu_critical_pct': 'resources.cpu_critical_percent', 'ram_warning_pct': 'resources.ram_warning_percent', 'ram_critical_pct': 'resources.ram_critical_percent', 'disk_warning_pct': 'resources.disk_warning_percent', 'disk_critical_pct': 'resources.disk_critical_percent'}}, 'cpu_pressure_pct': 103.8, 'ram_used_pct': 24.58}
+
+========== [7/12] SYSTEMD ==========
+ACTIVE=active
+ENABLED=enabled
+SYSTEMD_OK
+
+========== [8/12] ELIGIBILITY ==========
+ELIGIBILITY_OK
+SCANNED= 2186
+HEALTHY= 1233
+DUE= 1131
+CANDIDATES= 10
+
+========== [9/12] REAL RETEST ==========
+BEFORE_TESTS=183
+OBSERVE_1 TESTS=183
+OBSERVE_2 TESTS=185
+REAL_RETEST_OK
+
+========== [10/12] PERSISTENCE / PUBLISH ==========
+CANONICAL_PERSISTENCE_OK
+RESULTS_CHECKED= 2
+UNHEALTHY_FILTERED= 0
+
+========== [11/12] PANEL / RUNTIME ==========
+SETTINGS_HTTP=302
+PANEL_RUNTIME_OK
+
+========== [12/12] FINAL ==========
+{
+  "phase": "phase3-final-fix-settings-contract-alignment",
+  "result": "SUCCESS",
+  "generated_at": "2026-09-04T22:57:12.951242+00:00",
+  "production_worker_modified": false,
+  "settings_contract": {
+    "top_level_keys": [
+      "adaptive_health",
+      "cleanup",
+      "config_lifetime",
+      "country",
+      "features",
+      "fetcher",
+      "health",
+      "health_retest",
+      "meta",
+      "publish",
+      "removal",
+      "resources",
+      "schema_version",
+      "source_intelligence"
+    ],
+    "retest_matches": [
+      {
+        "path": "features.health_retest",
+        "value": false
+      },
+      {
+        "path": "health_retest.interval_seconds",
+        "value": 420
+      },
+      {
+        "path": "health_retest.maximum_interval_seconds",
+        "value": 86400
+      },
+      {
+        "path": "health_retest.minimum_interval_seconds",
+        "value": 60
+      }
+    ],
+    "resources": {
+      "cpu_warning_percent": 98.0,
+      "cpu_critical_percent": 99.0,
+      "ram_warning_percent": 98.0,
+      "ram_critical_percent": 99.0,
+      "disk_warning_percent": 98.0,
+      "disk_critical_percent": 99.0
+    }
+  },
+  "runtime": {
+    "service_active": true,
+    "service_enabled": true,
+    "settings_http": 302,
+    "mode": "adaptive",
+    "cycle": 31,
+    "retest_minutes": 5,
+    "due_total": 1132,
+    "adaptive_workers": 1,
+    "adaptive_batch": 2,
+    "resource_level": "critical",
+    "total_tests": 185,
+    "total_healthy": 110,
+    "total_unhealthy": 75,
+    "total_errors": 0
+  },
+  "checks": {
+    "precheck": true,
+    "compile": true,
+    "settings_discovery": true,
+    "retest_contract": true,
+    "resource_contract": true,
+    "systemd": true,
+    "eligibility": true,
+    "real_retest": true,
+    "canonical_persistence": true,
+    "publish_filter": true,
+    "panel": true,
+    "fatal_errors": false
+  },
+  "phase3_freeze_ready": true
+}
+
+================================================
+ PHASE 3 FINAL REGRESSION: PASS
+================================================
+SETTINGS_CONTRACT_ALIGNED=YES
+PRODUCTION_WORKER_MODIFIED=NO
+PHASE3_FREEZE_READY=YES
+PHASE3_FINAL_SUCCESS
+
+========== FINAL ==========
+RESULT=SUCCESS
+END=2026-09-04T22:57:12+00:00
