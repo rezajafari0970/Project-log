@@ -1,0 +1,74 @@
+================================================
+ PHASE 1 PASS 5
+ PERSISTENT SETTINGS LOCK OWNERSHIP FIX
+================================================
+
+START=2026-09-04T15:03:59+00:00
+HOST=serverprojects.ptr.network
+
+========== PRECHECK ==========
+uid=999(configloc) gid=983(configloc) groups=983(configloc)
+PRECHECK_OK
+
+========== BACKUP ==========
+BACKUP_OK
+
+========== CURRENT OWNERSHIP ==========
+drwxr-x--- 2 configloc configloc 60 Sep  4 15:03 /run/config-location
+-rw------- 1 configloc configloc 0 Sep  4 15:03 /run/config-location/settings.lock
+  File: /run/config-location/settings.lock
+  size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: 0,29	Inode: 7225        Links: 1
+Access: (0600/-rw-------)  Uid: (  999/configloc)   Gid: (  983/configloc)
+Access: 2026-09-04 15:03:59.088391945 +0000
+Modify: 2026-09-04 15:03:17.869284148 +0000
+Change: 2026-09-04 15:03:17.869284148 +0000
+ Birth: 2026-09-04 15:03:17.869284148 +0000
+
+========== FIX RUNTIME DIRECTORY ==========
+RUNTIME_DIRECTORY_FIXED
+
+========== FIX SETTINGS LOCK ==========
+LOCK_OWNER_BEFORE=configloc:configloc
+LOCK_MODE_BEFORE=600
+STALE_LOCK_REMOVED
+
+========== TMPFILES ==========
+TMPFILES_OK
+
+========== CREATE LOCK AS CONFIGLOC ==========
+CONFIGLOC_LOCK_CREATE_OK
+LOCK_OWNER=configloc:configloc
+LOCK_MODE=600
+LOCK_OWNERSHIP_OK
+
+========== LOCK READ WRITE TEST ==========
+FLOCK_EX_OK
+FLOCK_UNLOCK_OK
+
+========== SETTINGS ENGINE TEST ==========
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+  File "/opt/config-location/app/settings/engine.py", line 1167, in get_settings
+    return STORE.read()
+           ~~~~~~~~~~^^
+  File "/opt/config-location/app/settings/engine.py", line 877, in read
+    self._read_unlocked()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/config-location/app/settings/engine.py", line 858, in _read_unlocked
+    with self.path.open(
+         ~~~~~~~~~~~~~~^
+        "r",
+        ^^^^
+        encoding="utf-8",
+        ^^^^^^^^^^^^^^^^^
+    ) as handle:
+    ^
+  File "/usr/lib/python3.14/pathlib/__init__.py", line 772, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PermissionError: [Errno 13] Permission denied: '/var/lib/config-location/settings/settings.json'
+
+========== FINAL ==========
+RESULT=FAILED
+END=2026-09-04T15:03:59+00:00

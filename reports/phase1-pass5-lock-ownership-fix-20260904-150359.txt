@@ -1,0 +1,19 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase1-pass5-lock-ownership-fix
+
+Result:
+FAILED
+
+Time:
+2026-09-04T15:03:59+00:00
+
+Backup:
+/root/3245/phase1-pass5-lock-ownership-fix-backup-20260904-150359
+
+Log:
+/root/project-log/executions/2026-09-04/phase1-pass5-lock-ownership-fix-20260904-150359.log
+
+Errors:
+\nscript exit code 1
