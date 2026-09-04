@@ -1,0 +1,52 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass5-panel-publish-shadow-integration
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T23:55:24+00:00
+
+End:
+2026-09-04T23:55:26+00:00
+
+Mode:
+PANEL / PUBLISH SHADOW INTEGRATION
+
+Production Panel wiring:
+NO
+
+Production Publish wiring:
+NO
+
+Config mutation:
+NONE
+
+Country-store mutation:
+NONE
+
+Endpoint mutation:
+NONE
+
+Service restart:
+NONE
+
+Summary:
+/root/project-log/discovery/2026-09-04/phase5-pass5-panel-publish-shadow-integration-20260904-235524-summary.json
+
+Panel shadow:
+/root/project-log/discovery/2026-09-04/phase5-pass5-panel-publish-shadow-integration-20260904-235524-panel-shadow.json
+
+Publish shadow:
+/root/project-log/discovery/2026-09-04/phase5-pass5-panel-publish-shadow-integration-20260904-235524-publish-shadow.json
+
+Backup:
+/root/3245/phase5-pass5-panel-publish-shadow-integration-backup-20260904-235524
+
+Log:
+/root/project-log/executions/2026-09-04/phase5-pass5-panel-publish-shadow-integration-20260904-235524.log
+
+Errors:
+

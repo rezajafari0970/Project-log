@@ -1,0 +1,28 @@
+{
+  "phase": "phase5-pass5-panel-publish-shadow-integration",
+  "mode": "shadow_only",
+  "panel": {
+    "current_config_count": 2806,
+    "resolved": 1615,
+    "unknown": 1191,
+    "conflict": 0,
+    "config_store_known": 0,
+    "projection_recovers_missing": 1615,
+    "resolved_percent": 57.555
+  },
+  "publish": {
+    "publishable_count": 1231,
+    "resolved": 1023,
+    "unknown": 208,
+    "conflict": 0,
+    "resolved_percent": 83.103,
+    "country_group_count": 41
+  },
+  "production": {
+    "panel_wiring": false,
+    "publish_wiring": false,
+    "endpoint_mutation": false,
+    "config_mutation": false,
+    "country_store_mutation": false
+  }
+}

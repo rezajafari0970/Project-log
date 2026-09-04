@@ -1,0 +1,118 @@
+================================================
+ PHASE 5 PASS 5
+ PANEL / PUBLISH SHADOW INTEGRATION
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] BACKUP ==========
+BACKUP_OK
+
+========== [3/10] INSTALL SHADOW MODULE ==========
+SHADOW_MODULE_INSTALLED
+
+========== [4/10] COMPILE ==========
+COMPILE_OK
+
+========== [5/10] SELFTEST ==========
+SELFTEST_OK
+UNKNOWN_SEPARATED=YES
+CONFLICT_SEPARATED=YES
+
+========== [6/10] PANEL SHADOW ==========
+PANEL_CONFIGS= 2806
+PANEL_COUNTS= {'resolved': 1615, 'projection_recovers_missing': 1615, 'unknown': 1191}
+
+========== [7/10] PUBLISH SHADOW ==========
+PUBLISHABLE= 1231
+RESOLVED= 1023
+UNKNOWN= 208
+CONFLICT= 0
+TOP_GROUPS=
+DE 320
+NL 213
+UNKNOWN 208
+GB 122
+US 69
+SE 47
+PL 36
+FR 29
+FI 25
+RS 21
+BG 15
+SG 15
+JP 14
+CA 13
+ES 9
+EE 7
+NO 7
+IN 5
+RU 5
+LV 5
+LT 5
+HK 4
+KR 4
+IT 3
+TR 3
+AU 3
+AT 2
+IE 2
+CZ 2
+CH 2
+
+========== [8/10] SUMMARY ==========
+{
+  "phase": "phase5-pass5-panel-publish-shadow-integration",
+  "mode": "shadow_only",
+  "panel": {
+    "current_config_count": 2806,
+    "resolved": 1615,
+    "unknown": 1191,
+    "conflict": 0,
+    "config_store_known": 0,
+    "projection_recovers_missing": 1615,
+    "resolved_percent": 57.555
+  },
+  "publish": {
+    "publishable_count": 1231,
+    "resolved": 1023,
+    "unknown": 208,
+    "conflict": 0,
+    "resolved_percent": 83.103,
+    "country_group_count": 41
+  },
+  "production": {
+    "panel_wiring": false,
+    "publish_wiring": false,
+    "endpoint_mutation": false,
+    "config_mutation": false,
+    "country_store_mutation": false
+  }
+}
+
+========== [9/10] VALIDATE ==========
+SHADOW_INTEGRATION_VALID
+PANEL_RESOLVED_PERCENT= 57.555
+PUBLISH_RESOLVED_PERCENT= 83.103
+CONFIG_STORE_KNOWN= 0
+PROJECTION_RECOVERS_MISSING= 1615
+COUNTRY_GROUP_COUNT= 41
+
+========== [10/10] FINAL ==========
+config-location-country-worker.service ACTIVE=active ENABLED=enabled
+config-location-country-event-consumer.service ACTIVE=active ENABLED=enabled
+PANEL_SHADOW_READ_MODEL=READY
+PUBLISH_SHADOW_READ_MODEL=READY
+PUBLISHABLE_FILTER_REUSED=YES
+UNKNOWN_GROUP_ISOLATED=YES
+CONFLICT_GROUP_ISOLATED=YES
+PRODUCTION_PANEL_WIRING=NO
+PRODUCTION_PUBLISH_WIRING=NO
+ENDPOINT_MUTATION=NO
+CONFIG_WRITE=NO
+COUNTRY_STORE_WRITE=NO
+ORPHAN_DELETE=NO
+SERVICE_RESTART=NO
+
+PHASE5_PASS5_SUCCESS

@@ -1,0 +1,1927 @@
+{
+  "mode": "publish_shadow",
+  "production_wiring": false,
+  "publishable_count": 1231,
+  "resolved": 1023,
+  "unknown": 208,
+  "conflict": 0,
+  "group_counts": {
+    "DE": 320,
+    "NL": 213,
+    "UNKNOWN": 208,
+    "GB": 122,
+    "US": 69,
+    "SE": 47,
+    "PL": 36,
+    "FR": 29,
+    "FI": 25,
+    "RS": 21,
+    "BG": 15,
+    "SG": 15,
+    "JP": 14,
+    "CA": 13,
+    "ES": 9,
+    "EE": 7,
+    "NO": 7,
+    "IN": 5,
+    "RU": 5,
+    "LV": 5,
+    "LT": 5,
+    "HK": 4,
+    "KR": 4,
+    "IT": 3,
+    "TR": 3,
+    "AU": 3,
+    "AT": 2,
+    "IE": 2,
+    "CZ": 2,
+    "CH": 2,
+    "RO": 2,
+    "GT": 2,
+    "GR": 2,
+    "PT": 2,
+    "EG": 2,
+    "IR": 1,
+    "PH": 1,
+    "TW": 1,
+    "AE": 1,
+    "GE": 1,
+    "ZA": 1
+  },
+  "group_samples": {
+    "RS": [
+      {
+        "config_id": "00aea10eecc8911f3b9a30e3ad3f74188fc7222651b7fdb554e4be8d907cf3a5",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "061f9a1a1a540e42f80f78e166ddfe69ef6642ef16de004d85037a2ac1df883b",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "26c0820f449626462a37a7df36f761557d02c280d0506956e7a6a793ab353979",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "32d628d018e2bd2585f1a0f7dfbacb8c038012c008fdffec9b191cdb5dd9ed04",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "373f160ca450f8acc7cb760b20775243091113ae289fca2639431c59c14cb414",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4ee3333154bcfaf64423a3cebac5dcee926d2723f3940c1736d1167384c41497",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "581c1d5d0ad7743bdfdc3e71b4d3c94ea5bd903dd253433ead138ae1a68b2de8",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "5a88ef1e7dd349e0b8a4eec202b1aa115c81500f37bd4d77573eb5202b5ad97f",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "669aa5017544d1544819ff91068d2d9ab399a6854d59f94c44a4357d71bfddfd",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "7d3487a4cb37764659013ecb9ab0b6af8bb536259cd1ae99c0e66ad80bc6cd50",
+        "state": "resolved",
+        "country_code": "RS",
+        "country_name": "Serbia",
+        "flag": "🇷🇸",
+        "source": "identity"
+      }
+    ],
+    "DE": [
+      {
+        "config_id": "00b2688e274252c42586ac97e10eac81c4e9ee05af5ba0a6cd78b302553718c4",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0118cdde8eadf539660a759d4f9c2db28c39d06daf601a99fb53854722a519c7",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0127bdc8baea5ec05dbe8ce7018f097cd76ef148fd0217cd22a68fe1feaee844",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "01d30d720bc4cb1dbed9e7d8984cc76672ef49ec440b90ecdc3362ee347e756f",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0292d67eaf5b0183dff18cdfbff4e9acbf02bbb9e880f812a432fabbd5293133",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "02ee92c02225dfaf76d973fa9195d576041a6fd6d0f879b43d6e30b8cb18b9cf",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "04262ca7a6ff595867a1313c7ca328612f2753e64c0fbad3d9c7f90be394aa09",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "05d6df0aa928e10dbb4d941c38a9c5b61eca0e9a9dea480ef1b1e944f29fe10c",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0600c2109c5109753cede4095e080542c293c50297559a2745a101dbd25f60cb",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "06bb5ca2f6c7e9db4900c0f1a8bbb03a147b20c0c4e5f88e91a2f8ae35f3e150",
+        "state": "resolved",
+        "country_code": "DE",
+        "country_name": "Germany",
+        "flag": "🇩🇪",
+        "source": "pipeline_latest"
+      }
+    ],
+    "NL": [
+      {
+        "config_id": "00eba00b263ef9a6be5dba96e698a5c5a0ee2dee358b20d53d3bd3e35fa2fb91",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": null,
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0144c8d1afaa4f43e557f7e6fd35e8cff70289e569a63b89e4e879807c221158",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "The Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "032e3b0e848a048b67861abf5d841f52632a4bc4d59634c8ef47772f4b4e9ea0",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "03cc1ffc10287182be82aa5b66f0e3a3cbe736858b5bad6481295c10d7567e8c",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "05219db96e02dc0cbd14faf0920141e9e5366abbcbbf53ca23f797157279118a",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": null,
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "069330ebf38f9b73eaf3c729460436e351233bb57b0b150bb847932bc76c1cb4",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "06c2e186955865023debed8773197a043f3d87faa246ed7e8c7c5e000f84f635",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "079cec2055069641cc731017a4f4f5d21a8f4edbc80ea5466b86bf54050814ea",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "07b4ea71eec10ec7acb16c25fde6e5a398459bff1067019ee12c4a6198f54bea",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "The Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "07f49b4d1ae6f3b9a6ef18e7f7457aae5428b3bef447b2b85386c6312bfa3871",
+        "state": "resolved",
+        "country_code": "NL",
+        "country_name": "The Netherlands",
+        "flag": "🇳🇱",
+        "source": "pipeline_latest"
+      }
+    ],
+    "GB": [
+      {
+        "config_id": "011f8f1f5335e362a029e616079e2a34c404d7179f79a309927be8e7de274f94",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "03578909a1994c5fd6d86fbaf882925cb357aa1b5838df185bc0ec7e355b653e",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "03b7b5d75f68f0fbed4d3d77849904b21a354683d300fc0042c79da06cc5cfb2",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "043779c897ac68b590858cae1bcc35ba3cb6f5a601e8aeb03be08b983a74e798",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0560aee750d574534ba06bf017c7e2de9391417849bda5886895eb2b741a1cd1",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "05f35d18d5024ccea9062502a73cb718f401c2fc38d110d4ba40077df7e35575",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "06a53f4b29313873108c2c9a150f621b19a405b985cc8d4b890e1dea192b9326",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "07b87b58144b196a3f307375f663a68fb87374be9fd9ed3c09862c7d8df76af5",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": "United Kingdom",
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0a459a378df11bd452c952270c1d6a8dbda564e8227f66cba9018aa268a9b5b2",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": null,
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0eda9eb5a773ee49730c1e1ac0a9fb276e727ef9203f327423bbebb2b43ca82b",
+        "state": "resolved",
+        "country_code": "GB",
+        "country_name": null,
+        "flag": "🇬🇧",
+        "source": "pipeline_latest"
+      }
+    ],
+    "UNKNOWN": [
+      {
+        "config_id": "0150b69fb34355b72b917fa747af598526a23bc9410ce067874a701efddbd964",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "07b90978dc16da833ad7ac2e1d247f2645b0c811dc1266c8a063f7a0534f54d0",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "08d6a6ae7ab205358ceb97a93f1a380b2a3f2b13dfa02d55190a5b99d456e0ce",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "0aaa2f522e7fa0d879ddb073d5ab2f24beb45a48bccb72d41976fa08e9b8f94d",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "0cabb21e669fefb892d8d47ce5d1ae253c2e44b6bbae071532ceb2a73945e0e7",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "0d4af6f03b2f74a93f1e2f9f4425db18ebbe6ca8dd48df93a8e71dacf10754a8",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "0d60cc6d312c8d6ea1756f61e63ff9afa47adaa1c3f1eaa4f1e95307b600d0af",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "0efa9861050eb2fe341e0621689a64bb5e4e543da861d28fea37d64501233f9f",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "106bdcb931119d377b8dafb594cf4be79f5304131b12810b63c85c7384d30712",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      },
+      {
+        "config_id": "1328c3f66b71c3de2885542cc8352725c6db98ab1294e51bae4942e856697255",
+        "state": "unknown",
+        "country_code": null,
+        "country_name": null,
+        "flag": null,
+        "source": null
+      }
+    ],
+    "IN": [
+      {
+        "config_id": "016c4e132b303516ea8787ad2ea5a6a952ace1091fcb79d689ddab5942310eea",
+        "state": "resolved",
+        "country_code": "IN",
+        "country_name": "Cyprus",
+        "flag": "🇮🇳",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "05ff20f38b3990a72a3477889654995b7ed4a2687ddb4dc039280877cbf3bd1c",
+        "state": "resolved",
+        "country_code": "IN",
+        "country_name": null,
+        "flag": "🇮🇳",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8a0dd3b6ccd2a1a2de9c17a0408ac440ffe6bf78660c7849f0737aa31446f335",
+        "state": "resolved",
+        "country_code": "IN",
+        "country_name": "India",
+        "flag": "🇮🇳",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "9f9617b5733725b4e1f58639d1e14cc641c7f9a15a83e0f1217d07794d304b62",
+        "state": "resolved",
+        "country_code": "IN",
+        "country_name": "India",
+        "flag": "🇮🇳",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "b18df2309bb8a26d0d54d20277129d9a1d8cd111229c93c839e598a333df98bb",
+        "state": "resolved",
+        "country_code": "IN",
+        "country_name": "India",
+        "flag": "🇮🇳",
+        "source": "identity"
+      }
+    ],
+    "SE": [
+      {
+        "config_id": "017c78d94d4f4e2587976f778ef7b87079a1bb760de6d79fe047408a5bb2c963",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "036c919b2056e567417f716546f2a9d54d71a4ee258b83a1ca67287fd81de01d",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "03938e01362a0368a69b59ebad7aa89903e737778819b2d91559fded6afaef5b",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0f05fb76f33ff61b46fd4b709e030f7874222409f90fa7c38a25d7083a88b8c8",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "14a3f9ea71998e765c053cf88a2b7bc4fa2fe85ef1fda0748f175b330641fd7f",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "18f61cf32e6eb8101ebb1435ad604da67bceccdb37e33ee29b65df5edcd5bad1",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "20442e6fc58702955f46b4234c857ecdab823873e2f359d0c6ad2fe557687b39",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "229b0746c6c4366f25f27e62fee1c46ff4e7ac3ea47c26edec4c14e668cbd4a3",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "23fd331f9c3e5731bafe2112dac01bbf0cdf339f6371dd56a091139eedfef979",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "263166a9e0939ea06fae639910bd93114432c61385e87981d771a98dc3ffa294",
+        "state": "resolved",
+        "country_code": "SE",
+        "country_name": "Sweden",
+        "flag": "🇸🇪",
+        "source": "pipeline_latest"
+      }
+    ],
+    "ES": [
+      {
+        "config_id": "0288cabcdcce38b02767cc1c1b6b53e2b51e0a78fc7cd15266142d247886c8cf",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "2725e3ab9bb83dd3f65c0a83c704391b03e7f5108329f43fa1d3539233b98710",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "289e8de10b1c4423a18edcb1b5bebd58a822c9b8cd3a6572fca116d2fba58a02",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4521ac99ea289426ba0bf1c4bcf7e280bfdbd916cc5d28cab4579a5ed801530d",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "5be5cab2305eb19cf5785078b516827b3449ef41307f7a373a0d50319aa6affa",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "7721736d4199fc2e2a6a391d983bb00ca89aac45197df85021ce32a9030862a0",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "78ac330317a0241d86050b10d62ef5cc74f8e634453f85e53b75f002a47ed68d",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8c8d9f220db4ffcd9a8d19980b16554d925cf31703ce07bdf62e05c838057e1b",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "b3076b36b0862a31af43a6fa8b5864c0f69fb2e58a423511436d5d2b286a4456",
+        "state": "resolved",
+        "country_code": "ES",
+        "country_name": "Spain",
+        "flag": "🇪🇸",
+        "source": "pipeline_latest"
+      }
+    ],
+    "US": [
+      {
+        "config_id": "029092efdf290d1ec267645f29c588a67d7e4a120cad3080e908dd7f7b750c01",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": "United States",
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "062d59f0df704d19d5c111cb80946cf82bd5be40ec3d385e0653791b6ab25d19",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": "United States",
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0a383395951adeecd411a62e661fbbe7d22c58f90abda9d879d469a8628e4527",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": null,
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0c67c7379626a05aa8bccf40c307b69cbaee3f6c11f294b6234c1013729e8cf9",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": "United States",
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0fad9106d46a48dbdc02ef57efd7b72d43a7e2153855e8a0142881f2cc23ca62",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": "United States",
+        "flag": "🇺🇸",
+        "source": "identity"
+      },
+      {
+        "config_id": "1792f98b39c0a6b572238bb9eec656d9aeef58393548e843e9ee2eee241e18bf",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": "United States",
+        "flag": "🇺🇸",
+        "source": "identity"
+      },
+      {
+        "config_id": "1af87e510f4face05dcaf220313dbafee14ed40c06e172a0cb86a3b469b1df69",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": "United States",
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "1c89827e35e2906a55e780b8c7b4b6106ac8e262468bac5f0fb51ebfcf2528bd",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": "United States",
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "245a3395deef1de5b54e2d5bcaf3c55a0a9cf404323ea2ae15191e32e3c43ae0",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": null,
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "2693aa9164ce03210eb699caa0104abc45a7158d7353beae0c4ba7fbea855b32",
+        "state": "resolved",
+        "country_code": "US",
+        "country_name": null,
+        "flag": "🇺🇸",
+        "source": "pipeline_latest"
+      }
+    ],
+    "FR": [
+      {
+        "config_id": "0599dff76a5fd0edf81dc361a30a3c0c83adf4813d970062295124aed5f3d979",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "05cca8864824ff7a82a740d087b82ef9de70db85103b4cec9fe32936502751eb",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": null,
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0f64328219b1ddb88b64e3345a71db82e5c096b51195f96f52f6b726b940c8ce",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "1597964ba0261f4137f819d61d92332220266832923bc3187de2dc69d9cb49ba",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "1c465b7b69d40d00ca759900858e2c3dff4399cbdea48a7237b1370182451b1c",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "20fed70f688ad7206e55fd7ba4fa553a81467d85deb7d1f996cf334e6362db09",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "22e2cc4642374d723dade43686620e090d036011de7f1020faad53e5e27a5dd8",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "2f5c22ea34059dd994ded36eb503d7326ae2e84988514b09768d2ccad63e9076",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "342d5b82966f90e857e5417bd8dc8c05bdd79bc1e8990eaa8aa13b64f6f0c0e4",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "38a58df65204365d1233eb550e93174c1f1872ef2157426c5828f4fdf97cda2d",
+        "state": "resolved",
+        "country_code": "FR",
+        "country_name": "France",
+        "flag": "🇫🇷",
+        "source": "pipeline_latest"
+      }
+    ],
+    "FI": [
+      {
+        "config_id": "08412d4c6be683dbe1e9a4d5a6777c80bbf370d5a977dfdc7fc40cbe91792440",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "16f6d7bdbcaf53f00c0d4deb9c39a2d7fa9b11352c20581b3b4e3560e2b5f3af",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "26d5d599c1a7dbe5167b2eeb4cf3e9c512c279d917de0318e5209b3904c44ad4",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "2cb2b7493a8be2e4294080c0c77e9d45bd94180253b3cfd1cf5f575a16c37c57",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "2e4f4bc028bb6fd1c4c437eb563f32d084f5376547fade7262572fd0a6fb19dd",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": null,
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "34cc443c29e8439aff0f17547165fb2faf2897174b0d5db71a74457835384675",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": null,
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "3a71f9158e6da01ce3c060326f66d8c65c6fc9006421117260a3901c4aad0f69",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "541e6915e8149c3e1abbe6f1114830361d8a3da9ae0bca5e6a09a5d5a4990926",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "57a0b4621a51033aa89b3244297803b1201d836490310bc2d6c950c13ffccb51",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "7eeff8d22b740aeaff1cc92128e61c205c931c86ae9744a9195354404a0c9646",
+        "state": "resolved",
+        "country_code": "FI",
+        "country_name": "Finland",
+        "flag": "🇫🇮",
+        "source": "pipeline_latest"
+      }
+    ],
+    "JP": [
+      {
+        "config_id": "09ddc0fb8df458972087154b37b90dda01f5306fef3cedb9ed725e395ad46257",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "30a0024cb48a2177709463d3a2e50648ebd5397de9e169fab900086d20ea157f",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "34f2361ce68e20c613ec2604691d534574aa4b8798a3e9352534cb9ab6125e70",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "35da63371fc3d8225775be13943d0e4f859d78777fe01c66d97bf11d44e69d43",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4a2e40438b5943531e864315fcb0212de4455a56c7b16d4af1c3bf0def3457fd",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "identity"
+      },
+      {
+        "config_id": "5fe525865ace4de53ebf048a1cea0833f3f3c6d0580904e33c8e4c4d2b1c9c21",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "6c7247e61a3248c095b4b63484a4cf16aae55f7cf1365be0c65f1d18220fe276",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "76f44d4f2d8a55f7da8fc3dc7d0540de94fed9cc09b1b44408b5ecf9dd71306c",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "7a8107b264c1ac5618cee42962d5afcb915dbffafb2576e6cb7c4a68951eea2b",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "identity"
+      },
+      {
+        "config_id": "a0f61cf0092edc17fa8848d3f84228bbfcccd245097b4861e01793d4ef75b65e",
+        "state": "resolved",
+        "country_code": "JP",
+        "country_name": "Japan",
+        "flag": "🇯🇵",
+        "source": "identity"
+      }
+    ],
+    "PL": [
+      {
+        "config_id": "0c1e2df278f2cb40cc75fea4d5f23964b2cf49682667d9307b1fb5a26dc63823",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "0d3613e6e4b569a7d0d6a5c7e060de942d2b0c013c9dcdb5d5b50b733a064a54",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "1098894697703d73a286a99767b234c8b612285f9328b94fed70db86d52a2d9a",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "20cf6afad1688681039e5c2995bf5177e65d0af5656534db9572ca4dad5cdfbd",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "234d5c0828e5220715f06eed3f1ade820df1b359a64298d16016199290576d6c",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": null,
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "2600d829e343d0af924f5f5f08ca935b026cc8656088904f7ddcd0421c9932a6",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "31098a4b24314300706f2b5822ea8b15b215529e7f7a5e0c006c501ef756f7de",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4577d18c2e74e5a51a42a69d0e34fbc44495ed9084b798d8f161ca17b8b33a63",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4aae804ce5fc0a1c9c0d32308c91fe25215693755beea7d13def79d9d5c03ae8",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4b5b3229a49d61c8a855df2017cf7d371f4cfac2508c44cdc551c50af25b0c64",
+        "state": "resolved",
+        "country_code": "PL",
+        "country_name": "Poland",
+        "flag": "🇵🇱",
+        "source": "pipeline_latest"
+      }
+    ],
+    "AT": [
+      {
+        "config_id": "0da8365ed253e8e7238a0cbbf6614784e1a678f0c99c04955d5c5bd9a47a1eca",
+        "state": "resolved",
+        "country_code": "AT",
+        "country_name": "Austria",
+        "flag": "🇦🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4ce64351a4bfbd02c585ec647f9a9f0fb94ca4bb01f345bb84566de709b0e411",
+        "state": "resolved",
+        "country_code": "AT",
+        "country_name": "Austria",
+        "flag": "🇦🇹",
+        "source": "pipeline_latest"
+      }
+    ],
+    "CA": [
+      {
+        "config_id": "0dfc8b754f9eecf68446891c7d03dbf5e4e6a0bfebc4af2d9ba9fd6a624b5762",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "32ec30f2c9b204e581f4263ccc9f8c4cf294418b1b1ded7a647a9f2d276f41dc",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "49046f1470d69e14839dbc84b36fffcb146112d3a2a6c1ad1ae9449ea6fecc06",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "535288f3fdc45800ee8d01fd8decc3c793cd2c653204b9233807a09b46db7c8c",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "832be6151160713fbd21c1c80cfd1aec744df55c92fbcec3a7f506e399f22120",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8ac183f0b26bdee7b9326c74dd92603a8a0876b05d74e4dd2b426052a78248bc",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "904ba9d28442dcb2fcf0f6cbed8cfab988ff5ec15babce14b01ab4c0cb2aea8c",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": null,
+        "source": "identity"
+      },
+      {
+        "config_id": "aab6f41f8f079daae94d1ec37e5f9b679f59049809fb3e702e4114a532b9855d",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "ac60e8efa0dc7d19d5e2c31cb8d18fd4eb9fe6e132f9d108fc191cb8269c4b1f",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "da6cf5c8cf7845a16356faf671594b4e1af13c89becbc2900e362824fb3a1257",
+        "state": "resolved",
+        "country_code": "CA",
+        "country_name": "Canada",
+        "flag": "🇨🇦",
+        "source": "identity"
+      }
+    ],
+    "IE": [
+      {
+        "config_id": "169629e0d7048eb1cd8647a2f0d5308bce6282efbd49d310b926ec7e95c1496e",
+        "state": "resolved",
+        "country_code": "IE",
+        "country_name": "Ireland",
+        "flag": "🇮🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "483a90abe0b03e801badabd9aa2989f97dabab16ff7898784771eeb206d343fc",
+        "state": "resolved",
+        "country_code": "IE",
+        "country_name": "Ireland",
+        "flag": "🇮🇪",
+        "source": "pipeline_latest"
+      }
+    ],
+    "BG": [
+      {
+        "config_id": "177444b08f1b4c74da8b27c79d3398f2bf3ae7d3c432295e1086bccf507baab6",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4037f5b124a3efc1af613fe91010a755d1ee3a15a3fa57b55b12c2a050fe3bda",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "5cbf0fc28d4a8932dc87113b070f51649742c70c85556912c0c7e4d7f58a7cb6",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "72acc690a1cb3f64ee3a43e631dd40649ad843db1f3f23cdbcb605407a80074d",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8549481a74f350f807828709a0824cc39e0ccccc7889fd7db9be78a0f9fdc2e4",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "86cab9ad75cc6e98d54b5603ceeabf0367134b4fddef937bc4a524dd1fe7492d",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "87dc9ee269398fc082f1c0128c5185c6105363a087e093c24ca1679022a12859",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "a0829844b37df01e90c8409185c7e686bcef994d7283619976c15e1a3bef0552",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "ac5438c0b428c52fb2c3a6a5d1ab761e7cd6c39ea56bbb776d6bf5536d212407",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "c5dab584b8845b4370d1f27ba534f0d8af1ad379a330b15f04bcea9b93a87cc8",
+        "state": "resolved",
+        "country_code": "BG",
+        "country_name": "Bulgaria",
+        "flag": "🇧🇬",
+        "source": "pipeline_latest"
+      }
+    ],
+    "IR": [
+      {
+        "config_id": "1b23ac8ccf1bd36cddcf28c6138f0bb73b4d31d5fb5c6f00264f046219ed5b37",
+        "state": "resolved",
+        "country_code": "IR",
+        "country_name": "Iran",
+        "flag": "🇮🇷",
+        "source": "pipeline_latest"
+      }
+    ],
+    "EE": [
+      {
+        "config_id": "1f52d4094e57204935dfa2f9fa7f6a72b6c9fc4631780a038bea4ac8dc1aa0ca",
+        "state": "resolved",
+        "country_code": "EE",
+        "country_name": "Estonia",
+        "flag": "🇪🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "42a3329fba9d55d314ab3b27197ece04aa19ca5f11a23050a1a9a1a0ec4946b3",
+        "state": "resolved",
+        "country_code": "EE",
+        "country_name": "Estonia",
+        "flag": "🇪🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "635169bb06a689b67f67eb9185e4ccaa842aed07483fa070839aba2791de58f7",
+        "state": "resolved",
+        "country_code": "EE",
+        "country_name": "Estonia",
+        "flag": "🇪🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "6887c258415af6316bf9793c6bc084a78a6c2722215885f158ff5d9d25dac426",
+        "state": "resolved",
+        "country_code": "EE",
+        "country_name": "Estonia",
+        "flag": "🇪🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "9c36317cb25f4f4c4017ffd8cf5bbaeb6f1dd1f51b0b05e04b0ee31fd7226012",
+        "state": "resolved",
+        "country_code": "EE",
+        "country_name": "Estonia",
+        "flag": "🇪🇪",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "aa22f692c43414f0a6b63123dc3347c40d5eae62357f04a061627c3e8d01ac18",
+        "state": "resolved",
+        "country_code": "EE",
+        "country_name": "Estonia",
+        "flag": "🇪🇪",
+        "source": "identity"
+      },
+      {
+        "config_id": "cdb1bc4cce91f53ef3058438c907715246d26c4813b8551ff75132c8de32b318",
+        "state": "resolved",
+        "country_code": "EE",
+        "country_name": "Estonia",
+        "flag": "🇪🇪",
+        "source": "pipeline_latest"
+      }
+    ],
+    "SG": [
+      {
+        "config_id": "214b295f0e14ba7a18b3796c9c23c8132801068abf36f9f1d446776b80bebfe1",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "3ddc35161f8ebcf7775052f9310a3360c3c2f66fc8118b9bd016bbc156068248",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": null,
+        "flag": "🇸🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "5164413dd5a148726b46b2f537280d8096207f597565094f304f5cfcf1712bb6",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "6d652cf3c382dfa347b2a5bd6387026b0abab8b8a0725305aa9df45eaa2c1ff7",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8a590498a862ed5986460f825c7bfefbd291d0187f1c87052a409db386487327",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8fae01008c830080579f07baa23316d912f2a212325e0da95fd41e52c9d4c61e",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": null,
+        "source": "identity"
+      },
+      {
+        "config_id": "99b8299d95ed589ceb0ef4571e8586213dc3460e4333642d69994358595b448f",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "identity"
+      },
+      {
+        "config_id": "9b8cd8f2309194abbdc322bd744d392c9baa163841da61f4a76a2f68b3a2eff3",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "9c0a743f7ae92a742078753adfabed35935680424f30e74d6f75e19ddb3bed7b",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "identity"
+      },
+      {
+        "config_id": "b5cdeafd26347eb74647e780a3e10cbbdbe3bf3f4c567d6f53db1f7cf5b02f5c",
+        "state": "resolved",
+        "country_code": "SG",
+        "country_name": "Singapore",
+        "flag": "🇸🇬",
+        "source": "pipeline_latest"
+      }
+    ],
+    "IT": [
+      {
+        "config_id": "27b3bc09f6d4d9aa14504bffd8819dff8417d558c4c3444d4d7a64f153b298be",
+        "state": "resolved",
+        "country_code": "IT",
+        "country_name": "Italy",
+        "flag": "🇮🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "7bb867fdd39971dc702ace84e582c9e2dcd35e71e032c76088713b6a005efee0",
+        "state": "resolved",
+        "country_code": "IT",
+        "country_name": "Italy",
+        "flag": "🇮🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "f1f9bd904fb67478f9ede69e1b833d43993b2a900ad9d762cf1b1b452f188c1d",
+        "state": "resolved",
+        "country_code": "IT",
+        "country_name": "Italy",
+        "flag": "🇮🇹",
+        "source": "pipeline_latest"
+      }
+    ],
+    "CZ": [
+      {
+        "config_id": "28acdc559e559c42d8a4e3c959c89f84190399e839266abdbff3822175fa8ddf",
+        "state": "resolved",
+        "country_code": "CZ",
+        "country_name": "Czechia",
+        "flag": "🇨🇿",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "f0b9a44c22d765007e6648349868e15e3241bde9978ae3d19416250a24cddbad",
+        "state": "resolved",
+        "country_code": "CZ",
+        "country_name": "Czechia",
+        "flag": "🇨🇿",
+        "source": "identity"
+      }
+    ],
+    "HK": [
+      {
+        "config_id": "28cedc8271d035e626e5780c3fa971d85ee03bed4b3b9f9d9cfea83a8643bc2b",
+        "state": "resolved",
+        "country_code": "HK",
+        "country_name": "Hong Kong",
+        "flag": "🇭🇰",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "4cfa88be87058d92612afabd39372f83c57df62b1ae835436cc4a70929d714a5",
+        "state": "resolved",
+        "country_code": "HK",
+        "country_name": "Hong Kong",
+        "flag": "🇭🇰",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "7642cff6c65c403141fe12e419480e7e247031f87c2c416b82af4e3b401f59a8",
+        "state": "resolved",
+        "country_code": "HK",
+        "country_name": "Hong Kong",
+        "flag": "🇭🇰",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "b30bae5556c783a16d21f7db9d0689910ea20c532ed7ce5d56e4d7e253d9f3d4",
+        "state": "resolved",
+        "country_code": "HK",
+        "country_name": "Hong Kong",
+        "flag": "🇭🇰",
+        "source": "pipeline_latest"
+      }
+    ],
+    "TR": [
+      {
+        "config_id": "35027f69e306fa0752f8c34dad707abde210d6d05943cacb080e835d4d67e2ca",
+        "state": "resolved",
+        "country_code": "TR",
+        "country_name": "Türkiye",
+        "flag": "🇹🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "3c16a298b7f91bfd22accae9cdee2575ee66367dec3a3cce5f990481c12d3f46",
+        "state": "resolved",
+        "country_code": "TR",
+        "country_name": "Türkiye",
+        "flag": "🇹🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "a6f6cb74731c5d94dbfe1af87fcf487b27b17f93dc3236425732bbb23ea3bd05",
+        "state": "resolved",
+        "country_code": "TR",
+        "country_name": "Türkiye",
+        "flag": "🇹🇷",
+        "source": "pipeline_latest"
+      }
+    ],
+    "RU": [
+      {
+        "config_id": "3b5d214d057906afaed7c5388abe84e2a22d8ae46d4ec85af52493adb8b0e3f3",
+        "state": "resolved",
+        "country_code": "RU",
+        "country_name": "Russia",
+        "flag": "🇷🇺",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "51f21c956bbff9a5447e7b5a6f5612df936c643a234c10df15a1b7fb327e1676",
+        "state": "resolved",
+        "country_code": "RU",
+        "country_name": "Russian Federation",
+        "flag": "🇷🇺",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "57d1547429be142573e3b6b265d8a7efa462d820745538322b9d3197b7629368",
+        "state": "resolved",
+        "country_code": "RU",
+        "country_name": "Russian Federation",
+        "flag": "🇷🇺",
+        "source": "identity"
+      },
+      {
+        "config_id": "7651c308bf479c639815cee76f9b6ec4b9542cc3388238929ce3b4971d13403d",
+        "state": "resolved",
+        "country_code": "RU",
+        "country_name": "Russian Federation",
+        "flag": "🇷🇺",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "a554e970f62d54f86dfecb0f34cfed0772a1b35bb8b78ae58852ab175bd3f637",
+        "state": "resolved",
+        "country_code": "RU",
+        "country_name": "Russia",
+        "flag": "🇷🇺",
+        "source": "pipeline_latest"
+      }
+    ],
+    "KR": [
+      {
+        "config_id": "3d4cbab835d6d52f63af8e0405e7219e7dea789047bdfae2ab2aa777a31a8422",
+        "state": "resolved",
+        "country_code": "KR",
+        "country_name": null,
+        "flag": "🇰🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8413470ed98707a404e682999e4fa6381a1d44e3ac3b2d7052b07bed025be0e0",
+        "state": "resolved",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "flag": "🇰🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "dbd5ebc2038f961afcb48f2f918d12dfc7bb1d91a0f042632bf478ae8006fc02",
+        "state": "resolved",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "flag": "🇰🇷",
+        "source": "identity"
+      },
+      {
+        "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06",
+        "state": "resolved",
+        "country_code": "KR",
+        "country_name": "South Korea",
+        "flag": "🇰🇷",
+        "source": "identity"
+      }
+    ],
+    "AU": [
+      {
+        "config_id": "3d5d34b309ca0bd1df69bec54379c977b80d02491692c80488dee192198fe2cd",
+        "state": "resolved",
+        "country_code": "AU",
+        "country_name": "Australia",
+        "flag": "🇦🇺",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "c69186ee4bccbda25d0f256394debe7656138cf036264573e26ff3b879e3d319",
+        "state": "resolved",
+        "country_code": "AU",
+        "country_name": "Australia",
+        "flag": "🇦🇺",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "cfbd7cf76b682df3ef83229700ccfe1800f35f63ad4eb5580e8c7d35bd554daa",
+        "state": "resolved",
+        "country_code": "AU",
+        "country_name": "Australia",
+        "flag": "🇦🇺",
+        "source": "identity"
+      }
+    ],
+    "CH": [
+      {
+        "config_id": "42c2d60bc60168e6d2822d176244d16d4553480d2f8b2a0d2359ef543f9b162c",
+        "state": "resolved",
+        "country_code": "CH",
+        "country_name": "Switzerland",
+        "flag": "🇨🇭",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "e8fc21321ba37a69cb32e43ef7003e740f62e332271e76952bc413cd52bc6980",
+        "state": "resolved",
+        "country_code": "CH",
+        "country_name": "Switzerland",
+        "flag": "🇨🇭",
+        "source": "identity"
+      }
+    ],
+    "LV": [
+      {
+        "config_id": "48c46e1531cec6278a40ba2387a78217ca101e23b9b7e9629acecf8fc6cdbd2d",
+        "state": "resolved",
+        "country_code": "LV",
+        "country_name": "Latvia",
+        "flag": "🇱🇻",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "77d910faefc5d1f5216b8081aa248af020cfad4cc5b0b55278654fb3d8dd0147",
+        "state": "resolved",
+        "country_code": "LV",
+        "country_name": "Latvia",
+        "flag": "🇱🇻",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "ac306a6a9d2bc8e43615590038208337a505f19654311b14fd8fe462a13e03e4",
+        "state": "resolved",
+        "country_code": "LV",
+        "country_name": "Latvia",
+        "flag": "🇱🇻",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "d5f8c35ff8448c644188c55dec0fdee97f4b0c0c03859a7dbec50a38e870620a",
+        "state": "resolved",
+        "country_code": "LV",
+        "country_name": "Latvia",
+        "flag": "🇱🇻",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "d76a65921bd2709e732075a1914daa2ed7c50fb7167d7438d3b122fbb14a2dba",
+        "state": "resolved",
+        "country_code": "LV",
+        "country_name": "Latvia",
+        "flag": "🇱🇻",
+        "source": "pipeline_latest"
+      }
+    ],
+    "RO": [
+      {
+        "config_id": "5166442831ff2ee109009d2a967a1ae19ea5d3786cb258d0a0a8601a5c3c97cd",
+        "state": "resolved",
+        "country_code": "RO",
+        "country_name": "Romania",
+        "flag": "🇷🇴",
+        "source": "identity"
+      },
+      {
+        "config_id": "5872b9bbfdaa1900288710001c349f5d368653030fa98dab3fa37b1e5e3374e9",
+        "state": "resolved",
+        "country_code": "RO",
+        "country_name": "Romania",
+        "flag": "🇷🇴",
+        "source": "pipeline_latest"
+      }
+    ],
+    "LT": [
+      {
+        "config_id": "570a6ffcd5a278d4e813389cad01c0fa276d12d6c90cdc691d133eaa6786c5fc",
+        "state": "resolved",
+        "country_code": "LT",
+        "country_name": "Lithuania",
+        "flag": "🇱🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "6565e73fb81436458ba9fd74b0c0aa8bdde50d616aaaf43d47df856c801e053e",
+        "state": "resolved",
+        "country_code": "LT",
+        "country_name": "Lithuania",
+        "flag": "🇱🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "a506521844edc0628c84dffb3f80fc3a0ce4ee6d7bd76978dfd4a86ebd7af959",
+        "state": "resolved",
+        "country_code": "LT",
+        "country_name": "Lithuania",
+        "flag": "🇱🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "a6d76579de1a3c442458028aa171f5ddf76903845feec88ea63751569a21790f",
+        "state": "resolved",
+        "country_code": "LT",
+        "country_name": "Lithuania",
+        "flag": "🇱🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "ee22528d6aad123344ad32b0a066caecf5b682db15a3c16ad029b9b9dca439dc",
+        "state": "resolved",
+        "country_code": "LT",
+        "country_name": "Lithuania",
+        "flag": "🇱🇹",
+        "source": "pipeline_latest"
+      }
+    ],
+    "NO": [
+      {
+        "config_id": "5dcaaf34dc65ae014ff5bbca6bdc3a78b91b2cf7c21965d8c71ef5a96105a7e8",
+        "state": "resolved",
+        "country_code": "NO",
+        "country_name": "Norway",
+        "flag": "🇳🇴",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "8652e1dcd485fc206eb8403c9a60b6624654d9d4fdc44b46df88db793778cd02",
+        "state": "resolved",
+        "country_code": "NO",
+        "country_name": "Norway",
+        "flag": "🇳🇴",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "a0b635cdc3e3ee9e0ce305f2244408cac42ed8e6cc940c9d106b6f4d9a839d88",
+        "state": "resolved",
+        "country_code": "NO",
+        "country_name": "Norway",
+        "flag": "🇳🇴",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "b4f3ed4b5952c4bd830625d73c629f3b66a5997e0f19e67381554379ae5a7296",
+        "state": "resolved",
+        "country_code": "NO",
+        "country_name": "Norway",
+        "flag": "🇳🇴",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "dce9d56483876ba1e22b7e0e39d8cd8f43f7ac32d7316226043f18d37c4d72ab",
+        "state": "resolved",
+        "country_code": "NO",
+        "country_name": "Norway",
+        "flag": "🇳🇴",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "eba0c51eb2a929802d18e76da0d51f1266e08ef43c56aa2d1a2cf16e836a3d27",
+        "state": "resolved",
+        "country_code": "NO",
+        "country_name": "Norway",
+        "flag": "🇳🇴",
+        "source": "identity"
+      },
+      {
+        "config_id": "f8a9275a898dfd35b837b32ee1c2aef56bf8b251f02467d86e42ad4b515712c0",
+        "state": "resolved",
+        "country_code": "NO",
+        "country_name": "Norway",
+        "flag": "🇳🇴",
+        "source": "identity"
+      }
+    ],
+    "GT": [
+      {
+        "config_id": "7fac02b4deec47512fad44d6d09189868d8e79a66b033a2c2c7672ea7ee1152c",
+        "state": "resolved",
+        "country_code": "GT",
+        "country_name": "Guatemala",
+        "flag": "🇬🇹",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "f1514b9c06b5062611a7e32129225affc4e0e4e8e74b83929249beb13a74074a",
+        "state": "resolved",
+        "country_code": "GT",
+        "country_name": "Guatemala",
+        "flag": "🇬🇹",
+        "source": "pipeline_latest"
+      }
+    ],
+    "PH": [
+      {
+        "config_id": "9e91f7fe996a15c50856436aa42c3bf078d04bdbed1fb2a7b50b3b2c458a00d4",
+        "state": "resolved",
+        "country_code": "PH",
+        "country_name": "Philippines",
+        "flag": "🇵🇭",
+        "source": "pipeline_latest"
+      }
+    ],
+    "GR": [
+      {
+        "config_id": "a33cc21b13fc7b3f7dc72ead76eb39f5839a9ca38ce5792c36de39c8d7fcd89b",
+        "state": "resolved",
+        "country_code": "GR",
+        "country_name": "Greece",
+        "flag": "🇬🇷",
+        "source": "pipeline_latest"
+      },
+      {
+        "config_id": "eec8fc682786bec6238eb9d05d12fbe00a87c382ca04179247a38539a949cea5",
+        "state": "resolved",
+        "country_code": "GR",
+        "country_name": "Greece",
+        "flag": "🇬🇷",
+        "source": "pipeline_latest"
+      }
+    ],
+    "PT": [
+      {
+        "config_id": "a3c941fe26367a8285e43d78cc1b50b57406ceb80a0b1f99be2b425c6f8b2200",
+        "state": "resolved",
+        "country_code": "PT",
+        "country_name": "Portugal",
+        "flag": "🇵🇹",
+        "source": "identity"
+      },
+      {
+        "config_id": "b208d59419228d015d0565920bf40700d83d520cbce5d230cacafc0a2c472aab",
+        "state": "resolved",
+        "country_code": "PT",
+        "country_name": "Portugal",
+        "flag": "🇵🇹",
+        "source": "pipeline_latest"
+      }
+    ],
+    "TW": [
+      {
+        "config_id": "bc710d1064be7e4f08e27ab6bfbc6fd1b7d51c19759e032349ca91d4ce17d008",
+        "state": "resolved",
+        "country_code": "TW",
+        "country_name": "Taiwan",
+        "flag": "🇹🇼",
+        "source": "pipeline_latest"
+      }
+    ],
+    "EG": [
+      {
+        "config_id": "c53390ec96e54ffcb51ffa58647660467c2d6516d2d4dccbbbc5f226d0c6e3f1",
+        "state": "resolved",
+        "country_code": "EG",
+        "country_name": "Egypt",
+        "flag": "🇪🇬",
+        "source": "identity"
+      },
+      {
+        "config_id": "d7fcd007aeb691e1c9587cce5bc88198f274e7e6866b968b8d869b79c93826ac",
+        "state": "resolved",
+        "country_code": "EG",
+        "country_name": "Egypt",
+        "flag": "🇪🇬",
+        "source": "pipeline_latest"
+      }
+    ],
+    "AE": [
+      {
+        "config_id": "dbf2b5f6cebb2d73c966465d31bbd975a9dd8d05a8c1ee1cca919f543811be19",
+        "state": "resolved",
+        "country_code": "AE",
+        "country_name": "United Arab Emirates",
+        "flag": "🇦🇪",
+        "source": "identity"
+      }
+    ],
+    "GE": [
+      {
+        "config_id": "f1186bd7693acf52161b1f47b2ad29877fc35aa9504739ddc8ca7ced508d730b",
+        "state": "resolved",
+        "country_code": "GE",
+        "country_name": "Georgia",
+        "flag": "🇬🇪",
+        "source": "pipeline_latest"
+      }
+    ],
+    "ZA": [
+      {
+        "config_id": "fd35f5002da86e5e7a0ca8f97e4821c694378b6d0f2556c3d07d18bb94752b39",
+        "state": "resolved",
+        "country_code": "ZA",
+        "country_name": "South Africa",
+        "flag": "🇿🇦",
+        "source": "identity"
+      }
+    ]
+  }
+}
