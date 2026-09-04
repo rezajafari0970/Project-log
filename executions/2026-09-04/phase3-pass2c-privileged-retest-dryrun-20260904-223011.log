@@ -1,0 +1,27 @@
+================================================
+ PHASE 3 PASS 2C
+ PRIVILEGED RETEST DRY RUN
+================================================
+START=2026-09-04T22:30:11+00:00
+HOST=serverprojects.ptr.network
+
+========== [1/9] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/9] BACKUP ==========
+BACKUP_OK
+
+========== [3/9] STORE SNAPSHOT BEFORE ==========
+LATEST_COUNT_BEFORE=2024
+LATEST_NEWEST_BEFORE=1788561011.3744012820
+STATE_HASH_BEFORE=96b6c503c40febf16d027717ad6e526be6e49d04d5029d0db907bd482a80e57e
+
+========== [4/9] INSTALL ADAPTER ==========
+ADAPTER_INSTALLED
+
+========== [5/9] COMPILE ==========
+/root/install-phase3-pass2c-privileged-retest-dryrun.sh: line 646: app/health/retest/privileged_plan.py: Permission denied
+
+========== FINAL ==========
+RESULT=FAILED
+END=2026-09-04T22:30:11+00:00
