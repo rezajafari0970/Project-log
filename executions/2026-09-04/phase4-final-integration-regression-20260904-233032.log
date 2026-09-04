@@ -1,0 +1,142 @@
+================================================
+ PHASE 4 FINAL INTEGRATION / REGRESSION
+================================================
+
+========== [1/14] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/14] COMPILE ==========
+COMPILE_OK
+
+========== [3/14] IMPORT GRAPH ==========
+IMPORT_GRAPH_OK
+SAFETY_CANDIDATES= 0
+
+========== [4/14] DESTRUCTIVE AUDIT ==========
+DESTRUCTIVE_AUDIT_OK
+
+========== [5/14] SYSTEMD ==========
+config-location-retest.service ACTIVE=active ENABLED=enabled
+config-location-removal-wait.service ACTIVE=active ENABLED=enabled
+config-location-canary-readiness.service ACTIVE=active ENABLED=enabled
+SYSTEMD_OK
+
+========== [6/14] REMOVAL WAIT ==========
+REMOVAL_WAIT_OK
+STATE= idle
+CYCLE= 13
+CANONICAL_CANDIDATES= 0
+LIVE_SAFE_CANDIDATES= 0
+ORPHAN_CANDIDATES= 0
+
+========== [7/14] CANARY CONTROLLER ==========
+CANARY_CONTROLLER_OK
+STATE= WAITING_NO_CANDIDATE
+CYCLE= 7
+TOTAL_WAITING= 7
+TOTAL_BLOCKED= 0
+TOTAL_CANARY_READY= 0
+
+========== [8/14] LIVE FAIL-CLOSED HARNESS ==========
+HARNESS_OK
+STATE= WAITING_NO_CANDIDATE
+GATE exclusive_lock = True
+GATE candidate_freshness = True
+GATE post_plan_freshness = True
+
+========== [9/14] REMOVAL PLAN ==========
+REMOVAL_PLAN_OK
+STATE= WAITING_NO_CANDIDATE
+
+========== [10/14] SAFETY STABILITY ==========
+SAFETY_STABLE_OK
+FIRST= 0
+SECOND= 0
+MIN_STREAK= 8
+BOUNDARY= HT18.9_SHADOW_ONLY
+
+========== [11/14] PUBLISH ISOLATION ==========
+PUBLISH_ISOLATION_OK
+LIVE_CANDIDATES_CHECKED= 0
+PUBLISHABLE_COUNT= 1143
+
+========== [12/14] REFERENTIAL GUARD ==========
+reconcile_one_orphan (config_id: 'str', *, reason: 'str' = 'periodic_orphan_sweep') -> 'dict[str, Any]'
+sweep_orphans (*, max_items: 'int' = 5000) -> 'dict[str, Any]'
+REFERENTIAL_GUARD_OK
+
+========== [13/14] JOURNAL ==========
+JOURNAL_OK
+
+========== [14/14] FINAL SNAPSHOT ==========
+{
+  "phase": "phase4-final-integration-regression",
+  "result": "SUCCESS",
+  "generated_at": "2026-09-04T23:30:33.435144+00:00",
+  "production_delete": false,
+  "delete_performed": false,
+  "services": {
+    "retest": "active",
+    "removal_wait": "active",
+    "canary_readiness": "active"
+  },
+  "removal_wait": {
+    "state": "idle",
+    "cycle": 13,
+    "canonical_future_candidates": 0,
+    "live_safe_candidates": 0,
+    "orphan_candidates": 0,
+    "total_errors": 0
+  },
+  "canary_readiness": {
+    "state": "WAITING_NO_CANDIDATE",
+    "cycle": 7,
+    "total_waiting": 7,
+    "total_blocked": 0,
+    "total_canary_ready": 0,
+    "total_errors": 0
+  },
+  "safety": {
+    "future_enforcement_candidates": 0,
+    "candidate_min_consecutive_unhealthy": 8,
+    "hard_safety_boundary": "HT18.9_SHADOW_ONLY"
+  },
+  "checks": {
+    "precheck": true,
+    "compile": true,
+    "import_graph": true,
+    "destructive_audit": true,
+    "systemd": true,
+    "removal_wait": true,
+    "canary_controller": true,
+    "fail_closed_harness": true,
+    "removal_plan": true,
+    "safety_stability": true,
+    "publish_isolation": true,
+    "referential_guard": true,
+    "journal": true
+  },
+  "phase4_freeze_ready": true
+}
+
+================================================
+ PHASE 4 FINAL REGRESSION: PASS
+================================================
+LIFECYCLE_INTEGRATION=PASS
+SAFETY_INTEGRATION=PASS
+REMOVAL_WAIT=PASS
+CANARY_CONTROLLER=PASS
+FAIL_CLOSED=PASS
+PUBLISH_ISOLATION=PASS
+REFERENTIAL_GUARD=PASS
+RUNTIME_ERRORS=NONE
+PRODUCTION_DELETE=DISABLED
+DELETE_PERFORMED=NO
+PHASE4_FREEZE_READY=YES
+PHASE4_FINAL_SUCCESS
+
+================================================
+ FINAL RESULT
+================================================
+RESULT=SUCCESS
+END=2026-09-04T23:30:33+00:00

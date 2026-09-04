@@ -1,0 +1,49 @@
+{
+  "phase": "phase4-final-integration-regression",
+  "result": "SUCCESS",
+  "generated_at": "2026-09-04T23:30:33.435144+00:00",
+  "production_delete": false,
+  "delete_performed": false,
+  "services": {
+    "retest": "active",
+    "removal_wait": "active",
+    "canary_readiness": "active"
+  },
+  "removal_wait": {
+    "state": "idle",
+    "cycle": 13,
+    "canonical_future_candidates": 0,
+    "live_safe_candidates": 0,
+    "orphan_candidates": 0,
+    "total_errors": 0
+  },
+  "canary_readiness": {
+    "state": "WAITING_NO_CANDIDATE",
+    "cycle": 7,
+    "total_waiting": 7,
+    "total_blocked": 0,
+    "total_canary_ready": 0,
+    "total_errors": 0
+  },
+  "safety": {
+    "future_enforcement_candidates": 0,
+    "candidate_min_consecutive_unhealthy": 8,
+    "hard_safety_boundary": "HT18.9_SHADOW_ONLY"
+  },
+  "checks": {
+    "precheck": true,
+    "compile": true,
+    "import_graph": true,
+    "destructive_audit": true,
+    "systemd": true,
+    "removal_wait": true,
+    "canary_controller": true,
+    "fail_closed_harness": true,
+    "removal_plan": true,
+    "safety_stability": true,
+    "publish_isolation": true,
+    "referential_guard": true,
+    "journal": true
+  },
+  "phase4_freeze_ready": true
+}

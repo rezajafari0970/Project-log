@@ -1,0 +1,31 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase4-final-integration-regression
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T23:30:32+00:00
+
+End:
+2026-09-04T23:30:33+00:00
+
+Mode:
+FINAL INTEGRATION / REGRESSION
+
+Production delete:
+DISABLED
+
+Delete performed:
+NO
+
+Final:
+/root/project-log/discovery/2026-09-04/phase4-final-integration-regression-20260904-233032.json
+
+Log:
+/root/project-log/executions/2026-09-04/phase4-final-integration-regression-20260904-233032.log
+
+Errors:
+
