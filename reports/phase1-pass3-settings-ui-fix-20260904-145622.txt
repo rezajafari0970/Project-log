@@ -1,0 +1,21 @@
+
+CONFIG LOCATION REPORT
+
+Phase:
+phase1-pass3-settings-ui-fix
+
+Result:
+FAILED
+
+Time:
+2026-09-04T14:56:25+00:00
+
+Backup:
+/root/3245/phase1-pass3-settings-ui-fix-backup-20260904-145622
+
+Log:
+/root/project-log/executions/2026-09-04/phase1-pass3-settings-ui-fix-20260904-145622.log
+
+Errors:
+\ncompile failed\nimport failed\npanel inactive\nsettings route failed
+
