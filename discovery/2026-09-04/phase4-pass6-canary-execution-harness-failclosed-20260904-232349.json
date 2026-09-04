@@ -1,0 +1,10 @@
+{
+  "state": "WAITING_NO_CANDIDATE",
+  "production_delete": false,
+  "delete_performed": false,
+  "gates": {
+    "exclusive_lock": true,
+    "candidate_freshness": true,
+    "post_plan_freshness": true
+  }
+}
