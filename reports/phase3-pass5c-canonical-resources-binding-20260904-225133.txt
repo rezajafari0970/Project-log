@@ -1,0 +1,28 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass5c-canonical-resources-binding
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T22:51:33+00:00
+
+End:
+2026-09-04T22:51:35+00:00
+
+Binding:
+Central Settings resources.* -> Retest Resource Guardian
+
+Observation:
+/root/project-log/discovery/2026-09-04/phase3-pass5c-canonical-resources-binding-20260904-225133.json
+
+Backup:
+/root/3245/phase3-pass5c-canonical-resources-binding-backup-20260904-225133
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass5c-canonical-resources-binding-20260904-225133.log
+
+Errors:
+

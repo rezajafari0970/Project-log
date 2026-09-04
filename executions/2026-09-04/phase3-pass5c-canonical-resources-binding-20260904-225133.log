@@ -1,0 +1,67 @@
+================================================
+ PHASE 3 PASS 5C
+ CANONICAL resources.* BINDING
+================================================
+
+========== [1/8] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/8] BACKUP ==========
+BACKUP_OK
+
+========== [3/8] CANONICAL SETTINGS ==========
+{
+  "cpu_critical_percent": 99.0,
+  "cpu_warning_percent": 98.0,
+  "disk_critical_percent": 99.0,
+  "disk_warning_percent": 98.0,
+  "inode_critical_percent": 90.0,
+  "inode_warning_percent": 75.0,
+  "max_health_xray": 200,
+  "ram_critical_percent": 99.0,
+  "ram_warning_percent": 98.0
+}
+CANONICAL_SETTINGS_OK
+
+========== [4/8] PATCH RESOLVER ==========
+CANONICAL_RESOLVER_PATCHED
+
+========== [5/8] COMPILE + IMPORT ==========
+IMPORT_TEST_OK
+GUARDIAN= {'cpu_warning_pct': 98.0, 'cpu_critical_pct': 99.0, 'ram_warning_pct': 98.0, 'ram_critical_pct': 99.0, 'disk_warning_pct': 98.0, 'disk_critical_pct': 99.0, 'sources': {'cpu_warning_pct': 'resources.cpu_warning_percent', 'cpu_critical_pct': 'resources.cpu_critical_percent', 'ram_warning_pct': 'resources.ram_warning_percent', 'ram_critical_pct': 'resources.ram_critical_percent', 'disk_warning_pct': 'resources.disk_warning_percent', 'disk_critical_pct': 'resources.disk_critical_percent'}}
+POLICY= {'workers': 3, 'batch': 9, 'idle': 5, 'level': 'normal', 'reason': 'healthy_resources_large_backlog', 'guardian': {'cpu_warning_pct': 98.0, 'cpu_critical_pct': 99.0, 'ram_warning_pct': 98.0, 'ram_critical_pct': 99.0, 'disk_warning_pct': 98.0, 'disk_critical_pct': 99.0, 'sources': {'cpu_warning_pct': 'resources.cpu_warning_percent', 'cpu_critical_pct': 'resources.cpu_critical_percent', 'ram_warning_pct': 'resources.ram_warning_percent', 'ram_critical_pct': 'resources.ram_critical_percent', 'disk_warning_pct': 'resources.disk_warning_percent', 'disk_critical_pct': 'resources.disk_critical_percent'}}, 'cpu_pressure_pct': 90.7, 'ram_used_pct': 27.58}
+
+========== [6/8] RESTART ==========
+CHECK_1=active
+SERVICE_ACTIVE
+
+========== [7/8] LIVE VALIDATION ==========
+OBSERVE_1 VALID=0
+OBSERVE_2 VALID=1
+CANONICAL_BINDING_VALID
+CPU_WARNING_PCT = 98.0 SOURCE= resources.cpu_warning_percent
+CPU_CRITICAL_PCT = 99.0 SOURCE= resources.cpu_critical_percent
+RAM_WARNING_PCT = 98.0 SOURCE= resources.ram_warning_percent
+RAM_CRITICAL_PCT = 99.0 SOURCE= resources.ram_critical_percent
+DISK_WARNING_PCT = 98.0 SOURCE= resources.disk_warning_percent
+DISK_CRITICAL_PCT = 99.0 SOURCE= resources.disk_critical_percent
+RESOURCE_LEVEL= normal
+ADAPTIVE_REASON= healthy_resources_large_backlog
+WORKERS= 3
+BATCH= 9
+TOTAL_ERRORS= 0
+
+========== [8/8] SERVICE HEALTH ==========
+active
+enabled
+SERVICE_HEALTH_OK
+
+RESOURCE_GUARDIAN_SOURCE=resources.*
+FALLBACK_SOURCES=0
+CPU_BINDING=CANONICAL
+RAM_BINDING=CANONICAL
+DISK_BINDING=CANONICAL
+SERVICE_ACTIVE=YES
+SERVICE_ENABLED=YES
+
+PHASE3_PASS5C_SUCCESS
