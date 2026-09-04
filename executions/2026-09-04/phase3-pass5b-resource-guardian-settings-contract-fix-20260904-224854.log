@@ -1,0 +1,76 @@
+================================================
+ PHASE 3 PASS 5B
+ RESOURCE GUARDIAN SETTINGS CONTRACT FIX
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] BACKUP ==========
+BACKUP_OK
+
+========== [3/10] CONTRACT DISCOVERY ==========
+CONTRACT_DISCOVERY_OK
+
+========== [4/10] RESOLVE CONTRACT ==========
+{
+  "cpu_warning_pct": {
+    "value": 75.0,
+    "path": "fallback"
+  },
+  "cpu_critical_pct": {
+    "value": 90.0,
+    "path": "fallback"
+  },
+  "ram_warning_pct": {
+    "value": 80.0,
+    "path": "fallback"
+  },
+  "ram_critical_pct": {
+    "value": 95.0,
+    "path": "fallback"
+  }
+}
+
+========== [5/10] PATCH WORKER ==========
+WORKER_CONTRACT_PATCH_OK
+
+========== [6/10] COMPILE + IMPORT ==========
+CONTRACT_IMPORT_OK
+GUARDIAN= {'cpu_warning_pct': 75.0, 'cpu_critical_pct': 90.0, 'ram_warning_pct': 80.0, 'ram_critical_pct': 95.0, 'sources': {'cpu_warning_pct': 'fallback', 'cpu_critical_pct': 'fallback', 'ram_warning_pct': 'fallback', 'ram_critical_pct': 'fallback'}}
+POLICY= {'workers': 3, 'batch': 9, 'idle': 5, 'level': 'normal', 'reason': 'healthy_resources_large_backlog', 'guardian': {'cpu_warning_pct': 75.0, 'cpu_critical_pct': 90.0, 'ram_warning_pct': 80.0, 'ram_critical_pct': 95.0, 'sources': {'cpu_warning_pct': 'fallback', 'cpu_critical_pct': 'fallback', 'ram_warning_pct': 'fallback', 'ram_critical_pct': 'fallback'}}, 'cpu_pressure_pct': 66.6, 'ram_used_pct': 23.86}
+
+========== [7/10] RESTART SERVICE ==========
+CHECK_1=active
+SERVICE_ACTIVE
+
+========== [8/10] LIVE CONTRACT TEST ==========
+OBSERVE_1 VALID=0
+OBSERVE_2 VALID=1
+LIVE_CONTRACT_OBSERVED
+
+========== [9/10] VALIDATE ==========
+CONTRACT_VALID
+CPU_WARNING= 75.0 fallback
+CPU_CRITICAL= 90.0 fallback
+RAM_WARNING= 80.0 fallback
+RAM_CRITICAL= 95.0 fallback
+RESOURCE_LEVEL= normal
+ADAPTIVE_REASON= healthy_resources_large_backlog
+WORKERS= 3
+BATCH= 9
+ERRORS= 0
+
+========== [10/10] SERVICE HEALTH ==========
+active
+enabled
+SERVICE_HEALTH_OK
+
+RESOURCE_GUARDIAN_CONTRACT=RESOLVED
+CANONICAL_SOURCE_PATHS=RECORDED
+LIVE_SETTINGS_READ=YES
+WORKER_RESTART_REQUIRED_FOR_SETTING_CHANGES=NO
+SERVICE_ACTIVE=YES
+SERVICE_ENABLED=YES
+
+PHASE3_PASS5B_SUCCESS

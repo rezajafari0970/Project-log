@@ -1,0 +1,142 @@
+================================================
+RESOURCE GUARDIAN SETTINGS CONTRACT
+================================================
+
+========== STATIC SEARCH ==========
+/opt/config-location/app/panel/settings_ui.py:177:                "cpu_warning_percent":
+/opt/config-location/app/panel/settings_ui.py:179:                        "cpu_warning",
+/opt/config-location/app/panel/settings_ui.py:183:                "cpu_critical_percent":
+/opt/config-location/app/panel/settings_ui.py:185:                        "cpu_critical",
+/opt/config-location/app/panel/settings_ui.py:189:                "ram_warning_percent":
+/opt/config-location/app/panel/settings_ui.py:191:                        "ram_warning",
+/opt/config-location/app/panel/settings_ui.py:195:                "ram_critical_percent":
+/opt/config-location/app/panel/settings_ui.py:197:                        "ram_critical",
+/opt/config-location/app/panel/settings_ui.py:201:                "disk_warning_percent":
+/opt/config-location/app/panel/settings_ui.py:203:                        "disk_warning",
+/opt/config-location/app/panel/settings_ui.py:207:                "disk_critical_percent":
+/opt/config-location/app/panel/settings_ui.py:209:                        "disk_critical",
+/opt/config-location/app/panel/settings_ui.py:580: name="cpu_warning"
+/opt/config-location/app/panel/settings_ui.py:581: value="{resources["cpu_warning_percent"]}"
+/opt/config-location/app/panel/settings_ui.py:590: name="cpu_critical"
+/opt/config-location/app/panel/settings_ui.py:591: value="{resources["cpu_critical_percent"]}"
+/opt/config-location/app/panel/settings_ui.py:600: name="ram_warning"
+/opt/config-location/app/panel/settings_ui.py:601: value="{resources["ram_warning_percent"]}"
+/opt/config-location/app/panel/settings_ui.py:610: name="ram_critical"
+/opt/config-location/app/panel/settings_ui.py:611: value="{resources["ram_critical_percent"]}"
+/opt/config-location/app/panel/settings_ui.py:620: name="disk_warning"
+/opt/config-location/app/panel/settings_ui.py:621: value="{resources["disk_warning_percent"]}"
+/opt/config-location/app/panel/settings_ui.py:630: name="disk_critical"
+/opt/config-location/app/panel/settings_ui.py:631: value="{resources["disk_critical_percent"]}"
+/opt/config-location/app/health/core/adaptive_controller.py:967:            reason="server_cpu_critical",
+/opt/config-location/app/health/retest/worker.py:219:def resource_guardian_settings() -> dict[str, float]:
+/opt/config-location/app/health/retest/worker.py:231:        "resource_guardian",
+/opt/config-location/app/health/retest/worker.py:256:        "cpu_warning_pct": number(
+/opt/config-location/app/health/retest/worker.py:258:                "cpu_warning_pct",
+/opt/config-location/app/health/retest/worker.py:259:                "cpu_warning",
+/opt/config-location/app/health/retest/worker.py:265:        "cpu_critical_pct": number(
+/opt/config-location/app/health/retest/worker.py:267:                "cpu_critical_pct",
+/opt/config-location/app/health/retest/worker.py:268:                "cpu_critical",
+/opt/config-location/app/health/retest/worker.py:274:        "ram_warning_pct": number(
+/opt/config-location/app/health/retest/worker.py:276:                "ram_warning_pct",
+/opt/config-location/app/health/retest/worker.py:277:                "ram_warning",
+/opt/config-location/app/health/retest/worker.py:283:        "ram_critical_pct": number(
+/opt/config-location/app/health/retest/worker.py:285:                "ram_critical_pct",
+/opt/config-location/app/health/retest/worker.py:286:                "ram_critical",
+/opt/config-location/app/health/retest/worker.py:299:    guardian = (
+/opt/config-location/app/health/retest/worker.py:300:        resource_guardian_settings()
+/opt/config-location/app/health/retest/worker.py:327:    cpu_warning = guardian[
+/opt/config-location/app/health/retest/worker.py:328:        "cpu_warning_pct"
+/opt/config-location/app/health/retest/worker.py:331:    cpu_critical = guardian[
+/opt/config-location/app/health/retest/worker.py:332:        "cpu_critical_pct"
+/opt/config-location/app/health/retest/worker.py:335:    ram_warning = guardian[
+/opt/config-location/app/health/retest/worker.py:336:        "ram_warning_pct"
+/opt/config-location/app/health/retest/worker.py:339:    ram_critical = guardian[
+/opt/config-location/app/health/retest/worker.py:340:        "ram_critical_pct"
+/opt/config-location/app/health/retest/worker.py:345:        cpu_pressure_pct >= cpu_critical
+/opt/config-location/app/health/retest/worker.py:346:        or ram_used_pct >= ram_critical
+/opt/config-location/app/health/retest/worker.py:354:                "resource_guardian_critical"
+/opt/config-location/app/health/retest/worker.py:356:            "guardian": guardian,
+/opt/config-location/app/health/retest/worker.py:369:        cpu_pressure_pct >= cpu_warning
+/opt/config-location/app/health/retest/worker.py:370:        or ram_used_pct >= ram_warning
+/opt/config-location/app/health/retest/worker.py:378:                "resource_guardian_warning"
+/opt/config-location/app/health/retest/worker.py:380:            "guardian": guardian,
+/opt/config-location/app/health/retest/worker.py:418:        "guardian": guardian,
+/opt/config-location/app/health/retest/worker.py:708:                resource_guardian=(
+/opt/config-location/app/health/retest/worker.py:710:                        "guardian",
+/opt/config-location/app/settings/migrate.py:128:                    "cpu_critical_percent"
+/opt/config-location/app/settings/engine.py:168:            "resource_guardian": False,
+/opt/config-location/app/settings/engine.py:222:            "cpu_warning_percent": 75.0,
+/opt/config-location/app/settings/engine.py:223:            "cpu_critical_percent": 94.0,
+/opt/config-location/app/settings/engine.py:225:            "ram_warning_percent": 80.0,
+/opt/config-location/app/settings/engine.py:226:            "ram_critical_percent": 92.0,
+/opt/config-location/app/settings/engine.py:228:            "disk_warning_percent": 75.0,
+/opt/config-location/app/settings/engine.py:229:            "disk_critical_percent": 90.0,
+/opt/config-location/app/settings/engine.py:302:        "resource_guardian",
+/opt/config-location/app/settings/engine.py:549:        "cpu_warning_percent",
+/opt/config-location/app/settings/engine.py:550:        "cpu_critical_percent",
+/opt/config-location/app/settings/engine.py:551:        "ram_warning_percent",
+/opt/config-location/app/settings/engine.py:552:        "ram_critical_percent",
+/opt/config-location/app/settings/engine.py:553:        "disk_warning_percent",
+/opt/config-location/app/settings/engine.py:554:        "disk_critical_percent",
+/opt/config-location/app/settings/selftest.py:91:                        "disk_warning_percent":
+/opt/config-location/app/settings/selftest.py:94:                        "disk_critical_percent":
+
+========== SETTINGS ENGINE MATCHES ==========
+168:            "resource_guardian": False,
+221:        "resources": {
+222:            "cpu_warning_percent": 75.0,
+223:            "cpu_critical_percent": 94.0,
+225:            "ram_warning_percent": 80.0,
+226:            "ram_critical_percent": 92.0,
+228:            "disk_warning_percent": 75.0,
+229:            "disk_critical_percent": 90.0,
+302:        "resource_guardian",
+544:    resources = obj[
+545:        "resources"
+549:        "cpu_warning_percent",
+550:        "cpu_critical_percent",
+551:        "ram_warning_percent",
+552:        "ram_critical_percent",
+553:        "disk_warning_percent",
+554:        "disk_critical_percent",
+559:            resources[key],
+560:            f"resources.{key}",
+573:                resources[
+579:                resources[
+590:        resources[
+593:        "resources.max_health_xray",
+
+========== LIVE TOP LEVEL SETTINGS ==========
+TOP_LEVEL_KEYS= ['adaptive_health', 'cleanup', 'config_lifetime', 'country', 'features', 'fetcher', 'health', 'health_retest', 'meta', 'publish', 'removal', 'resources', 'schema_version', 'source_intelligence']
+
+KEY= resources
+{
+  "cpu_critical_percent": 99.0,
+  "cpu_warning_percent": 98.0,
+  "disk_critical_percent": 99.0,
+  "disk_warning_percent": 98.0,
+  "inode_critical_percent": 90.0,
+  "inode_warning_percent": 75.0,
+  "max_health_xray": 200,
+  "ram_critical_percent": 99.0,
+  "ram_warning_percent": 98.0
+}
+
+========== RECURSIVE KEY DISCOVERY ==========
+adaptive_health.server_guard.critical_cpu_percent=94.0
+adaptive_health.server_guard.estimated_ram_per_worker_mb=32
+adaptive_health.server_guard.max_cpu_percent=82.0
+adaptive_health.server_guard.reserve_ram_mb=1536
+adaptive_health.server_guard.target_cpu_percent=60.0
+features.resource_guardian=False
+resources.cpu_critical_percent=99.0
+resources.cpu_warning_percent=98.0
+resources.disk_critical_percent=99.0
+resources.disk_warning_percent=98.0
+resources.inode_critical_percent=90.0
+resources.inode_warning_percent=75.0
+resources.max_health_xray=200
+resources.ram_critical_percent=99.0
+resources.ram_warning_percent=98.0
+
+CONTRACT_DISCOVERY_COMPLETE
