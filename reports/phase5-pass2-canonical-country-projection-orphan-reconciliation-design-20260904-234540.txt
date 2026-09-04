@@ -1,0 +1,49 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass2-canonical-country-projection-orphan-reconciliation-design
+
+Result:
+FAILED
+
+Start:
+2026-09-04T23:45:40+00:00
+
+End:
+2026-09-04T23:45:43+00:00
+
+Mode:
+SHADOW CANONICAL COUNTRY PROJECTION
+
+Config mutation:
+NONE
+
+Country-store mutation:
+NONE
+
+Orphan deletion:
+NONE
+
+Panel mutation:
+NONE
+
+Publish mutation:
+NONE
+
+Service restart:
+NONE
+
+Projection:
+/root/project-log/discovery/2026-09-04/phase5-pass2-canonical-country-projection-orphan-reconciliation-design-20260904-234540.json
+
+Summary:
+/root/project-log/discovery/2026-09-04/phase5-pass2-canonical-country-projection-orphan-reconciliation-design-20260904-234540-summary.json
+
+Backup:
+/root/3245/phase5-pass2-canonical-country-projection-orphan-reconciliation-design-backup-20260904-234540
+
+Log:
+/root/project-log/executions/2026-09-04/phase5-pass2-canonical-country-projection-orphan-reconciliation-design-20260904-234540.log
+
+Errors:
+\nexit code 1
