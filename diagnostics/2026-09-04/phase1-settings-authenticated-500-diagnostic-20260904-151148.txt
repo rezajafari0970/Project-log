@@ -1,0 +1,305 @@
+================================================
+ SETTINGS AUTHENTICATED 500 DIAGNOSTIC
+================================================
+
+TIME=2026-09-04T15:11:48+00:00
+HOST=serverprojects.ptr.network
+
+========== SERVICE ==========
+● config-location-panel.service - Config Location Management Panel
+     Loaded: loaded (/etc/systemd/system/config-location-panel.service; enabled; preset: enabled)
+    Drop-In: /etc/systemd/system/config-location-panel.service.d
+             └─99-final.conf
+     Active: active (running) since Fri 2026-09-04 15:08:52 UTC; 2min 55s ago
+ Invocation: f5c9768d233f423399d3f431bdd8176f
+   Main PID: 1518565 (python)
+      Tasks: 1 (limit: 8077)
+     Memory: 28.6M (peak: 29.1M)
+        CPU: 341ms
+     CGroup: /system.slice/config-location-panel.service
+             └─1518565 /opt/config-location/venv/bin/python -m app.panel.server
+
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:     return await handler(
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:            ^^^^^^^^^^^^^^
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:         request
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:         ^^^^^^^
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:     )
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:     ^
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:   File "/opt/config-location/app/panel/settings_ui.py", line 677, in settings_page
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:     return page(
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:            ^^^^
+Sep 04 15:10:58 serverprojects.ptr.network python[1518565]: NameError: name 'page' is not defined. Did you mean: 'range'?
+
+========== PORT ==========
+LISTEN 0      128          0.0.0.0:4040      0.0.0.0:*    users:(("python",pid=1518565,fd=6))                                                                                                 
+
+========== JOURNAL LAST 10 MIN ==========
+Sep 04 15:05:37.365772 serverprojects.ptr.network systemd[1]: Stopping config-location-panel.service - Config Location Management Panel...
+Sep 04 15:05:37.368724 serverprojects.ptr.network python[1506484]: ======== Running on http://0.0.0.0:4040 ========
+Sep 04 15:05:37.368724 serverprojects.ptr.network python[1506484]: (Press CTRL+C to quit)
+Sep 04 15:05:37.502334 serverprojects.ptr.network systemd[1]: config-location-panel.service: Deactivated successfully.
+Sep 04 15:05:37.502739 serverprojects.ptr.network systemd[1]: Stopped config-location-panel.service - Config Location Management Panel.
+Sep 04 15:05:37.508668 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]: Error handling request from 5.214.14.228
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]: Traceback (most recent call last):
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_protocol.py", line 575, in _handle_request
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:     resp = await request_handler(request)
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_app.py", line 559, in _handle
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:     return await handler(request)
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_middlewares.py", line 117, in impl
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:     return await handler(request)
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/app/panel/server.py", line 314, in auth_middleware
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:     return await handler(
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:         request
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:         ^^^^^^^
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:     )
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:     ^
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/app/panel/settings_ui.py", line 677, in settings_page
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:     return page(
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]:            ^^^^
+Sep 04 15:06:03.221577 serverprojects.ptr.network python[1513718]: NameError: name 'page' is not defined. Did you mean: 'range'?
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]: Error handling request from 5.214.14.228
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]: Traceback (most recent call last):
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_protocol.py", line 575, in _handle_request
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:     resp = await request_handler(request)
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_app.py", line 559, in _handle
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:     return await handler(request)
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_middlewares.py", line 117, in impl
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:     return await handler(request)
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/app/panel/server.py", line 314, in auth_middleware
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:     return await handler(
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:            ^^^^^^^^^^^^^^
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:         request
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:         ^^^^^^^
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:     )
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:     ^
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/app/panel/settings_ui.py", line 677, in settings_page
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:     return page(
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]:            ^^^^
+Sep 04 15:06:04.175035 serverprojects.ptr.network python[1513718]: NameError: name 'page' is not defined. Did you mean: 'range'?
+Sep 04 15:08:22.679861 serverprojects.ptr.network systemd[1]: Stopping config-location-panel.service - Config Location Management Panel...
+Sep 04 15:08:22.696648 serverprojects.ptr.network python[1513718]: ======== Running on http://0.0.0.0:4040 ========
+Sep 04 15:08:22.696648 serverprojects.ptr.network python[1513718]: (Press CTRL+C to quit)
+Sep 04 15:08:23.020578 serverprojects.ptr.network systemd[1]: config-location-panel.service: Deactivated successfully.
+Sep 04 15:08:23.023057 serverprojects.ptr.network systemd[1]: Stopped config-location-panel.service - Config Location Management Panel.
+Sep 04 15:08:25.132039 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:08:50.179511 serverprojects.ptr.network systemd[1]: Stopping config-location-panel.service - Config Location Management Panel...
+Sep 04 15:08:50.184019 serverprojects.ptr.network python[1517088]: ======== Running on http://0.0.0.0:4040 ========
+Sep 04 15:08:50.184019 serverprojects.ptr.network python[1517088]: (Press CTRL+C to quit)
+Sep 04 15:08:50.284400 serverprojects.ptr.network systemd[1]: config-location-panel.service: Deactivated successfully.
+Sep 04 15:08:50.285993 serverprojects.ptr.network systemd[1]: Stopped config-location-panel.service - Config Location Management Panel.
+Sep 04 15:08:52.358810 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]: Error handling request from 5.214.14.228
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]: Traceback (most recent call last):
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_protocol.py", line 575, in _handle_request
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:     resp = await request_handler(request)
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_app.py", line 559, in _handle
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:     return await handler(request)
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:            ^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:   File "/opt/config-location/venv/lib/python3.14/site-packages/aiohttp/web_middlewares.py", line 117, in impl
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:     return await handler(request)
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:            ^^^^^^^^^^^^^^^^^^^^^^
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:   File "/opt/config-location/app/panel/server.py", line 314, in auth_middleware
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:     return await handler(
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:            ^^^^^^^^^^^^^^
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:         request
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:         ^^^^^^^
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:     )
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:     ^
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:   File "/opt/config-location/app/panel/settings_ui.py", line 677, in settings_page
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:     return page(
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]:            ^^^^
+Sep 04 15:10:58.192201 serverprojects.ptr.network python[1518565]: NameError: name 'page' is not defined. Did you mean: 'range'?
+
+========== TRACEBACK / ERROR FILTER ==========
+7:Sep 04 15:06:03 serverprojects.ptr.network python[1513718]: Error handling request from 5.214.14.228
+8:Sep 04 15:06:03 serverprojects.ptr.network python[1513718]: Traceback (most recent call last):
+25:Sep 04 15:06:03 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/app/panel/settings_ui.py", line 677, in settings_page
+28:Sep 04 15:06:03 serverprojects.ptr.network python[1513718]: NameError: name 'page' is not defined. Did you mean: 'range'?
+29:Sep 04 15:06:04 serverprojects.ptr.network python[1513718]: Error handling request from 5.214.14.228
+30:Sep 04 15:06:04 serverprojects.ptr.network python[1513718]: Traceback (most recent call last):
+47:Sep 04 15:06:04 serverprojects.ptr.network python[1513718]:   File "/opt/config-location/app/panel/settings_ui.py", line 677, in settings_page
+50:Sep 04 15:06:04 serverprojects.ptr.network python[1513718]: NameError: name 'page' is not defined. Did you mean: 'range'?
+63:Sep 04 15:10:58 serverprojects.ptr.network python[1518565]: Error handling request from 5.214.14.228
+64:Sep 04 15:10:58 serverprojects.ptr.network python[1518565]: Traceback (most recent call last):
+81:Sep 04 15:10:58 serverprojects.ptr.network python[1518565]:   File "/opt/config-location/app/panel/settings_ui.py", line 677, in settings_page
+84:Sep 04 15:10:58 serverprojects.ptr.network python[1518565]: NameError: name 'page' is not defined. Did you mean: 'range'?
+
+========== SETTINGS_UI AROUND HANDLER ==========
+8:    get_settings,
+9:    get_settings_status,
+44:                get_settings(),
+46:                get_settings_status(),
+81:                    get_settings_status(),
+263:async def settings_page(
+268:    # page renderer dependency removed from settings_ui
+270:    settings = get_settings()
+271:    status = get_settings_status()
+683:def install_settings_routes(
+
+========== SETTINGS_UI 600-760 ==========
+   600	 value="{resources["ram_warning_percent"]}"
+   601	>
+   602	</div>
+   603	
+   604	<div>
+   605	<label>RAM Critical %</label>
+   606	<input
+   607	 type="number"
+   608	 step="0.1"
+   609	 name="ram_critical"
+   610	 value="{resources["ram_critical_percent"]}"
+   611	>
+   612	</div>
+   613	
+   614	<div>
+   615	<label>Disk Warning %</label>
+   616	<input
+   617	 type="number"
+   618	 step="0.1"
+   619	 name="disk_warning"
+   620	 value="{resources["disk_warning_percent"]}"
+   621	>
+   622	</div>
+   623	
+   624	<div>
+   625	<label>Disk Critical %</label>
+   626	<input
+   627	 type="number"
+   628	 step="0.1"
+   629	 name="disk_critical"
+   630	 value="{resources["disk_critical_percent"]}"
+   631	>
+   632	</div>
+   633	
+   634	</div>
+   635	
+   636	</div>
+   637	
+   638	
+   639	<div class="card">
+   640	
+   641	<button
+   642	 type="submit"
+   643	 class="button"
+   644	>
+   645	ذخیره تنظیمات
+   646	</button>
+   647	
+   648	<a
+   649	 class="button secondary"
+   650	 href="/"
+   651	>
+   652	بازگشت به Dashboard
+   653	</a>
+   654	
+   655	</div>
+   656	
+   657	</form>
+   658	
+   659	
+   660	<div class="card">
+   661	
+   662	<h2>
+   663	🔒 وضعیت Activation
+   664	</h2>
+   665	
+   666	<p style="line-height:1.9;color:#64748b">
+   667	Phase 1 فقط Foundation را فعال کرده است.
+   668	هیچ Health Retest، حذف خودکار، Lifetime،
+   669	Country Remark یا Port 80 جدید در این مرحله
+   670	بدون مرحله مربوطه فعال نمی‌شود.
+   671	این رفتار برای جلوگیری از تغییر ناگهانی Production عمدی است.
+   672	</p>
+   673	
+   674	</div>
+   675	"""
+   676	
+   677	    return page(
+   678	        "Central Settings",
+   679	        content,
+   680	    )
+   681	
+   682	
+   683	def install_settings_routes(
+   684	    app,
+   685	) -> None:
+   686	
+   687	    marker = (
+   688	        "_configloc_settings_routes"
+   689	    )
+   690	
+   691	    if app.get(
+   692	        marker
+   693	    ):
+   694	        return
+   695	
+   696	    app.router.add_get(
+   697	        "/settings",
+   698	        settings_page,
+   699	    )
+   700	
+   701	    app.router.add_post(
+   702	        "/settings/save",
+   703	        settings_save,
+   704	    )
+   705	
+   706	    app.router.add_get(
+   707	        "/api/settings",
+   708	        api_settings,
+   709	    )
+   710	
+   711	    app.router.add_post(
+   712	        "/api/settings",
+   713	        api_settings_update,
+   714	    )
+   715	
+   716	    app[
+   717	        marker
+   718	    ] = True
+
+========== SERVER SETTINGS ROUTES ==========
+50:from app.panel.settings_ui import install_settings_routes
+286:async def auth_middleware(
+3211:<a href="/settings">
+5088:            auth_middleware
+5276:    install_settings_routes(app)
+
+========== SETTINGS ENGINE STATUS AS CONFIGLOC ==========
+READ_OK
+revision = 2
+checksum = a1158cc2f8db48dc99925d1d6f97a6cc5bf70cc9f2b29d0a5c810a3d71fcd1a6
+top_level_keys = ['adaptive_health', 'cleanup', 'config_lifetime', 'country', 'features', 'fetcher', 'health', 'health_retest', 'meta', 'publish', 'removal', 'resources', 'schema_version', 'source_intelligence']
+
+========== PERMISSIONS ==========
+f: /var/lib/config-location/settings/settings.json
+drwxr-xr-x root      root      /
+drwxr-xr-x root      root      var
+drwxr-xr-x root      root      lib
+drwxr-x--- configloc configloc config-location
+drwxr-x--- configloc configloc settings
+-rw-r----- configloc configloc settings.json
+f: /run/config-location/settings.lock
+drwxr-xr-x root      root      /
+drwxr-xr-x root      root      run
+drwxr-x--- configloc configloc config-location
+-rw------- configloc configloc settings.lock
+
+========== FILE HASHES ==========
+b52b258a52dd095c275c781f354282df947ac24c178c4cc9f3ccf3136582d32b  /opt/config-location/app/panel/server.py
+7b2bb7da7671cf4150ff5d49a36c9855defdb7a17943b2b182d2d6012d800c38  /opt/config-location/app/panel/settings_ui.py
+53fe4d479579329a8ec055dce5e29a24b7a07bc44e4a982184c4df8a053bfd3b  /opt/config-location/app/settings/engine.py
+
+========== PYTHON COMPILE ==========
+COMPILE_OK
+
+========== END ==========
+2026-09-04T15:11:48+00:00
