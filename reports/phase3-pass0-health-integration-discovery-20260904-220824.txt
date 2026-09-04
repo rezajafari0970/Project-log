@@ -1,0 +1,22 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass0-health-integration-discovery
+
+Result:
+FAILED
+
+Start:
+2026-09-04T22:08:24+00:00
+
+End:
+2026-09-04T22:08:49+00:00
+
+Discovery:
+/root/project-log/discovery/2026-09-04/phase3-pass0-health-integration-discovery-20260904-220824.txt
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass0-health-integration-discovery-20260904-220824.log
+
+Errors:
+\nscript exit code 1
