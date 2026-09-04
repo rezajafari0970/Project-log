@@ -1,0 +1,91 @@
+================================================
+ PHASE 4 PASS 2
+ REAL REMOVAL PLAN DRY RUN
+================================================
+
+========== [1/8] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/8] BUILD PLAN ==========
+{
+  "configs": 2732,
+  "healthy": 1226,
+  "unhealthy": 1025,
+  "policy_delete_shadow": 331,
+  "deep_quarantine": 573,
+  "lifetime_expired": 0,
+  "lifetime_expired_feature_enabled": 0,
+  "safety_streak_pass": 0,
+  "safety_future_candidate": 1,
+  "would_remove": 0
+}
+CANDIDATE_COUNT= 331
+PRODUCTION_DELETE=False
+STATE_MUTATION=False
+
+========== [3/8] VALIDATE ==========
+PLAN_VALID
+CONFIGS= 2732
+HEALTHY= 1226
+UNHEALTHY= 1025
+DELETE_SHADOW= 331
+DEEP_QUARANTINE= 573
+LIFETIME_EXPIRED= 0
+SAFETY_STREAK_PASS= 0
+SAFETY_FUTURE_CANDIDATE= 1
+WOULD_REMOVE= 0
+LIFETIME_FEATURE= False
+DEFINITIVE_REMOVAL_FEATURE= False
+
+========== [4/8] TOP CANDIDATES ==========
+00b0d38fcdeb2ce4dc2a425458e7bcd0680f26031675495eeda3d6c7f140ba3d vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+039a39d57f8950709b5be8686254b352cb5bae0af7bf7996bc23a414fd6a7216 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+05eb6f0bee7bbb88fa336d85104d61194f631095a7ef176a501b7546ed9a15f9 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+06bb6c708d9914b20e7356380c3af118e4d2808abbe384b6c6ac5e356f4f65b2 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+07aae4cc9d3691c71e100ecd833b13480abd223697089afdab16e32ec73d44ef vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+08f8ee242617515ec68be6b6b8e2a02fde359e12cbd116dbd691e5c5c0aa4adc vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+0a08a5260baf5332b4cf67182c8330e82bca39241accc56c7d8a9575c6214faa vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+0a11227f885a012c4e040df6aeef48619ed55eef471ddac87ea3ce68cc613d12 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+0b8b7af165118ec65bb07f81c0495e2d4a16a2abee9763c37e266cfddbdba8a5 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+0e22dbe1c9d633d4ee57efbdfb36b5931736a77ac63ce108ecb9bae3f7a95a57 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+0fa0fb9ddfd2c84434888a04c18a09f431e061981be00d989e1d24cbcc81a961 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+105d85a3ff327f9fe66c565fb9418171227bc0a0bc4f1719da4c559671c457de vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1279f2943fbef5f1a0e46e800435a6b72eac87af3da46c112ed4c208db99b623 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+15d2f2dc51af6ca6dae166bfeef0aba6567c62e38cc02f21bd0b9a6f1ea7ca96 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1893b6a36f2b88d9516b3609d31a31da7cbc4300cdd1604118a7cb1c8ad605c4 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+19273255fd3cece13c4069d356d2c65f3b61bb4a7ff4c591952d6645eb992b13 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+19ad0e392e37c544975852406efc85f68c36607bbf39c0a6e5dd53f026029693 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1a9072e7744bfbfaf6e25e81619d44c89255b6094edf819cd1dbd73b3c4de44a vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1b2b3e2dc5ecd7eaa3673efbd958272f65b134dfece2d5c3067f354db2de5fd9 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1ba7bae6696fe9ea9095f551643b67d00a740b47b8f161085772cbecd2956e14 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1bd630aeb413ba37a4326296945c5020eccbe7f4380c5ee1211fe6c15706a276 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1f2edd826510ffbb6d0b82f887c21fd1b703db89e78631911d041c21d53b35f3 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+1fe4025dfb020e311f388a78434f250d6d51484e2ac8a7f4903227ed043852b4 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+221e3276ccc9c1696b2df49b00a881eea65df3ff3d14f889f6c7c136db4b2a1c vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+23a766ff088cf1d7e224651c816b1e835020730812840642c8041ca05b848afa vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+260e85f7768a7fca86f8ab1dc462455b8aaba9bfd5b5d37c4491ed530aa8eed4 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+26dd692e52e7b5567e843a99d47113107a062e6830cc2594fe7d1b2ec3cefa0d vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+270ae7e2da76ee96dccdbe67e2c8e53c657bd485de6c4d6c20e1d73a5c1ddef4 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+2ace7422747a7c37c73f240ce10acfb4dde53dbcd44c8c17bc6bdbc04704ce39 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+2b90c3d0afed493154bc1139b448f7e7c82b97f3870aa6d9b84f668b08121183 vless health=unhealthy policy=delete_candidate_shadow streak=6 lifetime_expired=False safety=False would_remove=False
+
+========== [5/8] CONFIG STORE SAFETY ==========
+CONFIG_FILE_COUNT=2734
+NO_CONFIG_DELETE_CODE=YES
+NO_UNLINK_CODE=YES
+NO_CONFIG_STORE_WRITE=YES
+
+========== [6/8] FEATURE STATE ==========
+config_lifetime= False
+definitive_unhealthy_removal= False
+
+========== [7/8] SERVICE HEALTH ==========
+active
+SERVICE_RESTART=NONE
+
+========== [8/8] FINAL ==========
+REMOVAL_PLAN_MODE=DRY_RUN
+PRODUCTION_DELETE=DISABLED
+CONFIG_MUTATION=NONE
+LIFECYCLE_MUTATION=NONE
+PHASE4_PASS2_SUCCESS
