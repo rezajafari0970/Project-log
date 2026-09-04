@@ -1,0 +1,25 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass0-compact-health-discovery
+
+Result:
+FAILED
+
+Start:
+2026-09-04T22:14:52+00:00
+
+End:
+2026-09-04T22:14:53+00:00
+
+Discovery:
+/root/project-log/discovery/2026-09-04/phase3-pass0-compact-health-discovery-20260904-221452.txt
+
+Discovery size:
+136K
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass0-compact-health-discovery-20260904-221452.log
+
+Errors:
+\nscript exit code 141
