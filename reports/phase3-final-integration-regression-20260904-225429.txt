@@ -1,0 +1,25 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-final-integration-regression
+
+Result:
+FAILED
+
+Start:
+2026-09-04T22:54:29+00:00
+
+End:
+2026-09-04T22:54:29+00:00
+
+Service:
+config-location-retest.service
+
+Regression:
+/root/project-log/discovery/2026-09-04/phase3-final-integration-regression-20260904-225429.json
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-final-integration-regression-20260904-225429.log
+
+Errors:
+\nexit code 1
