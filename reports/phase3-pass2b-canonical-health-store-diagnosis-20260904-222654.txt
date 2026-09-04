@@ -1,0 +1,28 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass2b-canonical-health-store-diagnosis
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T22:26:54+00:00
+
+End:
+2026-09-04T22:26:59+00:00
+
+Mode:
+READ ONLY
+
+Production mutation:
+NONE
+
+Diagnostic:
+/root/project-log/discovery/2026-09-04/phase3-pass2b-canonical-health-store-diagnosis-20260904-222654.txt
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass2b-canonical-health-store-diagnosis-20260904-222654.log
+
+Errors:
+

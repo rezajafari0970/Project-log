@@ -1,0 +1,1057 @@
+================================================
+ CANONICAL HEALTH STORE DIAGNOSIS
+================================================
+TIME=2026-09-04T22:26:54+00:00
+HOST=serverprojects.ptr.network
+
+========== [1] STORE PATH ==========
+2.3G	/var/lib/config-location/health-results
+LATEST_FILES=1991
+HISTORY_FILES=568610
+
+========== [2] DIRECTORY PERMISSIONS ==========
+f: /var/lib/config-location/health-results/latest
+drwxr-xr-x root      root      /
+drwxr-xr-x root      root      var
+drwxr-xr-x root      root      lib
+drwxr-x--- configloc configloc config-location
+drwx------ root      root      health-results
+drwx------ root      root      latest
+drwxr-x--- 750 configloc:configloc /var/lib/config-location
+drwx------ 700 root:root /var/lib/config-location/health-results
+drwx------ 700 root:root /var/lib/config-location/health-results/latest
+
+========== [3] SAMPLE FILE PERMISSIONS ==========
+-rw------- 600 root:root 1512 /var/lib/config-location/health-results/latest/ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb.json
+-rw------- 600 root:root 1795 /var/lib/config-location/health-results/latest/5fe5cf4f9fdd32189bb8cbb4ed98cb325c36e77952a8ccefdc43dc74bb118d65.json
+-rw------- 600 root:root 1790 /var/lib/config-location/health-results/latest/5823d2503ffa23b925c3c6739ca123ea7c11bd4db7fc5c41cd596029033abd21.json
+-rw------- 600 root:root 1792 /var/lib/config-location/health-results/latest/15e19fbdc5349bacf04571d0ef10bf5a7490826f39191ec466fff1dea804396c.json
+-rw------- 600 root:root 1784 /var/lib/config-location/health-results/latest/fcd8067ca314b53ba6dd5d59b9a6bd23e19a93a49c77252861366907d010e838.json
+-rw------- 600 root:root 1792 /var/lib/config-location/health-results/latest/6ed43b513b1fbc0b14808cda31d81054ff6cac256b6e713b8ef46eb00f06766c.json
+-rw------- 600 root:root 1786 /var/lib/config-location/health-results/latest/3563fa1ee817ec9d8b6afeaf6738075fac97f5cd4146504b26b2313cfcec58e2.json
+-rw------- 600 root:root 1793 /var/lib/config-location/health-results/latest/29d512ac0649db4d410418259fa44b8eb357c783fbe088aab67881228a53672a.json
+-rw------- 600 root:root 1509 /var/lib/config-location/health-results/latest/89ed3a6841f89ed97687d50ce77efa1beb0617a19a4707b09f29c6c90a9a1f7e.json
+-rw------- 600 root:root 1510 /var/lib/config-location/health-results/latest/13ae9729f39f690e509bfa5a297693db491ada096c395e3b7acc8cbfb97d4c25.json
+
+SAMPLE=/var/lib/config-location/health-results/latest/ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb.json
+
+========== [4] ROOT READ TEST ==========
+ROOT_READ_OK
+TYPE= dict
+TOP_KEYS= ['config_id', 'config_type', 'download_results', 'download_verified', 'error_code', 'error_message', 'finished_at', 'job_id', 'metadata', 'schema_version', 'started_at', 'state', 'upload_results', 'upload_verified', 'xray_exit_code', 'xray_started']
+job_id='health-ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb-1788559123037010390'
+config_id='ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb'
+config_type='vless'
+state='healthy'
+started_at='2026-09-04T21:58:43.037021+00:00'
+finished_at='2026-09-04T21:58:45.641530+00:00'
+xray_started=True
+download_verified=True
+upload_verified=True
+error_code=None
+
+========== [5] CONFIGLOC FILE ACCESS ==========
+CONFIGLOC_FILE_READABLE=NO
+CONFIGLOC_OPEN_FAILED
+
+========== [6] CONFIGLOC DIRECTORY ACCESS ==========
+find: ‘/var/lib/config-location/health-results/latest’: Permission denied
+
+========== [7] ROOT PARSE 100 LATEST ==========
+ROOT_SAMPLE_COUNT= 101
+ROOT_PARSED= 100
+ROOT_HEALTHY= 45
+ROOT_UNHEALTHY= 54
+ROOT_OTHER= {'runtime_failed': 1}
+
+========== [8] CONFIGLOC PARSE 100 LATEST ==========
+CONFIGLOC_VISIBLE_PATHS= 0
+CONFIGLOC_VISIBLE= 0
+CONFIGLOC_PARSED= 0
+CONFIGLOC_HEALTHY= 0
+CONFIGLOC_ERRORS= 0
+
+========== [9] JSON STORE API SOURCE ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	import os
+     5	import tempfile
+     6	from dataclasses import asdict
+     7	from pathlib import Path
+     8	from typing import Any
+     9	
+    10	from .base import HealthResultStore
+    11	from ..core.models import (
+    12	    HealthResult,
+    13	    HealthState,
+    14	    ProbeResult,
+    15	)
+    16	
+    17	
+    18	class JsonHealthResultStore(
+    19	    HealthResultStore
+    20	):
+    21	    def __init__(
+    22	        self,
+    23	        root: Path = Path(
+    24	            "/var/lib/config-location/"
+    25	            "health-results"
+    26	        ),
+    27	    ) -> None:
+    28	
+    29	        self.root = root
+    30	
+    31	        self.latest_dir = (
+    32	            root / "latest"
+    33	        )
+    34	
+    35	        self.history_dir = (
+    36	            root / "history"
+    37	        )
+    38	
+    39	        self.latest_dir.mkdir(
+    40	            parents=True,
+    41	            exist_ok=True,
+    42	        )
+    43	
+    44	        self.history_dir.mkdir(
+    45	            parents=True,
+    46	            exist_ok=True,
+    47	        )
+    48	
+    49	        os.chmod(
+    50	            self.root,
+    51	            0o700,
+    52	        )
+    53	
+    54	        os.chmod(
+    55	            self.latest_dir,
+    56	            0o700,
+    57	        )
+    58	
+    59	        os.chmod(
+    60	            self.history_dir,
+    61	            0o700,
+    62	        )
+    63	
+    64	    @staticmethod
+    65	    def _safe_name(
+    66	        value: str,
+    67	    ) -> str:
+    68	
+    69	        safe = "".join(
+    70	            c
+    71	            if c.isalnum()
+    72	            or c in "._-"
+    73	            else "_"
+    74	            for c in value
+    75	        )
+    76	
+    77	        safe = safe[:160]
+    78	
+    79	        if not safe:
+    80	            raise ValueError(
+    81	                "empty safe filename"
+    82	            )
+    83	
+    84	        return safe
+    85	
+    86	    @staticmethod
+    87	    def _probe_to_dict(
+    88	        probe: ProbeResult,
+    89	    ) -> dict[str, Any]:
+    90	
+    91	        return {
+    92	            "provider":
+    93	                probe.provider,
+    94	
+    95	            "direction":
+    96	                probe.direction,
+    97	
+    98	            "success":
+    99	                probe.success,
+   100	
+   101	            "bytes_transferred":
+   102	                probe.bytes_transferred,
+   103	
+   104	            "duration_ms":
+   105	                probe.duration_ms,
+   106	
+   107	            "error":
+   108	                probe.error,
+   109	
+   110	            "metadata":
+   111	                probe.metadata,
+   112	        }
+   113	
+   114	    @classmethod
+   115	    def _result_to_dict(
+   116	        cls,
+   117	        result: HealthResult,
+   118	    ) -> dict[str, Any]:
+   119	
+   120	        return {
+   121	            "schema_version": 1,
+   122	
+   123	            "job_id":
+   124	                result.job_id,
+   125	
+   126	            "config_id":
+   127	                result.config_id,
+   128	
+   129	            "config_type":
+   130	                result.config_type,
+   131	
+   132	            "state":
+   133	                result.state.value,
+   134	
+   135	            "started_at":
+   136	                result.started_at,
+   137	
+   138	            "finished_at":
+   139	                result.finished_at,
+   140	
+   141	            "xray_started":
+   142	                result.xray_started,
+   143	
+   144	            "xray_exit_code":
+   145	                result.xray_exit_code,
+   146	
+   147	            "download_verified":
+   148	                result.download_verified,
+   149	
+   150	            "upload_verified":
+   151	                result.upload_verified,
+   152	
+   153	            "download_results": [
+   154	                cls._probe_to_dict(p)
+   155	                for p
+   156	                in result.download_results
+   157	            ],
+   158	
+   159	            "upload_results": [
+   160	                cls._probe_to_dict(p)
+   161	                for p
+   162	                in result.upload_results
+   163	            ],
+   164	
+   165	            "error_code":
+   166	                result.error_code,
+   167	
+   168	            "error_message":
+   169	                result.error_message,
+   170	
+   171	            "metadata":
+   172	                result.metadata,
+   173	        }
+   174	
+   175	    @staticmethod
+   176	    def _probe_from_dict(
+   177	        value: dict[str, Any],
+   178	    ) -> ProbeResult:
+   179	
+   180	        return ProbeResult(
+   181	            provider=str(
+   182	                value.get(
+   183	                    "provider",
+   184	                    "",
+   185	                )
+   186	            ),
+   187	
+   188	            direction=str(
+   189	                value.get(
+   190	                    "direction",
+   191	                    "",
+   192	                )
+   193	            ),
+   194	
+   195	            success=bool(
+   196	                value.get(
+   197	                    "success",
+   198	                    False,
+   199	                )
+   200	            ),
+   201	
+   202	            bytes_transferred=int(
+   203	                value.get(
+   204	                    "bytes_transferred",
+   205	                    0,
+   206	                )
+   207	                or 0
+   208	            ),
+   209	
+   210	            duration_ms=(
+   211	                int(
+   212	                    value[
+   213	                        "duration_ms"
+   214	                    ]
+   215	                )
+   216	                if value.get(
+   217	                    "duration_ms"
+   218	                )
+   219	                is not None
+   220	                else None
+   221	            ),
+   222	
+   223	            error=(
+   224	                str(
+   225	                    value[
+   226	                        "error"
+   227	                    ]
+   228	                )
+   229	                if value.get(
+   230	                    "error"
+   231	                )
+   232	                is not None
+   233	                else None
+   234	            ),
+   235	
+   236	            metadata=dict(
+   237	                value.get(
+   238	                    "metadata",
+   239	                    {},
+   240	                )
+   241	                or {}
+   242	            ),
+   243	        )
+   244	
+   245	    @classmethod
+   246	    def _result_from_dict(
+   247	        cls,
+   248	        value: dict[str, Any],
+   249	    ) -> HealthResult:
+   250	
+   251	        state = HealthState(
+   252	            value["state"]
+   253	        )
+   254	
+   255	        result = HealthResult(
+   256	            job_id=str(
+   257	                value["job_id"]
+   258	            ),
+   259	
+   260	            config_id=str(
+   261	                value["config_id"]
+   262	            ),
+   263	
+   264	            config_type=str(
+   265	                value["config_type"]
+   266	            ),
+   267	
+   268	            state=state,
+   269	
+   270	            started_at=value.get(
+   271	                "started_at"
+   272	            ),
+   273	
+   274	            finished_at=value.get(
+   275	                "finished_at"
+   276	            ),
+   277	
+   278	            xray_started=bool(
+   279	                value.get(
+   280	                    "xray_started",
+   281	                    False,
+   282	                )
+   283	            ),
+   284	
+   285	            xray_exit_code=(
+   286	                int(
+   287	                    value[
+   288	                        "xray_exit_code"
+   289	                    ]
+   290	                )
+   291	                if value.get(
+   292	                    "xray_exit_code"
+   293	                )
+   294	                is not None
+   295	                else None
+   296	            ),
+   297	
+   298	            download_verified=bool(
+   299	                value.get(
+   300	                    "download_verified",
+   301	                    False,
+   302	                )
+   303	            ),
+   304	
+   305	            upload_verified=bool(
+   306	                value.get(
+   307	                    "upload_verified",
+   308	                    False,
+   309	                )
+   310	            ),
+   311	
+   312	            error_code=value.get(
+   313	                "error_code"
+   314	            ),
+   315	
+   316	            error_message=value.get(
+   317	                "error_message"
+   318	            ),
+   319	
+   320	            metadata=dict(
+   321	                value.get(
+   322	                    "metadata",
+   323	                    {},
+   324	                )
+   325	                or {}
+   326	            ),
+   327	        )
+   328	
+   329	        result.download_results = [
+   330	            cls._probe_from_dict(x)
+   331	            for x
+   332	            in value.get(
+   333	                "download_results",
+   334	                [],
+   335	            )
+   336	        ]
+   337	
+   338	        result.upload_results = [
+   339	            cls._probe_from_dict(x)
+   340	            for x
+   341	            in value.get(
+   342	                "upload_results",
+   343	                [],
+   344	            )
+   345	        ]
+   346	
+   347	        return result
+   348	
+   349	    @staticmethod
+   350	    def _atomic_write_json(
+   351	        path: Path,
+   352	        value: dict[str, Any],
+   353	    ) -> None:
+   354	
+   355	        path.parent.mkdir(
+   356	            parents=True,
+   357	            exist_ok=True,
+   358	        )
+   359	
+   360	        fd, tmp_name = (
+
+========== [10] JSON STORE PUBLIC API ==========
+CLASS JsonHealthResultStore
+  21: __init__
+  65: _safe_name
+  87: _probe_to_dict
+  115: _result_to_dict
+  176: _probe_from_dict
+  246: _result_from_dict
+  350: _atomic_write_json
+  438: save
+  482: get
+  511: get_job
+
+========== [11] STORE CONSTRUCTION CALLS ==========
+/opt/config-location/app/health/storage/json_store.py:25:            "health-results"
+/opt/config-location/app/health/storage/selftest_store.py:75:        store.save(
+/opt/config-location/app/health/storage/selftest_store.py:163:        store.save(
+/opt/config-location/app/health/core/batch.py:81:            self.result_store.save(
+/opt/config-location/app/health/core/batch.py:174:                        self.result_store.save(
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:217:    result_root: Path,
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:453:            result_root
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:470:    latest_result_root = (
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:471:        result_root
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:480:            latest_result_root
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:715:            result_store.save(
+/opt/config-location/app/health/core/production_scheduler.py:365:    result_store.save(
+/opt/config-location/app/health/core/production_scheduler.py:379:    result_root: Path = Path(
+/opt/config-location/app/health/core/production_scheduler.py:381:        "health-results"
+/opt/config-location/app/health/core/production_scheduler.py:438:                result_root
+/opt/config-location/app/health/core/production_scheduler.py:522:                    result_store.save(
+/opt/config-location/app/health/core/adaptive_runner.py:145:    result_root: Path,
+/opt/config-location/app/health/core/adaptive_runner.py:349:            result_root
+/opt/config-location/app/health/core/adaptive_runner.py:716:            result_store.save(
+/opt/config-location/app/health/core/production_adaptive.py:31:    "health-results"
+/opt/config-location/app/health/core/production_adaptive.py:58:                result_root=RESULTS,
+/opt/config-location/app/health/lifecycle/consecutive.py:23:    "health-results/latest"
+/opt/config-location/app/health/lifecycle/engine.py:26:    "health-results/latest"
+/opt/config-location/app/health/lifecycle/stale_watchdog.py:27:    "health-results/latest"
+/opt/config-location/app/health/lifecycle/sync_daemon.py:27:    "health-results/latest"
+/opt/config-location/app/health/retest/eligibility.py:11:    Path("/var/lib/config-location/health-results"),
+/opt/config-location/app/health/retest/eligibility.py:14:    Path("/opt/config-location/health-results"),
+
+========== [12] PRODUCTION SCHEDULER PATHS ==========
+   340	        config_type=job.config_type,
+   341	        source=job.source,
+   342	
+   343	        startup_timeout=(
+   344	            settings.startup_timeout
+   345	        ),
+   346	
+   347	        download_timeout=(
+   348	            settings.download_timeout
+   349	        ),
+   350	
+   351	        upload_timeout=(
+   352	            settings.upload_timeout
+   353	        ),
+   354	
+   355	        upload_payload_bytes=(
+   356	            settings.upload_payload_bytes
+   357	        ),
+   358	
+   359	        retry_count=(
+   360	            settings.runtime_retry_count
+   361	        ),
+   362	    )
+   363	
+   364	
+   365	    result_store.save(
+   366	        outcome.result
+   367	    )
+   368	
+   369	
+   370	    return outcome
+   371	
+   372	
+   373	def run_production_scheduler_once(
+   374	    *,
+   375	    store_root: Path = Path(
+   376	        "/var/lib/config-location/configs"
+   377	    ),
+   378	
+   379	    result_root: Path = Path(
+   380	        "/var/lib/config-location/"
+   381	        "health-results"
+   382	    ),
+   383	
+   384	    state_path: Path = Path(
+   385	        "/var/lib/config-location/"
+   386	        "health-scheduler/state.json"
+   387	    ),
+   388	
+   389	    lock_path: Path = Path(
+   390	        "/run/config-location-health.lock"
+   391	    ),
+   392	
+   393	) -> ProductionRunSummary:
+   394	
+   395	    settings = (
+   396	        load_health_settings()
+   397	    )
+   398	
+   399	
+   400	    started = time.monotonic()
+   401	
+   402	
+   403	    with SchedulerLock(
+   404	        lock_path
+   405	    ):
+   406	
+   407	        jobs = discover_jobs(
+   408	            store_root
+   409	        )
+   410	
+   411	
+   412	        state = load_state(
+   413	            state_path
+   414	        )
+   415	
+   416	
+   417	        cursor_before = int(
+   418	            state.get(
+   419	                "cursor",
+   420	                0,
+   421	            )
+   422	        )
+   423	
+   424	
+   425	        selected, cursor_after = (
+   426	            select_jobs(
+   427	                jobs,
+   428	                cursor=cursor_before,
+   429	                batch_size=(
+   430	                    settings.batch_size
+   431	                ),
+   432	            )
+   433	        )
+   434	
+   435	
+   436	        result_store = (
+   437	            JsonHealthResultStore(
+   438	                result_root
+   439	            )
+   440	        )
+   441	
+   442	
+   443	        outcomes = []
+   444	
+   445	
+   446	        with ThreadPoolExecutor(
+   447	            max_workers=(
+   448	                settings.max_workers
+   449	            ),
+   450	
+   451	            thread_name_prefix=(
+   452	                "production-health"
+   453	            ),
+   454	        ) as pool:
+   455	
+   456	            futures = {
+   457	                pool.submit(
+   458	                    execute_one,
+   459	                    job,
+   460	                    settings=settings,
+   461	                    result_store=(
+   462	                        result_store
+   463	                    ),
+   464	                ): job
+   465	
+   466	                for job in selected
+   467	            }
+   468	
+   469	
+   470	            for future in as_completed(
+   471	                futures
+   472	            ):
+   473	
+   474	                job = futures[
+   475	                    future
+   476	                ]
+   477	
+   478	                try:
+   479	
+   480	                    outcome = (
+   481	                        future.result()
+   482	                    )
+   483	
+   484	                except Exception as exc:
+   485	
+   486	                    # A batch-level exception must
+   487	                    # still become an explicit result.
+   488	                    result = HealthResult(
+   489	                        job_id=(
+   490	                            "production-exception-"
+   491	                            + job.config_id
+   492	                            + "-"
+   493	                            + str(
+   494	                                time.time_ns()
+   495	                            )
+   496	                        ),
+   497	
+   498	                        config_id=(
+   499	                            job.config_id
+   500	                        ),
+   501	
+   502	                        config_type=(
+   503	                            job.config_type
+   504	                        ),
+   505	
+   506	                        state=(
+   507	                            HealthState.ERROR
+   508	                        ),
+   509	
+   510	                        error_code=(
+   511	                            type(
+   512	                                exc
+   513	                            ).__name__
+   514	                        ),
+   515	
+   516	                        error_message=str(
+   517	                            exc
+   518	                        ),
+   519	                    )
+   520	
+   521	
+   522	                    result_store.save(
+   523	                        result
+   524	                    )
+   525	
+   526	
+   527	                    class SyntheticOutcome:
+   528	                        pass
+   529	
+   530	
+   531	                    outcome = (
+   532	                        SyntheticOutcome()
+   533	                    )
+   534	
+   535	                    outcome.result = result
+   536	                    outcome.retries_used = 0
+   537	                    outcome.retry_reason = None
+   538	
+   539	
+   540	                outcomes.append(
+   541	                    outcome
+   542	                )
+   543	
+   544	
+   545	        # Advance cursor only after every selected
+   546	        # job has produced and persisted a result.
+   547	        _atomic_json(
+   548	            state_path,
+   549	            {
+   550	                "ordering_version":
+   551	                    ORDERING_VERSION,
+   552	
+   553	                "cursor":
+   554	                    cursor_after,
+   555	
+   556	                "last_run_completed":
+   557	                    True,
+   558	
+   559	                "last_run_selected":
+   560	                    len(selected),
+   561	
+   562	                "last_run_timestamp_ns":
+   563	                    time.time_ns(),
+   564	            },
+   565	        )
+   566	
+   567	
+   568	    results = [
+   569	        outcome.result
+   570	        for outcome in outcomes
+   571	    ]
+   572	
+   573	
+   574	    healthy = sum(
+   575	        result.state
+   576	        == HealthState.HEALTHY
+   577	
+   578	        for result
+   579	        in results
+   580	    )
+   581	
+   582	
+   583	    unhealthy = sum(
+   584	        result.state
+   585	        == HealthState.UNHEALTHY
+   586	
+   587	        for result
+   588	        in results
+   589	    )
+   590	
+   591	
+   592	    error = sum(
+   593	        result.state
+   594	        == HealthState.ERROR
+   595	
+   596	        for result
+   597	        in results
+   598	    )
+   599	
+   600	
+   601	    retries_used = sum(
+   602	        int(
+   603	            getattr(
+   604	                outcome,
+   605	                "retries_used",
+   606	                0,
+   607	            )
+   608	        )
+   609	
+   610	        for outcome
+   611	        in outcomes
+   612	    )
+   613	
+   614	
+   615	    duration_ms = int(
+   616	        (
+   617	            time.monotonic()
+   618	            - started
+   619	        )
+   620	        * 1000
+   621	    )
+   622	
+   623	
+   624	    return ProductionRunSummary(
+   625	        discovered=len(jobs),
+   626	        selected=len(selected),
+   627	        completed=len(results),
+   628	
+   629	        healthy=healthy,
+   630	        unhealthy=unhealthy,
+   631	        error=error,
+   632	
+   633	        retries_used=retries_used,
+   634	
+   635	        cursor_before=cursor_before,
+   636	        cursor_after=cursor_after,
+   637	
+   638	        duration_ms=duration_ms,
+   639	
+   640	        max_workers=(
+   641	            settings.max_workers
+   642	        ),
+   643	
+   644	        batch_size=(
+   645	            settings.batch_size
+   646	        ),
+   647	    )
+
+========== [13] CONFIG STORE ==========
+drwxr-x--- 750 configloc:configloc /var/lib/config-location/configs
+CONFIG_FILES=2725
+
+========== [14] PASS2A MODULE CURRENT ==========
+     1	from __future__ import annotations
+     2	
+     3	from datetime import datetime, timezone
+     4	import json
+     5	from pathlib import Path
+     6	
+     7	from app.settings.engine import get_settings
+     8	
+     9	
+    10	ROOTS = (
+    11	    Path("/var/lib/config-location/health-results"),
+    12	    Path("/var/lib/config-location/health"),
+    13	    Path("/var/lib/config-location/health-scheduler"),
+    14	    Path("/opt/config-location/health-results"),
+    15	)
+    16	
+    17	
+    18	def _parse_time(value):
+    19	    if not isinstance(value, str) or not value.strip():
+    20	        return None
+    21	
+    22	    try:
+    23	        dt = datetime.fromisoformat(
+    24	            value.strip().replace("Z", "+00:00")
+    25	        )
+    26	    except ValueError:
+    27	        return None
+    28	
+    29	    if dt.tzinfo is None:
+    30	        dt = dt.replace(tzinfo=timezone.utc)
+    31	
+    32	    return dt.astimezone(timezone.utc)
+    33	
+    34	
+    35	def _state(record):
+    36	    return str(
+    37	        record.get("state")
+    38	        or record.get("health_state")
+    39	        or ""
+    40	    ).strip().lower()
+    41	
+    42	
+    43	def _cid(record):
+    44	    value = record.get("config_id")
+    45	    if value is None:
+    46	        return None
+    47	    value = str(value).strip()
+    48	    return value or None
+    49	
+    50	
+    51	def _ctype(record):
+    52	    return str(
+    53	        record.get("config_type")
+    54	        or record.get("type")
+    55	        or record.get("protocol")
+    56	        or "unknown"
+    57	    ).strip().lower()
+    58	
+    59	
+    60	def _finished(record):
+    61	    for key in (
+    62	        "finished_at",
+    63	        "last_health_at",
+    64	        "checked_at",
+    65	        "updated_at",
+    66	        "timestamp",
+    67	    ):
+    68	        value = record.get(key)
+    69	        if _parse_time(value) is not None:
+    70	            return value
+    71	    return None
+    72	
+    73	
+    74	def _iter_records():
+    75	    seen_paths = set()
+    76	
+    77	    for root in ROOTS:
+    78	        if not root.exists():
+    79	            continue
+    80	
+    81	        for path in root.rglob("*.json"):
+    82	            spath = str(path)
+    83	
+    84	            if spath in seen_paths:
+    85	                continue
+    86	
+    87	            seen_paths.add(spath)
+    88	
+    89	            try:
+    90	                if path.stat().st_size > 8_000_000:
+    91	                    continue
+    92	
+    93	                data = json.loads(
+    94	                    path.read_text(
+    95	                        encoding="utf-8",
+    96	                        errors="replace",
+    97	                    )
+    98	                )
+    99	            except Exception:
+   100	                continue
+   101	
+   102	            if isinstance(data, dict):
+   103	                yield path, data
+   104	
+   105	                for key in ("results", "records", "items", "health"):
+   106	                    value = data.get(key)
+   107	
+   108	                    if isinstance(value, list):
+   109	                        for item in value:
+   110	                            if isinstance(item, dict):
+   111	                                yield path, item
+   112	
+   113	            elif isinstance(data, list):
+   114	                for item in data:
+   115	                    if isinstance(item, dict):
+   116	                        yield path, item
+   117	
+   118	
+   119	def _inflight():
+   120	    ids = set()
+   121	
+   122	    for path in (
+   123	        Path("/var/lib/config-location/health-scheduler/state.json"),
+   124	        Path("/var/lib/config-location/health-scheduler/cursor.json"),
+   125	    ):
+   126	        if not path.exists():
+   127	            continue
+   128	
+   129	        try:
+   130	            data = json.loads(path.read_text())
+   131	        except Exception:
+   132	            continue
+   133	
+   134	        def walk(value):
+   135	            if isinstance(value, dict):
+   136	                state = str(value.get("state", "")).lower()
+   137	                cid = value.get("config_id")
+   138	
+   139	                if cid and state in {
+   140	                    "queued",
+   141	                    "running",
+   142	                    "leased",
+   143	                    "in_flight",
+   144	                }:
+   145	                    ids.add(str(cid))
+   146	
+   147	                for child in value.values():
+   148	                    walk(child)
+   149	
+   150	            elif isinstance(value, list):
+   151	                for child in value:
+   152	                    walk(child)
+   153	
+   154	        walk(data)
+   155	
+   156	    return ids
+   157	
+   158	
+   159	def build_retest_plan(limit=100):
+   160	    settings = get_settings()
+   161	
+   162	    section = settings.get("health_retest", {})
+   163	    minutes = int(section.get("retest_minutes", 5))
+   164	    minutes = max(1, min(minutes, 1440))
+   165	
+   166	    interval = minutes * 60
+   167	    now = datetime.now(timezone.utc)
+   168	    inflight = _inflight()
+   169	
+   170	    latest = {}
+   171	
+   172	    scanned = 0
+   173	    healthy = 0
+   174	    invalid = 0
+   175	    duplicates = 0
+   176	
+   177	    for path, record in _iter_records():
+   178	        scanned += 1
+   179	
+   180	        if _state(record) != "healthy":
+   181	            continue
+   182	
+   183	        healthy += 1
+   184	
+   185	        cid = _cid(record)
+   186	        finished_raw = _finished(record)
+   187	
+   188	        if not cid or not finished_raw:
+   189	            invalid += 1
+   190	            continue
+   191	
+   192	        finished = _parse_time(finished_raw)
+   193	
+   194	        if finished is None:
+   195	            invalid += 1
+   196	            continue
+   197	
+   198	        old = latest.get(cid)
+   199	
+   200	        if old is not None:
+   201	            duplicates += 1
+   202	
+   203	        if old is None or finished > old["finished"]:
+   204	            latest[cid] = {
+   205	                "finished": finished,
+   206	                "record": record,
+   207	                "path": path,
+   208	            }
+   209	
+   210	    due = []
+   211	
+   212	    for cid, item in latest.items():
+   213	        if cid in inflight:
+   214	            continue
+   215	
+   216	        age = (now - item["finished"]).total_seconds()
+   217	
+   218	        if age < interval:
+   219	            continue
+   220	
+   221	        due.append(
+   222	            {
+   223	                "config_id": cid,
+   224	                "config_type": _ctype(item["record"]),
+   225	                "state": "healthy",
+   226	                "last_finished_at":
+   227	                    item["finished"].isoformat(),
+   228	                "age_seconds": int(age),
+   229	                "interval_seconds": interval,
+   230	                "record_path": str(item["path"]),
+   231	            }
+   232	        )
+   233	
+   234	    due.sort(
+   235	        key=lambda x: (
+   236	            -x["age_seconds"],
+   237	            x["config_id"],
+   238	        )
+   239	    )
+   240	
+   241	    return {
+   242	        "mode": "dry_run",
+   243	        "generated_at": now.isoformat(),
+   244	        "retest_minutes": minutes,
+   245	        "interval_seconds": interval,
+   246	        "scanned_records": scanned,
+   247	        "healthy_records": healthy,
+   248	        "unique_healthy": len(latest),
+   249	        "duplicate_records": duplicates,
+   250	        "invalid_records": invalid,
+   251	        "inflight_ids": len(inflight),
+   252	        "due_total": len(due),
+   253	        "candidate_count": min(len(due), limit),
+   254	        "candidates": due[:limit],
+   255	        "production_execution": False,
+   256	        "health_state_mutation": False,
+   257	    }
+
+========== [15] CONCLUSION MARKERS ==========
+CANONICAL_STORE=/var/lib/config-location/health-results
+CANONICAL_LATEST=/var/lib/config-location/health-results/latest
+READ_ONLY=true
+NO_HEALTH_EXECUTION=true
+NO_STATE_MUTATION=true
+DIAG_COMPLETE
