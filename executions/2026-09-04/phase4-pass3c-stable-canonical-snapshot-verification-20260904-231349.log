@@ -1,0 +1,71 @@
+================================================
+ PHASE 4 PASS 3C
+ STABLE CANONICAL SNAPSHOT VERIFICATION
+================================================
+
+========== [1/8] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/8] BACKUP ==========
+BACKUP_OK
+
+========== [3/8] COMPILE + IMPORT ==========
+IMPORT_OK
+
+========== [4/8] STABLE BUILD ==========
+ATTEMPT 1 FIRST= 0 SECOND= 0 MATCH= True
+{
+  "mode": "stable_canonical_snapshot_verification",
+  "production_delete": false,
+  "stable_snapshot_obtained": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "first_count": 0,
+      "second_count": 0,
+      "first_sample_count": 0,
+      "second_sample_count": 0,
+      "semantic_match": true
+    }
+  ],
+  "canonical_candidate_count": 0,
+  "canonical_sample_count": 0,
+  "post_write_semantic_match": true,
+  "live_candidate_validation": {
+    "live": 0,
+    "missing_config": 0,
+    "missing_health": 0,
+    "unhealthy": 0,
+    "rows": []
+  },
+  "candidate_min_consecutive_unhealthy": 8,
+  "hard_safety_boundary": "HT18.9_SHADOW_ONLY"
+}
+
+========== [5/8] VALIDATE ==========
+STABLE_CANONICAL_SNAPSHOT_VALID
+CANONICAL_CANDIDATES= 0
+SAMPLE_COUNT= 0
+LIVE= 0
+MISSING_CONFIG= 0
+MISSING_HEALTH= 0
+MIN_STREAK= 8
+HARD_SAFETY_BOUNDARY= HT18.9_SHADOW_ONLY
+
+========== [6/8] SNAPSHOT ==========
+root:configloc 640 1978 2026-09-04 23:13:50.578802220 +0000 /var/lib/config-location/health-lifecycle/safety-latest.json
+SAFETY_SNAPSHOT_OK
+
+========== [7/8] SERVICES ==========
+active
+NO_SERVICE_RESTART=YES
+
+========== [8/8] FINAL ==========
+POLICY_TRACKER_LIVE_UPDATES=ALLOWED
+RAW_HASH_ASSERTION=REMOVED
+SAFETY_CANONICAL_BUILD=YES
+SAFETY_CANONICAL_WRITE=YES
+CONFIG_DELETE=NO
+PRODUCTION_DELETE=DISABLED
+
+PHASE4_PASS3C_SUCCESS

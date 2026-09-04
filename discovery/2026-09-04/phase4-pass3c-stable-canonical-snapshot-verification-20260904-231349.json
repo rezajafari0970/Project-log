@@ -1,0 +1,27 @@
+{
+  "mode": "stable_canonical_snapshot_verification",
+  "production_delete": false,
+  "stable_snapshot_obtained": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "first_count": 0,
+      "second_count": 0,
+      "first_sample_count": 0,
+      "second_sample_count": 0,
+      "semantic_match": true
+    }
+  ],
+  "canonical_candidate_count": 0,
+  "canonical_sample_count": 0,
+  "post_write_semantic_match": true,
+  "live_candidate_validation": {
+    "live": 0,
+    "missing_config": 0,
+    "missing_health": 0,
+    "unhealthy": 0,
+    "rows": []
+  },
+  "candidate_min_consecutive_unhealthy": 8,
+  "hard_safety_boundary": "HT18.9_SHADOW_ONLY"
+}
