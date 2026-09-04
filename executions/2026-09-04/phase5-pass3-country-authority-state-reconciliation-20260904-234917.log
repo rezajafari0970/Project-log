@@ -1,0 +1,131 @@
+================================================
+ PHASE 5 PASS 3
+ COUNTRY AUTHORITY / STATE RECONCILIATION
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] COMPILE ==========
+COMPILE_OK
+
+========== [3/10] SCHEMA PROFILER ==========
+
+SOURCE= results
+CURRENT_RECORDS= 5635
+TOP_PATHS=
+51574 $.metadata.rotating_exit.observations[].country_code ['NL', 'FI', 'NL', 'NL']
+6729 $.primary.providers[].country_code ['NL', 'NL', 'FI', 'FI']
+6729 $.primary.providers[].country_name ['Netherlands', 'The Netherlands', 'Finland', 'Finland']
+6729 $.primary.providers[].provider ['ipwho', 'ipapi_co', 'ip_api', 'ipapi_co']
+5635 $.confidence [1.0, 1.0, 1.0, 1.0]
+5635 $.country_code ['NL', 'FI', 'NL', 'AE']
+5635 $.country_name ['Netherlands', 'Finland', 'The Netherlands', 'United Arab Emirates']
+5635 $.flag ['🇳🇱', '🇫🇮', '🇳🇱', '🇦🇪']
+5635 $.primary.country_code ['NL', 'FI', 'NL', 'AE']
+5635 $.primary.country_confidence [1.0, 1.0, 1.0, 1.0]
+5635 $.primary.country_name ['Netherlands', 'Finland', 'The Netherlands', 'United Arab Emirates']
+5635 $.primary.state ['confirmed', 'confirmed', 'confirmed', 'ambiguous']
+5635 $.state ['pending_confirmation', 'confirmed_stable', 'confirmed_stable', 'ambiguous']
+5630 $.primary.flag ['🇳🇱', '🇫🇮', '🇳🇱', '🇦🇪']
+5625 $.metadata.source ['k1-event-consumer', 'k1-event-consumer', 'k1-event-consumer', 'k1-event-consumer']
+5051 $.metadata.rotating_exit.dominant_country ['NL', 'FI', 'NL', 'AE']
+5051 $.metadata.rotating_exit.state ['pending_confirmation', 'confirmed_stable', 'confirmed_stable', 'pending_confirmation']
+5051 $.metadata.rotating_exit.unique_country_count [1, 1, 1, 0]
+5043 $.metadata.country_detection_once [True, True, True, True]
+5043 $.metadata.rotating_exit.dominant_country_count [1, 1, 4, 0]
+STATE_VALUES= [('confirmed_stable', 6156), ('ambiguous', 3836), ('confirmed', 3656), ('pending_confirmation', 1786), ('confirmed_rotating_ip', 765), ('unknown', 147)]
+
+SOURCE= identity
+CURRENT_RECORDS= 131
+TOP_PATHS=
+131 $.country_code ['NL', 'FI', 'NL', 'AE']
+131 $.country_confidence [1.0, 1.0, 1.0, 1.0]
+131 $.country_name ['Netherlands', 'Finland', 'The Netherlands', 'United Arab Emirates']
+131 $.flag ['🇳🇱', '🇫🇮', '🇳🇱', '🇦🇪']
+131 $.source ['k6c-country-once', 'k6c-country-once', 'k6c-country-once', 'k6c-country-once']
+STATE_VALUES= []
+
+SOURCE= pipeline_latest
+CURRENT_RECORDS= 2015
+TOP_PATHS=
+2015 $.state ['confirmed_stable', 'confirmed_stable', 'confirmed_stable', 'unstable_exit']
+1789 $.confidence [1.0, 1.0, 1.0, 0.0]
+1789 $.country_code ['SE', 'DE', 'FI', 'NL']
+1789 $.country_name ['Sweden', 'Germany', 'Finland', 'The Netherlands']
+1789 $.flag ['🇸🇪', '🇩🇪', '🇫🇮', '🇳🇱']
+1737 $.fusion.confidence [1.0, 1.0, 1.0, 0.0]
+1737 $.fusion.country_code ['SE', 'DE', 'FI', 'NL']
+1737 $.fusion.country_name ['Sweden', 'Germany', 'Finland', 'The Netherlands']
+1737 $.fusion.flag ['🇸🇪', '🇩🇪', '🇫🇮', '🇳🇱']
+1737 $.fusion.source ['primary', 'primary', 'primary', 'none']
+1737 $.fusion.state ['confirmed', 'confirmed', 'confirmed', 'ambiguous']
+1737 $.primary.confidence [1.0, 1.0, 1.0, 1.0]
+1737 $.primary.country_code ['SE', 'DE', 'FI', 'NL']
+1737 $.primary.state ['confirmed', 'confirmed', 'confirmed', 'ambiguous']
+1737 $.temporal.stable_country [True, True, True, False]
+1737 $.temporal.state ['confirmed_stable', 'confirmed_stable', 'confirmed_stable', 'unknown']
+453 $.recovery.providers[].country_code ['US', 'PL', 'US', 'DE']
+453 $.recovery.providers[].country_name ['Germany', 'Poland', 'United States', 'Germany']
+453 $.recovery.providers[].provider ['ipinfo', 'freeipapi', 'ipguide', 'ipinfo']
+252 $.recovery_evidence[].country_code ['US', 'US', 'US', 'GB']
+STATE_VALUES= [('confirmed', 3212), ('confirmed_stable', 2758), ('ambiguous', 515), ('confirmed_rotating_ip', 262), ('pending_confirmation', 255), ('unstable_exit', 146), ('unknown', 133), ('error', 96)]
+
+========== [4/10] DEEP RECONCILIATION ==========
+CURRENT_CONFIGS= 2784
+CURRENT_RECORD_COUNTS= {'identity': 131, 'results': 159, 'pipeline_latest': 2014}
+ANY_COUNTRY= {'identity': 131, 'results': 158, 'pipeline_latest': 1788}
+SINGLE_COUNTRY= {'identity': 131, 'results': 157, 'pipeline_latest': 1689}
+PIPELINE_ONLY_RECOVERABLE= 1567
+CROSS_SOURCE_CONFLICTS= 2
+TOP_PIPELINE_STATES= [('confirmed', 3212), ('confirmed_stable', 2757), ('ambiguous', 515), ('confirmed_rotating_ip', 262), ('pending_confirmation', 255), ('unstable_exit', 146), ('error', 96)]
+TOP_PIPELINE_COUNTRY_PATHS= [{'path': '$.country_code', 'count': 1684}, {'path': '$.country_name', 'count': 1649}, {'path': '$.fusion.country_code', 'count': 1606}, {'path': '$.fusion.country_name', 'count': 1606}, {'path': '$.primary.country_code', 'count': 1586}, {'path': '$.recovery.providers[].country_code', 'count': 243}, {'path': '$.recovery.providers[].country_name', 'count': 151}, {'path': '$.recovery_evidence[].country_code', 'count': 150}, {'path': '$.recovery.country_code', 'count': 20}, {'path': '$.recovery.country_name', 'count': 20}]
+
+========== [5/10] REAL CODE AUTHORITY MAP ==========
+
+========== [6/10] SHADOW RECOVERY SIMULATION ==========
+CURRENT= 2784
+IDENTITY_UNAMBIGUOUS= 131
+RESULTS_UNAMBIGUOUS= 157
+PIPELINE_UNAMBIGUOUS= 1689
+PIPELINE_ONLY_POTENTIAL_RECOVERY= 1567
+CROSS_SOURCE_CONFLICTS= 2
+PIPELINE_NESTED_SCHEMA_PRESENT=YES
+DIRECT_AUTHORITY_WIRING_SAFE=NO
+SHADOW_ONLY=YES
+
+========== [7/10] NO MUTATION CHECK ==========
+CONFIG_COUNT=2784
+RESULT_COUNT=60697
+IDENTITY_COUNT=4623
+PIPELINE_COUNT=15720
+NO_MUTATION_CHECK_OK
+
+========== [8/10] SERVICES ==========
+config-location-country-worker.service ACTIVE=active ENABLED=enabled
+config-location-country-event-consumer.service ACTIVE=active ENABLED=enabled
+SERVICE_RESTART=NONE
+
+========== [9/10] VALIDATION ==========
+SUMMARY_CONTRACT_VALID
+CURRENT_CONFIG_COUNT= 2784
+PIPELINE_ONLY_RECOVERABLE_COUNT= 1567
+CROSS_SOURCE_CONFLICT_COUNT= 2
+SCHEMA_VALID
+DISCOVERY_VALID
+
+========== [10/10] FINAL ==========
+COUNTRY_SCHEMA_PROFILE=READY
+NESTED_COUNTRY_PATHS_PROFILED=YES
+STATE_VALUES_PROFILED=YES
+AUTHORITY_OVERLAP_PROFILED=YES
+PIPELINE_RECOVERY_CANDIDATES_PROFILED=YES
+CROSS_SOURCE_CONFLICTS_PROFILED=YES
+PROJECTION_PATCH=NO
+COUNTRY_STORE_WRITE=NO
+CONFIG_WRITE=NO
+ORPHAN_DELETE=NO
+PANEL_WIRING=NO
+PUBLISH_WIRING=NO
+
+PHASE5_PASS3_SUCCESS

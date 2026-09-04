@@ -1,0 +1,743 @@
+================================================
+ PHASE 5 PASS 3
+ COUNTRY AUTHORITY / STATE RECONCILIATION
+================================================
+TIME=2026-09-04T23:49:22+00:00
+
+========== COUNTRY WRITERS ==========
+/opt/config-location/app/country/worker.py:28:    "country/pipeline/latest"
+/opt/config-location/app/country/country_identity.py:12:    "country-identity"
+/opt/config-location/app/country/country_identity.py:60:        "locked"
+/opt/config-location/app/country/country_identity.py:80:    are deliberately NOT locked and remain eligible
+/opt/config-location/app/country/country_identity.py:125:        "locked":
+/opt/config-location/app/country/country_identity.py:284:            "config_country_identity",
+/opt/config-location/app/country/country_identity.py:286:        "country_identity_hit":
+/opt/config-location/app/country/event_consumer.py:25:    save_country_result,
+/opt/config-location/app/country/event_consumer.py:32:from app.country.country_identity import (
+/opt/config-location/app/country/event_consumer.py:63:    save_country_result() expects an object
+/opt/config-location/app/country/event_consumer.py:284:    Immediately project a newly locked Country Identity
+/opt/config-location/app/country/event_consumer.py:306:            "pipeline/latest"
+/opt/config-location/app/country/event_consumer.py:384:    # again for a config with locked Country.
+/opt/config-location/app/country/event_consumer.py:396:            "config_country_identity"
+/opt/config-location/app/country/event_consumer.py:560:    save_country_result(
+/opt/config-location/app/country/event_consumer.py:603:            "country_identity_hit":
+/opt/config-location/app/country/event_consumer.py:606:                    =="config_country_identity"
+/opt/config-location/app/country/projection.py:27:    COUNTRY_ROOT / "country-identity"
+/opt/config-location/app/country/projection.py:57:    locked: bool
+/opt/config-location/app/country/projection.py:217:def is_locked_identity(
+/opt/config-location/app/country/projection.py:223:            "country_identity_locked",
+/opt/config-location/app/country/projection.py:227:            "locked",
+/opt/config-location/app/country/projection.py:236:                "country_identity_guard",
+/opt/config-location/app/country/projection.py:241:            "locked",
+/opt/config-location/app/country/projection.py:251:    locked: bool,
+/opt/config-location/app/country/projection.py:255:        return locked
+/opt/config-location/app/country/projection.py:281:    locked=(
+/opt/config-location/app/country/projection.py:282:        is_locked_identity(obj)
+/opt/config-location/app/country/projection.py:298:            locked,
+/opt/config-location/app/country/projection.py:305:    elif source=="identity" and not locked:
+/opt/config-location/app/country/projection.py:306:        reason="identity_not_locked"
+/opt/config-location/app/country/projection.py:330:        locked=locked,
+/opt/config-location/app/country/storage.py:15:    "country/results"
+/opt/config-location/app/country/storage.py:68:def _save_country_result_unguarded(
+/opt/config-location/app/country/storage.py:101:def save_country_result(
+/opt/config-location/app/country/storage.py:107:    Once K6/K7 Country Identity is locked, an older
+/opt/config-location/app/country/storage.py:130:                "country-identity"
+/opt/config-location/app/country/storage.py:146:                and identity.get("locked") is True
+/opt/config-location/app/country/storage.py:204:                        "country_identity_guard":
+/opt/config-location/app/country/storage.py:207:                        "country_identity_locked":
+/opt/config-location/app/country/storage.py:239:    return _save_country_result_unguarded(
+/opt/config-location/app/country/selftest_verdict_fusion.py:75:        "[PASS] strong conflict blocked"
+/opt/config-location/app/country/selftest_verdict_fusion.py:79:    # Weak signal conflict also blocked.
+/opt/config-location/app/country/selftest_verdict_fusion.py:97:        "[PASS] weak conflict blocked"
+/opt/config-location/app/country/event_bus.py:28:    "country/pipeline/latest"
+/opt/config-location/app/country/pipeline.py:203:    Locked country-identity owns accepted Country.
+/opt/config-location/app/country/pipeline.py:205:    not erase or replace a locked Country.
+/opt/config-location/app/country/pipeline.py:213:            "country-identity"
+/opt/config-location/app/country/pipeline.py:231:        and identity.get("locked") is True
+/opt/config-location/app/country/pipeline.py:283:            ]="country_identity_locked"
+/opt/config-location/app/country/pipeline.py:293:                "country_identity_guard":
+/opt/config-location/app/country/pipeline.py:296:                "country_identity_locked":
+/opt/config-location/app/country/pipeline.py:302:                "country_identity_source":
+
+========== STATE / VERDICT LOGIC ==========
+/opt/config-location/app/country/pipeline.py:41:from .verdict_fusion import (
+/opt/config-location/app/country/pipeline.py:42:    fuse_country_verdict,
+/opt/config-location/app/country/pipeline.py:203:    Locked country-identity owns accepted Country.
+/opt/config-location/app/country/pipeline.py:204:    Pipeline may refine stable/rotating state but may
+/opt/config-location/app/country/pipeline.py:205:    not erase or replace a locked Country.
+/opt/config-location/app/country/pipeline.py:231:        and identity.get("locked") is True
+/opt/config-location/app/country/pipeline.py:253:                "country_confidence"
+/opt/config-location/app/country/pipeline.py:257:            guarded["confidence"]=(
+/opt/config-location/app/country/pipeline.py:259:                    "country_confidence"
+/opt/config-location/app/country/pipeline.py:274:            "unresolved",
+/opt/config-location/app/country/pipeline.py:283:            ]="country_identity_locked"
+/opt/config-location/app/country/pipeline.py:296:                "country_identity_locked":
+/opt/config-location/app/country/pipeline.py:391:            != "confirmed"
+/opt/config-location/app/country/pipeline.py:457:        fused=fuse_country_verdict(
+/opt/config-location/app/country/pipeline.py:481:            confidence=(
+/opt/config-location/app/country/pipeline.py:482:                fused.confidence
+/opt/config-location/app/country/pipeline.py:513:                == "confirmed"
+/opt/config-location/app/country/pipeline.py:532:                    second_confidence=(
+/opt/config-location/app/country/pipeline.py:533:                        fused.confidence
+/opt/config-location/app/country/pipeline.py:551:                    # before calling the country stable.
+/opt/config-location/app/country/pipeline.py:576:                        fuse_country_verdict(
+/opt/config-location/app/country/pipeline.py:591:                    second_confidence=(
+/opt/config-location/app/country/pipeline.py:592:                        fused_2.confidence
+/opt/config-location/app/country/pipeline.py:611:                    confidence=(
+/opt/config-location/app/country/pipeline.py:612:                        second_confidence
+/opt/config-location/app/country/pipeline.py:629:            final_state="rotating"
+/opt/config-location/app/country/pipeline.py:630:            final_code=None
+/opt/config-location/app/country/pipeline.py:631:            final_name=None
+/opt/config-location/app/country/pipeline.py:632:            final_flag=None
+/opt/config-location/app/country/pipeline.py:638:                "confirmed_stable",
+/opt/config-location/app/country/pipeline.py:639:                "confirmed_rotating_ip",
+/opt/config-location/app/country/pipeline.py:643:            final_state=(
+/opt/config-location/app/country/pipeline.py:647:            final_code=(
+/opt/config-location/app/country/pipeline.py:651:            final_name=(
+/opt/config-location/app/country/pipeline.py:655:            final_flag=(
+/opt/config-location/app/country/pipeline.py:661:            final_state=(
+/opt/config-location/app/country/pipeline.py:665:            final_code=(
+/opt/config-location/app/country/pipeline.py:669:            final_name=(
+/opt/config-location/app/country/pipeline.py:673:            final_flag=(
+/opt/config-location/app/country/pipeline.py:679:            final_state=(
+/opt/config-location/app/country/pipeline.py:683:            final_code=None
+/opt/config-location/app/country/pipeline.py:684:            final_name=None
+/opt/config-location/app/country/pipeline.py:685:            final_flag=None
+/opt/config-location/app/country/pipeline.py:698:                final_state,
+/opt/config-location/app/country/pipeline.py:701:                final_code,
+/opt/config-location/app/country/pipeline.py:704:                final_name,
+/opt/config-location/app/country/pipeline.py:707:                final_flag,
+/opt/config-location/app/country/pipeline.py:712:            "confidence":
+/opt/config-location/app/country/pipeline.py:713:                fused.confidence,
+/opt/config-location/app/country/pipeline.py:728:            "exit_consensus":{
+/opt/config-location/app/country/pipeline.py:748:                "confidence":
+/opt/config-location/app/country/pipeline.py:750:                        "country_confidence"
+/opt/config-location/app/country/pipeline.py:778:                "stable_country":
+/opt/config-location/app/country/pipeline.py:779:                    temporal.stable_country,
+/opt/config-location/app/country/pipeline.py:781:                "stable_exit_ip":
+/opt/config-location/app/country/pipeline.py:782:                    temporal.stable_exit_ip,
+/opt/config-location/app/country/pipeline.py:847:    finally:
+/opt/config-location/app/country/country_identity.py:60:        "locked"
+/opt/config-location/app/country/country_identity.py:79:    normal Health cycles. Ambiguous/unresolved configs
+/opt/config-location/app/country/country_identity.py:80:    are deliberately NOT locked and remain eligible
+/opt/config-location/app/country/country_identity.py:108:    # K5 consensus is the normal confirmed source.
+/opt/config-location/app/country/country_identity.py:109:    # Cached results may contain the same confirmed
+/opt/config-location/app/country/country_identity.py:112:        "confirmed",
+/opt/config-location/app/country/country_identity.py:113:        "confirmed_stable",
+/opt/config-location/app/country/country_identity.py:114:        "confirmed_rotating_ip",
+/opt/config-location/app/country/country_identity.py:125:        "locked":
+/opt/config-location/app/country/country_identity.py:158:        "country_confidence":
+/opt/config-location/app/country/country_identity.py:160:                "country_confidence"
+/opt/config-location/app/country/country_identity.py:192:    # an already accepted Country identity.
+/opt/config-location/app/country/country_identity.py:224:    finally:
+/opt/config-location/app/country/country_identity.py:243:            "confirmed",
+/opt/config-location/app/country/country_identity.py:275:        "country_confidence":
+/opt/config-location/app/country/country_identity.py:277:                "country_confidence"
+/opt/config-location/app/country/storage.py:107:    Once K6/K7 Country Identity is locked, an older
+/opt/config-location/app/country/storage.py:109:    with ambiguous/unresolved output.
+/opt/config-location/app/country/storage.py:146:                and identity.get("locked") is True
+/opt/config-location/app/country/storage.py:177:                if identity.get("country_confidence") is not None:
+/opt/config-location/app/country/storage.py:178:                    value["confidence"]=identity[
+/opt/config-location/app/country/storage.py:179:                        "country_confidence"
+/opt/config-location/app/country/storage.py:188:                # unresolved result may not erase it.
+/opt/config-location/app/country/storage.py:191:                    "unresolved",
+/opt/config-location/app/country/storage.py:207:                        "country_identity_locked":
+/opt/config-location/app/country/worker.py:52:    # Unresolved results retry more aggressively.
+/opt/config-location/app/country/worker.py:59:    "unstable_exit":
+/opt/config-location/app/country/worker.py:70:    "confirmed_stable":None,
+/opt/config-location/app/country/worker.py:71:    "confirmed_rotating_ip":None,
+/opt/config-location/app/country/worker.py:72:    "confirmed":None,
+/opt/config-location/app/country/worker.py:200:            finally:
+/opt/config-location/app/country/worker.py:250:def country_state(
+/opt/config-location/app/country/worker.py:324:        cstate=country_state(
+/opt/config-location/app/country/worker.py:350:        # Once a country verdict is confirmed,
+/opt/config-location/app/country/worker.py:371:            "unstable_exit":1,
+/opt/config-location/app/country/worker.py:447:            before=country_state(
+/opt/config-location/app/country/worker.py:476:            final_state=str(
+/opt/config-location/app/country/worker.py:485:                final_state
+/opt/config-location/app/country/worker.py:498:                "previous_country_state":
+/opt/config-location/app/country/worker.py:502:                    final_state,
+/opt/config-location/app/country/worker.py:528:                        final_state,
+/opt/config-location/app/country/worker.py:708:            before=country_state(
+/opt/config-location/app/country/worker.py:784:            final_state=str(
+/opt/config-location/app/country/worker.py:792:                final_state
+/opt/config-location/app/country/worker.py:805:                "previous_country_state":
+/opt/config-location/app/country/worker.py:809:                    final_state,
+/opt/config-location/app/country/worker.py:835:                        final_state,
+/opt/config-location/app/country/event_consumer.py:127:        finally:
+/opt/config-location/app/country/event_consumer.py:154:        fast.get("status")
+/opt/config-location/app/country/event_consumer.py:218:                "status"
+/opt/config-location/app/country/event_consumer.py:284:    Immediately project a newly locked Country Identity
+/opt/config-location/app/country/event_consumer.py:380:    # after successful consensus for this config.
+/opt/config-location/app/country/event_consumer.py:384:    # again for a config with locked Country.
+/opt/config-location/app/country/event_consumer.py:416:            reconcile_status=(
+/opt/config-location/app/country/event_consumer.py:427:                    "status":
+/opt/config-location/app/country/event_consumer.py:435:                    "sync_status":
+/opt/config-location/app/country/event_consumer.py:436:                        reconcile_status,
+/opt/config-location/app/country/event_consumer.py:454:    # "confirmed_stable". K6/temporal layers
+/opt/config-location/app/country/event_consumer.py:455:    # may later tighten the verdict.
+/opt/config-location/app/country/event_consumer.py:471:            or "unresolved"
+/opt/config-location/app/country/event_consumer.py:501:        "confidence":
+/opt/config-location/app/country/event_consumer.py:503:                "country_confidence"
+/opt/config-location/app/country/event_consumer.py:569:            "status":
+/opt/config-location/app/country/event_consumer.py:640:                    "status":"worker_retired",
+/opt/config-location/app/country/event_consumer.py:668:                            "status":"worker_retired",
+/opt/config-location/app/country/event_consumer.py:686:                    "status":
+/opt/config-location/app/country/event_consumer.py:734:                    "status":
+/opt/config-location/app/country/event_consumer.py:757:                    "status":
+/opt/config-location/app/country/event_consumer.py:807:                            "status":
+/opt/config-location/app/country/event_consumer.py:829:                    "status":
+/opt/config-location/app/country/event_consumer.py:880:                            "status":
+/opt/config-location/app/country/event_consumer.py:1051:            status=row.get(
+/opt/config-location/app/country/event_consumer.py:1052:                "status"
+/opt/config-location/app/country/event_consumer.py:1055:            if status in counts:
+/opt/config-location/app/country/event_consumer.py:1056:                counts[status]+=1
+/opt/config-location/app/country/event_consumer.py:1254:                "status":"worker_spawned",
+/opt/config-location/app/country/event_consumer.py:1288:                    "status":
+/opt/config-location/app/country/event_consumer.py:1323:            "status":"consumer_start",
+/opt/config-location/app/country/event_consumer.py:1559:                "status":"controller",
+/opt/config-location/app/country/event_consumer.py:1660:            "status":"consumer_stop",
+/opt/config-location/app/country/geo_intelligence.py:9:from .consensus import (
+/opt/config-location/app/country/geo_intelligence.py:10:    decide_country_consensus,
+/opt/config-location/app/country/geo_intelligence.py:19:from .geo_consensus import (
+/opt/config-location/app/country/geo_intelligence.py:77:        finally:
+/opt/config-location/app/country/geo_intelligence.py:180:        decide_country_consensus(
+/opt/config-location/app/country/geo_intelligence.py:284:        "country_confidence":
+/opt/config-location/app/country/geo_intelligence.py:285:            country.confidence,
+/opt/config-location/app/country/geo_intelligence.py:308:        "network_confidence":
+/opt/config-location/app/country/geo_intelligence.py:309:            classification.confidence,
+/opt/config-location/app/country/geo_intelligence.py:326:        == "confirmed"
+
+========== PROJECTION CONTRACT CURRENT ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	
+     5	from dataclasses import (
+     6	    asdict,
+     7	    dataclass,
+     8	)
+     9	
+    10	from pathlib import Path
+    11	from typing import Any
+    12	
+    13	
+    14	CONFIG_ROOT = Path(
+    15	    "/var/lib/config-location/configs"
+    16	)
+    17	
+    18	COUNTRY_ROOT = Path(
+    19	    "/var/lib/config-location/country"
+    20	)
+    21	
+    22	RESULT_ROOT = (
+    23	    COUNTRY_ROOT / "results"
+    24	)
+    25	
+    26	IDENTITY_ROOT = (
+    27	    COUNTRY_ROOT / "country-identity"
+    28	)
+    29	
+    30	PIPELINE_ROOT = (
+    31	    COUNTRY_ROOT / "pipeline" / "latest"
+    32	)
+    33	
+    34	
+    35	UNKNOWN_VALUES = {
+    36	    "",
+    37	    "unknown",
+    38	    "UNKNOWN",
+    39	    "Unknown",
+    40	    "ناشناس",
+    41	    "none",
+    42	    "None",
+    43	    "null",
+    44	    "--",
+    45	}
+    46	
+    47	
+    48	@dataclass
+    49	class CountryEvidence:
+    50	    source: str
+    51	    config_id: str
+    52	    country_code: str | None
+    53	    country_name: str | None
+    54	    flag: str | None
+    55	    confidence: float | None
+    56	    state: str | None
+    57	    locked: bool
+    58	    accepted: bool
+    59	    reason: str
+    60	
+    61	
+    62	@dataclass
+    63	class CountryProjection:
+    64	    config_id: str
+    65	    state: str
+    66	    country_code: str | None
+    67	    country_name: str | None
+    68	    flag: str | None
+    69	    confidence: float | None
+    70	    selected_source: str | None
+    71	    conflict: bool
+    72	    evidence_count: int
+    73	    evidence: list[dict[str, Any]]
+    74	
+    75	
+    76	def read_json(
+    77	    path: Path,
+    78	) -> Any:
+    79	
+    80	    try:
+    81	        return json.loads(
+    82	            path.read_text(
+    83	                encoding="utf-8",
+    84	                errors="replace",
+    85	            )
+    86	        )
+    87	    except Exception:
+    88	        return None
+    89	
+    90	
+    91	def clean(
+    92	    value: Any,
+    93	) -> str | None:
+    94	
+    95	    if value is None:
+    96	        return None
+    97	
+    98	    value=str(value).strip()
+    99	
+   100	    if value in UNKNOWN_VALUES:
+   101	        return None
+   102	
+   103	    return value or None
+   104	
+   105	
+   106	def code_of(
+   107	    obj: dict[str,Any],
+   108	) -> str | None:
+   109	
+   110	    value=clean(
+   111	        obj.get(
+   112	            "country_code"
+   113	        )
+   114	    )
+   115	
+   116	    if value:
+   117	        return value.upper()
+   118	
+   119	    country=clean(
+   120	        obj.get("country")
+   121	    )
+   122	
+   123	    if (
+   124	        country
+   125	        and len(country)==2
+   126	        and country.isalpha()
+   127	    ):
+   128	        return country.upper()
+   129	
+   130	    return None
+   131	
+   132	
+   133	def name_of(
+   134	    obj: dict[str,Any],
+   135	) -> str | None:
+   136	
+   137	    value=clean(
+   138	        obj.get(
+   139	            "country_name"
+   140	        )
+   141	    )
+   142	
+   143	    if value:
+   144	        return value
+   145	
+   146	    country=clean(
+   147	        obj.get("country")
+   148	    )
+   149	
+   150	    if (
+   151	        country
+   152	        and not (
+   153	            len(country)==2
+   154	            and country.isalpha()
+   155	        )
+   156	    ):
+   157	        return country
+   158	
+   159	    return None
+   160	
+   161	
+   162	def confidence_of(
+   163	    obj: dict[str,Any],
+   164	) -> float | None:
+   165	
+   166	    for key in (
+   167	        "country_confidence",
+   168	        "confidence",
+   169	    ):
+   170	
+   171	        if key not in obj:
+   172	            continue
+   173	
+   174	        try:
+   175	            value=float(
+   176	                obj[key]
+   177	            )
+   178	
+   179	            if value > 1:
+   180	                value=value / 100.0
+   181	
+   182	            return max(
+   183	                0.0,
+   184	                min(
+   185	                    1.0,
+   186	                    value,
+   187	                ),
+   188	            )
+   189	
+   190	        except Exception:
+   191	            continue
+   192	
+   193	    return None
+   194	
+   195	
+   196	def state_of(
+   197	    obj: dict[str,Any],
+   198	) -> str | None:
+   199	
+   200	    for key in (
+   201	        "state",
+   202	        "country_state",
+   203	        "status",
+   204	        "verdict",
+   205	    ):
+   206	
+   207	        value=clean(
+   208	            obj.get(key)
+   209	        )
+   210	
+   211	        if value:
+   212	            return value.lower()
+   213	
+   214	    return None
+   215	
+   216	
+   217	def is_locked_identity(
+   218	    obj: dict[str,Any],
+   219	) -> bool:
+   220	
+   221	    return bool(
+   222	        obj.get(
+   223	            "country_identity_locked",
+   224	            False,
+   225	        )
+   226	        or obj.get(
+   227	            "locked",
+   228	            False,
+   229	        )
+   230	        or obj.get(
+   231	            "country_detection_once",
+   232	            False,
+   233	        )
+   234	        or str(
+   235	            obj.get(
+   236	                "country_identity_guard",
+   237	                "",
+   238	            )
+   239	        ).lower()
+   240	        in {
+   241	            "locked",
+   242	            "true",
+   243	            "1",
+   244	        }
+   245	    )
+   246	
+   247	
+   248	def accepted_state(
+   249	    source: str,
+   250	    state: str | None,
+   251	    locked: bool,
+   252	) -> bool:
+   253	
+   254	    if source=="identity":
+   255	        return locked
+   256	
+   257	    if state is None:
+   258	        return True
+   259	
+   260	    return state in {
+   261	        "confirmed",
+   262	        "resolved",
+   263	        "healthy",
+   264	        "success",
+   265	        "accepted",
+   266	        "final",
+   267	        "stable",
+   268	        "known",
+   269	    }
+   270	
+   271	
+   272	def make_evidence(
+   273	    source: str,
+   274	    config_id: str,
+   275	    obj: dict[str,Any],
+   276	) -> CountryEvidence:
+   277	
+   278	    code=code_of(obj)
+   279	    name=name_of(obj)
+   280	
+   281	    locked=(
+   282	        is_locked_identity(obj)
+   283	        if source=="identity"
+   284	        else False
+   285	    )
+   286	
+   287	    state=state_of(obj)
+   288	
+   289	    has_country=bool(
+   290	        code or name
+   291	    )
+   292	
+   293	    accepted=(
+   294	        has_country
+   295	        and accepted_state(
+   296	            source,
+   297	            state,
+   298	            locked,
+   299	        )
+   300	    )
+   301	
+   302	    if not has_country:
+   303	        reason="missing_country"
+   304	
+   305	    elif source=="identity" and not locked:
+   306	        reason="identity_not_locked"
+   307	
+   308	    elif not accepted:
+   309	        reason=(
+   310	            "state_not_accepted:"
+   311	            + str(state)
+   312	        )
+   313	
+   314	    else:
+   315	        reason="accepted"
+   316	
+   317	
+   318	    return CountryEvidence(
+   319	        source=source,
+   320	        config_id=config_id,
+   321	        country_code=code,
+   322	        country_name=name,
+   323	        flag=clean(
+   324	            obj.get("flag")
+   325	        ),
+   326	        confidence=confidence_of(
+   327	            obj
+   328	        ),
+   329	        state=state,
+   330	        locked=locked,
+   331	        accepted=accepted,
+   332	        reason=reason,
+   333	    )
+   334	
+   335	
+   336	def candidate_paths(
+   337	    root: Path,
+   338	    config_id: str,
+   339	) -> list[Path]:
+   340	
+   341	    direct=(
+   342	        root
+   343	        / f"{config_id}.json"
+   344	    )
+   345	
+   346	    if direct.is_file():
+   347	        return [direct]
+   348	
+   349	    return []
+   350	
+   351	
+   352	def load_evidence(
+   353	    config_id: str,
+   354	) -> list[CountryEvidence]:
+   355	
+   356	    sources=[
+   357	        (
+   358	            "identity",
+   359	            IDENTITY_ROOT,
+   360	        ),
+   361	        (
+   362	            "results",
+   363	            RESULT_ROOT,
+   364	        ),
+   365	        (
+   366	            "pipeline_latest",
+   367	            PIPELINE_ROOT,
+   368	        ),
+   369	    ]
+   370	
+   371	    out=[]
+   372	
+   373	    for source,root in sources:
+   374	
+   375	        for path in candidate_paths(
+   376	            root,
+   377	            config_id,
+   378	        ):
+   379	
+   380	            obj=read_json(
+   381	                path
+   382	            )
+   383	
+   384	            if not isinstance(
+   385	                obj,
+   386	                dict,
+   387	            ):
+   388	                continue
+   389	
+   390	            out.append(
+   391	                make_evidence(
+   392	                    source,
+   393	                    config_id,
+   394	                    obj,
+   395	                )
+   396	            )
+   397	
+   398	    return out
+   399	
+   400	
+   401	def evidence_key(
+   402	    row: CountryEvidence,
+   403	) -> str | None:
+   404	
+   405	    if row.country_code:
+   406	        return (
+   407	            "code:"
+   408	            + row.country_code.upper()
+   409	        )
+   410	
+   411	    if row.country_name:
+   412	        return (
+   413	            "name:"
+   414	            + row.country_name
+   415	            .strip()
+   416	            .casefold()
+   417	        )
+   418	
+   419	    return None
+   420	
+   421	
+   422	def choose_projection(
+   423	    config_id: str,
+   424	    evidence: list[CountryEvidence],
+   425	) -> CountryProjection:
+   426	
+   427	    accepted=[
+   428	        row
+   429	        for row in evidence
+   430	        if row.accepted
+   431	    ]
+   432	
+   433	    keys={
+   434	        evidence_key(row)
+   435	        for row in accepted
+   436	        if evidence_key(row)
+   437	    }
+   438	
+   439	
+   440	    # Fail closed on conflicting accepted
+   441	    # evidence.
+   442	    if len(keys) > 1:
+   443	
+   444	        return CountryProjection(
+   445	            config_id=config_id,
+   446	            state="conflict",
+   447	            country_code=None,
+   448	            country_name=None,
+   449	            flag=None,
+   450	            confidence=None,
+   451	            selected_source=None,
+   452	            conflict=True,
+   453	            evidence_count=len(evidence),
+   454	            evidence=[
+   455	                asdict(x)
+   456	                for x in evidence
+   457	            ],
+   458	        )
+   459	
+   460	
+   461	    priority={
+   462	        "identity":0,
+   463	        "results":1,
+   464	        "pipeline_latest":2,
+   465	    }
+   466	
+   467	
+   468	    accepted.sort(
+   469	        key=lambda row: (
+   470	            priority.get(
+   471	                row.source,
+   472	                99,
+   473	            ),
+   474	            -(
+   475	                row.confidence
+   476	                if row.confidence
+   477	                is not None
+   478	                else -1
+   479	            ),
+   480	        )
+   481	    )
+   482	
+   483	
+   484	    if not accepted:
+   485	
+   486	        return CountryProjection(
+   487	            config_id=config_id,
+   488	            state="unknown",
+   489	            country_code=None,
+   490	            country_name=None,
+   491	            flag=None,
+   492	            confidence=None,
+   493	            selected_source=None,
+   494	            conflict=False,
+   495	            evidence_count=len(evidence),
+   496	            evidence=[
+   497	                asdict(x)
+   498	                for x in evidence
+   499	            ],
+   500	        )
+   501	
+   502	
+   503	    selected=accepted[0]
+   504	
+   505	
+   506	    return CountryProjection(
+   507	        config_id=config_id,
+   508	        state="resolved",
+   509	        country_code=selected.country_code,
+   510	        country_name=selected.country_name,
+   511	        flag=selected.flag,
+   512	        confidence=selected.confidence,
+   513	        selected_source=selected.source,
+   514	        conflict=False,
+   515	        evidence_count=len(evidence),
+   516	        evidence=[
+   517	            asdict(x)
+   518	            for x in evidence
+   519	        ],
+   520	    )
+
+========== MUTATION POLICY ==========
+READ_ONLY=true
+PROJECTION_MUTATION=false
+CONFIG_MUTATION=false
+COUNTRY_STORE_MUTATION=false
+ORPHAN_DELETE=false
+PANEL_MUTATION=false
+PUBLISH_MUTATION=false
+SERVICE_RESTART=false
+
+PHASE5_PASS3_DISCOVERY_COMPLETE

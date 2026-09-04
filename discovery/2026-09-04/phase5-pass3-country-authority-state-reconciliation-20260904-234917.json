@@ -1,0 +1,4085 @@
+{
+  "phase": "phase5-pass3-country-authority-state-reconciliation",
+  "read_only": true,
+  "current_config_count": 2784,
+  "current_record_counts": {
+    "identity": 131,
+    "results": 159,
+    "pipeline_latest": 2014
+  },
+  "records_with_any_country": {
+    "identity": 131,
+    "results": 158,
+    "pipeline_latest": 1788
+  },
+  "records_with_single_unambiguous_country": {
+    "identity": 0,
+    "results": 0,
+    "pipeline_latest": 11
+  },
+  "records_with_multiple_country_values": {
+    "identity": 131,
+    "results": 158,
+    "pipeline_latest": 1777
+  },
+  "top_state_values": {
+    "identity": {},
+    "results": {
+      "confirmed_stable": 202,
+      "confirmed": 133,
+      "pending_confirmation": 68,
+      "ambiguous": 50,
+      "confirmed_rotating_ip": 18
+    },
+    "pipeline_latest": {
+      "confirmed": 3212,
+      "confirmed_stable": 2757,
+      "ambiguous": 515,
+      "confirmed_rotating_ip": 262,
+      "pending_confirmation": 255,
+      "unstable_exit": 146,
+      "error": 96
+    }
+  },
+  "top_country_paths": {
+    "identity": [
+      {
+        "path": "$.country_code",
+        "count": 131
+      },
+      {
+        "path": "$.country_name",
+        "count": 131
+      }
+    ],
+    "results": [
+      {
+        "path": "$.metadata.rotating_exit.observations[].country_code",
+        "count": 1155
+      },
+      {
+        "path": "$.country_code",
+        "count": 133
+      },
+      {
+        "path": "$.country_name",
+        "count": 133
+      },
+      {
+        "path": "$.primary.country_code",
+        "count": 133
+      },
+      {
+        "path": "$.primary.country_name",
+        "count": 133
+      },
+      {
+        "path": "$.primary.providers[].country_code",
+        "count": 82
+      },
+      {
+        "path": "$.primary.providers[].country_name",
+        "count": 82
+      }
+    ],
+    "pipeline_latest": [
+      {
+        "path": "$.country_code",
+        "count": 1684
+      },
+      {
+        "path": "$.country_name",
+        "count": 1649
+      },
+      {
+        "path": "$.fusion.country_code",
+        "count": 1606
+      },
+      {
+        "path": "$.fusion.country_name",
+        "count": 1606
+      },
+      {
+        "path": "$.primary.country_code",
+        "count": 1586
+      },
+      {
+        "path": "$.recovery.providers[].country_code",
+        "count": 243
+      },
+      {
+        "path": "$.recovery.providers[].country_name",
+        "count": 151
+      },
+      {
+        "path": "$.recovery_evidence[].country_code",
+        "count": 150
+      },
+      {
+        "path": "$.recovery.country_code",
+        "count": 20
+      },
+      {
+        "path": "$.recovery.country_name",
+        "count": 20
+      }
+    ]
+  },
+  "single_country_counts": {
+    "identity": 131,
+    "results": 157,
+    "pipeline_latest": 1689
+  },
+  "agreement_patterns": {
+    "pipeline_latest": 1567,
+    "identity+pipeline_latest+results": 105,
+    "identity+results": 26,
+    "pipeline_latest+results": 15,
+    "results": 9
+  },
+  "pipeline_only_recoverable_count": 1567,
+  "pipeline_only_recoverable_sample": [
+    {
+      "config_id": "ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb",
+      "value": "code:SE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "SE"
+        }
+      ]
+    },
+    {
+      "config_id": "ecef8577af55584fb58d112febd8d5d038dc16a1bd58a6190df8e12f99062941",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "541e6915e8149c3e1abbe6f1114830361d8a3da9ae0bca5e6a09a5d5a4990926",
+      "value": "code:FI",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "FI"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Finland"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "FI"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Finland"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "FI"
+        }
+      ]
+    },
+    {
+      "config_id": "6ed43b513b1fbc0b14808cda31d81054ff6cac256b6e713b8ef46eb00f06766c",
+      "value": "code:US",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.state",
+          "value": "ambiguous"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "Germany"
+        }
+      ]
+    },
+    {
+      "config_id": "89ed3a6841f89ed97687d50ce77efa1beb0617a19a4707b09f29c6c90a9a1f7e",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "13ae9729f39f690e509bfa5a297693db491ada096c395e3b7acc8cbfb97d4c25",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "6f670551da71998d95194471a2208e2e345f6f7b17ac32662fc4297195ee0ddb",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "2e13ac68a83eb8a31b85a7b4c8d148864134d7342f05cf56302f0cb489b6f7a1",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_rotating_ip"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_rotating_ip"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "cd218e5d94a9ee4332079be2cb60268662f5accb0ca4f849c514ff61dadd8b8a",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "39f0d12291360c379281d784e527236dd6ae8b6cdce075a4eb29c8da8c4c9f16",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "fb6f4a258c8ec4542ff629d0af3eb859934074125c4bd5fe623bf44b55a69bd4",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "511df29df9c378e29491f82af8f1ae3ad082f9c0bd36768ddf8c2c3b8d21dcfb",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "d4b4e6efdd59fde1f929551e3490893d0b37f47d9c9ebe9e46916b7ce55a5e3a",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "8c65004a012d60da70e616247cd243deb1ff6330c929f975c27c382d0d16b8c6",
+      "value": "code:FI",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "FI"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Finland"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "FI"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Finland"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "FI"
+        }
+      ]
+    },
+    {
+      "config_id": "be66c8af794f9f75551da9ef8974a0b397ac39d8815b1e36358fb418b4616c77",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "90338f7f61a6ec890b828aa7fd45bacb01602c3f5b6d1ced0d572bbb322d1c2a",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "pending_confirmation"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "pending_confirmation"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "2acdd585e67d18fe835565287891e4d3399ce173cd8b75086523287d45deae8a",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "bc6ac2d8ab3a07d3a2ef36f9efb642c9e6d73192f0e43c2e10bef3c625bfc5c3",
+      "value": "code:SE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "SE"
+        }
+      ]
+    },
+    {
+      "config_id": "27d916876180c06cf3166441d22024e86a051a929a8b48b04c7f4c4e7000773b",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "9f82f6570579115c9c6089af691ab856c392252ca702cd4be9dfb3993173836b",
+      "value": "code:US",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.state",
+          "value": "ambiguous"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "Germany"
+        }
+      ]
+    },
+    {
+      "config_id": "98372607935a171ca6e12f1d682418ad2328b02e46d5d74139d75603a577c48d",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.recovery.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.recovery.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        }
+      ]
+    },
+    {
+      "config_id": "2505d22f80a40038629c61a8428fcf8fc93f27d640296338991b3a2c7f21ffff",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "a0b635cdc3e3ee9e0ce305f2244408cac42ed8e6cc940c9d106b6f4d9a839d88",
+      "value": "code:NO",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NO"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Norway"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NO"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Norway"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NO"
+        }
+      ]
+    },
+    {
+      "config_id": "57308b93cb42118cac29e61a61bdc93278aacc24fb89f34d6dc202eca6667776",
+      "value": "code:US",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.state",
+          "value": "ambiguous"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "Germany"
+        }
+      ]
+    },
+    {
+      "config_id": "c484e6e6e52dc5708700d7af3cee6945d136f717ee1c3d44e8c127e460644316",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "7506e188c53739edd867dcb98b8d322b76e6a31a4bf9afad90adbe6998aee38b",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "a653674cc3b5b10b2a443501ccd5f67ca8bacef5b3ff5f825d591d32969e709b",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "9c088aa1ab22a8cc72ecf27e5fe9f00e34925c5912197090935957a41153dd11",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "ee21e04e6abe84eb4867d064cc7f95abf544f5f26cd84b26a26e31ed7b155256",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "1416750e5204de1a3e175f98469da2b0c6c2cebf66bde2e2fa0018d1359b1621",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "0ef95c2b934b0529f1df8c54d5f96e5176084863c78aafb49030f22532697b95",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "06a6b3fe147bd5ad529ff7419090ace81f415f4c27291dd2b1072302fe6bc890",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "9f4919072de6f3eb2648c92ed7e7a76b9e13e483cdff25d98e44d1f4e14cfaa5",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "85f0f759bb2c549c680820de87199b8809bb17f659f2896b9a60b09ff208ade1",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "9c36317cb25f4f4c4017ffd8cf5bbaeb6f1dd1f51b0b05e04b0ee31fd7226012",
+      "value": "code:EE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "EE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Estonia"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "EE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Estonia"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "EE"
+        }
+      ]
+    },
+    {
+      "config_id": "20fed70f688ad7206e55fd7ba4fa553a81467d85deb7d1f996cf334e6362db09",
+      "value": "code:FR",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "FR"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "France"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "FR"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "France"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "FR"
+        }
+      ]
+    },
+    {
+      "config_id": "f0005b53cba877a5c7418bea206ef7e1aea8cc2613f68d5a73ecee8dda1365e4",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "58acd5d41a21933e23b56227682bdbca24f343db9d95503a6af5a3a47809c27d",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "2dcf7462416868d9fd1257b9f83d1e7afee22ee1eb8992385822f0972a616b63",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "e320f0e8546ba17ca3b005c06402d59c9c5c81745c57fa09fbcf2d3449324050",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "b0f8b5085b9298f2b6371c169c2591f5a85a17c2da78ffaae397ee7ca2791323",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "e6d89b913d125b8c7bdde159561181e9621b1258e3fb0cb33488349293ee3442",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "ad6e1a1ec874b6e9101ece85d00d7da40e904b2bf60ab45f3be83388f9cdd314",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "1c448282ccccebb2d1ecf1fbc31638e6bb925f18ad7a931141b7c0902f5f675d",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "2600d829e343d0af924f5f5f08ca935b026cc8656088904f7ddcd0421c9932a6",
+      "value": "code:PL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "PL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Poland"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "PL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Poland"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "PL"
+        }
+      ]
+    },
+    {
+      "config_id": "69a61cfc6ba171f0fd85f09839c400dae0637af906d11bb6626443f9b21aec93",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "pending_confirmation"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "pending_confirmation"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "2b2e1e3a66075a4dbe657f7aaaffcdc586c76594289d173f9904862410410a91",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "pending_confirmation"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "pending_confirmation"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "35da63371fc3d8225775be13943d0e4f859d78777fe01c66d97bf11d44e69d43",
+      "value": "code:JP",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "JP"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Japan"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "JP"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Japan"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "JP"
+        }
+      ]
+    },
+    {
+      "config_id": "6d4720ca5fd1f0642577aaada08d4b19d022552d4271c4fd66dfa1975a09f8d6",
+      "value": "code:PL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "PL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Poland"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "PL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Poland"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "PL"
+        }
+      ]
+    },
+    {
+      "config_id": "36c8594b741d39c79d21d658692b2b47fc841e6c269e4e278de2b696a57da5c4",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "eb59e2e442656d82afe771ee37911b34f50da646670ee7dad5d34a016519a1bb",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.state",
+          "value": "ambiguous"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "Germany"
+        }
+      ]
+    },
+    {
+      "config_id": "f0acc5d585da615fd81f4960bfaf0cf763868b1836428c619feaf2d2c087fead",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "cefc948ad1c5b626cf8e9a991e8ae1f5cb92820e039d5f0ea3e6ee09edc87f2c",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "e8c484fbf9905f82f4b403fab9993306383468bfd5117c963bfd0cd6c3b19ce7",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "f40412bf9bffa582a1804358910b4c542a4aee801e611e7af9b7cda15942d66e",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "6861aa7ac345c6a5d3b6875320c5640dc375e2446036b5002ffb85d5c0ba6e60",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "8060618ca5e8611640f32448874cec70e5544942fb70e3116a5a0e4219d66e63",
+      "value": "code:SE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "SE"
+        }
+      ]
+    },
+    {
+      "config_id": "0efa9861050eb2fe341e0621689a64bb5e4e543da861d28fea37d64501233f9f",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "pending_confirmation"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "pending_confirmation"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "812516766274262cd44741763b3127c5e46ab1eaa1e118442368ab26315de785",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "acab89c6a128d109d9629c0c0eb560cac9994f4fa2baec39efb6172a65aba7b3",
+      "value": "code:SE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "SE"
+        }
+      ]
+    },
+    {
+      "config_id": "210a38424d8ec469334aa3d7e7d0e1e5e56a924ba9cfefaead6b5c64a3f572d4",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "pending_confirmation"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "pending_confirmation"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "7642cff6c65c403141fe12e419480e7e247031f87c2c416b82af4e3b401f59a8",
+      "value": "code:HK",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "HK"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Hong Kong"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "HK"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Hong Kong"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "HK"
+        }
+      ]
+    },
+    {
+      "config_id": "a4a70010eb1def623223179635d1ce354152aab4f18fe582bdeed3387ca23455",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_rotating_ip"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_rotating_ip"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "e0775ca6d229424217e002ad5b1b05018e08aa4d00fff83df92e393377ed3810",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "pending_confirmation"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "pending_confirmation"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "80a00a2bfece9d28546a6ddfec090424053e91c24ea442ed53dabbf8052fb60c",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_rotating_ip"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_rotating_ip"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "1c465b7b69d40d00ca759900858e2c3dff4399cbdea48a7237b1370182451b1c",
+      "value": "code:FR",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "FR"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "France"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "FR"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "France"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "FR"
+        }
+      ]
+    },
+    {
+      "config_id": "1bd630aeb413ba37a4326296945c5020eccbe7f4380c5ee1211fe6c15706a276",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "3c5d5ba7cf0ee7ac2d12e0c2b040a52e1aaca72a554b57d6410cafe0c04492f2",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "f99e02ab51a66a5abd711b9c58ab92a867b76b944596a2a0de51b55d64bb9032",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "3cce9fd92f63d64e2c42bbd5312807015dd726113283551b30521348b7fff7b9",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_rotating_ip"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_rotating_ip"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "97d5645c7923258ddeba47b7b3eaf3c6ca4959eae74c32e0668f98bc73f0c492",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "9d93672eba37fb32d79016163ba48d423de5e543a7e02a834b8e568ba61a55ea",
+      "value": "code:US",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United States"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United States"
+        },
+        {
+          "path": "$.recovery.country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.recovery.country_name",
+          "kind": "name",
+          "value": "United States"
+        },
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "United States"
+        }
+      ]
+    },
+    {
+      "config_id": "af6313ef9edcfae80f43d87d4ba4b65b713d1c1a35411e773b7fb56bfb890b52",
+      "value": "code:SE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "SE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Sweden"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "SE"
+        }
+      ]
+    },
+    {
+      "config_id": "06a53f4b29313873108c2c9a150f621b19a405b985cc8d4b890e1dea192b9326",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "f93d2826ccc7b7e8d30b7089eb9121660d1adefc1098ed5a9297fb722368f339",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "ac3fdb932a74bfff1e7f1c739c77198b94bf37fd1acd882dde00cc6b08ea853f",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "GB"
+        }
+      ]
+    },
+    {
+      "config_id": "b4c88dea7426218e8a8ad7b67b4b426ed423b33b0337d57511d7ef5804b67280",
+      "value": "code:US",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.state",
+          "value": "ambiguous"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "US"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "Germany"
+        }
+      ]
+    },
+    {
+      "config_id": "310543e38fb0c2a3e6e64490e429a7b2af93b47e6c3599bf0140f9f5a08c4820",
+      "value": "code:DE",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "DE"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "Germany"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "DE"
+        }
+      ]
+    },
+    {
+      "config_id": "695aad88e560a95deeecc2cca31cbd46fb53cfc81d05dd3652a72fc9511b1741",
+      "value": "code:NL",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "NL"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "The Netherlands"
+        },
+        {
+          "path": "$.primary.country_code",
+          "kind": "code",
+          "value": "NL"
+        }
+      ]
+    },
+    {
+      "config_id": "6f9be1a35c293ef7f9fa61f8b3dde69b6a3adbd092ef8827dce267a76b6157d2",
+      "value": "code:GB",
+      "states": [
+        {
+          "path": "$.fusion.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.primary.state",
+          "value": "ambiguous"
+        },
+        {
+          "path": "$.recovery.state",
+          "value": "confirmed"
+        },
+        {
+          "path": "$.state",
+          "value": "confirmed_stable"
+        },
+        {
+          "path": "$.temporal.state",
+          "value": "confirmed_stable"
+        }
+      ],
+      "countries": [
+        {
+          "path": "$.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.fusion.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.fusion.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.recovery.country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.recovery.country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        },
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.recovery.providers[].country_code",
+          "kind": "code",
+          "value": "GB"
+        },
+        {
+          "path": "$.recovery.providers[].country_name",
+          "kind": "name",
+          "value": "United Kingdom"
+        }
+      ]
+    }
+  ],
+  "cross_source_conflict_count": 2,
+  "cross_source_conflict_sample": [
+    {
+      "config_id": "d44b65994bab866923e4fdd9194e1cd50582abfdd0efc103cad4752ad56d3560",
+      "values": {
+        "results": "code:DE",
+        "pipeline_latest": "code:GB"
+      }
+    },
+    {
+      "config_id": "d3e7843ddf527d5b55618070ce6e7e5e02844263f03464d6a14dc1f28a9129a3",
+      "values": {
+        "results": "code:PL",
+        "pipeline_latest": "code:US"
+      }
+    }
+  ],
+  "mutations": {
+    "projection": false,
+    "config": false,
+    "country_store": false,
+    "panel": false,
+    "publish": false,
+    "orphan_delete": false
+  }
+}

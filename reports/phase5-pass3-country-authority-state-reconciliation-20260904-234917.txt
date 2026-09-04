@@ -1,0 +1,52 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass3-country-authority-state-reconciliation
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T23:49:17+00:00
+
+End:
+2026-09-04T23:49:23+00:00
+
+Mode:
+READ ONLY AUTHORITY / STATE RECONCILIATION
+
+Projection mutation:
+NONE
+
+Country-store mutation:
+NONE
+
+Config mutation:
+NONE
+
+Orphan deletion:
+NONE
+
+Panel mutation:
+NONE
+
+Publish mutation:
+NONE
+
+Service restart:
+NONE
+
+Discovery:
+/root/project-log/discovery/2026-09-04/phase5-pass3-country-authority-state-reconciliation-20260904-234917.txt
+
+Schema:
+/root/project-log/discovery/2026-09-04/phase5-pass3-country-authority-state-reconciliation-20260904-234917-schema.json
+
+Summary:
+/root/project-log/discovery/2026-09-04/phase5-pass3-country-authority-state-reconciliation-20260904-234917.json
+
+Log:
+/root/project-log/executions/2026-09-04/phase5-pass3-country-authority-state-reconciliation-20260904-234917.log
+
+Errors:
+

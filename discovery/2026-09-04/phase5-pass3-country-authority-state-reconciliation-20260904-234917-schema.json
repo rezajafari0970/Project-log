@@ -1,0 +1,1128 @@
+{
+  "results": {
+    "root": "/var/lib/config-location/country/results",
+    "total_records": 60697,
+    "current_records": 5635,
+    "top_paths": [
+      {
+        "path": "$.metadata.rotating_exit.observations[].country_code",
+        "count": 51574,
+        "samples": [
+          "NL",
+          "FI",
+          "NL",
+          "NL",
+          "NL",
+          "NL",
+          "AE",
+          "AE"
+        ]
+      },
+      {
+        "path": "$.primary.providers[].country_code",
+        "count": 6729,
+        "samples": [
+          "NL",
+          "NL",
+          "FI",
+          "FI",
+          "LT",
+          "DE",
+          "DE",
+          "US"
+        ]
+      },
+      {
+        "path": "$.primary.providers[].country_name",
+        "count": 6729,
+        "samples": [
+          "Netherlands",
+          "The Netherlands",
+          "Finland",
+          "Finland",
+          "Lithuania",
+          "Germany",
+          "Germany",
+          "United States"
+        ]
+      },
+      {
+        "path": "$.primary.providers[].provider",
+        "count": 6729,
+        "samples": [
+          "ipwho",
+          "ipapi_co",
+          "ip_api",
+          "ipapi_co",
+          "ipwho",
+          "ip_api",
+          "ipapi_co",
+          "ip_api"
+        ]
+      },
+      {
+        "path": "$.confidence",
+        "count": 5635,
+        "samples": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "path": "$.country_code",
+        "count": 5635,
+        "samples": [
+          "NL",
+          "FI",
+          "NL",
+          "AE",
+          "US",
+          "DE",
+          "DE",
+          "US"
+        ]
+      },
+      {
+        "path": "$.country_name",
+        "count": 5635,
+        "samples": [
+          "Netherlands",
+          "Finland",
+          "The Netherlands",
+          "United Arab Emirates",
+          "United States",
+          "Germany",
+          "Germany",
+          "United States"
+        ]
+      },
+      {
+        "path": "$.flag",
+        "count": 5635,
+        "samples": [
+          "🇳🇱",
+          "🇫🇮",
+          "🇳🇱",
+          "🇦🇪",
+          "🇺🇸",
+          "🇩🇪",
+          "🇩🇪",
+          "🇺🇸"
+        ]
+      },
+      {
+        "path": "$.primary.country_code",
+        "count": 5635,
+        "samples": [
+          "NL",
+          "FI",
+          "NL",
+          "AE",
+          "US",
+          "DE",
+          "DE",
+          "US"
+        ]
+      },
+      {
+        "path": "$.primary.country_confidence",
+        "count": 5635,
+        "samples": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "path": "$.primary.country_name",
+        "count": 5635,
+        "samples": [
+          "Netherlands",
+          "Finland",
+          "The Netherlands",
+          "United Arab Emirates",
+          "United States",
+          "Germany",
+          "Germany",
+          "United States"
+        ]
+      },
+      {
+        "path": "$.primary.state",
+        "count": 5635,
+        "samples": [
+          "confirmed",
+          "confirmed",
+          "confirmed",
+          "ambiguous",
+          "confirmed",
+          "confirmed",
+          "confirmed",
+          "confirmed"
+        ]
+      },
+      {
+        "path": "$.state",
+        "count": 5635,
+        "samples": [
+          "pending_confirmation",
+          "confirmed_stable",
+          "confirmed_stable",
+          "ambiguous",
+          "confirmed_stable",
+          "confirmed_stable",
+          "confirmed_stable",
+          "pending_confirmation"
+        ]
+      },
+      {
+        "path": "$.primary.flag",
+        "count": 5630,
+        "samples": [
+          "🇳🇱",
+          "🇫🇮",
+          "🇳🇱",
+          "🇦🇪",
+          "🇺🇸",
+          "🇩🇪",
+          "🇩🇪",
+          "🇺🇸"
+        ]
+      },
+      {
+        "path": "$.metadata.source",
+        "count": 5625,
+        "samples": [
+          "k1-event-consumer",
+          "k1-event-consumer",
+          "k1-event-consumer",
+          "k1-event-consumer",
+          "k1-event-consumer",
+          "k1-event-consumer",
+          "k1-event-consumer",
+          "k1-event-consumer"
+        ]
+      },
+      {
+        "path": "$.metadata.rotating_exit.dominant_country",
+        "count": 5051,
+        "samples": [
+          "NL",
+          "FI",
+          "NL",
+          "AE",
+          "US",
+          "DE",
+          "DE",
+          "US"
+        ]
+      },
+      {
+        "path": "$.metadata.rotating_exit.state",
+        "count": 5051,
+        "samples": [
+          "pending_confirmation",
+          "confirmed_stable",
+          "confirmed_stable",
+          "pending_confirmation",
+          "confirmed_stable",
+          "confirmed_stable",
+          "confirmed_stable",
+          "pending_confirmation"
+        ]
+      },
+      {
+        "path": "$.metadata.rotating_exit.unique_country_count",
+        "count": 5051,
+        "samples": [
+          1,
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "path": "$.metadata.country_detection_once",
+        "count": 5043,
+        "samples": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.metadata.rotating_exit.dominant_country_count",
+        "count": 5043,
+        "samples": [
+          1,
+          1,
+          4,
+          0,
+          12,
+          12,
+          12,
+          1
+        ]
+      },
+      {
+        "path": "$.metadata.country_identity_guard",
+        "count": 3524,
+        "samples": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.metadata.country_identity_locked",
+        "count": 3524,
+        "samples": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.primary.country_identity_hit",
+        "count": 3387,
+        "samples": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.primary.country_agreed",
+        "count": 2243,
+        "samples": [
+          2,
+          2,
+          1,
+          2,
+          1,
+          2,
+          2,
+          1
+        ]
+      },
+      {
+        "path": "$.primary.country_total",
+        "count": 2243,
+        "samples": [
+          2,
+          2,
+          1,
+          2,
+          1,
+          2,
+          2,
+          1
+        ]
+      },
+      {
+        "path": "$.primary.recovery_evidence[].country_code",
+        "count": 15,
+        "samples": [
+          "US",
+          "US",
+          "AU",
+          "AU",
+          "SG",
+          "SG",
+          "CA",
+          "CA"
+        ]
+      },
+      {
+        "path": "$.primary.recovery_evidence[].country_name",
+        "count": 15,
+        "samples": [
+          "United States",
+          "Australia",
+          "Singapore",
+          "Canada",
+          "Sweden"
+        ]
+      },
+      {
+        "path": "$.primary.recovery_evidence[].provider",
+        "count": 15,
+        "samples": [
+          "rdap",
+          "db-ip",
+          "ipinfo",
+          "rdap",
+          "ipinfo",
+          "db-ip",
+          "db-ip",
+          "rdap"
+        ]
+      },
+      {
+        "path": "$.recovery.providers[].country_code",
+        "count": 15,
+        "samples": [
+          "US",
+          "GB",
+          "AU",
+          "US",
+          "SG",
+          "US",
+          "CA",
+          "US"
+        ]
+      },
+      {
+        "path": "$.recovery.providers[].country_name",
+        "count": 15,
+        "samples": [
+          "United States",
+          "Australia",
+          "Singapore",
+          "Canada",
+          "Sweden"
+        ]
+      },
+      {
+        "path": "$.recovery.providers[].provider",
+        "count": 15,
+        "samples": [
+          "ipinfo",
+          "freeipapi",
+          "ipguide",
+          "ipinfo",
+          "freeipapi",
+          "ipguide",
+          "ipinfo",
+          "freeipapi"
+        ]
+      },
+      {
+        "path": "$.fusion.confidence",
+        "count": 10,
+        "samples": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "path": "$.fusion.country_code",
+        "count": 10,
+        "samples": [
+          "RS",
+          "IN",
+          "DE",
+          "US",
+          "DE"
+        ]
+      },
+      {
+        "path": "$.fusion.country_name",
+        "count": 10,
+        "samples": [
+          "Serbia",
+          "India",
+          "Germany",
+          "United States",
+          "Germany"
+        ]
+      },
+      {
+        "path": "$.fusion.flag",
+        "count": 10,
+        "samples": [
+          "🇷🇸",
+          "🇮🇳",
+          "🇩🇪",
+          "🇺🇸",
+          "🇩🇪"
+        ]
+      },
+      {
+        "path": "$.fusion.source",
+        "count": 10,
+        "samples": [
+          "primary",
+          "none",
+          "none",
+          "none",
+          "none",
+          "none",
+          "primary",
+          "primary"
+        ]
+      },
+      {
+        "path": "$.fusion.state",
+        "count": 10,
+        "samples": [
+          "confirmed",
+          "ambiguous",
+          "ambiguous",
+          "ambiguous",
+          "ambiguous",
+          "ambiguous",
+          "confirmed",
+          "confirmed"
+        ]
+      },
+      {
+        "path": "$.temporal.stable_country",
+        "count": 10,
+        "samples": [
+          true,
+          false,
+          false,
+          false,
+          false,
+          false,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.temporal.state",
+        "count": 10,
+        "samples": [
+          "pending_confirmation",
+          "unknown",
+          "unknown",
+          "unknown",
+          "unknown",
+          "unknown",
+          "pending_confirmation",
+          "pending_confirmation"
+        ]
+      },
+      {
+        "path": "$.recovery.confidence",
+        "count": 5,
+        "samples": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "path": "$.recovery.country_code",
+        "count": 5,
+        "samples": []
+      },
+      {
+        "path": "$.recovery.country_name",
+        "count": 5,
+        "samples": []
+      },
+      {
+        "path": "$.recovery.flag",
+        "count": 5,
+        "samples": []
+      },
+      {
+        "path": "$.recovery.state",
+        "count": 5,
+        "samples": [
+          "ambiguous",
+          "ambiguous",
+          "ambiguous",
+          "ambiguous",
+          "ambiguous"
+        ]
+      }
+    ],
+    "state_values": {
+      "confirmed_stable": 6156,
+      "ambiguous": 3836,
+      "confirmed": 3656,
+      "pending_confirmation": 1786,
+      "confirmed_rotating_ip": 765,
+      "unknown": 147
+    },
+    "provider_values": {
+      "k1-event-consumer": 5625,
+      "ipwho": 2243,
+      "ipapi_co": 2243,
+      "ip_api": 2243,
+      "ipinfo": 10,
+      "primary": 5,
+      "none": 5,
+      "rdap": 5,
+      "db-ip": 5,
+      "freeipapi": 5,
+      "ipguide": 5
+    }
+  },
+  "identity": {
+    "root": "/var/lib/config-location/country/country-identity",
+    "total_records": 4623,
+    "current_records": 131,
+    "top_paths": [
+      {
+        "path": "$.country_code",
+        "count": 131,
+        "samples": [
+          "NL",
+          "FI",
+          "NL",
+          "AE",
+          "US",
+          "DE",
+          "DE",
+          "US"
+        ]
+      },
+      {
+        "path": "$.country_confidence",
+        "count": 131,
+        "samples": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "path": "$.country_name",
+        "count": 131,
+        "samples": [
+          "Netherlands",
+          "Finland",
+          "The Netherlands",
+          "United Arab Emirates",
+          "United States",
+          "Germany",
+          "Germany",
+          "United States"
+        ]
+      },
+      {
+        "path": "$.flag",
+        "count": 131,
+        "samples": [
+          "🇳🇱",
+          "🇫🇮",
+          "🇳🇱",
+          "🇦🇪",
+          "🇺🇸",
+          "🇩🇪",
+          "🇩🇪",
+          "🇺🇸"
+        ]
+      },
+      {
+        "path": "$.source",
+        "count": 131,
+        "samples": [
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once"
+        ]
+      }
+    ],
+    "state_values": {},
+    "provider_values": {
+      "k6c-country-once": 131
+    }
+  },
+  "pipeline_latest": {
+    "root": "/var/lib/config-location/country/pipeline/latest",
+    "total_records": 15720,
+    "current_records": 2015,
+    "top_paths": [
+      {
+        "path": "$.state",
+        "count": 2015,
+        "samples": [
+          "confirmed_stable",
+          "confirmed_stable",
+          "confirmed_stable",
+          "unstable_exit",
+          "ambiguous",
+          "confirmed_stable",
+          "confirmed_stable",
+          "confirmed_stable"
+        ]
+      },
+      {
+        "path": "$.confidence",
+        "count": 1789,
+        "samples": [
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "path": "$.country_code",
+        "count": 1789,
+        "samples": [
+          "SE",
+          "DE",
+          "FI",
+          "NL",
+          "NL",
+          "GB",
+          "DE",
+          "DE"
+        ]
+      },
+      {
+        "path": "$.country_name",
+        "count": 1789,
+        "samples": [
+          "Sweden",
+          "Germany",
+          "Finland",
+          "The Netherlands",
+          "The Netherlands",
+          "United Kingdom",
+          "Germany",
+          "Germany"
+        ]
+      },
+      {
+        "path": "$.flag",
+        "count": 1789,
+        "samples": [
+          "🇸🇪",
+          "🇩🇪",
+          "🇫🇮",
+          "🇳🇱",
+          "🇳🇱",
+          "🇬🇧",
+          "🇩🇪",
+          "🇩🇪"
+        ]
+      },
+      {
+        "path": "$.fusion.confidence",
+        "count": 1737,
+        "samples": [
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "path": "$.fusion.country_code",
+        "count": 1737,
+        "samples": [
+          "SE",
+          "DE",
+          "FI",
+          "NL",
+          "NL",
+          "GB",
+          "DE",
+          "DE"
+        ]
+      },
+      {
+        "path": "$.fusion.country_name",
+        "count": 1737,
+        "samples": [
+          "Sweden",
+          "Germany",
+          "Finland",
+          "The Netherlands",
+          "The Netherlands",
+          "United Kingdom",
+          "Germany",
+          "Germany"
+        ]
+      },
+      {
+        "path": "$.fusion.flag",
+        "count": 1737,
+        "samples": [
+          "🇸🇪",
+          "🇩🇪",
+          "🇫🇮",
+          "🇳🇱",
+          "🇳🇱",
+          "🇬🇧",
+          "🇩🇪",
+          "🇩🇪"
+        ]
+      },
+      {
+        "path": "$.fusion.source",
+        "count": 1737,
+        "samples": [
+          "primary",
+          "primary",
+          "primary",
+          "none",
+          "primary",
+          "primary",
+          "primary",
+          "primary"
+        ]
+      },
+      {
+        "path": "$.fusion.state",
+        "count": 1737,
+        "samples": [
+          "confirmed",
+          "confirmed",
+          "confirmed",
+          "ambiguous",
+          "confirmed",
+          "confirmed",
+          "confirmed",
+          "confirmed"
+        ]
+      },
+      {
+        "path": "$.primary.confidence",
+        "count": 1737,
+        "samples": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "path": "$.primary.country_code",
+        "count": 1737,
+        "samples": [
+          "SE",
+          "DE",
+          "FI",
+          "NL",
+          "NL",
+          "GB",
+          "DE",
+          "DE"
+        ]
+      },
+      {
+        "path": "$.primary.state",
+        "count": 1737,
+        "samples": [
+          "confirmed",
+          "confirmed",
+          "confirmed",
+          "ambiguous",
+          "confirmed",
+          "confirmed",
+          "confirmed",
+          "confirmed"
+        ]
+      },
+      {
+        "path": "$.temporal.stable_country",
+        "count": 1737,
+        "samples": [
+          true,
+          true,
+          true,
+          false,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.temporal.state",
+        "count": 1737,
+        "samples": [
+          "confirmed_stable",
+          "confirmed_stable",
+          "confirmed_stable",
+          "unknown",
+          "confirmed_stable",
+          "confirmed_stable",
+          "confirmed_stable",
+          "confirmed_rotating_ip"
+        ]
+      },
+      {
+        "path": "$.recovery.providers[].country_code",
+        "count": 453,
+        "samples": [
+          "US",
+          "PL",
+          "US",
+          "DE",
+          "GB",
+          "US",
+          "NL",
+          "NL"
+        ]
+      },
+      {
+        "path": "$.recovery.providers[].country_name",
+        "count": 453,
+        "samples": [
+          "Germany",
+          "Poland",
+          "United States",
+          "Germany",
+          "The Netherlands",
+          "Germany",
+          "United Kingdom",
+          "Germany"
+        ]
+      },
+      {
+        "path": "$.recovery.providers[].provider",
+        "count": 453,
+        "samples": [
+          "ipinfo",
+          "freeipapi",
+          "ipguide",
+          "ipinfo",
+          "freeipapi",
+          "ipguide",
+          "ipinfo",
+          "freeipapi"
+        ]
+      },
+      {
+        "path": "$.recovery_evidence[].country_code",
+        "count": 252,
+        "samples": [
+          "US",
+          "US",
+          "US",
+          "GB",
+          "NL",
+          "NL",
+          "NL",
+          "AE"
+        ]
+      },
+      {
+        "path": "$.recovery_evidence[].provider",
+        "count": 252,
+        "samples": [
+          "ipwho",
+          "ipapi_co",
+          "ip_api",
+          "ipinfo",
+          "freeipapi",
+          "ipguide",
+          "rdap",
+          "ipwho"
+        ]
+      },
+      {
+        "path": "$.recovery.confidence",
+        "count": 151,
+        "samples": [
+          1.0,
+          0.5,
+          0.5,
+          1.0,
+          1.0,
+          1.0,
+          0.5,
+          1.0
+        ]
+      },
+      {
+        "path": "$.recovery.country_code",
+        "count": 151,
+        "samples": [
+          "NL",
+          "US",
+          "GB",
+          "LT",
+          "FR",
+          "NO",
+          "CA",
+          "DE"
+        ]
+      },
+      {
+        "path": "$.recovery.country_name",
+        "count": 151,
+        "samples": [
+          "The Netherlands",
+          "United States",
+          "United Kingdom",
+          "Lithuania",
+          "Cyprus",
+          "Norway",
+          "Canada",
+          "Germany"
+        ]
+      },
+      {
+        "path": "$.recovery.flag",
+        "count": 151,
+        "samples": [
+          "🇳🇱",
+          "🇺🇸",
+          "🇬🇧",
+          "🇱🇹",
+          "🇫🇷",
+          "🇳🇴",
+          "🇨🇦",
+          "🇩🇪"
+        ]
+      },
+      {
+        "path": "$.recovery.state",
+        "count": 151,
+        "samples": [
+          "ambiguous",
+          "ambiguous",
+          "ambiguous",
+          "ambiguous",
+          "confirmed",
+          "ambiguous",
+          "ambiguous",
+          "ambiguous"
+        ]
+      },
+      {
+        "path": "$.metadata.country_detection_once",
+        "count": 130,
+        "samples": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.metadata.country_identity_guard",
+        "count": 130,
+        "samples": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.metadata.country_identity_locked",
+        "count": 130,
+        "samples": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      {
+        "path": "$.metadata.country_identity_source",
+        "count": 130,
+        "samples": [
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once",
+          "k6c-country-once"
+        ]
+      }
+    ],
+    "state_values": {
+      "confirmed": 3212,
+      "confirmed_stable": 2758,
+      "ambiguous": 515,
+      "confirmed_rotating_ip": 262,
+      "pending_confirmation": 255,
+      "unstable_exit": 146,
+      "unknown": 133,
+      "error": 96
+    },
+    "provider_values": {
+      "primary": 1586,
+      "ipinfo": 187,
+      "freeipapi": 187,
+      "ipguide": 187,
+      "none": 131,
+      "ipwho": 36,
+      "ipapi_co": 36,
+      "ip_api": 36,
+      "rdap": 36,
+      "recovery": 20
+    }
+  }
+}
