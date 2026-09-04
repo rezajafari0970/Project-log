@@ -1,0 +1,300 @@
+================================================
+ PHASE 1 PASS 6
+ PERSISTENT SETTINGS OWNERSHIP FIX
+================================================
+
+START=2026-09-04T15:05:36+00:00
+HOST=serverprojects.ptr.network
+
+========== PRECHECK ==========
+uid=999(configloc) gid=983(configloc) groups=983(configloc)
+PRECHECK_OK
+
+========== BACKUP ==========
+BACKUP_OK
+
+========== CURRENT OWNERSHIP ==========
+drwxr-x---+ 60 configloc configloc 4096 Sep  4 14:14 /var/lib/config-location
+drwxr-x---   3 configloc configloc 4096 Sep  4 14:14 /var/lib/config-location/settings
+drwxr-x---   2 configloc configloc 4096 Sep  4 14:14 /var/lib/config-location/settings/history
+-rw-r----- 1 root root 3659 Sep  4 14:14 /var/lib/config-location/settings/settings.json
+  File: /var/lib/config-location/settings/settings.json
+  size: 3659      	Blocks: 8          IO Block: 4096   regular file
+Device: 253,2	Inode: 899598      Links: 1
+Access: (0640/-rw-r-----)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-09-04 14:14:14.751103811 +0000
+Modify: 2026-09-04 14:14:14.000211673 +0000
+Change: 2026-09-04 14:14:14.037273565 +0000
+ Birth: 2026-09-04 14:14:13.999357007 +0000
+
+========== FIX SETTINGS ROOT ==========
+SETTINGS_ROOT_FIXED
+
+========== RECURSIVE SAFE OWNERSHIP ==========
+HISTORY_OWNERSHIP_FIXED
+
+========== DIRECT READ TEST ==========
+SETTINGS_DIRECT_READ_OK
+
+========== DIRECTORY WRITE TEST ==========
+SETTINGS_DIRECTORY_WRITE_OK
+
+========== ATOMIC RENAME TEST ==========
+ATOMIC_RENAME_OK
+
+========== SETTINGS ENGINE READ TEST ==========
+SETTINGS_ENGINE_READ_OK
+REVISION= 1
+CHECKSUM= b9f25f4d03dae27c75da7458bb451be457abf8706248cbb171fb6bf422264fda
+
+========== SETTINGS ENGINE WRITE/HISTORY TEST ==========
+SETTINGS_ENGINE_WRITE_OK
+REVISION_BEFORE= 1
+REVISION_AFTER= 2
+HISTORY_COUNT= 1
+
+========== FINAL SETTINGS OWNERSHIP ==========
+SETTINGS_ROOT=configloc:configloc 750 /var/lib/config-location/settings
+SETTINGS_FILE=configloc:configloc 640 /var/lib/config-location/settings/settings.json
+HISTORY_DIR=configloc:configloc 750 /var/lib/config-location/settings/history
+
+========== PANEL COMPILE ==========
+PANEL_COMPILE_OK
+
+========== PANEL RESTART ==========
+PANEL_ACTIVE
+
+========== HTTP TEST ==========
+curl: (7) Failed to connect to 127.0.0.1 port 4040 after 0 ms: Could not connect to server
+curl: (7) Failed to connect to 127.0.0.1 port 4040 after 1 ms: Could not connect to server
+ROOT_HTTP=000
+SETTINGS_HTTP=000
+
+========== SETTINGS RESPONSE ==========
+
+========== PANEL JOURNAL ==========
+Sep 04 14:59:15 serverprojects.ptr.network python[1505747]:                        ^
+Sep 04 14:59:15 serverprojects.ptr.network python[1505747]: SyntaxError: '(' was never closed
+Sep 04 14:59:15 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:15 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:18 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 48.
+Sep 04 14:59:18 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]: Traceback (most recent call last):
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]:     return web.Response(text=render_page(
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]:                        ^
+Sep 04 14:59:19 serverprojects.ptr.network python[1505782]: SyntaxError: '(' was never closed
+Sep 04 14:59:19 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:19 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:22 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 49.
+Sep 04 14:59:22 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]: Traceback (most recent call last):
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]:     return web.Response(text=render_page(
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]:                        ^
+Sep 04 14:59:23 serverprojects.ptr.network python[1505803]: SyntaxError: '(' was never closed
+Sep 04 14:59:23 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:23 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:26 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 50.
+Sep 04 14:59:26 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]: Traceback (most recent call last):
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]:     return web.Response(text=render_page(
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]:                        ^
+Sep 04 14:59:26 serverprojects.ptr.network python[1505834]: SyntaxError: '(' was never closed
+Sep 04 14:59:26 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:26 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:29 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 51.
+Sep 04 14:59:29 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]: Traceback (most recent call last):
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]:     return web.Response(text=render_page(
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]:                        ^
+Sep 04 14:59:30 serverprojects.ptr.network python[1505909]: SyntaxError: '(' was never closed
+Sep 04 14:59:30 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:30 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:33 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 52.
+Sep 04 14:59:33 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]: Traceback (most recent call last):
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]:     return web.Response(text=render_page(
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]:                        ^
+Sep 04 14:59:33 serverprojects.ptr.network python[1505969]: SyntaxError: '(' was never closed
+Sep 04 14:59:34 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:34 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:37 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 53.
+Sep 04 14:59:37 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]: Traceback (most recent call last):
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]:     return web.Response(text=render_page(
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]:                        ^
+Sep 04 14:59:37 serverprojects.ptr.network python[1505986]: SyntaxError: '(' was never closed
+Sep 04 14:59:37 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:37 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:40 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 54.
+Sep 04 14:59:40 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]: Traceback (most recent call last):
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]:     return web.Response(text=render_page(
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]:                        ^
+Sep 04 14:59:41 serverprojects.ptr.network python[1506035]: SyntaxError: '(' was never closed
+Sep 04 14:59:41 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:41 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:44 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 55.
+Sep 04 14:59:44 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]: Traceback (most recent call last):
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]:     return web.Response(text=render_page(
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]:                        ^
+Sep 04 14:59:45 serverprojects.ptr.network python[1506076]: SyntaxError: '(' was never closed
+Sep 04 14:59:45 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:45 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:48 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 56.
+Sep 04 14:59:48 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]: Traceback (most recent call last):
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]:     return web.Response(text=render_page(
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]:                        ^
+Sep 04 14:59:48 serverprojects.ptr.network python[1506112]: SyntaxError: '(' was never closed
+Sep 04 14:59:48 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:48 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:51 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 57.
+Sep 04 14:59:51 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]: Traceback (most recent call last):
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]:     return web.Response(text=render_page(
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]:                        ^
+Sep 04 14:59:52 serverprojects.ptr.network python[1506164]: SyntaxError: '(' was never closed
+Sep 04 14:59:52 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:52 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:55 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 58.
+Sep 04 14:59:55 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]: Traceback (most recent call last):
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]:     return web.Response(text=render_page(
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]:                        ^
+Sep 04 14:59:55 serverprojects.ptr.network python[1506180]: SyntaxError: '(' was never closed
+Sep 04 14:59:55 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:55 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 14:59:58 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 59.
+Sep 04 14:59:58 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]: Traceback (most recent call last):
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]:     return web.Response(text=render_page(
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]:                        ^
+Sep 04 14:59:59 serverprojects.ptr.network python[1506191]: SyntaxError: '(' was never closed
+Sep 04 14:59:59 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 14:59:59 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 15:00:02 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 60.
+Sep 04 15:00:02 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]: Traceback (most recent call last):
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]:     return web.Response(text=render_page(
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]:                        ^
+Sep 04 15:00:03 serverprojects.ptr.network python[1506207]: SyntaxError: '(' was never closed
+Sep 04 15:00:03 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 15:00:03 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 15:00:06 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 61.
+Sep 04 15:00:06 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]: Traceback (most recent call last):
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]:     return web.Response(text=render_page(
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]:                        ^
+Sep 04 15:00:06 serverprojects.ptr.network python[1506217]: SyntaxError: '(' was never closed
+Sep 04 15:00:07 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 15:00:07 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 15:00:10 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 62.
+Sep 04 15:00:10 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]: Traceback (most recent call last):
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]:     return web.Response(text=render_page(
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]:                        ^
+Sep 04 15:00:10 serverprojects.ptr.network python[1506289]: SyntaxError: '(' was never closed
+Sep 04 15:00:10 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 15:00:10 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 15:00:13 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 63.
+Sep 04 15:00:13 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]: Traceback (most recent call last):
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]:   File "<frozen runpy>", line 198, in _run_module_as_main
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]:   File "<frozen runpy>", line 88, in _run_code
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]:   File "/opt/config-location/app/panel/server.py", line 50, in <module>
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]:     from app.panel.settings_ui import install_settings_routes
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]:   File "/opt/config-location/app/panel/settings_ui.py", line 677
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]:     return web.Response(text=render_page(
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]:                        ^
+Sep 04 15:00:14 serverprojects.ptr.network python[1506370]: SyntaxError: '(' was never closed
+Sep 04 15:00:14 serverprojects.ptr.network systemd[1]: config-location-panel.service: Main process exited, code=exited, status=1/FAILURE
+Sep 04 15:00:14 serverprojects.ptr.network systemd[1]: config-location-panel.service: Failed with result 'exit-code'.
+Sep 04 15:00:17 serverprojects.ptr.network systemd[1]: config-location-panel.service: Scheduled restart job, restart counter is at 64.
+Sep 04 15:00:17 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+Sep 04 15:05:37 serverprojects.ptr.network systemd[1]: Stopping config-location-panel.service - Config Location Management Panel...
+Sep 04 15:05:37 serverprojects.ptr.network python[1506484]: ======== Running on http://0.0.0.0:4040 ========
+Sep 04 15:05:37 serverprojects.ptr.network python[1506484]: (Press CTRL+C to quit)
+Sep 04 15:05:37 serverprojects.ptr.network systemd[1]: config-location-panel.service: Deactivated successfully.
+Sep 04 15:05:37 serverprojects.ptr.network systemd[1]: Stopped config-location-panel.service - Config Location Management Panel.
+Sep 04 15:05:37 serverprojects.ptr.network systemd[1]: Started config-location-panel.service - Config Location Management Panel.
+ERROR: settings HTTP unhealthy: 000
+
+========== FINAL ==========
+RESULT=FAILED
+END=2026-09-04T15:05:37+00:00

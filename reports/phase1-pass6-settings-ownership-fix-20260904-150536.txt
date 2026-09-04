@@ -1,0 +1,19 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase1-pass6-settings-ownership-fix
+
+Result:
+FAILED
+
+Time:
+2026-09-04T15:05:37+00:00
+
+Backup:
+/root/3245/phase1-pass6-settings-ownership-fix-backup-20260904-150536
+
+Log:
+/root/project-log/executions/2026-09-04/phase1-pass6-settings-ownership-fix-20260904-150536.log
+
+Errors:
+\nsettings HTTP unhealthy: 000\nscript exit code 1
