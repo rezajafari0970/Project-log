@@ -1,0 +1,69 @@
+================================================
+ CONFIG LOCATION
+ PHASE 2 FINAL REGRESSION
+================================================
+
+START=2026-09-04T22:01:53+00:00
+HOST=serverprojects.ptr.network
+
+========== [1/13] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/13] BACKUP ==========
+BACKUP_OK
+
+========== [3/13] PERMISSIONS ==========
+POLICY=root:root 640 /etc/config-location/control-policy.json
+TOKEN=root:root 640 /etc/config-location/control-token
+PERMISSIONS_OK
+
+========== [4/13] POLICY VALIDATION ==========
+POLICY_JSON_OK
+allowed_services = ['config-location-panel.service']
+allowed_actions = ['status', 'restart', 'system']
+
+========== [5/13] TOKEN VALIDATION ==========
+TOKEN_FORMAT_OK
+TOKEN_LENGTH= 64
+
+========== [6/13] PYTHON COMPILE ==========
+CONTROL_COMPILE_OK
+
+========== [7/13] IMPORT ==========
+CONTROL_IMPORT_OK
+
+========== [8/13] SECURITY ==========
+CONTROL_SECURITY_OK
+
+========== [9/13] EXECUTOR STATUS ==========
+SERVICE_STATUS_RESULT= {'service': 'config-location-panel.service', 'state': 'active'}
+EXECUTOR_STATUS_OK
+
+========== [10/13] AUDIT ==========
+AUDIT_CALL_OK
+AUDIT_OK
+
+========== [11/13] PANEL RUNTIME ==========
+CHECK_1 ACTIVE=active LISTENING=0
+CHECK_2 ACTIVE=active LISTENING=1
+PANEL_READY
+
+========== [12/13] HTTP / JOURNAL ==========
+ROOT_HTTP=302
+SETTINGS_HTTP=302
+HTTP_JOURNAL_OK
+
+========== [13/13] FINAL STATE ==========
+active
+LISTEN 0      128          0.0.0.0:4040      0.0.0.0:*    users:(("python",pid=1906335,fd=6))                                                                                                 
+FINAL_CONTROL_SECURITY_OK
+
+==============================================
+ PHASE 2 FINAL REGRESSION: PASS
+==============================================
+
+==============================================
+ FINAL RESULT
+==============================================
+RESULT=SUCCESS
+END=2026-09-04T22:01:55+00:00
