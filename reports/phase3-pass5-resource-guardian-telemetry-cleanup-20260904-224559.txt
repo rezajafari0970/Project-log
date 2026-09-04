@@ -1,0 +1,31 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass5-resource-guardian-telemetry-cleanup
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T22:45:59+00:00
+
+End:
+2026-09-04T22:46:31+00:00
+
+Service:
+config-location-retest.service
+
+Integration:
+Resource Guardian -> Retest Adaptive Controller
+
+Observation:
+/root/project-log/discovery/2026-09-04/phase3-pass5-resource-guardian-telemetry-cleanup-20260904-224559.json
+
+Backup:
+/root/3245/phase3-pass5-resource-guardian-telemetry-cleanup-backup-20260904-224559
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass5-resource-guardian-telemetry-cleanup-20260904-224559.log
+
+Errors:
+
