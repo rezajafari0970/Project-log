@@ -1,0 +1,29 @@
+{
+  "phase": "phase5-pass1-canonical-country-state-config-integration-contract",
+  "read_only": true,
+  "config_count": 2851,
+  "country_storage": {
+    "results": {
+      "path": "/var/lib/config-location/country/results",
+      "record_count": 8775,
+      "config_id_overlap": 160,
+      "orphan_id_count": 8615
+    },
+    "identity": {
+      "path": "/var/lib/config-location/country/country-identity",
+      "record_count": 4623,
+      "config_id_overlap": 132,
+      "orphan_id_count": 4491
+    },
+    "pipeline_latest": {
+      "path": "/var/lib/config-location/country/pipeline/latest",
+      "record_count": 15689,
+      "config_id_overlap": 2071,
+      "orphan_id_count": 13618
+    }
+  },
+  "services": {
+    "country_worker": "not_mutated",
+    "country_event_consumer": "not_mutated"
+  }
+}

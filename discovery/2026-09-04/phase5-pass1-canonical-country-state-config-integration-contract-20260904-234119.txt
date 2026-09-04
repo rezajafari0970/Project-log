@@ -1,0 +1,1418 @@
+================================================
+ PHASE 5 PASS 1
+ CANONICAL COUNTRY STATE / CONFIG INTEGRATION
+================================================
+TIME=2026-09-04T23:41:19+00:00
+
+========== A. COUNTRY STORAGE SYMBOLS ==========
+
+FILE: /opt/config-location/app/country/storage.py
+   68 FunctionDef        _save_country_result_unguarded
+  101 FunctionDef        save_country_result
+  218 ClassDef           _GuardedResult
+
+FILE: /opt/config-location/app/country/country_identity.py
+   26 FunctionDef        load_identity
+   68 FunctionDef        save_identity_once
+  232 FunctionDef        identity_to_geo
+
+FILE: /opt/config-location/app/country/pipeline.py
+   86 FunctionDef        extract_config_type
+  158 FunctionDef        _save_pipeline_result_unguarded
+  195 FunctionDef        save_pipeline_result
+  315 FunctionDef        process_country
+
+FILE: /opt/config-location/app/country/worker.py
+  142 ClassDef           CountryWorkerLock
+  204 FunctionDef        load_json
+  222 FunctionDef        load_worker_state
+  250 FunctionDef        country_state
+  401 FunctionDef        run_country_worker_once
+  635 FunctionDef        run_country_worker_adaptive
+
+FILE: /opt/config-location/app/country/event_consumer.py
+   58 ClassDef           _CountryResultAdapter
+  280 FunctionDef        _reconcile_identity_into_pipeline
+
+FILE: /opt/config-location/app/publish/filter.py
+   28 ClassDef           PublishSnapshot
+   46 FunctionDef        _read_json
+   70 FunctionDef        _load_configs
+  153 FunctionDef        publishable_config_ids
+  203 FunctionDef        build_publish_snapshot
+
+FILE: /opt/config-location/app/publish/http.py
+  163 AsyncFunctionDef   publish_status
+  204 FunctionDef        install_publish_routes
+
+FILE: /opt/config-location/app/panel/read_model.py
+   52 FunctionDef        _read_json
+   97 FunctionDef        _config_id_from_record
+  109 FunctionDef        iter_config_records
+  134 FunctionDef        _country_view
+  250 FunctionDef        build_config_view
+  369 FunctionDef        iter_config_views
+  485 FunctionDef        query_configs
+  683 FunctionDef        _config_record_by_id
+  706 FunctionDef        config_detail
+
+FILE: /opt/config-location/app/panel/country_ui.py
+ 1465 AsyncFunctionDef   country_page
+
+FILE: /opt/config-location/app/core/config_store.py
+  120 FunctionDef        upsert_config
+  201 FunctionDef        list_configs
+  236 FunctionDef        config_stats
+  262 FunctionDef        detach_source_from_configs
+  372 FunctionDef        detach_sources_from_configs
+  506 FunctionDef        read_source_snapshot
+  856 FunctionDef        delete_all_configs
+
+========== B. COUNTRY STORAGE PATH REFERENCES ==========
+/opt/config-location/app/country/worker.py:28:    "country/pipeline/latest"
+/opt/config-location/app/country/country_identity.py:11:    "/var/lib/config-location/country/"
+/opt/config-location/app/country/country_identity.py:12:    "country-identity"
+/opt/config-location/app/country/event_consumer.py:42:    "/var/lib/config-location/country/"
+/opt/config-location/app/country/event_consumer.py:305:            "/var/lib/config-location/country/"
+/opt/config-location/app/country/event_consumer.py:306:            "pipeline/latest"
+/opt/config-location/app/country/same_runtime_fastpath.py:14:    "/var/lib/config-location/country/"
+/opt/config-location/app/country/storage.py:15:    "country/results"
+/opt/config-location/app/country/storage.py:129:                "/var/lib/config-location/country/"
+/opt/config-location/app/country/storage.py:130:                "country-identity"
+/opt/config-location/app/country/geo_intelligence.py:33:    "/var/lib/config-location/country/"
+/opt/config-location/app/country/health_hook.py:17:    "/var/lib/config-location/country/"
+/opt/config-location/app/country/event_bus.py:28:    "country/pipeline/latest"
+/opt/config-location/app/country/rotating_exit_state.py:12:    "/var/lib/config-location/country/"
+/opt/config-location/app/country/pipeline.py:48:    "country/pipeline"
+/opt/config-location/app/country/pipeline.py:203:    Locked country-identity owns accepted Country.
+/opt/config-location/app/country/pipeline.py:212:            "/var/lib/config-location/country/"
+/opt/config-location/app/country/pipeline.py:213:            "country-identity"
+/opt/config-location/app/panel/read_model.py:35:    / "country-identity"
+/opt/config-location/app/health/lifecycle/removal_executor.py:32:    "/var/lib/config-location/country"
+
+========== C. CONFIG COUNTRY FIELD REFERENCES ==========
+/opt/config-location/app/country/worker.py:504:                "country_code":
+/opt/config-location/app/country/worker.py:506:                        "country_code"
+/opt/config-location/app/country/worker.py:530:                    "country_code":
+/opt/config-location/app/country/worker.py:532:                            "country_code"
+/opt/config-location/app/country/worker.py:750:                "country",
+/opt/config-location/app/country/worker.py:811:                "country_code":
+/opt/config-location/app/country/worker.py:813:                        "country_code"
+/opt/config-location/app/country/worker.py:837:                    "country_code":
+/opt/config-location/app/country/worker.py:839:                            "country_code"
+/opt/config-location/app/country/country_identity.py:54:        "country_code"
+/opt/config-location/app/country/country_identity.py:93:        "country_code"
+/opt/config-location/app/country/country_identity.py:128:        "country_code":
+/opt/config-location/app/country/country_identity.py:133:        "country_name":
+/opt/config-location/app/country/country_identity.py:135:                "country_name"
+/opt/config-location/app/country/country_identity.py:138:        "flag":
+/opt/config-location/app/country/country_identity.py:140:                "flag"
+/opt/config-location/app/country/country_identity.py:158:        "country_confidence":
+/opt/config-location/app/country/country_identity.py:160:                "country_confidence"
+/opt/config-location/app/country/country_identity.py:245:        "country_code":
+/opt/config-location/app/country/country_identity.py:247:                "country_code"
+/opt/config-location/app/country/country_identity.py:250:        "country_name":
+/opt/config-location/app/country/country_identity.py:252:                "country_name"
+/opt/config-location/app/country/country_identity.py:255:        "flag":
+/opt/config-location/app/country/country_identity.py:257:                "flag"
+/opt/config-location/app/country/country_identity.py:275:        "country_confidence":
+/opt/config-location/app/country/country_identity.py:277:                "country_confidence"
+/opt/config-location/app/country/country_identity.py:284:            "config_country_identity",
+/opt/config-location/app/country/country_identity.py:286:        "country_identity_hit":
+/opt/config-location/app/country/event_consumer.py:32:from app.country.country_identity import (
+/opt/config-location/app/country/event_consumer.py:396:            "config_country_identity"
+/opt/config-location/app/country/event_consumer.py:448:            "country_code"
+/opt/config-location/app/country/event_consumer.py:485:        "country_code":
+/opt/config-location/app/country/event_consumer.py:488:        "country_name":
+/opt/config-location/app/country/event_consumer.py:490:                "country_name"
+/opt/config-location/app/country/event_consumer.py:493:        "flag":
+/opt/config-location/app/country/event_consumer.py:495:                "flag"
+/opt/config-location/app/country/event_consumer.py:503:                "country_confidence"
+/opt/config-location/app/country/event_consumer.py:584:            "country_code":
+/opt/config-location/app/country/event_consumer.py:603:            "country_identity_hit":
+/opt/config-location/app/country/event_consumer.py:606:                    =="config_country_identity"
+/opt/config-location/app/country/event_consumer.py:719:                    "country_code":
+/opt/config-location/app/country/event_consumer.py:721:                            "country_code"
+/opt/config-location/app/country/models.py:80:            "country_code": self.country_code,
+/opt/config-location/app/country/models.py:81:            "country_name": self.country_name,
+/opt/config-location/app/country/models.py:82:            "flag": self.flag,
+/opt/config-location/app/country/recovery.py:73:                "country_code":
+/opt/config-location/app/country/recovery.py:76:                "country_name":
+/opt/config-location/app/country/verdict_fusion.py:27:            "country_code":
+/opt/config-location/app/country/verdict_fusion.py:29:            "country_name":
+/opt/config-location/app/country/verdict_fusion.py:31:            "flag":
+/opt/config-location/app/country/verdict_fusion.py:75:            "country_code"
+/opt/config-location/app/country/verdict_fusion.py:81:            "country_confidence",
+/opt/config-location/app/country/verdict_fusion.py:91:        "country_name"
+/opt/config-location/app/country/verdict_fusion.py:95:        "flag"
+/opt/config-location/app/country/verdict_fusion.py:116:                "country_code"
+/opt/config-location/app/country/verdict_fusion.py:129:            "country_name"
+/opt/config-location/app/country/verdict_fusion.py:133:            "flag"
+/opt/config-location/app/country/temporal.py:161:            "country_code":
+/opt/config-location/app/country/temporal.py:164:            "country_name":
+/opt/config-location/app/country/temporal.py:213:                "country_code"
+/opt/config-location/app/country/temporal.py:238:                "country_code"
+/opt/config-location/app/country/fallback_geo.py:129:    country=o.get("country")
+/opt/config-location/app/country/fallback_geo.py:300:            "country"
+/opt/config-location/app/country/fallback_geo.py:306:            "country"
+/opt/config-location/app/country/storage.py:147:                and identity.get("country_code")
+/opt/config-location/app/country/storage.py:151:                    identity["country_code"]
+/opt/config-location/app/country/storage.py:154:                value["country_code"]=code
+/opt/config-location/app/country/storage.py:156:                if identity.get("country_name"):
+/opt/config-location/app/country/storage.py:157:                    value["country_name"]=identity[
+/opt/config-location/app/country/storage.py:158:                        "country_name"
+/opt/config-location/app/country/storage.py:161:                if identity.get("flag"):
+/opt/config-location/app/country/storage.py:162:                    value["flag"]=identity["flag"]
+/opt/config-location/app/country/storage.py:177:                if identity.get("country_confidence") is not None:
+/opt/config-location/app/country/storage.py:179:                        "country_confidence"
+/opt/config-location/app/country/storage.py:204:                        "country_identity_guard":
+/opt/config-location/app/country/storage.py:207:                        "country_identity_locked":
+/opt/config-location/app/country/selftest_verdict_fusion.py:14:            "country_code":"DE",
+/opt/config-location/app/country/selftest_verdict_fusion.py:15:            "country_name":"Germany",
+/opt/config-location/app/country/selftest_verdict_fusion.py:16:            "flag":"🇩🇪",
+/opt/config-location/app/country/selftest_verdict_fusion.py:17:            "country_confidence":1.0,
+/opt/config-location/app/country/selftest_verdict_fusion.py:35:            "country_code":None,
+/opt/config-location/app/country/selftest_verdict_fusion.py:36:            "country_confidence":0.0,
+/opt/config-location/app/country/selftest_verdict_fusion.py:40:            "country_code":"DE",
+/opt/config-location/app/country/selftest_verdict_fusion.py:41:            "country_name":"Germany",
+/opt/config-location/app/country/selftest_verdict_fusion.py:42:            "flag":"🇩🇪",
+/opt/config-location/app/country/selftest_verdict_fusion.py:60:            "country_code":"DE",
+/opt/config-location/app/country/selftest_verdict_fusion.py:61:            "country_confidence":1.0,
+/opt/config-location/app/country/selftest_verdict_fusion.py:65:            "country_code":"US",
+/opt/config-location/app/country/selftest_verdict_fusion.py:83:            "country_code":"DE",
+/opt/config-location/app/country/selftest_verdict_fusion.py:84:            "country_confidence":0.5,
+/opt/config-location/app/country/selftest_verdict_fusion.py:88:            "country_code":"US",
+/opt/config-location/app/country/selftest_verdict_fusion.py:105:            "country_code":None,
+/opt/config-location/app/country/selftest_verdict_fusion.py:109:            "country_code":None,
+/opt/config-location/app/country/selftest_verdict_fusion.py:124:            "country_code":None,
+/opt/config-location/app/country/geo_intelligence.py:246:                "country_code":
+/opt/config-location/app/country/geo_intelligence.py:249:                "country_name":
+/opt/config-location/app/country/geo_intelligence.py:275:        "country_code":
+/opt/config-location/app/country/geo_intelligence.py:278:        "country_name":
+/opt/config-location/app/country/geo_intelligence.py:281:        "flag":
+/opt/config-location/app/country/geo_intelligence.py:284:        "country_confidence":
+/opt/config-location/app/country/hard_recovery.py:84:                "country_code":None,
+/opt/config-location/app/country/hard_recovery.py:85:                "country_name":None,
+/opt/config-location/app/country/hard_recovery.py:86:                "flag":None,
+/opt/config-location/app/country/hard_recovery.py:104:                "country_code"
+/opt/config-location/app/country/hard_recovery.py:116:                "country_code":None,
+/opt/config-location/app/country/hard_recovery.py:117:                "country_name":None,
+/opt/config-location/app/country/hard_recovery.py:118:                "flag":None,
+/opt/config-location/app/country/hard_recovery.py:147:            "country_code":
+/opt/config-location/app/country/hard_recovery.py:149:                    "country_code"
+/opt/config-location/app/country/hard_recovery.py:152:            "country_name":
+/opt/config-location/app/country/hard_recovery.py:155:            "flag":
+/opt/config-location/app/country/hard_recovery.py:156:                geo["flag"],
+/opt/config-location/app/country/hard_recovery.py:201:            "country_code":None,
+/opt/config-location/app/country/selftest_temporal.py:15:        "country_code":country,
+/opt/config-location/app/country/hard_fallback.py:89:        "country_code":country_code,
+/opt/config-location/app/country/hard_fallback.py:90:        "country_name":country_name,
+/opt/config-location/app/country/hard_fallback.py:155:            o.get("country")
+/opt/config-location/app/country/hard_fallback.py:229:            o.get("country_code")
+/opt/config-location/app/country/hard_fallback.py:247:                "country"
+/opt/config-location/app/country/hard_fallback.py:287:            o.get("country_code")
+/opt/config-location/app/country/hard_fallback.py:288:            or o.get("country")
+/opt/config-location/app/country/hard_fallback.py:307:                "country_name"
+/opt/config-location/app/country/hard_fallback.py:344:            o.get("country")
+/opt/config-location/app/country/hard_fallback.py:427:            and e["country_code"]
+/opt/config-location/app/country/hard_fallback.py:438:            and e["country_code"]
+/opt/config-location/app/country/hard_fallback.py:444:        e["country_code"]
+/opt/config-location/app/country/hard_fallback.py:477:            e["country_code"]==winner
+/opt/config-location/app/country/hard_fallback.py:494:                "country_code"
+/opt/config-location/app/country/hard_fallback.py:501:                    "country_name"
+/opt/config-location/app/country/hard_fallback.py:505:                    "country_name"
+/opt/config-location/app/country/hard_fallback.py:532:        "country_code":(
+/opt/config-location/app/country/hard_fallback.py:538:        "country_name":
+/opt/config-location/app/country/hard_fallback.py:550:        "country_confidence":(
+/opt/config-location/app/country/fallback_consensus.py:46:            "country_code":None,
+/opt/config-location/app/country/fallback_consensus.py:47:            "country_name":None,
+/opt/config-location/app/country/fallback_consensus.py:48:            "flag":None,
+/opt/config-location/app/country/fallback_consensus.py:111:        "country_code":(
+/opt/config-location/app/country/fallback_consensus.py:117:        "country_name":(
+/opt/config-location/app/country/fallback_consensus.py:123:        "flag":(
+/opt/config-location/app/country/geo_providers.py:177:        country_code=o.get("country_code"),
+/opt/config-location/app/country/geo_providers.py:178:        country_name=o.get("country"),
+/opt/config-location/app/country/geo_providers.py:227:        country_code=o.get("country_code"),
+/opt/config-location/app/country/geo_providers.py:228:        country_name=o.get("country_name"),
+/opt/config-location/app/country/geo_providers.py:294:        country_name=o.get("country"),
+/opt/config-location/app/country/ultimate_geo.py:52:                "country_code":
+/opt/config-location/app/country/ultimate_geo.py:86:                "country_code":
+/opt/config-location/app/country/ultimate_geo.py:116:            "country_code":
+/opt/config-location/app/country/ultimate_geo.py:139:            "country_code":None,
+/opt/config-location/app/country/ultimate_geo.py:141:            "flag":None,
+/opt/config-location/app/country/ultimate_geo.py:181:            "country_code":
+/opt/config-location/app/country/ultimate_geo.py:184:            "flag":
+/opt/config-location/app/country/ultimate_geo.py:206:        "country_code":None,
+/opt/config-location/app/country/ultimate_geo.py:208:        "flag":None,
+/opt/config-location/app/country/rotating_exit_state.py:127:        "country_code":code,
+/opt/config-location/app/country/rotating_exit_state.py:140:            and last.get("country_code")
+/opt/config-location/app/country/rotating_exit_state.py:141:            ==row["country_code"]
+/opt/config-location/app/country/rotating_exit_state.py:190:            x.get("country_code")
+/opt/config-location/app/country/rotating_exit_state.py:193:        if x.get("country_code")
+/opt/config-location/app/country/progressive_recovery.py:176:            o.get("country")
+/opt/config-location/app/country/progressive_recovery.py:262:            o.get("country")
+/opt/config-location/app/country/progressive_recovery.py:470:        "country_code":
+/opt/config-location/app/country/progressive_recovery.py:473:        "country_name":
+/opt/config-location/app/country/progressive_recovery.py:485:        "country_confidence":(
+/opt/config-location/app/country/progressive_recovery.py:507:                "country_code":
+/opt/config-location/app/country/progressive_recovery.py:510:                "country_name":
+/opt/config-location/app/country/pipeline.py:232:        and identity.get("country_code")
+/opt/config-location/app/country/pipeline.py:235:        guarded["country_code"]=str(
+/opt/config-location/app/country/pipeline.py:236:            identity["country_code"]
+/opt/config-location/app/country/pipeline.py:241:            "country_name",
+/opt/config-location/app/country/pipeline.py:242:            "flag",
+/opt/config-location/app/country/pipeline.py:253:                "country_confidence"
+/opt/config-location/app/country/pipeline.py:259:                    "country_confidence"
+/opt/config-location/app/country/pipeline.py:283:            ]="country_identity_locked"
+/opt/config-location/app/country/pipeline.py:293:                "country_identity_guard":
+/opt/config-location/app/country/pipeline.py:296:                "country_identity_locked":
+/opt/config-location/app/country/pipeline.py:302:                "country_identity_source":
+/opt/config-location/app/country/pipeline.py:700:            "country_code":
+/opt/config-location/app/country/pipeline.py:703:            "country_name":
+/opt/config-location/app/country/pipeline.py:706:            "flag":
+/opt/config-location/app/country/pipeline.py:743:                "country_code":
+/opt/config-location/app/country/pipeline.py:745:                        "country_code"
+/opt/config-location/app/country/pipeline.py:750:                        "country_confidence"
+/opt/config-location/app/country/rdap_recovery.py:93:        "country"
+/opt/config-location/app/panel/server.py:4693:                "country",
+/opt/config-location/app/panel/publish_read_model.py:369:        "country":[],
+/opt/config-location/app/panel/publish_read_model.py:398:            result["country"].append(
+/opt/config-location/app/panel/publish_read_model.py:491:                    "country"
+/opt/config-location/app/panel/settings_ui.py:214:            "country": {
+/opt/config-location/app/panel/settings_ui.py:305:        "country"
+/opt/config-location/app/panel/read_model.py:30:    / "country"
+/opt/config-location/app/panel/read_model.py:148:                "country_code"
+/opt/config-location/app/panel/read_model.py:157:                "country_code"
+/opt/config-location/app/panel/read_model.py:163:                "country_name"
+/opt/config-location/app/panel/read_model.py:166:                "country_name"
+/opt/config-location/app/panel/read_model.py:177:                    "country_code"
+/opt/config-location/app/panel/read_model.py:181:                "country_code"
+/opt/config-location/app/panel/read_model.py:187:            "country_name"
+/opt/config-location/app/panel/read_model.py:213:        "country_code":
+/opt/config-location/app/panel/read_model.py:216:        "country_name":
+/opt/config-location/app/panel/read_model.py:236:        "country_confidence":
+/opt/config-location/app/panel/read_model.py:417:            "country_code"
+/opt/config-location/app/panel/read_model.py:423:                row["country_code"]
+/opt/config-location/app/panel/read_model.py:571:                    "country_code"
+/opt/config-location/app/panel/read_model.py:621:                            "country_code",
+/opt/config-location/app/panel/read_model.py:628:                            "country_name",
+/opt/config-location/app/panel/read_model.py:799:        "country_identity":
+/opt/config-location/app/panel/config_detail_ui.py:363:            <div id="country"
+/opt/config-location/app/panel/config_detail_ui.py:693:        $("country").textContent=
+/opt/config-location/app/panel/config_detail_ui.py:740:                data.country_identity
+
+========== D. PUBLISH COUNTRY REFERENCES ==========
+/opt/config-location/app/publish/filter.py:153:def publishable_config_ids() -> set[str]:
+/opt/config-location/app/publish/filter.py:182:        publish_flag = bool(
+/opt/config-location/app/publish/filter.py:192:            and publish_flag
+/opt/config-location/app/publish/http.py:221:        "/sub/all",
+/opt/config-location/app/publish/__init__.py:4:    publishable_config_ids,
+/opt/config-location/app/publish/__init__.py:10:    "publishable_config_ids",
+/opt/config-location/app/panel/operations_ui.py:280:               href="/country">
+/opt/config-location/app/panel/server.py:19:from app.panel.country_ui import (
+/opt/config-location/app/panel/server.py:20:    country_page,
+/opt/config-location/app/panel/server.py:766:.health-ui-unknown {{
+/opt/config-location/app/panel/server.py:771:.health-ui-unknown .health-ui-dot {{
+/opt/config-location/app/panel/server.py:778:.health-ui-unknown .health-ui-value {{
+/opt/config-location/app/panel/server.py:955:.fetch-unknown {{
+/opt/config-location/app/panel/server.py:960:.fetch-unknown .fetch-status-dot {{
+/opt/config-location/app/panel/server.py:966:.fetch-unknown .fetch-status-label {{
+/opt/config-location/app/panel/server.py:2044:        or "unknown"
+/opt/config-location/app/panel/server.py:2055:        "unknown": "نامشخص",
+/opt/config-location/app/panel/server.py:2066:        "unknown": "secondary",
+/opt/config-location/app/panel/server.py:2879:        "unknown",
+/opt/config-location/app/panel/server.py:2883:        fetch_status_class = "fetch-unknown"
+/opt/config-location/app/panel/server.py:2892:    # to unknown and must not break the main dashboard.
+/opt/config-location/app/panel/server.py:2904:            "state": "unknown",
+/opt/config-location/app/panel/server.py:2907:                "state": "unknown",
+/opt/config-location/app/panel/server.py:2910:                "state": "unknown",
+/opt/config-location/app/panel/server.py:2965:            "health-ui-unknown",
+/opt/config-location/app/panel/server.py:2975:            "unknown",
+/opt/config-location/app/panel/server.py:2989:            "unknown",
+/opt/config-location/app/panel/server.py:3003:            "unknown",
+/opt/config-location/app/panel/server.py:3041:                "health-ui-unknown",
+/opt/config-location/app/panel/server.py:4612:async def api_country_summary(
+/opt/config-location/app/panel/server.py:4691:        country_code=str(
+/opt/config-location/app/panel/server.py:4693:                "country",
+/opt/config-location/app/panel/server.py:4698:        country_state=str(
+/opt/config-location/app/panel/server.py:4724:async def api_country_unresolved(
+/opt/config-location/app/panel/server.py:4782:        country_state=str(
+/opt/config-location/app/panel/server.py:5129:        "/api/country/summary",
+/opt/config-location/app/panel/server.py:5130:        api_country_summary
+/opt/config-location/app/panel/server.py:5139:        "/api/country/unresolved",
+/opt/config-location/app/panel/server.py:5140:        api_country_unresolved
+/opt/config-location/app/panel/server.py:5154:        "/country",
+/opt/config-location/app/panel/server.py:5155:        country_page
+/opt/config-location/app/panel/operations_read_model.py:59:        from app.country.event_bus import (
+/opt/config-location/app/panel/operations_read_model.py:222:        or "unknown"
+/opt/config-location/app/panel/operations_read_model.py:382:            or "unknown"
+/opt/config-location/app/panel/operations_read_model.py:393:            or "unknown"
+/opt/config-location/app/panel/country_ui.py:575:            <div id="countrySummary"
+/opt/config-location/app/panel/country_ui.py:649:                <option value="unknown">
+/opt/config-location/app/panel/country_ui.py:686:                <option value="unknown">
+/opt/config-location/app/panel/country_ui.py:832:        value || "unknown"
+/opt/config-location/app/panel/country_ui.py:862:        value || "unknown"
+/opt/config-location/app/panel/country_ui.py:889:        || v==="unknown"
+/opt/config-location/app/panel/country_ui.py:992:        "/api/country/summary"
+/opt/config-location/app/panel/country_ui.py:1002:            s.country_known
+/opt/config-location/app/panel/country_ui.py:1007:            s.country_unresolved
+/opt/config-location/app/panel/country_ui.py:1012:            s.country_rotating
+/opt/config-location/app/panel/country_ui.py:1017:            s.country_coverage_percent
+/opt/config-location/app/panel/country_ui.py:1031:        s.country_states,
+/opt/config-location/app/panel/country_ui.py:1036:        "countrySummary",
+/opt/config-location/app/panel/country_ui.py:1148:                const country=
+/opt/config-location/app/panel/country_ui.py:1149:                    row.country_code
+/opt/config-location/app/panel/country_ui.py:1152:                            row.country_code
+/opt/config-location/app/panel/country_ui.py:1155:                            row.country_name
+/opt/config-location/app/panel/country_ui.py:1158:                                row.country_name
+/opt/config-location/app/panel/country_ui.py:1199:                    +country
+/opt/config-location/app/panel/country_ui.py:1204:                        row.country_state
+/opt/config-location/app/panel/country_ui.py:1465:async def country_page(
+/opt/config-location/app/panel/publish_read_model.py:369:        "country":[],
+/opt/config-location/app/panel/publish_read_model.py:378:        if path=="/sub/all":
+/opt/config-location/app/panel/publish_read_model.py:394:            "{country" in low
+/opt/config-location/app/panel/publish_read_model.py:395:            or "/country/" in low
+/opt/config-location/app/panel/publish_read_model.py:398:            result["country"].append(
+/opt/config-location/app/panel/publish_read_model.py:481:                "/sub/all"
+/opt/config-location/app/panel/publish_read_model.py:482:                if "/sub/all"
+/opt/config-location/app/panel/publish_read_model.py:489:            "country_templates":
+/opt/config-location/app/panel/publish_read_model.py:491:                    "country"
+/opt/config-location/app/panel/publish_ui.py:260:               href="/country">
+/opt/config-location/app/panel/publish_ui.py:536:            ?.country_templates
+/opt/config-location/app/panel/settings_ui.py:214:            "country": {
+/opt/config-location/app/panel/settings_ui.py:215:                "unknown_name":
+/opt/config-location/app/panel/settings_ui.py:218:                            "unknown_name",
+/opt/config-location/app/panel/settings_ui.py:227:                            "{flag} {country}",
+/opt/config-location/app/panel/settings_ui.py:304:    country = settings[
+/opt/config-location/app/panel/settings_ui.py:305:        "country"
+/opt/config-location/app/panel/settings_ui.py:482: name="unknown_name"
+/opt/config-location/app/panel/settings_ui.py:483: value="{_esc(country["unknown_name"])}"
+/opt/config-location/app/panel/settings_ui.py:494: value="{_esc(country["remark_format"])}"
+/opt/config-location/app/panel/settings_ui.py:499:باید شامل {{country}} باشد.
+/opt/config-location/app/panel/settings_ui.py:500:مثال: {{flag}} {{country}}
+/opt/config-location/app/panel/read_model.py:30:    / "country"
+/opt/config-location/app/panel/read_model.py:35:    / "country-identity"
+/opt/config-location/app/panel/read_model.py:47:    "unknown",
+/opt/config-location/app/panel/read_model.py:134:def _country_view(
+/opt/config-location/app/panel/read_model.py:148:                "country_code"
+/opt/config-location/app/panel/read_model.py:157:                "country_code"
+/opt/config-location/app/panel/read_model.py:163:                "country_name"
+/opt/config-location/app/panel/read_model.py:166:                "country_name"
+/opt/config-location/app/panel/read_model.py:177:                    "country_code"
+/opt/config-location/app/panel/read_model.py:181:                "country_code"
+/opt/config-location/app/panel/read_model.py:187:            "country_name"
+/opt/config-location/app/panel/read_model.py:201:        or "unknown"
+/opt/config-location/app/panel/read_model.py:213:        "country_code":
+/opt/config-location/app/panel/read_model.py:216:        "country_name":
+/opt/config-location/app/panel/read_model.py:219:        "country_locked":
+/opt/config-location/app/panel/read_model.py:222:        "country_source":
+/opt/config-location/app/panel/read_model.py:225:        "country_state":
+/opt/config-location/app/panel/read_model.py:228:        "country_unresolved":
+/opt/config-location/app/panel/read_model.py:236:        "country_confidence":
+/opt/config-location/app/panel/read_model.py:276:    country=_country_view(
+/opt/config-location/app/panel/read_model.py:305:        or "unknown"
+/opt/config-location/app/panel/read_model.py:316:        or "unknown"
+/opt/config-location/app/panel/read_model.py:331:            or "unknown",
+/opt/config-location/app/panel/read_model.py:365:        **country,
+/opt/config-location/app/panel/read_model.py:389:    country_states=Counter()
+/opt/config-location/app/panel/read_model.py:391:    country_known=0
+/opt/config-location/app/panel/read_model.py:411:        country_states[
+/opt/config-location/app/panel/read_model.py:412:            row["country_state"]
+/opt/config-location/app/panel/read_model.py:417:            "country_code"
+/opt/config-location/app/panel/read_model.py:420:            country_known+=1
+/opt/config-location/app/panel/read_model.py:423:                row["country_code"]
+/opt/config-location/app/panel/read_model.py:428:            "country_unresolved"
+/opt/config-location/app/panel/read_model.py:443:        "country_known":
+/opt/config-location/app/panel/read_model.py:444:            country_known,
+/opt/config-location/app/panel/read_model.py:446:        "country_unresolved":
+/opt/config-location/app/panel/read_model.py:449:        "country_rotating":
+/opt/config-location/app/panel/read_model.py:452:        "country_coverage_percent":
+/opt/config-location/app/panel/read_model.py:455:                    country_known
+/opt/config-location/app/panel/read_model.py:473:        "country_states":
+/opt/config-location/app/panel/read_model.py:475:                country_states
+/opt/config-location/app/panel/read_model.py:490:    country_code: str = "",
+/opt/config-location/app/panel/read_model.py:491:    country_state: str = "",
+/opt/config-location/app/panel/read_model.py:511:    country_code=(
+/opt/config-location/app/panel/read_model.py:512:        country_code
+/opt/config-location/app/panel/read_model.py:517:    country_state=(
+/opt/config-location/app/panel/read_model.py:518:        country_state
+/opt/config-location/app/panel/read_model.py:568:            country_code
+/opt/config-location/app/panel/read_model.py:571:                    "country_code"
+/opt/config-location/app/panel/read_model.py:575:            !=country_code
+/opt/config-location/app/panel/read_model.py:581:            country_state
+/opt/config-location/app/panel/read_model.py:584:                    "country_state"
+/opt/config-location/app/panel/read_model.py:587:            !=country_state
+/opt/config-location/app/panel/read_model.py:595:                "country_unresolved"
+/opt/config-location/app/panel/read_model.py:621:                            "country_code",
+/opt/config-location/app/panel/read_model.py:628:                            "country_name",
+/opt/config-location/app/panel/read_model.py:799:        "country_identity":
+/opt/config-location/app/panel/read_model.py:802:        "country_pipeline":
+/opt/config-location/app/panel/read_model.py:805:        "country_result":
+/opt/config-location/app/panel/config_detail_ui.py:288:            <a href="/country"
+/opt/config-location/app/panel/config_detail_ui.py:363:            <div id="country"
+/opt/config-location/app/panel/config_detail_ui.py:377:            <div id="countryState"
+/opt/config-location/app/panel/config_detail_ui.py:693:        $("country").textContent=
+/opt/config-location/app/panel/config_detail_ui.py:694:            summary.country_code
+/opt/config-location/app/panel/config_detail_ui.py:696:                summary.country_code
+/opt/config-location/app/panel/config_detail_ui.py:698:                    summary.country_name
+/opt/config-location/app/panel/config_detail_ui.py:700:                    +summary.country_name
+/opt/config-location/app/panel/config_detail_ui.py:707:        $("countryState").textContent=
+/opt/config-location/app/panel/config_detail_ui.py:709:                summary.country_state
+/opt/config-location/app/panel/config_detail_ui.py:740:                data.country_identity
+/opt/config-location/app/panel/config_detail_ui.py:746:                data.country_pipeline
+/opt/config-location/app/panel/config_detail_ui.py:764:                data.country_result
+
+========== [4] RUNTIME CORRELATION ==========
+TOTAL_CONFIGS= 2836
+CONFIG_KNOWN_COUNTRY= 0
+COUNTRY_RESULTS_FILES= 8775
+COUNTRY_RESULTS_KNOWN= 4417
+COUNTRY_IDENTITY_FILES= 4623
+COUNTRY_IDENTITY_KNOWN= 4623
+PIPELINE_LATEST_FILES= 15689
+PIPELINE_LATEST_KNOWN= 10768
+CONFIG_RESULT_ID_OVERLAP= 160
+CONFIG_IDENTITY_ID_OVERLAP= 132
+CONFIG_PIPELINE_ID_OVERLAP= 2059
+CONFIG_UNKNOWN_BUT_COUNTRY_RESOLVED_ELSEWHERE= 1723
+RESOLVED_ELSEWHERE_SAMPLE= [
+  {
+    "config_id": "e6d0f6928cca8bc3a995ec1c6bf30f13047c9a58acde2813c2d146e75cce0831",
+    "external_country": "Poland",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Poland"
+  },
+  {
+    "config_id": "ddb9d139f848a12340bfae242ead56d533039294d0e8cdef71e2850d12aab4da",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "382561dbb74013aea9885279780993c775bf0df009a95264b4cc9748a95bc8c9",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "28695408d85d67c9944a30933756d69b4dedcd51614d86a6fcbf43e5f4b50c9a",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "5faa70be504e3920d1546b51ef1d22ebdf3fda14dffb637fc3cb503c7301bec4",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "06bb5ca2f6c7e9db4900c0f1a8bbb03a147b20c0c4e5f88e91a2f8ae35f3e150",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "facf49e01668ed94c7eaeef6adf56d77bdadadc9207884f0e3b8beac9d98546b",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "1021515dd784e6645fde95af6331110f826c6f675832b9dede7ed2ced2b7f776",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "9b46d56ebb4ad730c4153c53076cc11b41564fa9948753b40c06b273227f01f1",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "6c4282f84a9cc630cb58b93846aa7d6cf373d58bea27e4e8614ca3b6f6715523",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "9386d919f6b2b023daf32162c77ce7a79dc04619230a87ffa9d9fa33e443478c",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "5bd79fd9221e6e5bb17905da60b6c1a7c491e015b4a1f38f4b4dbf0e35c1984b",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "00b0d38fcdeb2ce4dc2a425458e7bcd0680f26031675495eeda3d6c7f140ba3d",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "d822ccdb6bebb1639d434fc3a01229be788fa57c81cac7e30ba6b4031669bede",
+    "external_country": "Netherlands",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Netherlands"
+  },
+  {
+    "config_id": "9e28f2d399c203091c95b3f9ffdbf7cb66bb5ab88a784d22cfd571a1e0de79fb",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "0d60cc6d312c8d6ea1756f61e63ff9afa47adaa1c3f1eaa4f1e95307b600d0af",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "03b7b5d75f68f0fbed4d3d77849904b21a354683d300fc0042c79da06cc5cfb2",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "b454c463128030eb4cc766b7ffd01d3c45b81d95ceef0b34025249f8d773accb",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "dcb135ddfba71ce2222afc80215f476ca71bfc7048f31a192a4ac4a30e7b667c",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "b49d6c043518cd3240b4a989a3454ab38eaf865133f21766b014072cf78e1590",
+    "external_country": "Poland",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Poland"
+  },
+  {
+    "config_id": "30a0024cb48a2177709463d3a2e50648ebd5397de9e169fab900086d20ea157f",
+    "external_country": "Japan",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Japan"
+  },
+  {
+    "config_id": "62db08009862da5319508992530f44290838ecb498dd1664571dcf400efbdf33",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "03578909a1994c5fd6d86fbaf882925cb357aa1b5838df185bc0ec7e355b653e",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "e387b95d05453d5b3a574923fe912b7706a8214183df34caacfa0bf0e4fd50bb",
+    "external_country": "Poland",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Poland"
+  },
+  {
+    "config_id": "763a94652a1f4d9c32b852285615c98f7999749b3fb5fb07fd7a4c494c286013",
+    "external_country": "Poland",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Poland"
+  },
+  {
+    "config_id": "89800f54266eb7c56496f111c13d70fad9764b7084a84c70e2cc8c76f8ee9a4d",
+    "external_country": "Germany",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "4e9d4209b8c500ba313749bcfc7acd98f514de59b42855ba17810f40824dba1b",
+    "external_country": "Netherlands",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Netherlands"
+  },
+  {
+    "config_id": "a3a16e7b047d237c09b25d088431a6ae2d80f14d7e62a0d6df30c03a90a589ee",
+    "external_country": "Germany",
+    "result_country": "Germany",
+    "identity_country": "Germany",
+    "pipeline_country": "Germany"
+  },
+  {
+    "config_id": "9ddc1bdd1dbd4ebb4b5d8011fc1fd565686be6860937473d99359e9dafe94073",
+    "external_country": "The Netherlands",
+    "result_country": "The Netherlands",
+    "identity_country": "The Netherlands",
+    "pipeline_country": "The Netherlands"
+  },
+  {
+    "config_id": "ba0d9282a6f5e7d777ca79ada8140b4cb57d78e12a6ea610184448f18f7ae134",
+    "external_country": "United States",
+    "result_country": "United States",
+    "identity_country": "United States",
+    "pipeline_country": "United States"
+  },
+  {
+    "config_id": "b30bae5556c783a16d21f7db9d0689910ea20c532ed7ce5d56e4d7e253d9f3d4",
+    "external_country": "Hong Kong",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Hong Kong"
+  },
+  {
+    "config_id": "fa4947c6dc1913f9ce7c5a2573c0c10e0a4f946172951f62f636b63ff4aad195",
+    "external_country": "Poland",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Poland"
+  },
+  {
+    "config_id": "d68e6d3163cb9590dbd5300a7236b39a217105b0961047d34f271e847936e8ca",
+    "external_country": "United States",
+    "result_country": "United States",
+    "identity_country": "United States",
+    "pipeline_country": "United States"
+  },
+  {
+    "config_id": "797bc88507c4799eb3d2a182c3c359995677ddfd1d759cb23568cfcdea75bfd2",
+    "external_country": "Netherlands",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Netherlands"
+  },
+  {
+    "config_id": "f22727223352386243f9a0757c96d38afbec78558503c7ec12c293b627c3732d",
+    "external_country": "Colombia",
+    "result_country": "Colombia",
+    "identity_country": "Colombia",
+    "pipeline_country": "Colombia"
+  },
+  {
+    "config_id": "e5589d3570038a2402bea1b0a5185a154f838a588c37cc0c3b3881a111c54620",
+    "external_country": "Poland",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Poland"
+  },
+  {
+    "config_id": "af9dd1a34cef9fa9d73fab1461f950e63f6be974b4359aaa1e8144cf00f5bd6b",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "03cc1ffc10287182be82aa5b66f0e3a3cbe736858b5bad6481295c10d7567e8c",
+    "external_country": "Netherlands",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Netherlands"
+  },
+  {
+    "config_id": "2ca2e553692c16d406cb08feb6a5eab588650f437e08465818383084e6a08a5b",
+    "external_country": "United Kingdom",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "United Kingdom"
+  },
+  {
+    "config_id": "832be6151160713fbd21c1c80cfd1aec744df55c92fbcec3a7f506e399f22120",
+    "external_country": "Canada",
+    "result_country": null,
+    "identity_country": null,
+    "pipeline_country": "Canada"
+  }
+]
+
+========== [5] SAMPLE DEEP JOIN ==========
+
+CONFIG_ID= ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb
+CONFIG_PATH= /var/lib/config-location/configs/ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb.json
+{
+  "config_id": "ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb",
+  "state": "confirmed_stable",
+  "country_code": "SE",
+  "country_name": "Sweden",
+  "flag": "🇸🇪"
+}
+
+CONFIG_ID= ecef8577af55584fb58d112febd8d5d038dc16a1bd58a6190df8e12f99062941
+CONFIG_PATH= /var/lib/config-location/configs/ecef8577af55584fb58d112febd8d5d038dc16a1bd58a6190df8e12f99062941.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/ecef8577af55584fb58d112febd8d5d038dc16a1bd58a6190df8e12f99062941.json
+{
+  "config_id": "ecef8577af55584fb58d112febd8d5d038dc16a1bd58a6190df8e12f99062941",
+  "state": "confirmed_stable",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= 6c323607cbdf309318b52fbe6a787de38e49d0a994eb04cbf06f90e788e46ab8
+CONFIG_PATH= /var/lib/config-location/configs/6c323607cbdf309318b52fbe6a787de38e49d0a994eb04cbf06f90e788e46ab8.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/6c323607cbdf309318b52fbe6a787de38e49d0a994eb04cbf06f90e788e46ab8.json
+{
+  "config_id": "6c323607cbdf309318b52fbe6a787de38e49d0a994eb04cbf06f90e788e46ab8",
+  "state": "unstable_exit",
+  "reason": "exit_ip_disagreement"
+}
+
+CONFIG_ID= 6ed43b513b1fbc0b14808cda31d81054ff6cac256b6e713b8ef46eb00f06766c
+CONFIG_PATH= /var/lib/config-location/configs/6ed43b513b1fbc0b14808cda31d81054ff6cac256b6e713b8ef46eb00f06766c.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/6ed43b513b1fbc0b14808cda31d81054ff6cac256b6e713b8ef46eb00f06766c.json
+{
+  "config_id": "6ed43b513b1fbc0b14808cda31d81054ff6cac256b6e713b8ef46eb00f06766c",
+  "state": "ambiguous",
+  "country_code": null,
+  "country_name": null,
+  "flag": null
+}
+
+CONFIG_ID= 89ed3a6841f89ed97687d50ce77efa1beb0617a19a4707b09f29c6c90a9a1f7e
+CONFIG_PATH= /var/lib/config-location/configs/89ed3a6841f89ed97687d50ce77efa1beb0617a19a4707b09f29c6c90a9a1f7e.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/89ed3a6841f89ed97687d50ce77efa1beb0617a19a4707b09f29c6c90a9a1f7e.json
+{
+  "config_id": "89ed3a6841f89ed97687d50ce77efa1beb0617a19a4707b09f29c6c90a9a1f7e",
+  "state": "confirmed_stable",
+  "country_code": "NL",
+  "country_name": "The Netherlands",
+  "flag": "🇳🇱"
+}
+
+CONFIG_ID= 13ae9729f39f690e509bfa5a297693db491ada096c395e3b7acc8cbfb97d4c25
+CONFIG_PATH= /var/lib/config-location/configs/13ae9729f39f690e509bfa5a297693db491ada096c395e3b7acc8cbfb97d4c25.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/13ae9729f39f690e509bfa5a297693db491ada096c395e3b7acc8cbfb97d4c25.json
+{
+  "config_id": "13ae9729f39f690e509bfa5a297693db491ada096c395e3b7acc8cbfb97d4c25",
+  "state": "confirmed_stable",
+  "country_code": "NL",
+  "country_name": "The Netherlands",
+  "flag": "🇳🇱"
+}
+
+CONFIG_ID= 6f670551da71998d95194471a2208e2e345f6f7b17ac32662fc4297195ee0ddb
+CONFIG_PATH= /var/lib/config-location/configs/6f670551da71998d95194471a2208e2e345f6f7b17ac32662fc4297195ee0ddb.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/6f670551da71998d95194471a2208e2e345f6f7b17ac32662fc4297195ee0ddb.json
+{
+  "config_id": "6f670551da71998d95194471a2208e2e345f6f7b17ac32662fc4297195ee0ddb",
+  "state": "confirmed_stable",
+  "country_code": "GB",
+  "country_name": "United Kingdom",
+  "flag": "🇬🇧"
+}
+
+CONFIG_ID= 332d4ab0afd31d9685b7e5a77970eb5bcc9558eeefe063b2445838fb0a7a1497
+CONFIG_PATH= /var/lib/config-location/configs/332d4ab0afd31d9685b7e5a77970eb5bcc9558eeefe063b2445838fb0a7a1497.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/332d4ab0afd31d9685b7e5a77970eb5bcc9558eeefe063b2445838fb0a7a1497.json
+{
+  "config_id": "332d4ab0afd31d9685b7e5a77970eb5bcc9558eeefe063b2445838fb0a7a1497",
+  "state": "unstable_exit",
+  "reason": "exit_ip_disagreement"
+}
+
+CONFIG_ID= 2e13ac68a83eb8a31b85a7b4c8d148864134d7342f05cf56302f0cb489b6f7a1
+CONFIG_PATH= /var/lib/config-location/configs/2e13ac68a83eb8a31b85a7b4c8d148864134d7342f05cf56302f0cb489b6f7a1.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/2e13ac68a83eb8a31b85a7b4c8d148864134d7342f05cf56302f0cb489b6f7a1.json
+{
+  "config_id": "2e13ac68a83eb8a31b85a7b4c8d148864134d7342f05cf56302f0cb489b6f7a1",
+  "state": "confirmed_rotating_ip",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= 81e06d88c3183e4ff4e0d69e4dc50cb4f5ec97a6cd9cc8287575538cb5a6c802
+CONFIG_PATH= /var/lib/config-location/configs/81e06d88c3183e4ff4e0d69e4dc50cb4f5ec97a6cd9cc8287575538cb5a6c802.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/81e06d88c3183e4ff4e0d69e4dc50cb4f5ec97a6cd9cc8287575538cb5a6c802.json
+{
+  "config_id": "81e06d88c3183e4ff4e0d69e4dc50cb4f5ec97a6cd9cc8287575538cb5a6c802",
+  "state": "ambiguous",
+  "country_code": null,
+  "country_name": null,
+  "flag": null
+}
+
+CONFIG_ID= cd218e5d94a9ee4332079be2cb60268662f5accb0ca4f849c514ff61dadd8b8a
+CONFIG_PATH= /var/lib/config-location/configs/cd218e5d94a9ee4332079be2cb60268662f5accb0ca4f849c514ff61dadd8b8a.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/cd218e5d94a9ee4332079be2cb60268662f5accb0ca4f849c514ff61dadd8b8a.json
+{
+  "config_id": "cd218e5d94a9ee4332079be2cb60268662f5accb0ca4f849c514ff61dadd8b8a",
+  "state": "confirmed_stable",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= 39f0d12291360c379281d784e527236dd6ae8b6cdce075a4eb29c8da8c4c9f16
+CONFIG_PATH= /var/lib/config-location/configs/39f0d12291360c379281d784e527236dd6ae8b6cdce075a4eb29c8da8c4c9f16.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/39f0d12291360c379281d784e527236dd6ae8b6cdce075a4eb29c8da8c4c9f16.json
+{
+  "config_id": "39f0d12291360c379281d784e527236dd6ae8b6cdce075a4eb29c8da8c4c9f16",
+  "state": "confirmed_stable",
+  "country_code": "GB",
+  "country_name": "United Kingdom",
+  "flag": "🇬🇧"
+}
+
+CONFIG_ID= 61e11885a4ff212f7e8f0836e9dbb9e0a02410e779d5249a0e3e49f35e35fdda
+CONFIG_PATH= /var/lib/config-location/configs/61e11885a4ff212f7e8f0836e9dbb9e0a02410e779d5249a0e3e49f35e35fdda.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/61e11885a4ff212f7e8f0836e9dbb9e0a02410e779d5249a0e3e49f35e35fdda.json
+{
+  "config_id": "61e11885a4ff212f7e8f0836e9dbb9e0a02410e779d5249a0e3e49f35e35fdda",
+  "state": "error",
+  "reason": "no_exit_probe_succeeded"
+}
+
+CONFIG_ID= fb6f4a258c8ec4542ff629d0af3eb859934074125c4bd5fe623bf44b55a69bd4
+CONFIG_PATH= /var/lib/config-location/configs/fb6f4a258c8ec4542ff629d0af3eb859934074125c4bd5fe623bf44b55a69bd4.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/fb6f4a258c8ec4542ff629d0af3eb859934074125c4bd5fe623bf44b55a69bd4.json
+{
+  "config_id": "fb6f4a258c8ec4542ff629d0af3eb859934074125c4bd5fe623bf44b55a69bd4",
+  "state": "confirmed_stable",
+  "country_code": "NL",
+  "country_name": "Netherlands",
+  "flag": "🇳🇱"
+}
+
+CONFIG_ID= 511df29df9c378e29491f82af8f1ae3ad082f9c0bd36768ddf8c2c3b8d21dcfb
+CONFIG_PATH= /var/lib/config-location/configs/511df29df9c378e29491f82af8f1ae3ad082f9c0bd36768ddf8c2c3b8d21dcfb.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/511df29df9c378e29491f82af8f1ae3ad082f9c0bd36768ddf8c2c3b8d21dcfb.json
+{
+  "config_id": "511df29df9c378e29491f82af8f1ae3ad082f9c0bd36768ddf8c2c3b8d21dcfb",
+  "state": "confirmed_stable",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= 28c26ee729c8f8e093f98855d7a4acbb7f0c03c18efa731d98d8001c1b5485e2
+CONFIG_PATH= /var/lib/config-location/configs/28c26ee729c8f8e093f98855d7a4acbb7f0c03c18efa731d98d8001c1b5485e2.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/28c26ee729c8f8e093f98855d7a4acbb7f0c03c18efa731d98d8001c1b5485e2.json
+{
+  "config_id": "28c26ee729c8f8e093f98855d7a4acbb7f0c03c18efa731d98d8001c1b5485e2",
+  "state": "confirmed_stable",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= d4b4e6efdd59fde1f929551e3490893d0b37f47d9c9ebe9e46916b7ce55a5e3a
+CONFIG_PATH= /var/lib/config-location/configs/d4b4e6efdd59fde1f929551e3490893d0b37f47d9c9ebe9e46916b7ce55a5e3a.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/d4b4e6efdd59fde1f929551e3490893d0b37f47d9c9ebe9e46916b7ce55a5e3a.json
+{
+  "config_id": "d4b4e6efdd59fde1f929551e3490893d0b37f47d9c9ebe9e46916b7ce55a5e3a",
+  "state": "confirmed_stable",
+  "country_code": "NL",
+  "country_name": "Netherlands",
+  "flag": "🇳🇱"
+}
+
+CONFIG_ID= 8c65004a012d60da70e616247cd243deb1ff6330c929f975c27c382d0d16b8c6
+CONFIG_PATH= /var/lib/config-location/configs/8c65004a012d60da70e616247cd243deb1ff6330c929f975c27c382d0d16b8c6.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/8c65004a012d60da70e616247cd243deb1ff6330c929f975c27c382d0d16b8c6.json
+{
+  "config_id": "8c65004a012d60da70e616247cd243deb1ff6330c929f975c27c382d0d16b8c6",
+  "state": "confirmed_stable",
+  "country_code": "FI",
+  "country_name": "Finland",
+  "flag": "🇫🇮"
+}
+
+CONFIG_ID= 5f142a926f3507908d791ca756584d756912e330b833b022f447debfb5db25b5
+CONFIG_PATH= /var/lib/config-location/configs/5f142a926f3507908d791ca756584d756912e330b833b022f447debfb5db25b5.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/5f142a926f3507908d791ca756584d756912e330b833b022f447debfb5db25b5.json
+{
+  "config_id": "5f142a926f3507908d791ca756584d756912e330b833b022f447debfb5db25b5",
+  "state": "confirmed_stable",
+  "country_code": "NL",
+  "country_name": "The Netherlands",
+  "flag": "🇳🇱"
+}
+
+CONFIG_ID= 29d35861713888931708c834354fa45f02ecc8e6012c7d73f8169fd93433fefd
+CONFIG_PATH= /var/lib/config-location/configs/29d35861713888931708c834354fa45f02ecc8e6012c7d73f8169fd93433fefd.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/29d35861713888931708c834354fa45f02ecc8e6012c7d73f8169fd93433fefd.json
+{
+  "config_id": "29d35861713888931708c834354fa45f02ecc8e6012c7d73f8169fd93433fefd",
+  "state": "ambiguous",
+  "country_code": null,
+  "country_name": null,
+  "flag": null
+}
+
+CONFIG_ID= be66c8af794f9f75551da9ef8974a0b397ac39d8815b1e36358fb418b4616c77
+CONFIG_PATH= /var/lib/config-location/configs/be66c8af794f9f75551da9ef8974a0b397ac39d8815b1e36358fb418b4616c77.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/be66c8af794f9f75551da9ef8974a0b397ac39d8815b1e36358fb418b4616c77.json
+{
+  "config_id": "be66c8af794f9f75551da9ef8974a0b397ac39d8815b1e36358fb418b4616c77",
+  "state": "confirmed_stable",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= 90338f7f61a6ec890b828aa7fd45bacb01602c3f5b6d1ced0d572bbb322d1c2a
+CONFIG_PATH= /var/lib/config-location/configs/90338f7f61a6ec890b828aa7fd45bacb01602c3f5b6d1ced0d572bbb322d1c2a.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/90338f7f61a6ec890b828aa7fd45bacb01602c3f5b6d1ced0d572bbb322d1c2a.json
+{
+  "config_id": "90338f7f61a6ec890b828aa7fd45bacb01602c3f5b6d1ced0d572bbb322d1c2a",
+  "state": "pending_confirmation",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= 50beeb68d8134db889f03fc735da172991fac077a6e6b17ac1e0558d27703233
+CONFIG_PATH= /var/lib/config-location/configs/50beeb68d8134db889f03fc735da172991fac077a6e6b17ac1e0558d27703233.json
+COUNTRY_PATH= /var/lib/config-location/country/country-identity/50beeb68d8134db889f03fc735da172991fac077a6e6b17ac1e0558d27703233.json
+{
+  "config_id": "50beeb68d8134db889f03fc735da172991fac077a6e6b17ac1e0558d27703233",
+  "country_code": "NL",
+  "country_name": "Netherlands",
+  "flag": "🇳🇱",
+  "country_confidence": 1.0,
+  "source": "k6c-country-once"
+}
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/50beeb68d8134db889f03fc735da172991fac077a6e6b17ac1e0558d27703233.json
+{
+  "config_id": "50beeb68d8134db889f03fc735da172991fac077a6e6b17ac1e0558d27703233",
+  "state": "confirmed_stable",
+  "country_code": "NL",
+  "country_name": "Netherlands",
+  "flag": "🇳🇱"
+}
+
+CONFIG_ID= 2acdd585e67d18fe835565287891e4d3399ce173cd8b75086523287d45deae8a
+CONFIG_PATH= /var/lib/config-location/configs/2acdd585e67d18fe835565287891e4d3399ce173cd8b75086523287d45deae8a.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/2acdd585e67d18fe835565287891e4d3399ce173cd8b75086523287d45deae8a.json
+{
+  "config_id": "2acdd585e67d18fe835565287891e4d3399ce173cd8b75086523287d45deae8a",
+  "state": "confirmed_stable",
+  "country_code": "DE",
+  "country_name": "Germany",
+  "flag": "🇩🇪"
+}
+
+CONFIG_ID= bc6ac2d8ab3a07d3a2ef36f9efb642c9e6d73192f0e43c2e10bef3c625bfc5c3
+CONFIG_PATH= /var/lib/config-location/configs/bc6ac2d8ab3a07d3a2ef36f9efb642c9e6d73192f0e43c2e10bef3c625bfc5c3.json
+COUNTRY_PATH= /var/lib/config-location/country/pipeline/latest/bc6ac2d8ab3a07d3a2ef36f9efb642c9e6d73192f0e43c2e10bef3c625bfc5c3.json
+{
+  "config_id": "bc6ac2d8ab3a07d3a2ef36f9efb642c9e6d73192f0e43c2e10bef3c625bfc5c3",
+  "state": "confirmed_stable",
+  "country_code": "SE",
+  "country_name": "Sweden",
+  "flag": "🇸🇪"
+}
+
+========== [6] PANEL READ MODEL ==========
+/opt/config-location/app/panel/server.py:4691:        country_code=str(
+/opt/config-location/app/panel/country_ui.py:1149:                    row.country_code
+/opt/config-location/app/panel/country_ui.py:1152:                            row.country_code
+/opt/config-location/app/panel/country_ui.py:1155:                            row.country_name
+/opt/config-location/app/panel/country_ui.py:1158:                                row.country_name
+/opt/config-location/app/panel/settings_ui.py:227:                            "{flag} {country}",
+/opt/config-location/app/panel/settings_ui.py:500:مثال: {{flag}} {{country}}
+/opt/config-location/app/panel/read_model.py:148:                "country_code"
+/opt/config-location/app/panel/read_model.py:157:                "country_code"
+/opt/config-location/app/panel/read_model.py:163:                "country_name"
+/opt/config-location/app/panel/read_model.py:166:                "country_name"
+/opt/config-location/app/panel/read_model.py:177:                    "country_code"
+/opt/config-location/app/panel/read_model.py:181:                "country_code"
+/opt/config-location/app/panel/read_model.py:187:            "country_name"
+/opt/config-location/app/panel/read_model.py:213:        "country_code":
+/opt/config-location/app/panel/read_model.py:216:        "country_name":
+/opt/config-location/app/panel/read_model.py:236:        "country_confidence":
+/opt/config-location/app/panel/read_model.py:417:            "country_code"
+/opt/config-location/app/panel/read_model.py:423:                row["country_code"]
+/opt/config-location/app/panel/read_model.py:490:    country_code: str = "",
+/opt/config-location/app/panel/read_model.py:511:    country_code=(
+/opt/config-location/app/panel/read_model.py:512:        country_code
+/opt/config-location/app/panel/read_model.py:568:            country_code
+/opt/config-location/app/panel/read_model.py:571:                    "country_code"
+/opt/config-location/app/panel/read_model.py:575:            !=country_code
+/opt/config-location/app/panel/read_model.py:621:                            "country_code",
+/opt/config-location/app/panel/read_model.py:628:                            "country_name",
+/opt/config-location/app/panel/read_model.py:799:        "country_identity":
+/opt/config-location/app/panel/read_model.py:805:        "country_result":
+/opt/config-location/app/panel/config_detail_ui.py:694:            summary.country_code
+/opt/config-location/app/panel/config_detail_ui.py:696:                summary.country_code
+/opt/config-location/app/panel/config_detail_ui.py:698:                    summary.country_name
+/opt/config-location/app/panel/config_detail_ui.py:700:                    +summary.country_name
+/opt/config-location/app/panel/config_detail_ui.py:740:                data.country_identity
+/opt/config-location/app/panel/config_detail_ui.py:764:                data.country_result
+
+========== [7] PUBLISH READ MODEL ==========
+/opt/config-location/app/publish/filter.py:182:        publish_flag = bool(
+/opt/config-location/app/publish/filter.py:192:            and publish_flag
+
+========== [8] CONFIG STORE SCHEMA ==========
+TOP_KEYS=
+2857 id
+2857 type
+2857 raw
+2857 canonical
+2857 first_seen_at
+2857 last_seen_at
+2857 source_ids
+SAMPLE_KEYS= [
+  {
+    "file": "/var/lib/config-location/configs/ba3ac291c3e3178fae1cbada8db69d2ebf0f6d19828f0bfe4abff4246e6f37fb.json",
+    "keys": [
+      "canonical",
+      "first_seen_at",
+      "id",
+      "last_seen_at",
+      "raw",
+      "source_ids",
+      "type"
+    ]
+  },
+  {
+    "file": "/var/lib/config-location/configs/5fe5cf4f9fdd32189bb8cbb4ed98cb325c36e77952a8ccefdc43dc74bb118d65.json",
+    "keys": [
+      "canonical",
+      "first_seen_at",
+      "id",
+      "last_seen_at",
+      "raw",
+      "source_ids",
+      "type"
+    ]
+  },
+  {
+    "file": "/var/lib/config-location/configs/ecef8577af55584fb58d112febd8d5d038dc16a1bd58a6190df8e12f99062941.json",
+    "keys": [
+      "canonical",
+      "first_seen_at",
+      "id",
+      "last_seen_at",
+      "raw",
+      "source_ids",
+      "type"
+    ]
+  },
+  {
+    "file": "/var/lib/config-location/configs/541e6915e8149c3e1abbe6f1114830361d8a3da9ae0bca5e6a09a5d5a4990926.json",
+    "keys": [
+      "canonical",
+      "first_seen_at",
+      "id",
+      "last_seen_at",
+      "raw",
+      "source_ids",
+      "type"
+    ]
+  },
+  {
+    "file": "/var/lib/config-location/configs/5823d2503ffa23b925c3c6739ca123ea7c11bd4db7fc5c41cd596029033abd21.json",
+    "keys": [
+      "canonical",
+      "first_seen_at",
+      "id",
+      "last_seen_at",
+      "raw",
+      "source_ids",
+      "type"
+    ]
+  }
+]
+
+========== [9] COUNTRY SERVICES ==========
+
+--- config-location-country-worker.service ---
+active
+enabled
+● config-location-country-worker.service - Config Location Country Detection Shadow Worker
+     Loaded: loaded (/etc/systemd/system/config-location-country-worker.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-09-04 05:11:34 UTC; 18h ago
+ Invocation: e844db666fb64dd0b6fb2326e08afa2c
+   Main PID: 1082 (python)
+      Tasks: 1 (limit: 512)
+     Memory: 114.1M (peak: 179.2M)
+        CPU: 58min 25.245s
+     CGroup: /system.slice/config-location-country-worker.service
+             └─1082 /opt/config-location/venv/bin/python -m app.country.daemon
+
+Sep 04 23:40:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3029 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.894 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:40:16 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3029 time= 2026-09-04T23:40:16.361885+00:00 eligible= 251 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:40:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3030 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.864 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:40:34 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3030 time= 2026-09-04T23:40:34.470844+00:00 eligible= 254 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 1, 'confirmed_stable': 1}
+Sep 04 23:40:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3031 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.897 health_runtimes= 6 reason= many_health_runtimes
+Sep 04 23:40:54 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3031 time= 2026-09-04T23:40:54.120782+00:00 eligible= 255 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:41:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3032 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.717 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:41:26 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3032 time= 2026-09-04T23:41:26.354512+00:00 eligible= 256 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:41:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3033 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.185 health_runtimes= 8 reason= many_health_runtimes
+Sep 04 23:41:44 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3033 time= 2026-09-04T23:41:44.256054+00:00 eligible= 255 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+
+--- config-location-country-event-consumer.service ---
+active
+enabled
+● config-location-country-event-consumer.service - Config Location Country Event Consumer
+     Loaded: loaded (/etc/systemd/system/config-location-country-event-consumer.service; enabled; preset: enabled)
+    Drop-In: /etc/systemd/system/config-location-country-event-consumer.service.d
+             └─80-resource-hardening.conf
+     Active: active (running) since Fri 2026-09-04 05:11:34 UTC; 18h ago
+ Invocation: f3edbb0d01dd403cbe2d324957139103
+   Main PID: 1061 (python)
+      Tasks: 3 (limit: 128)
+     Memory: 286.7M (high: 512M, max: 768M, available: 225.2M, peak: 572.4M)
+        CPU: 11h 45min 51.026s
+     CGroup: /system.slice/config-location-country-event-consumer.service
+             └─1061 /opt/config-location/venv/bin/python -m app.country.event_consumer
+
+Sep 04 05:11:34 serverprojects.ptr.network systemd[1]: Started config-location-country-event-consumer.service - Config Location Country Event Consumer.
+
+========== [10] RECENT COUNTRY JOURNAL ==========
+Sep 04 23:12:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2953 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.917 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:12:15 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2953 time= 2026-09-04T23:12:15.154761+00:00 eligible= 263 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'ambiguous': 1}
+Sep 04 23:12:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2954 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.833 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:12:32 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2954 time= 2026-09-04T23:12:32.518060+00:00 eligible= 259 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:12:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2955 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.706 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:13:02 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2955 time= 2026-09-04T23:13:02.921250+00:00 eligible= 257 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:13:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2956 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.579 health_runtimes= 17 reason= many_health_runtimes
+Sep 04 23:13:14 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2956 time= 2026-09-04T23:13:14.219050+00:00 eligible= 256 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:13:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2957 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.101 health_runtimes= 6 reason= many_health_runtimes
+Sep 04 23:13:42 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2957 time= 2026-09-04T23:13:42.671496+00:00 eligible= 253 selected= 1 processed= 1 concurrency= 1 states= {'ambiguous': 1}
+Sep 04 23:14:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2958 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.957 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:14:16 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2958 time= 2026-09-04T23:14:16.343010+00:00 eligible= 257 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:14:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2959 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.948 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:14:38 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2959 time= 2026-09-04T23:14:38.859464+00:00 eligible= 258 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:14:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2960 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.916 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:14:53 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2960 time= 2026-09-04T23:14:53.856141+00:00 eligible= 255 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:15:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2961 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.886 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:15:13 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2961 time= 2026-09-04T23:15:13.278505+00:00 eligible= 253 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:15:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2962 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.806 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:15:33 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2962 time= 2026-09-04T23:15:33.264088+00:00 eligible= 251 selected= 2 processed= 2 concurrency= 1 states= {'ambiguous': 1, 'unstable_exit': 1}
+Sep 04 23:15:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2963 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.919 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:15:54 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2963 time= 2026-09-04T23:15:54.290234+00:00 eligible= 247 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 1, 'confirmed_stable': 1}
+Sep 04 23:16:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2964 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.854 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:16:12 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2964 time= 2026-09-04T23:16:12.688389+00:00 eligible= 245 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:16:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2965 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.75 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:16:36 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2965 time= 2026-09-04T23:16:36.050190+00:00 eligible= 243 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:16:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2966 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.692 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:16:54 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2966 time= 2026-09-04T23:16:54.585023+00:00 eligible= 244 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:17:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2967 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.681 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:17:19 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2967 time= 2026-09-04T23:17:19.238203+00:00 eligible= 247 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 1, 'confirmed_rotating_ip': 1}
+Sep 04 23:17:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2968 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.202 health_runtimes= 10 reason= many_health_runtimes
+Sep 04 23:17:33 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2968 time= 2026-09-04T23:17:33.919115+00:00 eligible= 247 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:18:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2969 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 1.013 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:18:06 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2969 time= 2026-09-04T23:18:06.020791+00:00 eligible= 252 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:18:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2970 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.9 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:18:25 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2970 time= 2026-09-04T23:18:25.674151+00:00 eligible= 252 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:18:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2971 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.928 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:18:49 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2971 time= 2026-09-04T23:18:49.287918+00:00 eligible= 251 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:19:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2972 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.163 health_runtimes= 10 reason= many_health_runtimes
+Sep 04 23:19:04 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2972 time= 2026-09-04T23:19:04.157961+00:00 eligible= 255 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:19:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2973 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.964 health_runtimes= 6 reason= many_health_runtimes
+Sep 04 23:19:34 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2973 time= 2026-09-04T23:19:34.436006+00:00 eligible= 259 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:20:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2974 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.874 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:20:07 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2974 time= 2026-09-04T23:20:07.569708+00:00 eligible= 260 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_rotating_ip': 1, 'confirmed_stable': 1}
+Sep 04 23:20:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2975 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.733 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:20:26 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2975 time= 2026-09-04T23:20:26.277182+00:00 eligible= 254 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:20:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2976 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.781 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:20:45 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2976 time= 2026-09-04T23:20:45.982075+00:00 eligible= 253 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_rotating_ip': 1, 'confirmed_stable': 1}
+Sep 04 23:21:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2977 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.762 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:21:08 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2977 time= 2026-09-04T23:21:08.089605+00:00 eligible= 250 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:21:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2978 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.736 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:21:23 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2978 time= 2026-09-04T23:21:23.231586+00:00 eligible= 247 selected= 2 processed= 2 concurrency= 1 states= {'ambiguous': 1, 'unstable_exit': 1}
+Sep 04 23:21:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2979 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.804 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:21:44 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2979 time= 2026-09-04T23:21:44.662972+00:00 eligible= 246 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'ambiguous': 1}
+Sep 04 23:22:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2980 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.094 health_runtimes= 12 reason= many_health_runtimes
+Sep 04 23:22:03 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2980 time= 2026-09-04T23:22:03.969442+00:00 eligible= 245 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:22:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2981 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.937 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:22:39 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2981 time= 2026-09-04T23:22:39.273822+00:00 eligible= 246 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:22:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2982 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.959 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:22:57 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2982 time= 2026-09-04T23:22:57.525776+00:00 eligible= 245 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:23:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2983 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.881 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:23:12 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2983 time= 2026-09-04T23:23:12.659478+00:00 eligible= 240 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:23:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2984 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.839 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:23:37 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2984 time= 2026-09-04T23:23:37.542956+00:00 eligible= 236 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:23:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2985 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.916 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:23:52 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2985 time= 2026-09-04T23:23:52.472120+00:00 eligible= 234 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:24:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2986 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 1.073 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:24:13 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2986 time= 2026-09-04T23:24:13.652477+00:00 eligible= 234 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:24:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2987 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.996 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:24:36 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2987 time= 2026-09-04T23:24:36.345080+00:00 eligible= 238 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:24:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2988 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.966 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:24:55 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2988 time= 2026-09-04T23:24:55.090829+00:00 eligible= 238 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'ambiguous': 1}
+Sep 04 23:25:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2989 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.408 health_runtimes= 6 reason= many_health_runtimes
+Sep 04 23:25:13 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2989 time= 2026-09-04T23:25:13.742882+00:00 eligible= 234 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:25:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2990 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 1.125 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:25:46 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2990 time= 2026-09-04T23:25:46.006266+00:00 eligible= 238 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:26:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2991 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 1.054 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:26:09 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2991 time= 2026-09-04T23:26:09.415658+00:00 eligible= 241 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:26:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2992 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.881 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:26:22 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2992 time= 2026-09-04T23:26:22.369634+00:00 eligible= 241 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:26:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2993 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.767 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:26:43 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2993 time= 2026-09-04T23:26:43.127538+00:00 eligible= 235 selected= 2 processed= 2 concurrency= 1 states= {'ambiguous': 1, 'unstable_exit': 1}
+Sep 04 23:27:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2994 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.734 health_runtimes= 11 reason= many_health_runtimes
+Sep 04 23:27:03 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2994 time= 2026-09-04T23:27:03.007040+00:00 eligible= 235 selected= 1 processed= 1 concurrency= 1 states= {'ambiguous': 1}
+Sep 04 23:27:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2995 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.644 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:27:36 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2995 time= 2026-09-04T23:27:36.747936+00:00 eligible= 235 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_rotating_ip': 1, 'confirmed_stable': 1}
+Sep 04 23:27:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2996 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.603 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:27:55 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2996 time= 2026-09-04T23:27:55.545764+00:00 eligible= 233 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:28:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2997 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.66 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:28:14 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2997 time= 2026-09-04T23:28:14.992266+00:00 eligible= 230 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'ambiguous': 1}
+Sep 04 23:28:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2998 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.764 health_runtimes= 5 reason= health_backlog_or_high_load
+Sep 04 23:28:32 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2998 time= 2026-09-04T23:28:32.927515+00:00 eligible= 229 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:28:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 2999 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.65 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:28:54 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 2999 time= 2026-09-04T23:28:54.350122+00:00 eligible= 226 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:29:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3000 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.733 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:29:19 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3000 time= 2026-09-04T23:29:19.155174+00:00 eligible= 226 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:29:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3001 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.645 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:29:32 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3001 time= 2026-09-04T23:29:32.474590+00:00 eligible= 226 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:29:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3002 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.599 health_runtimes= 7 reason= many_health_runtimes
+Sep 04 23:29:53 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3002 time= 2026-09-04T23:29:53.976828+00:00 eligible= 223 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:30:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3003 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.6 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:30:24 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3003 time= 2026-09-04T23:30:24.589568+00:00 eligible= 222 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'ambiguous': 1}
+Sep 04 23:30:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3004 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.623 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:30:44 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3004 time= 2026-09-04T23:30:44.052335+00:00 eligible= 219 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:31:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3005 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.961 health_runtimes= 11 reason= many_health_runtimes
+Sep 04 23:31:03 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3005 time= 2026-09-04T23:31:03.346019+00:00 eligible= 218 selected= 1 processed= 1 concurrency= 1 states= {'unstable_exit': 1}
+Sep 04 23:31:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3006 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.87 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:31:35 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3006 time= 2026-09-04T23:31:35.657032+00:00 eligible= 223 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:31:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3007 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.743 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:31:56 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3007 time= 2026-09-04T23:31:56.122516+00:00 eligible= 227 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'confirmed_rotating_ip': 1}
+Sep 04 23:32:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3008 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.679 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:32:15 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3008 time= 2026-09-04T23:32:15.037580+00:00 eligible= 224 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'ambiguous': 1}
+Sep 04 23:32:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3009 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.768 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:32:38 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3009 time= 2026-09-04T23:32:38.392711+00:00 eligible= 224 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:32:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3010 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.692 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:32:54 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3010 time= 2026-09-04T23:32:54.510006+00:00 eligible= 226 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:33:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3011 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.663 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:33:12 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3011 time= 2026-09-04T23:33:12.453502+00:00 eligible= 227 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:33:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3012 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.686 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:33:35 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3012 time= 2026-09-04T23:33:35.037224+00:00 eligible= 230 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 1, 'confirmed_stable': 1}
+Sep 04 23:33:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3013 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.616 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:33:54 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3013 time= 2026-09-04T23:33:54.618365+00:00 eligible= 228 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'ambiguous': 1}
+Sep 04 23:34:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3014 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.969 health_runtimes= 23 reason= many_health_runtimes
+Sep 04 23:34:13 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3014 time= 2026-09-04T23:34:13.378260+00:00 eligible= 228 selected= 1 processed= 1 concurrency= 1 states= {'unstable_exit': 1}
+Sep 04 23:34:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3015 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.871 health_runtimes= 5 reason= health_backlog_or_high_load
+Sep 04 23:34:45 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3015 time= 2026-09-04T23:34:45.760837+00:00 eligible= 231 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:35:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3016 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.76 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:35:04 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3016 time= 2026-09-04T23:35:04.541967+00:00 eligible= 233 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 1, 'confirmed_stable': 1}
+Sep 04 23:35:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3017 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.632 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:35:25 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3017 time= 2026-09-04T23:35:25.881396+00:00 eligible= 235 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:35:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3018 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.953 health_runtimes= 22 reason= many_health_runtimes
+Sep 04 23:35:44 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3018 time= 2026-09-04T23:35:44.387057+00:00 eligible= 236 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:36:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3019 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.724 health_runtimes= 7 reason= many_health_runtimes
+Sep 04 23:36:14 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3019 time= 2026-09-04T23:36:14.777229+00:00 eligible= 238 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:36:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3020 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.737 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:36:49 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3020 time= 2026-09-04T23:36:49.845323+00:00 eligible= 242 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:37:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3021 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.727 health_runtimes= 5 reason= health_backlog_or_high_load
+Sep 04 23:37:09 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3021 time= 2026-09-04T23:37:09.319801+00:00 eligible= 243 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 1, 'unstable_exit': 1}
+Sep 04 23:37:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3022 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.631 health_runtimes= 5 reason= health_backlog_or_high_load
+Sep 04 23:37:23 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3022 time= 2026-09-04T23:37:23.754746+00:00 eligible= 238 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 2}
+Sep 04 23:37:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3023 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.765 health_runtimes= 8 reason= many_health_runtimes
+Sep 04 23:37:45 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3023 time= 2026-09-04T23:37:45.249597+00:00 eligible= 237 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:38:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3024 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.995 health_runtimes= 26 reason= many_health_runtimes
+Sep 04 23:38:12 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3024 time= 2026-09-04T23:38:12.971119+00:00 eligible= 236 selected= 1 processed= 1 concurrency= 1 states= {'ambiguous': 1}
+Sep 04 23:38:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3025 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.93 health_runtimes= 3 reason= health_backlog_or_high_load
+Sep 04 23:38:46 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3025 time= 2026-09-04T23:38:46.064637+00:00 eligible= 241 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:39:01 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3026 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.775 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:39:06 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3026 time= 2026-09-04T23:39:06.260241+00:00 eligible= 243 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:39:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3027 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.752 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:39:26 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3027 time= 2026-09-04T23:39:26.115655+00:00 eligible= 243 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_rotating_ip': 1, 'confirmed_stable': 1}
+Sep 04 23:39:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3028 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.127 health_runtimes= 8 reason= many_health_runtimes
+Sep 04 23:39:43 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3028 time= 2026-09-04T23:39:43.865584+00:00 eligible= 246 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:40:11 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3029 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.894 health_runtimes= 2 reason= health_backlog_or_high_load
+Sep 04 23:40:16 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3029 time= 2026-09-04T23:40:16.361885+00:00 eligible= 251 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:40:31 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3030 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.864 health_runtimes= 1 reason= health_backlog_or_high_load
+Sep 04 23:40:34 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3030 time= 2026-09-04T23:40:34.470844+00:00 eligible= 254 selected= 2 processed= 2 concurrency= 1 states= {'unstable_exit': 1, 'confirmed_stable': 1}
+Sep 04 23:40:51 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3031 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 0.897 health_runtimes= 6 reason= many_health_runtimes
+Sep 04 23:40:54 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3031 time= 2026-09-04T23:40:54.120782+00:00 eligible= 255 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+Sep 04 23:41:21 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3032 level= pressure concurrency= 1 max_jobs= 2 interval= 20 load_ratio= 0.717 health_runtimes= 4 reason= health_backlog_or_high_load
+Sep 04 23:41:26 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3032 time= 2026-09-04T23:41:26.354512+00:00 eligible= 256 selected= 2 processed= 2 concurrency= 1 states= {'confirmed_stable': 2}
+Sep 04 23:41:41 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_DECISION cycle= 3033 level= health_priority concurrency= 1 max_jobs= 1 interval= 30 load_ratio= 1.185 health_runtimes= 8 reason= many_health_runtimes
+Sep 04 23:41:44 serverprojects.ptr.network country-shadow-daemon[1082]: COUNTRY_ADAPTIVE_CYCLE 3033 time= 2026-09-04T23:41:44.256054+00:00 eligible= 255 selected= 1 processed= 1 concurrency= 1 states= {'confirmed_stable': 1}
+
+========== [11] COUNTRY STORAGE SIZE MAP ==========
+4.0K	/var/lib/config-location/country/event-bus/leased
+4.0K	/var/lib/config-location/country/recovery
+8.0K	/var/lib/config-location/country/k9/K9B-20260901-180218
+8.0K	/var/lib/config-location/country/k9/K9B-20260902-050531
+8.0K	/var/lib/config-location/country/k9/K9B-R3-20260902-051850
+12K	/var/lib/config-location/country/k9/K9C-20260902-052329
+268K	/var/lib/config-location/country/worker
+312K	/var/lib/config-location/country/k9/K9A-20260901-175218
+312K	/var/lib/config-location/country/unresolved-audit
+352K	/var/lib/config-location/country/k9
+840K	/var/lib/config-location/country/geo-cache/locks
+15M	/var/lib/config-location/country/event-bus/dead-letter
+18M	/var/lib/config-location/country/geo-cache
+19M	/var/lib/config-location/country/country-identity
+32M	/var/lib/config-location/country/rotating-exit-history
+36M	/var/lib/config-location/country/results/latest
+54M	/var/lib/config-location/country/observations
+64M	/var/lib/config-location/country/pipeline/latest
+123M	/var/lib/config-location/country/event-bus/pending
+140M	/var/lib/config-location/country/pipeline/history
+203M	/var/lib/config-location/country/pipeline
+210M	/var/lib/config-location/country/event-bus/done
+239M	/var/lib/config-location/country/results/history
+274M	/var/lib/config-location/country/results
+395M	/var/lib/config-location/country/event-bus
+
+========== [12] CONTRACT QUESTIONS ==========
+Q1. Is Config Store canonical for country?
+Q2. Is country/results canonical?
+Q3. Is country-identity canonical after lock?
+Q4. Is pipeline/latest merely working state?
+Q5. Does Panel merge Country Store at read time?
+Q6. Does Publish merge Country Store at read time?
+Q7. Is country intentionally excluded from Config Store?
+Q8. How many current Config IDs overlap country/results?
+Q9. How many current Config IDs overlap country-identity?
+Q10. How many UNKNOWN configs already have resolved country elsewhere?
+Q11. Are Country files keyed directly by config_id?
+Q12. Is there stale Country state for deleted Config IDs?
+Q13. Does worker write result only to Country Store?
+Q14. Does event consumer write result only to Country Store?
+Q15. Is a canonical projection layer missing?
+Q16. Is Panel using the same canonical projection as Publish?
+Q17. Are per-country subscriptions driven by config metadata or Country Store?
+Q18. Is UNKNOWN caused by missing integration rather than failed resolution?
+Q19. What exact component should own the country projection?
+Q20. What is the safest Phase 5 Pass 2 implementation point?
+
+READ_ONLY=true
+COUNTRY_MUTATION=false
+CONFIG_MUTATION=false
+PUBLISH_MUTATION=false
+PANEL_MUTATION=false
+SERVICE_RESTART=false
+PHASE5_PASS1_DISCOVERY_COMPLETE

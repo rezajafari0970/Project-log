@@ -1,0 +1,43 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass1-canonical-country-state-config-integration-contract
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T23:41:19+00:00
+
+End:
+2026-09-04T23:42:01+00:00
+
+Mode:
+READ ONLY INTEGRATION CONTRACT AUDIT
+
+Country mutation:
+NONE
+
+Config mutation:
+NONE
+
+Publish mutation:
+NONE
+
+Panel mutation:
+NONE
+
+Service restart:
+NONE
+
+Discovery:
+/root/project-log/discovery/2026-09-04/phase5-pass1-canonical-country-state-config-integration-contract-20260904-234119.txt
+
+Summary:
+/root/project-log/discovery/2026-09-04/phase5-pass1-canonical-country-state-config-integration-contract-20260904-234119.json
+
+Log:
+/root/project-log/executions/2026-09-04/phase5-pass1-canonical-country-state-config-integration-contract-20260904-234119.log
+
+Errors:
+
