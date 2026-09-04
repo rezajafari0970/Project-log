@@ -1,0 +1,2027 @@
+{
+  "mode": "privileged_dry_run",
+  "generated_at": "2026-09-04T22:29:49.204644+00:00",
+  "canonical_store": "/var/lib/config-location/health-results/latest",
+  "retest_minutes": 5,
+  "interval_seconds": 300,
+  "scanned_records": 2022,
+  "parsed_records": 2022,
+  "states": {
+    "healthy": 1114,
+    "unhealthy": 902,
+    "runtime_failed": 1,
+    "error": 5
+  },
+  "real_healthy": 1114,
+  "not_due": 32,
+  "inflight_ids": 0,
+  "healthy_inflight": 0,
+  "invalid_records": 0,
+  "due_total": 1082,
+  "candidate_limit": 200,
+  "candidate_count": 200,
+  "candidates": [
+    {
+      "config_id": "a7c2d23e0cc3889a9b95970c65b01a87fb93b7fc17134e6d2b135c66a654a669",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:45:55.450841+00:00",
+      "age_seconds": 17033,
+      "due_by_seconds": 16733,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a7c2d23e0cc3889a9b95970c65b01a87fb93b7fc17134e6d2b135c66a654a669.json"
+    },
+    {
+      "config_id": "39aaf1cdcfa45f30ba95a4e07890985e0d0b443a65cf4aef3d89b20675ffdcdd",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:46:28.404887+00:00",
+      "age_seconds": 17000,
+      "due_by_seconds": 16700,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/39aaf1cdcfa45f30ba95a4e07890985e0d0b443a65cf4aef3d89b20675ffdcdd.json"
+    },
+    {
+      "config_id": "308e04ebb3cab0d0e5f5797582d1ae02d6f69fc3642db4de4b9d4e8b17feaaa9",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:46:30.289405+00:00",
+      "age_seconds": 16998,
+      "due_by_seconds": 16698,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/308e04ebb3cab0d0e5f5797582d1ae02d6f69fc3642db4de4b9d4e8b17feaaa9.json"
+    },
+    {
+      "config_id": "9a3e2a911d11ab0aae128bb9cefd4a458ef3d13698cb24aface6b2da6908727f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:46:30.294411+00:00",
+      "age_seconds": 16998,
+      "due_by_seconds": 16698,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/9a3e2a911d11ab0aae128bb9cefd4a458ef3d13698cb24aface6b2da6908727f.json"
+    },
+    {
+      "config_id": "4ec7569e318930dfbd157e32becae35bc77b0e38c3964e3cc9b4d7f9f145b8f5",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:46:31.660140+00:00",
+      "age_seconds": 16997,
+      "due_by_seconds": 16697,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4ec7569e318930dfbd157e32becae35bc77b0e38c3964e3cc9b4d7f9f145b8f5.json"
+    },
+    {
+      "config_id": "5a6185854a88641c0357770e6c99c485438e86e1394e4d8c7f4a4d17bd186b1f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:48:10.414986+00:00",
+      "age_seconds": 16898,
+      "due_by_seconds": 16598,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/5a6185854a88641c0357770e6c99c485438e86e1394e4d8c7f4a4d17bd186b1f.json"
+    },
+    {
+      "config_id": "344c5a74adb2d9b9eb757ec156857fcf8aabbf111bf0c4c8dbd3a73c7430eba7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:48:22.373186+00:00",
+      "age_seconds": 16886,
+      "due_by_seconds": 16586,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/344c5a74adb2d9b9eb757ec156857fcf8aabbf111bf0c4c8dbd3a73c7430eba7.json"
+    },
+    {
+      "config_id": "b06b6ad4537265161972c11cf2546539f5df74105280ca7ae2d4d3ea104a5d1e",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:49:33.189304+00:00",
+      "age_seconds": 16816,
+      "due_by_seconds": 16516,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b06b6ad4537265161972c11cf2546539f5df74105280ca7ae2d4d3ea104a5d1e.json"
+    },
+    {
+      "config_id": "f3da0762e5d36c4531b87dec0e62ac1952c294b3296c5513e6f25d59fc9d61f1",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:49:33.175963+00:00",
+      "age_seconds": 16816,
+      "due_by_seconds": 16516,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f3da0762e5d36c4531b87dec0e62ac1952c294b3296c5513e6f25d59fc9d61f1.json"
+    },
+    {
+      "config_id": "a0d9d85394719b76c658dbdc50b129d55c4bf8fc134a1f8399475ffa8a31edbd",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:49:33.387371+00:00",
+      "age_seconds": 16815,
+      "due_by_seconds": 16515,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a0d9d85394719b76c658dbdc50b129d55c4bf8fc134a1f8399475ffa8a31edbd.json"
+    },
+    {
+      "config_id": "7b302a2ae3c5ffa4f0ca6d20b3e81d85c69040f403c2d72f91874a468c9943b0",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:50:30.747394+00:00",
+      "age_seconds": 16758,
+      "due_by_seconds": 16458,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7b302a2ae3c5ffa4f0ca6d20b3e81d85c69040f403c2d72f91874a468c9943b0.json"
+    },
+    {
+      "config_id": "0d78702cc81f738c8a12a9ab30839afe3604e423efaee9319c5f3344c780acd7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:50:32.458057+00:00",
+      "age_seconds": 16756,
+      "due_by_seconds": 16456,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0d78702cc81f738c8a12a9ab30839afe3604e423efaee9319c5f3344c780acd7.json"
+    },
+    {
+      "config_id": "74b1806213695494b58f36d77f18311ec78604aac1b1caafec27c044474c7112",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:51:45.676329+00:00",
+      "age_seconds": 16683,
+      "due_by_seconds": 16383,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/74b1806213695494b58f36d77f18311ec78604aac1b1caafec27c044474c7112.json"
+    },
+    {
+      "config_id": "dc92309a63b2d6a98dcf8d5fdb7253e5aca19bd79d1ccecaffb5d718d6091e1f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:51:46.612226+00:00",
+      "age_seconds": 16682,
+      "due_by_seconds": 16382,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/dc92309a63b2d6a98dcf8d5fdb7253e5aca19bd79d1ccecaffb5d718d6091e1f.json"
+    },
+    {
+      "config_id": "f251a7138eabcf33e515aebb383d3585a2c6382877d458a76af3f34a4973a010",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:51:47.860216+00:00",
+      "age_seconds": 16681,
+      "due_by_seconds": 16381,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f251a7138eabcf33e515aebb383d3585a2c6382877d458a76af3f34a4973a010.json"
+    },
+    {
+      "config_id": "7eeff8d22b740aeaff1cc92128e61c205c931c86ae9744a9195354404a0c9646",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:51:50.633966+00:00",
+      "age_seconds": 16678,
+      "due_by_seconds": 16378,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7eeff8d22b740aeaff1cc92128e61c205c931c86ae9744a9195354404a0c9646.json"
+    },
+    {
+      "config_id": "fd69d02b4e3ab3576d80cb28f59a0bc36ce7d6e9eaabb5776659e5d91ca2ae45",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:52:59.395282+00:00",
+      "age_seconds": 16609,
+      "due_by_seconds": 16309,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/fd69d02b4e3ab3576d80cb28f59a0bc36ce7d6e9eaabb5776659e5d91ca2ae45.json"
+    },
+    {
+      "config_id": "65965ed3fae82e2f06c286a7a26169c3aa654089ed2e1ed476e526fedb0b7766",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:57:39.756516+00:00",
+      "age_seconds": 16329,
+      "due_by_seconds": 16029,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/65965ed3fae82e2f06c286a7a26169c3aa654089ed2e1ed476e526fedb0b7766.json"
+    },
+    {
+      "config_id": "9b03fd3637f2257e522b7636a7aaf08399560ac2c73eeab3cd1d4101936568d0",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T17:59:29.878481+00:00",
+      "age_seconds": 16219,
+      "due_by_seconds": 15919,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/9b03fd3637f2257e522b7636a7aaf08399560ac2c73eeab3cd1d4101936568d0.json"
+    },
+    {
+      "config_id": "10325d1d1c7e1c37e555cbda89ec7fb54188858aff009168b842b50259ba9d8e",
+      "config_type": "wireguard",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:00:28.971579+00:00",
+      "age_seconds": 16160,
+      "due_by_seconds": 15860,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/10325d1d1c7e1c37e555cbda89ec7fb54188858aff009168b842b50259ba9d8e.json"
+    },
+    {
+      "config_id": "1f7c2677c799957b7d2658d659255a932f42a1ae27a15ce8368db99a5b15181a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:00:28.244205+00:00",
+      "age_seconds": 16160,
+      "due_by_seconds": 15860,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/1f7c2677c799957b7d2658d659255a932f42a1ae27a15ce8368db99a5b15181a.json"
+    },
+    {
+      "config_id": "c54127f12d528fccd122e8fe5136480c82ad6507123e6c536acae33a7e05df84",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:00:28.955168+00:00",
+      "age_seconds": 16160,
+      "due_by_seconds": 15860,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c54127f12d528fccd122e8fe5136480c82ad6507123e6c536acae33a7e05df84.json"
+    },
+    {
+      "config_id": "0353af3975013ac43355a345aa2581b708e7e5dd5e501e27ba38ed563a68853d",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:00:32.128950+00:00",
+      "age_seconds": 16157,
+      "due_by_seconds": 15857,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0353af3975013ac43355a345aa2581b708e7e5dd5e501e27ba38ed563a68853d.json"
+    },
+    {
+      "config_id": "b351e6db142f0958155988cffd1ca101e7d8e46784d410367a8c42f116ee9387",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:00:32.080300+00:00",
+      "age_seconds": 16157,
+      "due_by_seconds": 15857,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b351e6db142f0958155988cffd1ca101e7d8e46784d410367a8c42f116ee9387.json"
+    },
+    {
+      "config_id": "6abe3e2e79ae4a3366118c3c079b033c61aaf2e24ca90f9f94b373bb3c709214",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:02:05.340065+00:00",
+      "age_seconds": 16063,
+      "due_by_seconds": 15763,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6abe3e2e79ae4a3366118c3c079b033c61aaf2e24ca90f9f94b373bb3c709214.json"
+    },
+    {
+      "config_id": "5100f8e20439c37fa9c094311d7936e585c4bf7641d026890801f1b3992f7ffb",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:03:23.097439+00:00",
+      "age_seconds": 15986,
+      "due_by_seconds": 15686,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/5100f8e20439c37fa9c094311d7936e585c4bf7641d026890801f1b3992f7ffb.json"
+    },
+    {
+      "config_id": "4070d916bdba1b0843ac152076089aa70e4afff66a7bb31a85367a3df914b1ec",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:04:05.789353+00:00",
+      "age_seconds": 15943,
+      "due_by_seconds": 15643,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4070d916bdba1b0843ac152076089aa70e4afff66a7bb31a85367a3df914b1ec.json"
+    },
+    {
+      "config_id": "6f8d7575903123c5daebb29f46037c8989b257267f8c3e7a6fe33211bd65a67d",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:04:06.098296+00:00",
+      "age_seconds": 15943,
+      "due_by_seconds": 15643,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6f8d7575903123c5daebb29f46037c8989b257267f8c3e7a6fe33211bd65a67d.json"
+    },
+    {
+      "config_id": "f4ed9d7cab1f8b42367686ccef7b4b160b677e07d366fc8288e96924612f1cb2",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:04:07.004941+00:00",
+      "age_seconds": 15942,
+      "due_by_seconds": 15642,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f4ed9d7cab1f8b42367686ccef7b4b160b677e07d366fc8288e96924612f1cb2.json"
+    },
+    {
+      "config_id": "28695408d85d67c9944a30933756d69b4dedcd51614d86a6fcbf43e5f4b50c9a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:06:09.442236+00:00",
+      "age_seconds": 15819,
+      "due_by_seconds": 15519,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/28695408d85d67c9944a30933756d69b4dedcd51614d86a6fcbf43e5f4b50c9a.json"
+    },
+    {
+      "config_id": "03718c9581b0713d7a454fb3075cbefd7cf77292bf28243751a475cb13cc741b",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:06:12.672456+00:00",
+      "age_seconds": 15816,
+      "due_by_seconds": 15516,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/03718c9581b0713d7a454fb3075cbefd7cf77292bf28243751a475cb13cc741b.json"
+    },
+    {
+      "config_id": "a4394d45519ed0b41af5d19fd45ecd18997ca72b3968edf73a3de4f6a6f5c0a4",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:08:04.359643+00:00",
+      "age_seconds": 15704,
+      "due_by_seconds": 15404,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a4394d45519ed0b41af5d19fd45ecd18997ca72b3968edf73a3de4f6a6f5c0a4.json"
+    },
+    {
+      "config_id": "4ffb53fe19f087496f34b8eff59f2e659141145563b7bc3eddce557c54082268",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:10:15.184593+00:00",
+      "age_seconds": 15574,
+      "due_by_seconds": 15274,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4ffb53fe19f087496f34b8eff59f2e659141145563b7bc3eddce557c54082268.json"
+    },
+    {
+      "config_id": "e56ef94f2b1899526921594cf9e159c36d0458c6beb87bddb65c8e2450422b98",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:10:15.940407+00:00",
+      "age_seconds": 15573,
+      "due_by_seconds": 15273,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/e56ef94f2b1899526921594cf9e159c36d0458c6beb87bddb65c8e2450422b98.json"
+    },
+    {
+      "config_id": "b915cab694f40060ac3473eccd314f1cd5e126ceb35337d9638afe741006869f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:10:16.870229+00:00",
+      "age_seconds": 15572,
+      "due_by_seconds": 15272,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b915cab694f40060ac3473eccd314f1cd5e126ceb35337d9638afe741006869f.json"
+    },
+    {
+      "config_id": "446d9dd2bdff0375ae6e6e7da600fca9aa88f44dc09d6670f9eecf871211c37f",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:11:24.827409+00:00",
+      "age_seconds": 15504,
+      "due_by_seconds": 15204,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/446d9dd2bdff0375ae6e6e7da600fca9aa88f44dc09d6670f9eecf871211c37f.json"
+    },
+    {
+      "config_id": "a1b4684b638bbad87fb31a8f87e018a0db4faf605484c18323e38d0c8a2b31d5",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:11:24.898160+00:00",
+      "age_seconds": 15504,
+      "due_by_seconds": 15204,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a1b4684b638bbad87fb31a8f87e018a0db4faf605484c18323e38d0c8a2b31d5.json"
+    },
+    {
+      "config_id": "e45d6b6fa6dddb58d5fa323174bf575d0e08bff268c0b542ef8b0236e9588fe7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:11:25.625103+00:00",
+      "age_seconds": 15503,
+      "due_by_seconds": 15203,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/e45d6b6fa6dddb58d5fa323174bf575d0e08bff268c0b542ef8b0236e9588fe7.json"
+    },
+    {
+      "config_id": "f7fbf051025627f170a72d56530554ccdcd2ee7b60d94f71c5392b283ee175d8",
+      "config_type": "vmess",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:11:25.828941+00:00",
+      "age_seconds": 15503,
+      "due_by_seconds": 15203,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f7fbf051025627f170a72d56530554ccdcd2ee7b60d94f71c5392b283ee175d8.json"
+    },
+    {
+      "config_id": "da6cf5c8cf7845a16356faf671594b4e1af13c89becbc2900e362824fb3a1257",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:11:37.907933+00:00",
+      "age_seconds": 15491,
+      "due_by_seconds": 15191,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/da6cf5c8cf7845a16356faf671594b4e1af13c89becbc2900e362824fb3a1257.json"
+    },
+    {
+      "config_id": "b616fff268c45332fc9e4ee81fc11a40c1c4b5c8104e2200ea36cc903c89e19f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:11:43.096206+00:00",
+      "age_seconds": 15486,
+      "due_by_seconds": 15186,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b616fff268c45332fc9e4ee81fc11a40c1c4b5c8104e2200ea36cc903c89e19f.json"
+    },
+    {
+      "config_id": "d7aeeb93ee97f070f44681a728ba255266cec689d9e712d0b277fd340bc3787e",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:13:52.383201+00:00",
+      "age_seconds": 15356,
+      "due_by_seconds": 15056,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d7aeeb93ee97f070f44681a728ba255266cec689d9e712d0b277fd340bc3787e.json"
+    },
+    {
+      "config_id": "bd187c046ebb081d769c7bc14cefdf43bfd5f39fbc018f40e91c29798f6d746a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:14:01.620038+00:00",
+      "age_seconds": 15347,
+      "due_by_seconds": 15047,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/bd187c046ebb081d769c7bc14cefdf43bfd5f39fbc018f40e91c29798f6d746a.json"
+    },
+    {
+      "config_id": "c807135fb474f32f84d01707aa7ecb24d46de2ba05951df7e1450f7d2fcb74cc",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:14:02.814347+00:00",
+      "age_seconds": 15346,
+      "due_by_seconds": 15046,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c807135fb474f32f84d01707aa7ecb24d46de2ba05951df7e1450f7d2fcb74cc.json"
+    },
+    {
+      "config_id": "410ed3b31e57f969a55d46a1b2f4e7106c1f6be65393a53246ae86cae5494f57",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:18.953292+00:00",
+      "age_seconds": 15210,
+      "due_by_seconds": 14910,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/410ed3b31e57f969a55d46a1b2f4e7106c1f6be65393a53246ae86cae5494f57.json"
+    },
+    {
+      "config_id": "ea0b25eb9d3d3293af76222cb5f68b845deca7261e89cea90854c60deae750ac",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:20.570902+00:00",
+      "age_seconds": 15208,
+      "due_by_seconds": 14908,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/ea0b25eb9d3d3293af76222cb5f68b845deca7261e89cea90854c60deae750ac.json"
+    },
+    {
+      "config_id": "3d4cbab835d6d52f63af8e0405e7219e7dea789047bdfae2ab2aa777a31a8422",
+      "config_type": "vmess",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:23.183604+00:00",
+      "age_seconds": 15206,
+      "due_by_seconds": 14906,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/3d4cbab835d6d52f63af8e0405e7219e7dea789047bdfae2ab2aa777a31a8422.json"
+    },
+    {
+      "config_id": "8a670e9df9220ffadef98baf83d8a8fb41bdeb3e2113bd0940d36731753419ce",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:28.281022+00:00",
+      "age_seconds": 15200,
+      "due_by_seconds": 14900,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/8a670e9df9220ffadef98baf83d8a8fb41bdeb3e2113bd0940d36731753419ce.json"
+    },
+    {
+      "config_id": "073758003230f448d33e3f71ba58d792ae9082fceddd484f2e4403cbb143b145",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.932745+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/073758003230f448d33e3f71ba58d792ae9082fceddd484f2e4403cbb143b145.json"
+    },
+    {
+      "config_id": "0c98f79b136ae77054b58ff4cf82e9b68a35b8d2ef76054220939663ef06c738",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.790496+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0c98f79b136ae77054b58ff4cf82e9b68a35b8d2ef76054220939663ef06c738.json"
+    },
+    {
+      "config_id": "2ae02b0d2f53a5b0e6ea54b7ebc15edb0ed2ba0d10b6999edb89de0db5fe72b5",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.849261+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/2ae02b0d2f53a5b0e6ea54b7ebc15edb0ed2ba0d10b6999edb89de0db5fe72b5.json"
+    },
+    {
+      "config_id": "4b5b3229a49d61c8a855df2017cf7d371f4cfac2508c44cdc551c50af25b0c64",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.811858+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4b5b3229a49d61c8a855df2017cf7d371f4cfac2508c44cdc551c50af25b0c64.json"
+    },
+    {
+      "config_id": "52848f25a9d33258f3c87db360797c13c28409fe80f07057d64164bf2ad9b514",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.603000+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/52848f25a9d33258f3c87db360797c13c28409fe80f07057d64164bf2ad9b514.json"
+    },
+    {
+      "config_id": "620b635c32d9072345b7986c1dc6f86bbe66a69344d76b4910bd67dfaa06c9d3",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.599646+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/620b635c32d9072345b7986c1dc6f86bbe66a69344d76b4910bd67dfaa06c9d3.json"
+    },
+    {
+      "config_id": "87cdfad8ab19162123957c869437ea5f1c1b10e71d4860e2668ecb057c362ead",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.400732+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/87cdfad8ab19162123957c869437ea5f1c1b10e71d4860e2668ecb057c362ead.json"
+    },
+    {
+      "config_id": "9b70eca1384570212176d415abed6e207e4459f42ce4d8b0ad710cf6e9eb7adf",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.743676+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/9b70eca1384570212176d415abed6e207e4459f42ce4d8b0ad710cf6e9eb7adf.json"
+    },
+    {
+      "config_id": "a0377e39c3d3b267c94e76c4b5224d93cb625d0703d95480dd32b358c9527b84",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.383799+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a0377e39c3d3b267c94e76c4b5224d93cb625d0703d95480dd32b358c9527b84.json"
+    },
+    {
+      "config_id": "b03211cd163e963f4a8b8661b3c6b1b9c74e4303406fedc8b071ffdf25874f99",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.401587+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b03211cd163e963f4a8b8661b3c6b1b9c74e4303406fedc8b071ffdf25874f99.json"
+    },
+    {
+      "config_id": "e0775ca6d229424217e002ad5b1b05018e08aa4d00fff83df92e393377ed3810",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.798061+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/e0775ca6d229424217e002ad5b1b05018e08aa4d00fff83df92e393377ed3810.json"
+    },
+    {
+      "config_id": "e3ec0a54f5d4494c38823aad3acd5b7cf0913bbd1065a610e4dad3afa8843534",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.905458+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/e3ec0a54f5d4494c38823aad3acd5b7cf0913bbd1065a610e4dad3afa8843534.json"
+    },
+    {
+      "config_id": "e633e2f09fb74dd735634bf0b39d2ff7bfa6d52e3cfe95cd8cd4245ad3571ed1",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:29.900470+00:00",
+      "age_seconds": 15199,
+      "due_by_seconds": 14899,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/e633e2f09fb74dd735634bf0b39d2ff7bfa6d52e3cfe95cd8cd4245ad3571ed1.json"
+    },
+    {
+      "config_id": "3bd74f44b888664b02b8b84b9efaef0aa631653aacc5a2ddc06635f70aad67e5",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:30.403140+00:00",
+      "age_seconds": 15198,
+      "due_by_seconds": 14898,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/3bd74f44b888664b02b8b84b9efaef0aa631653aacc5a2ddc06635f70aad67e5.json"
+    },
+    {
+      "config_id": "b0b4c57c7b9b2b73393b5276f8dee4b8a479772e7ca0671ff6f98e56ef6152eb",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:30.224509+00:00",
+      "age_seconds": 15198,
+      "due_by_seconds": 14898,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b0b4c57c7b9b2b73393b5276f8dee4b8a479772e7ca0671ff6f98e56ef6152eb.json"
+    },
+    {
+      "config_id": "c13cd96ea1595fb9bd9a031efdb4840bd9851761a4c079576175cdb297aa2657",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:30.959836+00:00",
+      "age_seconds": 15198,
+      "due_by_seconds": 14898,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c13cd96ea1595fb9bd9a031efdb4840bd9851761a4c079576175cdb297aa2657.json"
+    },
+    {
+      "config_id": "3ddc35161f8ebcf7775052f9310a3360c3c2f66fc8118b9bd016bbc156068248",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:31.316789+00:00",
+      "age_seconds": 15197,
+      "due_by_seconds": 14897,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/3ddc35161f8ebcf7775052f9310a3360c3c2f66fc8118b9bd016bbc156068248.json"
+    },
+    {
+      "config_id": "486f90ea8ed8ba64b0d2eacc609d0561a02d1c23f9669ec0c81ded386183a205",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:31.931826+00:00",
+      "age_seconds": 15197,
+      "due_by_seconds": 14897,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/486f90ea8ed8ba64b0d2eacc609d0561a02d1c23f9669ec0c81ded386183a205.json"
+    },
+    {
+      "config_id": "a0d4d5740d7c32a9aac4678fa2e40148218979b93a765594cb94e3668d49ad00",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:32.899460+00:00",
+      "age_seconds": 15196,
+      "due_by_seconds": 14896,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a0d4d5740d7c32a9aac4678fa2e40148218979b93a765594cb94e3668d49ad00.json"
+    },
+    {
+      "config_id": "5ef383258eb6755ea6f457415a5607862801f5495829ab4beeb7e603b42ab532",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:35.462073+00:00",
+      "age_seconds": 15193,
+      "due_by_seconds": 14893,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/5ef383258eb6755ea6f457415a5607862801f5495829ab4beeb7e603b42ab532.json"
+    },
+    {
+      "config_id": "8fe820094cd80094796df213991da2736e6010619946be8f4d2cfeed41024ce7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:38.159398+00:00",
+      "age_seconds": 15191,
+      "due_by_seconds": 14891,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/8fe820094cd80094796df213991da2736e6010619946be8f4d2cfeed41024ce7.json"
+    },
+    {
+      "config_id": "7bd94731b3deb1947a24d1eb318a72143cbe4f7b395cac2e64f089580f977ef9",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:16:38.904080+00:00",
+      "age_seconds": 15190,
+      "due_by_seconds": 14890,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7bd94731b3deb1947a24d1eb318a72143cbe4f7b395cac2e64f089580f977ef9.json"
+    },
+    {
+      "config_id": "855f0d98de3beae4134641c999a4c36168345f6fe902f1a9222e5c9383fa4985",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:17:49.711782+00:00",
+      "age_seconds": 15119,
+      "due_by_seconds": 14819,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/855f0d98de3beae4134641c999a4c36168345f6fe902f1a9222e5c9383fa4985.json"
+    },
+    {
+      "config_id": "ac87fb6d836d2097d84800c925c8317862d676f097a19dae170d6f59af0be6c3",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:17:51.466884+00:00",
+      "age_seconds": 15117,
+      "due_by_seconds": 14817,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/ac87fb6d836d2097d84800c925c8317862d676f097a19dae170d6f59af0be6c3.json"
+    },
+    {
+      "config_id": "5fe525865ace4de53ebf048a1cea0833f3f3c6d0580904e33c8e4c4d2b1c9c21",
+      "config_type": "vmess",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:17:53.479025+00:00",
+      "age_seconds": 15115,
+      "due_by_seconds": 14815,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/5fe525865ace4de53ebf048a1cea0833f3f3c6d0580904e33c8e4c4d2b1c9c21.json"
+    },
+    {
+      "config_id": "714a854443e824d99eeaea10f52c060eb923f2d801ebb1525007e0e875bbf127",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:17:54.510573+00:00",
+      "age_seconds": 15114,
+      "due_by_seconds": 14814,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/714a854443e824d99eeaea10f52c060eb923f2d801ebb1525007e0e875bbf127.json"
+    },
+    {
+      "config_id": "1b23ac8ccf1bd36cddcf28c6138f0bb73b4d31d5fb5c6f00264f046219ed5b37",
+      "config_type": "wireguard",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:20:01.811097+00:00",
+      "age_seconds": 14987,
+      "due_by_seconds": 14687,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/1b23ac8ccf1bd36cddcf28c6138f0bb73b4d31d5fb5c6f00264f046219ed5b37.json"
+    },
+    {
+      "config_id": "399f07bcf33ef0124ce5477f47ea52f474edb5a448c8c4735c72dd5db8c1ab3e",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:20:01.419409+00:00",
+      "age_seconds": 14987,
+      "due_by_seconds": 14687,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/399f07bcf33ef0124ce5477f47ea52f474edb5a448c8c4735c72dd5db8c1ab3e.json"
+    },
+    {
+      "config_id": "4d22c0e95673c6b38122013600e8ace864ed489178fed07c48f5f1e400b39969",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:20:05.066991+00:00",
+      "age_seconds": 14984,
+      "due_by_seconds": 14684,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4d22c0e95673c6b38122013600e8ace864ed489178fed07c48f5f1e400b39969.json"
+    },
+    {
+      "config_id": "591005b0ed5fe1f04fb1db804d3f1512250dfe7582f00137dc91bd87541c4d9c",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:20:05.099616+00:00",
+      "age_seconds": 14984,
+      "due_by_seconds": 14684,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/591005b0ed5fe1f04fb1db804d3f1512250dfe7582f00137dc91bd87541c4d9c.json"
+    },
+    {
+      "config_id": "05f35d18d5024ccea9062502a73cb718f401c2fc38d110d4ba40077df7e35575",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:21:59.043314+00:00",
+      "age_seconds": 14870,
+      "due_by_seconds": 14570,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/05f35d18d5024ccea9062502a73cb718f401c2fc38d110d4ba40077df7e35575.json"
+    },
+    {
+      "config_id": "6bfcf788d705eefdb67e9119eb4d6884f3e30f618f38fce3d06d6944aa890761",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:21:58.952768+00:00",
+      "age_seconds": 14870,
+      "due_by_seconds": 14570,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6bfcf788d705eefdb67e9119eb4d6884f3e30f618f38fce3d06d6944aa890761.json"
+    },
+    {
+      "config_id": "7c8418c06d33273a081917b04f04e59a8803d124020d5a3390b21bb5c41ebfa3",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:21:59.941615+00:00",
+      "age_seconds": 14869,
+      "due_by_seconds": 14569,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7c8418c06d33273a081917b04f04e59a8803d124020d5a3390b21bb5c41ebfa3.json"
+    },
+    {
+      "config_id": "d3e7843ddf527d5b55618070ce6e7e5e02844263f03464d6a14dc1f28a9129a3",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:00.128949+00:00",
+      "age_seconds": 14869,
+      "due_by_seconds": 14569,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d3e7843ddf527d5b55618070ce6e7e5e02844263f03464d6a14dc1f28a9129a3.json"
+    },
+    {
+      "config_id": "229858ae6d166141cdac21dc0167d0d43ac7c8ba9016fb24d743d8e72fe77bdc",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:01.555160+00:00",
+      "age_seconds": 14867,
+      "due_by_seconds": 14567,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/229858ae6d166141cdac21dc0167d0d43ac7c8ba9016fb24d743d8e72fe77bdc.json"
+    },
+    {
+      "config_id": "797bc88507c4799eb3d2a182c3c359995677ddfd1d759cb23568cfcdea75bfd2",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:01.497142+00:00",
+      "age_seconds": 14867,
+      "due_by_seconds": 14567,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/797bc88507c4799eb3d2a182c3c359995677ddfd1d759cb23568cfcdea75bfd2.json"
+    },
+    {
+      "config_id": "220583627af0e9b67910d6df03db1a67d03b636573b826135f6749f7707c07ea",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:04.592375+00:00",
+      "age_seconds": 14864,
+      "due_by_seconds": 14564,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/220583627af0e9b67910d6df03db1a67d03b636573b826135f6749f7707c07ea.json"
+    },
+    {
+      "config_id": "82b5da7f220ebbacd4d0f1d2914bfefa097b9105d8b8b27ee74bd145cea4e3bf",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:58.237152+00:00",
+      "age_seconds": 14810,
+      "due_by_seconds": 14510,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/82b5da7f220ebbacd4d0f1d2914bfefa097b9105d8b8b27ee74bd145cea4e3bf.json"
+    },
+    {
+      "config_id": "d9bc4429b09fd310ec31e0edb42d2bebf86b2a70028aa1b181b330f990c8d48f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:58.262175+00:00",
+      "age_seconds": 14810,
+      "due_by_seconds": 14510,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d9bc4429b09fd310ec31e0edb42d2bebf86b2a70028aa1b181b330f990c8d48f.json"
+    },
+    {
+      "config_id": "011f8f1f5335e362a029e616079e2a34c404d7179f79a309927be8e7de274f94",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:59.803829+00:00",
+      "age_seconds": 14809,
+      "due_by_seconds": 14509,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/011f8f1f5335e362a029e616079e2a34c404d7179f79a309927be8e7de274f94.json"
+    },
+    {
+      "config_id": "f8095cba4d7f34d2e6e2f91209ce60a3bc533d55ca266fa93d34376fd1fa0303",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:22:59.582348+00:00",
+      "age_seconds": 14809,
+      "due_by_seconds": 14509,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f8095cba4d7f34d2e6e2f91209ce60a3bc533d55ca266fa93d34376fd1fa0303.json"
+    },
+    {
+      "config_id": "06bb5ca2f6c7e9db4900c0f1a8bbb03a147b20c0c4e5f88e91a2f8ae35f3e150",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:23:00.486106+00:00",
+      "age_seconds": 14808,
+      "due_by_seconds": 14508,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/06bb5ca2f6c7e9db4900c0f1a8bbb03a147b20c0c4e5f88e91a2f8ae35f3e150.json"
+    },
+    {
+      "config_id": "218930167007dd0e81528daf62948916ab9767530dc200192f6f6588eb119e2c",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:32.017570+00:00",
+      "age_seconds": 14417,
+      "due_by_seconds": 14117,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/218930167007dd0e81528daf62948916ab9767530dc200192f6f6588eb119e2c.json"
+    },
+    {
+      "config_id": "4ad9e464f21ebecc6d8aaaeac1bc20121ed62d72d5c403cdb534bde35d94d3e6",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:32.191606+00:00",
+      "age_seconds": 14417,
+      "due_by_seconds": 14117,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4ad9e464f21ebecc6d8aaaeac1bc20121ed62d72d5c403cdb534bde35d94d3e6.json"
+    },
+    {
+      "config_id": "c04d7c2c14efed6b41d980ce49b851248dbd966c60b47da6b30de418b0fb42ca",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:32.900601+00:00",
+      "age_seconds": 14416,
+      "due_by_seconds": 14116,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c04d7c2c14efed6b41d980ce49b851248dbd966c60b47da6b30de418b0fb42ca.json"
+    },
+    {
+      "config_id": "54ead768401f4512bd157210ab487ae9000224513d8e12741498fa62fb901cab",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:33.258061+00:00",
+      "age_seconds": 14415,
+      "due_by_seconds": 14115,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/54ead768401f4512bd157210ab487ae9000224513d8e12741498fa62fb901cab.json"
+    },
+    {
+      "config_id": "aba6419eafe648ee8fb72d24a3e20472124d89117bc533ec5a8835e80b69e894",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:33.248297+00:00",
+      "age_seconds": 14415,
+      "due_by_seconds": 14115,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/aba6419eafe648ee8fb72d24a3e20472124d89117bc533ec5a8835e80b69e894.json"
+    },
+    {
+      "config_id": "c9d9b18ecd85fce48c95633534af2e60fee8546e9d172881814d4fa6ea7d7d56",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:33.391466+00:00",
+      "age_seconds": 14415,
+      "due_by_seconds": 14115,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c9d9b18ecd85fce48c95633534af2e60fee8546e9d172881814d4fa6ea7d7d56.json"
+    },
+    {
+      "config_id": "9d0a1fd5749888f24be3aadb5b8883c9f6572e5c92d0bae0422a5ee8cd6a100c",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:34.873826+00:00",
+      "age_seconds": 14414,
+      "due_by_seconds": 14114,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/9d0a1fd5749888f24be3aadb5b8883c9f6572e5c92d0bae0422a5ee8cd6a100c.json"
+    },
+    {
+      "config_id": "c67409f3709c141c33be47023647e6b4ffcb81308fbcbc265e77c10dd899fd73",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:34.951076+00:00",
+      "age_seconds": 14414,
+      "due_by_seconds": 14114,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c67409f3709c141c33be47023647e6b4ffcb81308fbcbc265e77c10dd899fd73.json"
+    },
+    {
+      "config_id": "99d5471195c4ae9fb28f962c5f28e8cd3b2438a6b9fe54590f3ca1e001794284",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:40.828957+00:00",
+      "age_seconds": 14408,
+      "due_by_seconds": 14108,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/99d5471195c4ae9fb28f962c5f28e8cd3b2438a6b9fe54590f3ca1e001794284.json"
+    },
+    {
+      "config_id": "67d693bbbff917e0b6bee2cd07a7befb8a4da8781fac2391035a6bec8f443852",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:42.090723+00:00",
+      "age_seconds": 14407,
+      "due_by_seconds": 14107,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/67d693bbbff917e0b6bee2cd07a7befb8a4da8781fac2391035a6bec8f443852.json"
+    },
+    {
+      "config_id": "5d0aefa5f4e2d8814dc4b4d369e80601e7e278ab7807c6ac61814ea30526db00",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:42.453514+00:00",
+      "age_seconds": 14406,
+      "due_by_seconds": 14106,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/5d0aefa5f4e2d8814dc4b4d369e80601e7e278ab7807c6ac61814ea30526db00.json"
+    },
+    {
+      "config_id": "02ee92c02225dfaf76d973fa9195d576041a6fd6d0f879b43d6e30b8cb18b9cf",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:29:55.037200+00:00",
+      "age_seconds": 14394,
+      "due_by_seconds": 14094,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/02ee92c02225dfaf76d973fa9195d576041a6fd6d0f879b43d6e30b8cb18b9cf.json"
+    },
+    {
+      "config_id": "2d64ee59f8a732fabeff45275955e85789bf31c06d6f9b4b5f587cd44e0269e9",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:30:37.632293+00:00",
+      "age_seconds": 14351,
+      "due_by_seconds": 14051,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/2d64ee59f8a732fabeff45275955e85789bf31c06d6f9b4b5f587cd44e0269e9.json"
+    },
+    {
+      "config_id": "400d8909eb6f37a843aa11145bd66a8857fc0ee56fda0d30aefb18455f92f717",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:30:38.081152+00:00",
+      "age_seconds": 14351,
+      "due_by_seconds": 14051,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/400d8909eb6f37a843aa11145bd66a8857fc0ee56fda0d30aefb18455f92f717.json"
+    },
+    {
+      "config_id": "5c2810a64e8c3a9abc086d377103d74b0998a92d0501f6ef01fe718b62415d2d",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:30:38.096785+00:00",
+      "age_seconds": 14351,
+      "due_by_seconds": 14051,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/5c2810a64e8c3a9abc086d377103d74b0998a92d0501f6ef01fe718b62415d2d.json"
+    },
+    {
+      "config_id": "66a55090fae744c2d3caf96979dba36d0fa5f601cabb73141fd26989b5d059fa",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:30:37.928335+00:00",
+      "age_seconds": 14351,
+      "due_by_seconds": 14051,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/66a55090fae744c2d3caf96979dba36d0fa5f601cabb73141fd26989b5d059fa.json"
+    },
+    {
+      "config_id": "b2765c6443058b2254d61c829c9140f563b463577c6e3b81aa188e2e84b773bc",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:30:37.509995+00:00",
+      "age_seconds": 14351,
+      "due_by_seconds": 14051,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b2765c6443058b2254d61c829c9140f563b463577c6e3b81aa188e2e84b773bc.json"
+    },
+    {
+      "config_id": "4f0d11098156b888721a088b25bf26dd4469c6cf915dff55db9b2b6830d8a927",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:30:40.532137+00:00",
+      "age_seconds": 14348,
+      "due_by_seconds": 14048,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4f0d11098156b888721a088b25bf26dd4469c6cf915dff55db9b2b6830d8a927.json"
+    },
+    {
+      "config_id": "1c448282ccccebb2d1ecf1fbc31638e6bb925f18ad7a931141b7c0902f5f675d",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:32:08.897991+00:00",
+      "age_seconds": 14260,
+      "due_by_seconds": 13960,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/1c448282ccccebb2d1ecf1fbc31638e6bb925f18ad7a931141b7c0902f5f675d.json"
+    },
+    {
+      "config_id": "b4b4920613aeca2f4630cceb56944e986d4689f841ea41643a94026d67f39ab0",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:32:08.737701+00:00",
+      "age_seconds": 14260,
+      "due_by_seconds": 13960,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b4b4920613aeca2f4630cceb56944e986d4689f841ea41643a94026d67f39ab0.json"
+    },
+    {
+      "config_id": "7c5bd32f4ca6c3eba8a6d6a2dcccc1eb189cccaffc27eabd8f39a39b4ffba6cd",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:32:11.086945+00:00",
+      "age_seconds": 14258,
+      "due_by_seconds": 13958,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7c5bd32f4ca6c3eba8a6d6a2dcccc1eb189cccaffc27eabd8f39a39b4ffba6cd.json"
+    },
+    {
+      "config_id": "097ffa9bc6df7619bc1c7296c6ff8ee09cd3a6b1a2cdc09a7e2b3458c0c087f7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:33:00.109635+00:00",
+      "age_seconds": 14209,
+      "due_by_seconds": 13909,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/097ffa9bc6df7619bc1c7296c6ff8ee09cd3a6b1a2cdc09a7e2b3458c0c087f7.json"
+    },
+    {
+      "config_id": "57d1547429be142573e3b6b265d8a7efa462d820745538322b9d3197b7629368",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:33:06.494241+00:00",
+      "age_seconds": 14202,
+      "due_by_seconds": 13902,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/57d1547429be142573e3b6b265d8a7efa462d820745538322b9d3197b7629368.json"
+    },
+    {
+      "config_id": "7f4062b923ffba03b35116f10f79061809d61b819b71d690ba00264566bf1749",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:33:47.238025+00:00",
+      "age_seconds": 14161,
+      "due_by_seconds": 13861,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7f4062b923ffba03b35116f10f79061809d61b819b71d690ba00264566bf1749.json"
+    },
+    {
+      "config_id": "6e2a809ae19b7f1fed65640308884b5ad8170feb5f79aa19aabd59a7f2cc7411",
+      "config_type": "vmess",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:34:09.168949+00:00",
+      "age_seconds": 14140,
+      "due_by_seconds": 13840,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6e2a809ae19b7f1fed65640308884b5ad8170feb5f79aa19aabd59a7f2cc7411.json"
+    },
+    {
+      "config_id": "8bbb4314173f084f9f1897f6f5c36aa3b7a929708b9aab8405796bca2156c9c4",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:34:08.541967+00:00",
+      "age_seconds": 14140,
+      "due_by_seconds": 13840,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/8bbb4314173f084f9f1897f6f5c36aa3b7a929708b9aab8405796bca2156c9c4.json"
+    },
+    {
+      "config_id": "a6cd80180cac30ada4762166e2b21fbd0b503ebf3c8991aa4bd8eeed908e35ee",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:34:48.312652+00:00",
+      "age_seconds": 14100,
+      "due_by_seconds": 13800,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a6cd80180cac30ada4762166e2b21fbd0b503ebf3c8991aa4bd8eeed908e35ee.json"
+    },
+    {
+      "config_id": "46c4621ac412b704fb09e39aee631dc2bae6414df980f3a041fa70eb2da25c5b",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:34:49.430213+00:00",
+      "age_seconds": 14099,
+      "due_by_seconds": 13799,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/46c4621ac412b704fb09e39aee631dc2bae6414df980f3a041fa70eb2da25c5b.json"
+    },
+    {
+      "config_id": "48c46e1531cec6278a40ba2387a78217ca101e23b9b7e9629acecf8fc6cdbd2d",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:37:19.868258+00:00",
+      "age_seconds": 13949,
+      "due_by_seconds": 13649,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/48c46e1531cec6278a40ba2387a78217ca101e23b9b7e9629acecf8fc6cdbd2d.json"
+    },
+    {
+      "config_id": "17d7fe51ded1fbca509d7f76567ddc85af947d3f95caf943ff5945f2303a9a8e",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:37:21.151029+00:00",
+      "age_seconds": 13948,
+      "due_by_seconds": 13648,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/17d7fe51ded1fbca509d7f76567ddc85af947d3f95caf943ff5945f2303a9a8e.json"
+    },
+    {
+      "config_id": "0e4e22591c0b70c80b6a24c79d55106c2ac2dc955a52bb3529f73567f84520ec",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:37:22.117829+00:00",
+      "age_seconds": 13947,
+      "due_by_seconds": 13647,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0e4e22591c0b70c80b6a24c79d55106c2ac2dc955a52bb3529f73567f84520ec.json"
+    },
+    {
+      "config_id": "a3b0627fc93acd7de707162c507c344cae3f7e5c9ef0372144ad7a14e2d46824",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:38:53.691396+00:00",
+      "age_seconds": 13855,
+      "due_by_seconds": 13555,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a3b0627fc93acd7de707162c507c344cae3f7e5c9ef0372144ad7a14e2d46824.json"
+    },
+    {
+      "config_id": "7978b71bf786042690dda8f6d8d94acb36fee5da0972ea9cd252fe6df01d049d",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:38:54.944626+00:00",
+      "age_seconds": 13854,
+      "due_by_seconds": 13554,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7978b71bf786042690dda8f6d8d94acb36fee5da0972ea9cd252fe6df01d049d.json"
+    },
+    {
+      "config_id": "d5f8c35ff8448c644188c55dec0fdee97f4b0c0c03859a7dbec50a38e870620a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:39:34.904305+00:00",
+      "age_seconds": 13814,
+      "due_by_seconds": 13514,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d5f8c35ff8448c644188c55dec0fdee97f4b0c0c03859a7dbec50a38e870620a.json"
+    },
+    {
+      "config_id": "d9a546bcb356fde1cf5bc2aa26472be90a49efa9e10d9bf4b86b8672bac092ab",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:40:23.276586+00:00",
+      "age_seconds": 13765,
+      "due_by_seconds": 13465,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d9a546bcb356fde1cf5bc2aa26472be90a49efa9e10d9bf4b86b8672bac092ab.json"
+    },
+    {
+      "config_id": "00d33535482a77c188746029e58c66c67a0f4f979e4d60dda05c62aeba7d4d61",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:40:28.822690+00:00",
+      "age_seconds": 13760,
+      "due_by_seconds": 13460,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/00d33535482a77c188746029e58c66c67a0f4f979e4d60dda05c62aeba7d4d61.json"
+    },
+    {
+      "config_id": "53120cfa9c9f26ec4e64f529856ce85836328dd0acec98044162a8c76dfb4931",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:41:16.353843+00:00",
+      "age_seconds": 13712,
+      "due_by_seconds": 13412,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/53120cfa9c9f26ec4e64f529856ce85836328dd0acec98044162a8c76dfb4931.json"
+    },
+    {
+      "config_id": "1bbc05b73e722f0ba8801730210097848dcf5190ffd806c9eb73e525f239c9b7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:42:31.532221+00:00",
+      "age_seconds": 13637,
+      "due_by_seconds": 13337,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/1bbc05b73e722f0ba8801730210097848dcf5190ffd806c9eb73e525f239c9b7.json"
+    },
+    {
+      "config_id": "28cedc8271d035e626e5780c3fa971d85ee03bed4b3b9f9d9cfea83a8643bc2b",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:42:38.189698+00:00",
+      "age_seconds": 13631,
+      "due_by_seconds": 13331,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/28cedc8271d035e626e5780c3fa971d85ee03bed4b3b9f9d9cfea83a8643bc2b.json"
+    },
+    {
+      "config_id": "8c454e8aea8084800586dbc763c446bd64c47bd4c9eac010c27a73da852356e4",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:43:15.687215+00:00",
+      "age_seconds": 13593,
+      "due_by_seconds": 13293,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/8c454e8aea8084800586dbc763c446bd64c47bd4c9eac010c27a73da852356e4.json"
+    },
+    {
+      "config_id": "bc90fc19cd905326a2822fcd389816da5c0b6f09fba38de60ae25c65a3ec2129",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:43:47.253260+00:00",
+      "age_seconds": 13561,
+      "due_by_seconds": 13261,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/bc90fc19cd905326a2822fcd389816da5c0b6f09fba38de60ae25c65a3ec2129.json"
+    },
+    {
+      "config_id": "fd1a59c72b3fced9a4180e7a2990ad026a814a08ae7d6aac6ba609d491119439",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:44:11.652640+00:00",
+      "age_seconds": 13537,
+      "due_by_seconds": 13237,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/fd1a59c72b3fced9a4180e7a2990ad026a814a08ae7d6aac6ba609d491119439.json"
+    },
+    {
+      "config_id": "0a6f19bb91db1f06d925e2a31938a9b66e957750d7dd955da860f6ddbeab0c07",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:46:30.563213+00:00",
+      "age_seconds": 13398,
+      "due_by_seconds": 13098,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0a6f19bb91db1f06d925e2a31938a9b66e957750d7dd955da860f6ddbeab0c07.json"
+    },
+    {
+      "config_id": "7b6a69a1361e96bbe8fd46721c94e234afcaaac4c0c51b666d49295141402339",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:48:11.348261+00:00",
+      "age_seconds": 13297,
+      "due_by_seconds": 12997,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7b6a69a1361e96bbe8fd46721c94e234afcaaac4c0c51b666d49295141402339.json"
+    },
+    {
+      "config_id": "f89ae1ad4410f794ff57ef05ea2c97154053df33317f997587a2e0f6b2f22f84",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:48:12.095383+00:00",
+      "age_seconds": 13297,
+      "due_by_seconds": 12997,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f89ae1ad4410f794ff57ef05ea2c97154053df33317f997587a2e0f6b2f22f84.json"
+    },
+    {
+      "config_id": "04262ca7a6ff595867a1313c7ca328612f2753e64c0fbad3d9c7f90be394aa09",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:48:12.353143+00:00",
+      "age_seconds": 13296,
+      "due_by_seconds": 12996,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/04262ca7a6ff595867a1313c7ca328612f2753e64c0fbad3d9c7f90be394aa09.json"
+    },
+    {
+      "config_id": "0a6e6b1be57702580400a557feeac3d617d251595229dc9b55650a6576749d15",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:48:12.734615+00:00",
+      "age_seconds": 13296,
+      "due_by_seconds": 12996,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0a6e6b1be57702580400a557feeac3d617d251595229dc9b55650a6576749d15.json"
+    },
+    {
+      "config_id": "f440bc09df53b83405dd1d3ea01a1585e7b0c0e63145d60df079b8feacf57d65",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:49:08.464353+00:00",
+      "age_seconds": 13240,
+      "due_by_seconds": 12940,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f440bc09df53b83405dd1d3ea01a1585e7b0c0e63145d60df079b8feacf57d65.json"
+    },
+    {
+      "config_id": "30c1733e89995d70d4e1fc67332f4ef16e19c4bad6f18a9652892cb359cb0e8f",
+      "config_type": "vmess",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:49:11.988703+00:00",
+      "age_seconds": 13237,
+      "due_by_seconds": 12937,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/30c1733e89995d70d4e1fc67332f4ef16e19c4bad6f18a9652892cb359cb0e8f.json"
+    },
+    {
+      "config_id": "67094b5a197d07acf225b11781d63ff5b4297132dc2dacd3fa932d10045b0f2a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:49:13.580839+00:00",
+      "age_seconds": 13235,
+      "due_by_seconds": 12935,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/67094b5a197d07acf225b11781d63ff5b4297132dc2dacd3fa932d10045b0f2a.json"
+    },
+    {
+      "config_id": "227ce9de44a138c2678715634b782144bfa01a2a896e09f070787795ff09ba82",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:31.693978+00:00",
+      "age_seconds": 13097,
+      "due_by_seconds": 12797,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/227ce9de44a138c2678715634b782144bfa01a2a896e09f070787795ff09ba82.json"
+    },
+    {
+      "config_id": "14066c02a589ce79ac74828674695dac767a206f850e258977923d44fb2c209a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:48.777943+00:00",
+      "age_seconds": 13080,
+      "due_by_seconds": 12780,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/14066c02a589ce79ac74828674695dac767a206f850e258977923d44fb2c209a.json"
+    },
+    {
+      "config_id": "1bdca49bfd48137cbd77f51c46ae1511f5a4b53392027463b40c8344a257ad67",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:48.548638+00:00",
+      "age_seconds": 13080,
+      "due_by_seconds": 12780,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/1bdca49bfd48137cbd77f51c46ae1511f5a4b53392027463b40c8344a257ad67.json"
+    },
+    {
+      "config_id": "9bd65fc8ad1f31bcb74cd9eab1f298d0bee7e19da90a9140b19b22b1da4537cb",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:49.372489+00:00",
+      "age_seconds": 13079,
+      "due_by_seconds": 12779,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/9bd65fc8ad1f31bcb74cd9eab1f298d0bee7e19da90a9140b19b22b1da4537cb.json"
+    },
+    {
+      "config_id": "add5eb2e77fbd4e9d320150ea4e4cb34d39a1a2e9da011beec252898932ad04a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:49.675399+00:00",
+      "age_seconds": 13079,
+      "due_by_seconds": 12779,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/add5eb2e77fbd4e9d320150ea4e4cb34d39a1a2e9da011beec252898932ad04a.json"
+    },
+    {
+      "config_id": "c9b82f16cca531902b49fec73f6829f144104212178b54fc7d46edba6aa4d3f3",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:49.495462+00:00",
+      "age_seconds": 13079,
+      "due_by_seconds": 12779,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c9b82f16cca531902b49fec73f6829f144104212178b54fc7d46edba6aa4d3f3.json"
+    },
+    {
+      "config_id": "66832deecdc03fabdc74e104d6f9f7e9a6a60cc2c359726e0135a3c0cda7767e",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:50.957455+00:00",
+      "age_seconds": 13078,
+      "due_by_seconds": 12778,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/66832deecdc03fabdc74e104d6f9f7e9a6a60cc2c359726e0135a3c0cda7767e.json"
+    },
+    {
+      "config_id": "bbc5dfb89fff75952a25ae2451e4018bef10767450b92cc8ea2640cf8b40e014",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:50.904582+00:00",
+      "age_seconds": 13078,
+      "due_by_seconds": 12778,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/bbc5dfb89fff75952a25ae2451e4018bef10767450b92cc8ea2640cf8b40e014.json"
+    },
+    {
+      "config_id": "fa54fe2402c0c5fb2a2a97926f0095dee479a41b84a8cd7288dabe00b3a9cba7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:52.000342+00:00",
+      "age_seconds": 13077,
+      "due_by_seconds": 12777,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/fa54fe2402c0c5fb2a2a97926f0095dee479a41b84a8cd7288dabe00b3a9cba7.json"
+    },
+    {
+      "config_id": "2d6261e1d97a9e8d7e80fb019a010de611af70a7239771276ca070c63dd51877",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:51:53.588500+00:00",
+      "age_seconds": 13075,
+      "due_by_seconds": 12775,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/2d6261e1d97a9e8d7e80fb019a010de611af70a7239771276ca070c63dd51877.json"
+    },
+    {
+      "config_id": "53be632415fa27422e4ea9f4f97d162ee8b29b3fd2ce98d53c3f89a6c42215ed",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:10.563939+00:00",
+      "age_seconds": 13058,
+      "due_by_seconds": 12758,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/53be632415fa27422e4ea9f4f97d162ee8b29b3fd2ce98d53c3f89a6c42215ed.json"
+    },
+    {
+      "config_id": "41f0bbba71e57a3a54674c13506b60357680a0161133725393e09fbc2d794718",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:17.721290+00:00",
+      "age_seconds": 13051,
+      "due_by_seconds": 12751,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/41f0bbba71e57a3a54674c13506b60357680a0161133725393e09fbc2d794718.json"
+    },
+    {
+      "config_id": "0da4a5f694c3b8663f4f414b0d064a925474a55a0321e9edd82e7eaca8473733",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:54.850247+00:00",
+      "age_seconds": 13014,
+      "due_by_seconds": 12714,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0da4a5f694c3b8663f4f414b0d064a925474a55a0321e9edd82e7eaca8473733.json"
+    },
+    {
+      "config_id": "58326b849ca3c79fe1c19b39878d9df95d559c2ba4d3a144b20c5d0524bfe194",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:54.763383+00:00",
+      "age_seconds": 13014,
+      "due_by_seconds": 12714,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/58326b849ca3c79fe1c19b39878d9df95d559c2ba4d3a144b20c5d0524bfe194.json"
+    },
+    {
+      "config_id": "02a9d9736de46e8487551b41386339fb8a555a52bcaa26a824ee7619259de211",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:55.325174+00:00",
+      "age_seconds": 13013,
+      "due_by_seconds": 12713,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/02a9d9736de46e8487551b41386339fb8a555a52bcaa26a824ee7619259de211.json"
+    },
+    {
+      "config_id": "29e48bf0df4f6cacd3afa937ec17a68713380abfaa1f5431a335445df1015d17",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:55.905512+00:00",
+      "age_seconds": 13013,
+      "due_by_seconds": 12713,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/29e48bf0df4f6cacd3afa937ec17a68713380abfaa1f5431a335445df1015d17.json"
+    },
+    {
+      "config_id": "2b7d1a3f6c0507c1cc25d70960cfef6176dd699822a8f6283eb1a8423abe183e",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:55.297441+00:00",
+      "age_seconds": 13013,
+      "due_by_seconds": 12713,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/2b7d1a3f6c0507c1cc25d70960cfef6176dd699822a8f6283eb1a8423abe183e.json"
+    },
+    {
+      "config_id": "0ebae1e1c3937e91a78dc592b9aebe20d9e99ea3667580f43d82d29ff12c2cbd",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:56.211713+00:00",
+      "age_seconds": 13012,
+      "due_by_seconds": 12712,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/0ebae1e1c3937e91a78dc592b9aebe20d9e99ea3667580f43d82d29ff12c2cbd.json"
+    },
+    {
+      "config_id": "96ac6128fb2c4ea2f365d5b93e477f03cace836fedf4e256280fff2cedcfd2bf",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:52:58.053131+00:00",
+      "age_seconds": 13011,
+      "due_by_seconds": 12711,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/96ac6128fb2c4ea2f365d5b93e477f03cace836fedf4e256280fff2cedcfd2bf.json"
+    },
+    {
+      "config_id": "53ece7856f68e390344aeb945193483571e47058c1f4a048a5684a2b7fb7371f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:53:00.326646+00:00",
+      "age_seconds": 13008,
+      "due_by_seconds": 12708,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/53ece7856f68e390344aeb945193483571e47058c1f4a048a5684a2b7fb7371f.json"
+    },
+    {
+      "config_id": "50af9a4cb3e418bf18f5572ed223a17454ccae8ffd9fb49f1f910fe3ef284402",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:53:01.336206+00:00",
+      "age_seconds": 13007,
+      "due_by_seconds": 12707,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/50af9a4cb3e418bf18f5572ed223a17454ccae8ffd9fb49f1f910fe3ef284402.json"
+    },
+    {
+      "config_id": "26fe314e4fd445207827154e7397eed46f26efc9da4133b38f0f482b2ea2a7e7",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:53:05.178719+00:00",
+      "age_seconds": 13004,
+      "due_by_seconds": 12704,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/26fe314e4fd445207827154e7397eed46f26efc9da4133b38f0f482b2ea2a7e7.json"
+    },
+    {
+      "config_id": "d3e414480d37f1fe74cc2189212b30a71752f24521f8d15af2c6af0ec98c1b4b",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:53:18.021797+00:00",
+      "age_seconds": 12991,
+      "due_by_seconds": 12691,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d3e414480d37f1fe74cc2189212b30a71752f24521f8d15af2c6af0ec98c1b4b.json"
+    },
+    {
+      "config_id": "d7f0ca2e0156560faadbfb688d9c4a070bfa553e5b556e23daf9fd05d8e354cd",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:53:35.856587+00:00",
+      "age_seconds": 12973,
+      "due_by_seconds": 12673,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d7f0ca2e0156560faadbfb688d9c4a070bfa553e5b556e23daf9fd05d8e354cd.json"
+    },
+    {
+      "config_id": "16713c604baefe5c9469f725311b8337bb167a6408d8dcdd03f81d6559c09774",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:53:44.703559+00:00",
+      "age_seconds": 12964,
+      "due_by_seconds": 12664,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/16713c604baefe5c9469f725311b8337bb167a6408d8dcdd03f81d6559c09774.json"
+    },
+    {
+      "config_id": "220e5678a19569ae6ebe501cd1f1ec3a8f94c6f5a7ddae20959cfcfb23a3221c",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:54:40.308034+00:00",
+      "age_seconds": 12908,
+      "due_by_seconds": 12608,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/220e5678a19569ae6ebe501cd1f1ec3a8f94c6f5a7ddae20959cfcfb23a3221c.json"
+    },
+    {
+      "config_id": "eb1cb8a2470767e75de18d53eadd39bd414d0a342338c16458f28854828f25cd",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:54:40.487480+00:00",
+      "age_seconds": 12908,
+      "due_by_seconds": 12608,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/eb1cb8a2470767e75de18d53eadd39bd414d0a342338c16458f28854828f25cd.json"
+    },
+    {
+      "config_id": "f12a5cd258e40ddd349b6c05e883ea4a9b350312f494dc779d593facf724578a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:55:03.284795+00:00",
+      "age_seconds": 12885,
+      "due_by_seconds": 12585,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f12a5cd258e40ddd349b6c05e883ea4a9b350312f494dc779d593facf724578a.json"
+    },
+    {
+      "config_id": "6101600ed4e46f61fd43d9d442d205b9f808949fd7fdd0b850dd285633594899",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:55:20.962651+00:00",
+      "age_seconds": 12868,
+      "due_by_seconds": 12568,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6101600ed4e46f61fd43d9d442d205b9f808949fd7fdd0b850dd285633594899.json"
+    },
+    {
+      "config_id": "69a61cfc6ba171f0fd85f09839c400dae0637af906d11bb6626443f9b21aec93",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:55:20.974147+00:00",
+      "age_seconds": 12868,
+      "due_by_seconds": 12568,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/69a61cfc6ba171f0fd85f09839c400dae0637af906d11bb6626443f9b21aec93.json"
+    },
+    {
+      "config_id": "8dc9884b8a415bc4c4e6c0590b85cd303c41e51077bf81ad6ccca537f8754d9a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:55:20.534030+00:00",
+      "age_seconds": 12868,
+      "due_by_seconds": 12568,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/8dc9884b8a415bc4c4e6c0590b85cd303c41e51077bf81ad6ccca537f8754d9a.json"
+    },
+    {
+      "config_id": "8672781eccb113bd2fb766eab552b44bf1e7a68164a0f47f4a54adc699ae9489",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:20.798446+00:00",
+      "age_seconds": 12808,
+      "due_by_seconds": 12508,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/8672781eccb113bd2fb766eab552b44bf1e7a68164a0f47f4a54adc699ae9489.json"
+    },
+    {
+      "config_id": "a3a166ff70b44f9907d6a0db1302ff34e0eb39610fd8829035ee081944e78dc5",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:20.784547+00:00",
+      "age_seconds": 12808,
+      "due_by_seconds": 12508,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a3a166ff70b44f9907d6a0db1302ff34e0eb39610fd8829035ee081944e78dc5.json"
+    },
+    {
+      "config_id": "a9017d97de90f554e982587ae14bba8e4c6e16897b445b84e0470cdb906b1d86",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:20.808288+00:00",
+      "age_seconds": 12808,
+      "due_by_seconds": 12508,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a9017d97de90f554e982587ae14bba8e4c6e16897b445b84e0470cdb906b1d86.json"
+    },
+    {
+      "config_id": "31098a4b24314300706f2b5822ea8b15b215529e7f7a5e0c006c501ef756f7de",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:21.926376+00:00",
+      "age_seconds": 12807,
+      "due_by_seconds": 12507,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/31098a4b24314300706f2b5822ea8b15b215529e7f7a5e0c006c501ef756f7de.json"
+    },
+    {
+      "config_id": "c24bcb4ec711c481536c34786686110eafab36bab2a6f4aab4dd91ed238a2ecd",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:21.294214+00:00",
+      "age_seconds": 12807,
+      "due_by_seconds": 12507,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c24bcb4ec711c481536c34786686110eafab36bab2a6f4aab4dd91ed238a2ecd.json"
+    },
+    {
+      "config_id": "4eee7086104d64bc104b7c4a02c39ae3327e83a72b7b6a184737648fa5ddaf78",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:22.460607+00:00",
+      "age_seconds": 12806,
+      "due_by_seconds": 12506,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4eee7086104d64bc104b7c4a02c39ae3327e83a72b7b6a184737648fa5ddaf78.json"
+    },
+    {
+      "config_id": "43e22104d28c2e7fd6487fb093efe862020049c5580db7ee9248bd3dde98f4d1",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:28.482834+00:00",
+      "age_seconds": 12800,
+      "due_by_seconds": 12500,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/43e22104d28c2e7fd6487fb093efe862020049c5580db7ee9248bd3dde98f4d1.json"
+    },
+    {
+      "config_id": "25fa97e0c924d5572d7dd1de77c143c677c8e0e230e0e5b5b115cea8567fc360",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:56:42.134450+00:00",
+      "age_seconds": 12787,
+      "due_by_seconds": 12487,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/25fa97e0c924d5572d7dd1de77c143c677c8e0e230e0e5b5b115cea8567fc360.json"
+    },
+    {
+      "config_id": "6f9be1a35c293ef7f9fa61f8b3dde69b6a3adbd092ef8827dce267a76b6157d2",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:57:43.862215+00:00",
+      "age_seconds": 12725,
+      "due_by_seconds": 12425,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6f9be1a35c293ef7f9fa61f8b3dde69b6a3adbd092ef8827dce267a76b6157d2.json"
+    },
+    {
+      "config_id": "d7bfda383e792c4e04a8fd8d6dbf2e55baceb04ff1053135f5871437cc95cd0f",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:59:11.547169+00:00",
+      "age_seconds": 12637,
+      "due_by_seconds": 12337,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d7bfda383e792c4e04a8fd8d6dbf2e55baceb04ff1053135f5871437cc95cd0f.json"
+    },
+    {
+      "config_id": "a3f302ea855d2c50b52ce9ac409782a440490d18421406df4913193f720c953b",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:59:14.351036+00:00",
+      "age_seconds": 12634,
+      "due_by_seconds": 12334,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/a3f302ea855d2c50b52ce9ac409782a440490d18421406df4913193f720c953b.json"
+    },
+    {
+      "config_id": "cd09785acbb238898037bdd8c1449b6900982693e294a096fd3bba06045d208a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:59:44.353800+00:00",
+      "age_seconds": 12604,
+      "due_by_seconds": 12304,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/cd09785acbb238898037bdd8c1449b6900982693e294a096fd3bba06045d208a.json"
+    },
+    {
+      "config_id": "de1da8b3a5c9831e7e241d8895b3fe4e85009f49fb85cd4dfeddbbda4124f711",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:59:47.074808+00:00",
+      "age_seconds": 12602,
+      "due_by_seconds": 12302,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/de1da8b3a5c9831e7e241d8895b3fe4e85009f49fb85cd4dfeddbbda4124f711.json"
+    },
+    {
+      "config_id": "d14e6a766f6475801deae7b0189c31fc0bded2022b102cee66cfb27b0a800826",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T18:59:48.484814+00:00",
+      "age_seconds": 12600,
+      "due_by_seconds": 12300,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/d14e6a766f6475801deae7b0189c31fc0bded2022b102cee66cfb27b0a800826.json"
+    },
+    {
+      "config_id": "4e605b331f55285ccc5d46dabb9df74ff83230d6679404d5fd8b53683826bd84",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:01:02.766586+00:00",
+      "age_seconds": 12526,
+      "due_by_seconds": 12226,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/4e605b331f55285ccc5d46dabb9df74ff83230d6679404d5fd8b53683826bd84.json"
+    },
+    {
+      "config_id": "27f750aec2e60f21bdf8cdea83056ab2efd4acf03686913bb42228c24ca85e86",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:01:23.091586+00:00",
+      "age_seconds": 12506,
+      "due_by_seconds": 12206,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/27f750aec2e60f21bdf8cdea83056ab2efd4acf03686913bb42228c24ca85e86.json"
+    },
+    {
+      "config_id": "266f034d04e2f3cf0d820d793d048ad28615af7a7a5e80c697c25b2557dc0ecc",
+      "config_type": "vmess",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:01:25.203092+00:00",
+      "age_seconds": 12504,
+      "due_by_seconds": 12204,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/266f034d04e2f3cf0d820d793d048ad28615af7a7a5e80c697c25b2557dc0ecc.json"
+    },
+    {
+      "config_id": "b50d1c5b95cc924b44408b752dbe487181b5895f850fe4c4306f1a0132d07618",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:02:30.969647+00:00",
+      "age_seconds": 12438,
+      "due_by_seconds": 12138,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/b50d1c5b95cc924b44408b752dbe487181b5895f850fe4c4306f1a0132d07618.json"
+    },
+    {
+      "config_id": "def1cad10e6ac43f85d77b85d3fecbcd962cba32c55364b541917d68e24b8e3a",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:02:31.388377+00:00",
+      "age_seconds": 12437,
+      "due_by_seconds": 12137,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/def1cad10e6ac43f85d77b85d3fecbcd962cba32c55364b541917d68e24b8e3a.json"
+    },
+    {
+      "config_id": "c1544835463d11874c215c69bd8d539d478ca4fdf74cec3778290520a7506306",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:02:34.052455+00:00",
+      "age_seconds": 12435,
+      "due_by_seconds": 12135,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/c1544835463d11874c215c69bd8d539d478ca4fdf74cec3778290520a7506306.json"
+    },
+    {
+      "config_id": "6e7f2b7d890317c6eeccb373bec18ea036cca32282b123d7102584071d5802af",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:04:38.403170+00:00",
+      "age_seconds": 12310,
+      "due_by_seconds": 12010,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6e7f2b7d890317c6eeccb373bec18ea036cca32282b123d7102584071d5802af.json"
+    },
+    {
+      "config_id": "f6add5c3f340ab1bb83f4aeaa6966ed31d04bee1d905933062c77d2bb59d5334",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:04:42.961141+00:00",
+      "age_seconds": 12306,
+      "due_by_seconds": 12006,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/f6add5c3f340ab1bb83f4aeaa6966ed31d04bee1d905933062c77d2bb59d5334.json"
+    },
+    {
+      "config_id": "ac306a6a9d2bc8e43615590038208337a505f19654311b14fd8fe462a13e03e4",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:04:59.562682+00:00",
+      "age_seconds": 12289,
+      "due_by_seconds": 11989,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/ac306a6a9d2bc8e43615590038208337a505f19654311b14fd8fe462a13e03e4.json"
+    },
+    {
+      "config_id": "e5c3bd16b22ac5fe3a55c2b05c3f79e163a069688d10b5d98759fd8033621f75",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:05:06.994259+00:00",
+      "age_seconds": 12282,
+      "due_by_seconds": 11982,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/e5c3bd16b22ac5fe3a55c2b05c3f79e163a069688d10b5d98759fd8033621f75.json"
+    },
+    {
+      "config_id": "6c843fcee1887d5491ca56fdc2d52b956a6ec618cc64e86f26250c877779509d",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:05:08.385787+00:00",
+      "age_seconds": 12280,
+      "due_by_seconds": 11980,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/6c843fcee1887d5491ca56fdc2d52b956a6ec618cc64e86f26250c877779509d.json"
+    },
+    {
+      "config_id": "7c4bbf4111c398e1100e3946428d2135e7f4b5c7f3525265ffa97d6116451015",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:05:08.418108+00:00",
+      "age_seconds": 12280,
+      "due_by_seconds": 11980,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/7c4bbf4111c398e1100e3946428d2135e7f4b5c7f3525265ffa97d6116451015.json"
+    },
+    {
+      "config_id": "ee21e04e6abe84eb4867d064cc7f95abf544f5f26cd84b26a26e31ed7b155256",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:05:09.118590+00:00",
+      "age_seconds": 12280,
+      "due_by_seconds": 11980,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/ee21e04e6abe84eb4867d064cc7f95abf544f5f26cd84b26a26e31ed7b155256.json"
+    },
+    {
+      "config_id": "5b7683929645bd4a5ea5d1e466614fa3589bc10f7863c6ffc4ee34c6e48a3ae6",
+      "config_type": "vless",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:05:10.316438+00:00",
+      "age_seconds": 12278,
+      "due_by_seconds": 11978,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/5b7683929645bd4a5ea5d1e466614fa3589bc10f7863c6ffc4ee34c6e48a3ae6.json"
+    },
+    {
+      "config_id": "aba4168384ad4621b4307cc38c4bc2ac13fdb7b51748d72bb7a9304ef3242642",
+      "config_type": "ss",
+      "state": "healthy",
+      "last_finished_at": "2026-09-04T19:08:09.157811+00:00",
+      "age_seconds": 12100,
+      "due_by_seconds": 11800,
+      "interval_seconds": 300,
+      "record_path": "/var/lib/config-location/health-results/latest/aba4168384ad4621b4307cc38c4bc2ac13fdb7b51748d72bb7a9304ef3242642.json"
+    }
+  ],
+  "production_execution": false,
+  "health_state_mutation": false
+}

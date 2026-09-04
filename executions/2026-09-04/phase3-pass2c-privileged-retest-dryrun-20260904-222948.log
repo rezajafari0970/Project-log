@@ -1,0 +1,34 @@
+================================================
+ PHASE 3 PASS 2C
+ PRIVILEGED RETEST DRY RUN
+================================================
+START=2026-09-04T22:29:48+00:00
+HOST=serverprojects.ptr.network
+
+========== [1/9] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/9] BACKUP ==========
+BACKUP_OK
+
+========== [3/9] STORE SNAPSHOT BEFORE ==========
+LATEST_COUNT_BEFORE=2022
+LATEST_NEWEST_BEFORE=1788560958.2677638330
+STATE_HASH_BEFORE=96b6c503c40febf16d027717ad6e526be6e49d04d5029d0db907bd482a80e57e
+
+========== [4/9] INSTALL ADAPTER ==========
+ADAPTER_INSTALLED
+
+========== [5/9] COMPILE ==========
+COMPILE_OK
+
+========== [6/9] PRIVILEGED DRY RUN ==========
+Traceback (most recent call last):
+  File "/root/project-log/discovery/2026-09-04/phase3-pass2c-privileged-retest-dryrun-20260904-222948.json", line 2025, in <module>
+    "production_execution": false,
+                            ^^^^^
+NameError: name 'false' is not defined. Did you mean: 'False'?
+
+========== FINAL ==========
+RESULT=FAILED
+END=2026-09-04T22:29:49+00:00

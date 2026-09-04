@@ -1,0 +1,37 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass2c-privileged-retest-dryrun
+
+Result:
+FAILED
+
+Start:
+2026-09-04T22:29:48+00:00
+
+End:
+2026-09-04T22:29:49+00:00
+
+Mode:
+PRIVILEGED DRY RUN
+
+Health execution:
+DISABLED
+
+Health mutation:
+NONE
+
+Canonical store:
+/var/lib/config-location/health-results/latest
+
+Dry run:
+/root/project-log/discovery/2026-09-04/phase3-pass2c-privileged-retest-dryrun-20260904-222948.json
+
+Backup:
+/root/3245/phase3-pass2c-privileged-retest-dryrun-backup-20260904-222948
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass2c-privileged-retest-dryrun-20260904-222948.log
+
+Errors:
+\nscript exit code 1
