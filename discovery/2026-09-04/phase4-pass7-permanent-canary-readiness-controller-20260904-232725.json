@@ -1,0 +1,41 @@
+{
+  "candidate": null,
+  "component": "canary-readiness-controller",
+  "cycle": 1,
+  "cycle_elapsed_seconds": 0.252,
+  "cycle_seconds": 30,
+  "delete_performed": false,
+  "gates": {
+    "candidate_freshness": true,
+    "exclusive_lock": true,
+    "post_plan_freshness": true
+  },
+  "hard_boundary": "NO_DELETE",
+  "harness_result": {
+    "delete_performed": false,
+    "gates": {
+      "candidate_freshness": true,
+      "exclusive_lock": true,
+      "post_plan_freshness": true
+    },
+    "production_delete": false,
+    "state": "WAITING_NO_CANDIDATE"
+  },
+  "last_error": null,
+  "last_transition": {
+    "at": "2026-09-04T23:27:26.839283+00:00",
+    "from": null,
+    "to": "WAITING_NO_CANDIDATE"
+  },
+  "mode": "permanent_fail_closed",
+  "pid": 1985043,
+  "production_delete": false,
+  "reason": null,
+  "state": "WAITING_NO_CANDIDATE",
+  "total_blocked": 0,
+  "total_canary_ready": 0,
+  "total_cycles": 1,
+  "total_errors": 0,
+  "total_waiting": 1,
+  "updated_at": "2026-09-04T23:27:26.839304+00:00"
+}
