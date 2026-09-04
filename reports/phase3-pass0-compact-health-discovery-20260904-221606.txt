@@ -1,0 +1,25 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass0-compact-health-discovery
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T22:16:06+00:00
+
+End:
+2026-09-04T22:17:00+00:00
+
+Discovery:
+/root/project-log/discovery/2026-09-04/phase3-pass0-compact-health-discovery-20260904-221606.txt
+
+Discovery size:
+340K
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass0-compact-health-discovery-20260904-221606.log
+
+Errors:
+
