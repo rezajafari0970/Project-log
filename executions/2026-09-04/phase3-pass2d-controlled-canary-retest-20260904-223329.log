@@ -1,0 +1,101 @@
+================================================
+ PHASE 3 PASS 2D
+ CONTROLLED CANARY RETEST
+================================================
+START=2026-09-04T22:33:29+00:00
+HOST=serverprojects.ptr.network
+
+========== [1/9] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/9] CANARY LOCK ==========
+CANARY_LOCK_ACQUIRED
+
+========== [3/9] COMPILE ==========
+COMPILE_OK
+
+========== [4/9] CANARY RUNNER ==========
+CANARY_RUNNER_READY
+
+========== [5/9] REAL CANARY EXECUTION ==========
+{
+  "mode": "controlled_canary",
+  "canary_count": 1,
+  "selected": {
+    "config_id": "a7c2d23e0cc3889a9b95970c65b01a87fb93b7fc17134e6d2b135c66a654a669",
+    "config_type": "vless",
+    "age_seconds": 17254,
+    "due_by_seconds": 16954
+  },
+  "before": {
+    "state": "healthy",
+    "finished_at": "2026-09-04T17:45:55.450841+00:00",
+    "xray_started": true,
+    "download_verified": true,
+    "upload_verified": true,
+    "sha256": "976c04aaabb4375e357b409a757b9c41f4db3dd56f93148ed53d4d96323ba8c4",
+    "mtime_ns": 1788543977737416159,
+    "publish_eligible": true
+  },
+  "retest": {
+    "job_id": "health-a7c2d23e0cc3889a9b95970c65b01a87fb93b7fc17134e6d2b135c66a654a669-1788561209620340680",
+    "state": "unhealthy",
+    "healthy": false,
+    "started_at": "2026-09-04T22:33:29.620355+00:00",
+    "finished_at": "2026-09-04T22:33:30.121121+00:00",
+    "xray_started": true,
+    "download_verified": false,
+    "upload_verified": false,
+    "error_code": null,
+    "error_message": null,
+    "elapsed_seconds": 0.501
+  },
+  "after": {
+    "state": "unhealthy",
+    "finished_at": "2026-09-04T22:33:30.121121+00:00",
+    "sha256": "8fca7c2069e082f7c71facb418b86aba79d76e58ad300b70d5d8f78241c0b6b1",
+    "mtime_ns": 1788561210126324227,
+    "publish_eligible_immediate": true,
+    "publish_eligible_after_5s": false
+  },
+  "assertions": {
+    "latest_changed": true,
+    "mtime_advanced": true,
+    "stored_state_matches": true,
+    "stored_job_matches": true,
+    "manual_delete": false
+  }
+}
+CANARY_EXECUTION_FINISHED
+
+========== [6/9] VALIDATE ==========
+CANARY_VALID
+CONFIG_ID= a7c2d23e0cc3889a9b95970c65b01a87fb93b7fc17134e6d2b135c66a654a669
+BEFORE_STATE= healthy
+AFTER_STATE= unhealthy
+HEALTHY= False
+ELAPSED= 0.501
+PUBLISH_BEFORE= True
+PUBLISH_IMMEDIATE= True
+PUBLISH_AFTER_5S= False
+
+========== [7/9] CANONICAL STORE VERIFY ==========
+LATEST_FILE=/var/lib/config-location/health-results/latest/a7c2d23e0cc3889a9b95970c65b01a87fb93b7fc17134e6d2b135c66a654a669.json
+root:root 600 1783 2026-09-04 22:33:30.126324227 +0000 /var/lib/config-location/health-results/latest/a7c2d23e0cc3889a9b95970c65b01a87fb93b7fc17134e6d2b135c66a654a669.json
+CANONICAL_STORE_OK
+
+========== [8/9] JOURNAL OBSERVATION ==========
+
+========== [9/9] SAFETY ==========
+CANARY_COUNT=1
+REAL_HEALTH_EXECUTION=YES
+CANONICAL_STORE_SAVE=YES
+MANUAL_DELETE=NO
+SERVICE_RESTART=NO
+BULK_RETEST=NO
+
+PHASE3_PASS2D_SUCCESS
+
+========== FINAL ==========
+RESULT=SUCCESS
+END=2026-09-04T22:33:35+00:00
