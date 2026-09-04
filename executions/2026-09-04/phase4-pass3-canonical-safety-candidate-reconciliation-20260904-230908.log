@@ -1,0 +1,1064 @@
+================================================
+ PHASE 4 PASS 3
+ CANONICAL SAFETY CANDIDATE RECONCILIATION
+================================================
+
+========== [1/8] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/8] RECONCILE ==========
+{
+  "mode": "read_only_reconciliation",
+  "production_delete": false,
+  "state_mutation": false,
+  "canonical_future_enforcement_candidates": 1770,
+  "candidate_min_consecutive_unhealthy": 8,
+  "candidate_count_checked": 25,
+  "results": [
+    {
+      "config_id": "0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b",
+      "safety_candidate": {
+        "config_id": "0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b",
+        "consecutive_unhealthy": 84
+      },
+      "config_exists": true,
+      "health_exists": true,
+      "latest_health_state": "unhealthy",
+      "policy_records_found": 1,
+      "tracker_records_found": 1,
+      "policy_state": "delete_candidate_shadow",
+      "delete_candidate_shadow": true,
+      "consecutive_unhealthy": 5,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": true,
+      "tracker_record": {
+        "config_id": "0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b",
+        "consecutive_error": 0,
+        "consecutive_healthy": 0,
+        "consecutive_unhealthy": 5,
+        "first_tracked_at": "2026-09-04T09:57:38.283833+00:00",
+        "last_error_at": null,
+        "last_healthy_at": null,
+        "last_result_fingerprint": "8a6ca52bf4d03f158c3064f7b50dbebd49104d6120ab777ea2f6c07ebc5d69f6",
+        "last_result_finished_at": "2026-09-04T21:55:57.771109+00:00",
+        "last_result_state": "unhealthy",
+        "last_unhealthy_at": "2026-09-04T21:55:57.771109+00:00",
+        "quarantine_started_at": "2026-09-04T09:57:15.590567+00:00",
+        "total_health_results_seen": 5,
+        "updated_at": "2026-09-04T21:56:01.209643+00:00"
+      },
+      "policy_record": {
+        "config_id": "0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b",
+        "consecutive_error": 0,
+        "consecutive_healthy": 0,
+        "consecutive_unhealthy": 5,
+        "deep_quarantine": true,
+        "delete_candidate_shadow": true,
+        "last_healthy_at": null,
+        "last_result_finished_at": "2026-09-04T21:55:57.771109+00:00",
+        "last_result_state": "unhealthy",
+        "policy_state": "delete_candidate_shadow",
+        "production_delete_allowed": false,
+        "publish_eligible": false,
+        "quarantine": true,
+        "quarantine_started_at": "2026-09-04T09:57:15.590567+00:00",
+        "reason": "unhealthy_threshold_reached_shadow_only",
+        "retry_required": true
+      }
+    },
+    {
+      "config_id": "000a7d1616951d4bc6b84337b91ef8019e96296ddf4820aec8f652d06a698158",
+      "safety_candidate": {
+        "config_id": "000a7d1616951d4bc6b84337b91ef8019e96296ddf4820aec8f652d06a698158",
+        "consecutive_unhealthy": 56
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "001e830e29f6b5b30b933cd9ad47537a4edb63fc3ebabf38bce82b092309fb0c",
+      "safety_candidate": {
+        "config_id": "001e830e29f6b5b30b933cd9ad47537a4edb63fc3ebabf38bce82b092309fb0c",
+        "consecutive_unhealthy": 39
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "002d0ac5485365f4e03213a920e595d081d724617e870444428b745d524a5910",
+      "safety_candidate": {
+        "config_id": "002d0ac5485365f4e03213a920e595d081d724617e870444428b745d524a5910",
+        "consecutive_unhealthy": 42
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "0044dd9293d1dd9dea802dd701bb7d98d3f8afb5ebdac6f45463b886aaaec483",
+      "safety_candidate": {
+        "config_id": "0044dd9293d1dd9dea802dd701bb7d98d3f8afb5ebdac6f45463b886aaaec483",
+        "consecutive_unhealthy": 8
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "0087226310ed683d52c765121242bc3f4880f2650e103c1471eac960141a80bb",
+      "safety_candidate": {
+        "config_id": "0087226310ed683d52c765121242bc3f4880f2650e103c1471eac960141a80bb",
+        "consecutive_unhealthy": 59
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "00cb849d4f7ac465e13d501f65c666aad7eca1a1acceb209c2ccc106eb290467",
+      "safety_candidate": {
+        "config_id": "00cb849d4f7ac465e13d501f65c666aad7eca1a1acceb209c2ccc106eb290467",
+        "consecutive_unhealthy": 88
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "01578c4527dd9c690273928e5478505f3747c3c1037d8712852b92dfd8a6fc67",
+      "safety_candidate": {
+        "config_id": "01578c4527dd9c690273928e5478505f3747c3c1037d8712852b92dfd8a6fc67",
+        "consecutive_unhealthy": 10
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "015b480de27c4749548846f09e2188dd9b7cde24db6fa181256d6e0db06a2202",
+      "safety_candidate": {
+        "config_id": "015b480de27c4749548846f09e2188dd9b7cde24db6fa181256d6e0db06a2202",
+        "consecutive_unhealthy": 27
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "01901f75454e419a35b34771daf560c845a11e0ed95e27cae9585a28e8e5af61",
+      "safety_candidate": {
+        "config_id": "01901f75454e419a35b34771daf560c845a11e0ed95e27cae9585a28e8e5af61",
+        "consecutive_unhealthy": 50
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "01a10cdecae3198ecc14dc592d5fcc8ec56a0374a66488961339ab16ff7b5e71",
+      "safety_candidate": {
+        "config_id": "01a10cdecae3198ecc14dc592d5fcc8ec56a0374a66488961339ab16ff7b5e71",
+        "consecutive_unhealthy": 82
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "025b51e24b650eb276894e4951caaef5c2592e9fb99ded70bd9458d600f3efd1",
+      "safety_candidate": {
+        "config_id": "025b51e24b650eb276894e4951caaef5c2592e9fb99ded70bd9458d600f3efd1",
+        "consecutive_unhealthy": 70
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "0278110cb5bf9cc9f287c8742c2942db554d9b9130ac7208d5fa79d50e31a5fc",
+      "safety_candidate": {
+        "config_id": "0278110cb5bf9cc9f287c8742c2942db554d9b9130ac7208d5fa79d50e31a5fc",
+        "consecutive_unhealthy": 42
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "02afbbd8b6820d96f4384c28e40a582ff0055f357998bd36387e277eb8a0cdbd",
+      "safety_candidate": {
+        "config_id": "02afbbd8b6820d96f4384c28e40a582ff0055f357998bd36387e277eb8a0cdbd",
+        "consecutive_unhealthy": 39
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "02b7abd583914db701ae6197c8f0faaa537d1c0ed692a6c96a948d5311ce752e",
+      "safety_candidate": {
+        "config_id": "02b7abd583914db701ae6197c8f0faaa537d1c0ed692a6c96a948d5311ce752e",
+        "consecutive_unhealthy": 40
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "02c3519d73bef81ceaafdaf8bf994f80f9f7c2a0f7375ed7d55443a1760a8469",
+      "safety_candidate": {
+        "config_id": "02c3519d73bef81ceaafdaf8bf994f80f9f7c2a0f7375ed7d55443a1760a8469",
+        "consecutive_unhealthy": 39
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "0313c1a96589205bf3d7d3810ca41aef3fa98b4b875853ff134afab365a3ec28",
+      "safety_candidate": {
+        "config_id": "0313c1a96589205bf3d7d3810ca41aef3fa98b4b875853ff134afab365a3ec28",
+        "consecutive_unhealthy": 17
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "033305d9ef8fe3cb8770e3bc07005a7789c4d7f97533a2feb212b69e12239440",
+      "safety_candidate": {
+        "config_id": "033305d9ef8fe3cb8770e3bc07005a7789c4d7f97533a2feb212b69e12239440",
+        "consecutive_unhealthy": 26
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "0344487a167e958dc7416bdcffe41cc9c71ffba6b97fe0ec1dceb0b1119e4d79",
+      "safety_candidate": {
+        "config_id": "0344487a167e958dc7416bdcffe41cc9c71ffba6b97fe0ec1dceb0b1119e4d79",
+        "consecutive_unhealthy": 50
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "03677a4886cf42c80f002f1aa8542a560d502bd3ff83d8f59c74dde03321ac91",
+      "safety_candidate": {
+        "config_id": "03677a4886cf42c80f002f1aa8542a560d502bd3ff83d8f59c74dde03321ac91",
+        "consecutive_unhealthy": 28
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "03b5e500f7c246599b5bf8dca44f3ed7896ab55b904fbf17ab354112f82687c3",
+      "safety_candidate": {
+        "config_id": "03b5e500f7c246599b5bf8dca44f3ed7896ab55b904fbf17ab354112f82687c3",
+        "consecutive_unhealthy": 39
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "0405ebe1e744f919dcd3cbe3873db5d71bc421b12a233d4bd8cc3e80133d63c2",
+      "safety_candidate": {
+        "config_id": "0405ebe1e744f919dcd3cbe3873db5d71bc421b12a233d4bd8cc3e80133d63c2",
+        "consecutive_unhealthy": 46
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "04196f5787a5a45ee4c380bd69004040f68746efdb7667dc18fa9f3ae2cd7e46",
+      "safety_candidate": {
+        "config_id": "04196f5787a5a45ee4c380bd69004040f68746efdb7667dc18fa9f3ae2cd7e46",
+        "consecutive_unhealthy": 91
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "045e8b55cf14f5030d02e788934433fe74746d2368fe066948824c5c1e509852",
+      "safety_candidate": {
+        "config_id": "045e8b55cf14f5030d02e788934433fe74746d2368fe066948824c5c1e509852",
+        "consecutive_unhealthy": 41
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    },
+    {
+      "config_id": "04a9d5cf453988e41348c458f17674658117b12aa37f307615e7491108a69033",
+      "safety_candidate": {
+        "config_id": "04a9d5cf453988e41348c458f17674658117b12aa37f307615e7491108a69033",
+        "consecutive_unhealthy": 89
+      },
+      "config_exists": false,
+      "health_exists": false,
+      "latest_health_state": "unknown",
+      "policy_records_found": 0,
+      "tracker_records_found": 0,
+      "policy_state": "unknown",
+      "delete_candidate_shadow": false,
+      "consecutive_unhealthy": 0,
+      "consecutive_healthy": 0,
+      "safety_min_streak": 8,
+      "canonical_safety_rule_pass": false,
+      "publishable": false,
+      "enforcement_mentions_candidate": false,
+      "tracker_record": {},
+      "policy_record": {}
+    }
+  ],
+  "enforcement": {
+    "generated_in_memory": true,
+    "candidate_ids_present": [
+      "0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b"
+    ]
+  }
+}
+
+========== [3/8] VALIDATE ==========
+RECONCILIATION_VALID
+CONFIG_ID= 0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b
+CONFIG_EXISTS= True
+LATEST_HEALTH= unhealthy
+POLICY_STATE= delete_candidate_shadow
+TRACKER_RECORDS= 1
+CONSECUTIVE_UNHEALTHY= 5
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= True
+---
+CONFIG_ID= 000a7d1616951d4bc6b84337b91ef8019e96296ddf4820aec8f652d06a698158
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 001e830e29f6b5b30b933cd9ad47537a4edb63fc3ebabf38bce82b092309fb0c
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 002d0ac5485365f4e03213a920e595d081d724617e870444428b745d524a5910
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 0044dd9293d1dd9dea802dd701bb7d98d3f8afb5ebdac6f45463b886aaaec483
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 0087226310ed683d52c765121242bc3f4880f2650e103c1471eac960141a80bb
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 00cb849d4f7ac465e13d501f65c666aad7eca1a1acceb209c2ccc106eb290467
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 01578c4527dd9c690273928e5478505f3747c3c1037d8712852b92dfd8a6fc67
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 015b480de27c4749548846f09e2188dd9b7cde24db6fa181256d6e0db06a2202
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 01901f75454e419a35b34771daf560c845a11e0ed95e27cae9585a28e8e5af61
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 01a10cdecae3198ecc14dc592d5fcc8ec56a0374a66488961339ab16ff7b5e71
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 025b51e24b650eb276894e4951caaef5c2592e9fb99ded70bd9458d600f3efd1
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 0278110cb5bf9cc9f287c8742c2942db554d9b9130ac7208d5fa79d50e31a5fc
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 02afbbd8b6820d96f4384c28e40a582ff0055f357998bd36387e277eb8a0cdbd
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 02b7abd583914db701ae6197c8f0faaa537d1c0ed692a6c96a948d5311ce752e
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 02c3519d73bef81ceaafdaf8bf994f80f9f7c2a0f7375ed7d55443a1760a8469
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 0313c1a96589205bf3d7d3810ca41aef3fa98b4b875853ff134afab365a3ec28
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 033305d9ef8fe3cb8770e3bc07005a7789c4d7f97533a2feb212b69e12239440
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 0344487a167e958dc7416bdcffe41cc9c71ffba6b97fe0ec1dceb0b1119e4d79
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 03677a4886cf42c80f002f1aa8542a560d502bd3ff83d8f59c74dde03321ac91
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 03b5e500f7c246599b5bf8dca44f3ed7896ab55b904fbf17ab354112f82687c3
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 0405ebe1e744f919dcd3cbe3873db5d71bc421b12a233d4bd8cc3e80133d63c2
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 04196f5787a5a45ee4c380bd69004040f68746efdb7667dc18fa9f3ae2cd7e46
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 045e8b55cf14f5030d02e788934433fe74746d2368fe066948824c5c1e509852
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+CONFIG_ID= 04a9d5cf453988e41348c458f17674658117b12aa37f307615e7491108a69033
+CONFIG_EXISTS= False
+LATEST_HEALTH= unknown
+POLICY_STATE= unknown
+TRACKER_RECORDS= 0
+CONSECUTIVE_UNHEALTHY= 0
+CONSECUTIVE_HEALTHY= 0
+MIN_STREAK= 8
+SAFETY_RULE_PASS= False
+PUBLISHABLE= False
+ENFORCEMENT_MENTIONS= False
+---
+
+========== [4/8] TRACKER STRUCTURE ==========
+CONFIG_ID= 0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b
+{
+  "config_id": "0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b",
+  "consecutive_error": 0,
+  "consecutive_healthy": 0,
+  "consecutive_unhealthy": 5,
+  "first_tracked_at": "2026-09-04T09:57:38.283833+00:00",
+  "last_error_at": null,
+  "last_healthy_at": null,
+  "last_result_fingerprint": "8a6ca52bf4d03f158c3064f7b50dbebd49104d6120ab777ea2f6c07ebc5d69f6",
+  "last_result_finished_at": "2026-09-04T21:55:57.771109+00:00",
+  "last_result_state": "unhealthy",
+  "last_unhealthy_at": "2026-09-04T21:55:57.771109+00:00",
+  "quarantine_started_at": "2026-09-04T09:57:15.590567+00:00",
+  "total_health_results_seen": 5,
+  "updated_at": "2026-09-04T21:56:01.209643+00:00"
+}
+CONFIG_ID= 000a7d1616951d4bc6b84337b91ef8019e96296ddf4820aec8f652d06a698158
+{}
+CONFIG_ID= 001e830e29f6b5b30b933cd9ad47537a4edb63fc3ebabf38bce82b092309fb0c
+{}
+CONFIG_ID= 002d0ac5485365f4e03213a920e595d081d724617e870444428b745d524a5910
+{}
+CONFIG_ID= 0044dd9293d1dd9dea802dd701bb7d98d3f8afb5ebdac6f45463b886aaaec483
+{}
+CONFIG_ID= 0087226310ed683d52c765121242bc3f4880f2650e103c1471eac960141a80bb
+{}
+CONFIG_ID= 00cb849d4f7ac465e13d501f65c666aad7eca1a1acceb209c2ccc106eb290467
+{}
+CONFIG_ID= 01578c4527dd9c690273928e5478505f3747c3c1037d8712852b92dfd8a6fc67
+{}
+CONFIG_ID= 015b480de27c4749548846f09e2188dd9b7cde24db6fa181256d6e0db06a2202
+{}
+CONFIG_ID= 01901f75454e419a35b34771daf560c845a11e0ed95e27cae9585a28e8e5af61
+{}
+CONFIG_ID= 01a10cdecae3198ecc14dc592d5fcc8ec56a0374a66488961339ab16ff7b5e71
+{}
+CONFIG_ID= 025b51e24b650eb276894e4951caaef5c2592e9fb99ded70bd9458d600f3efd1
+{}
+CONFIG_ID= 0278110cb5bf9cc9f287c8742c2942db554d9b9130ac7208d5fa79d50e31a5fc
+{}
+CONFIG_ID= 02afbbd8b6820d96f4384c28e40a582ff0055f357998bd36387e277eb8a0cdbd
+{}
+CONFIG_ID= 02b7abd583914db701ae6197c8f0faaa537d1c0ed692a6c96a948d5311ce752e
+{}
+CONFIG_ID= 02c3519d73bef81ceaafdaf8bf994f80f9f7c2a0f7375ed7d55443a1760a8469
+{}
+CONFIG_ID= 0313c1a96589205bf3d7d3810ca41aef3fa98b4b875853ff134afab365a3ec28
+{}
+CONFIG_ID= 033305d9ef8fe3cb8770e3bc07005a7789c4d7f97533a2feb212b69e12239440
+{}
+CONFIG_ID= 0344487a167e958dc7416bdcffe41cc9c71ffba6b97fe0ec1dceb0b1119e4d79
+{}
+CONFIG_ID= 03677a4886cf42c80f002f1aa8542a560d502bd3ff83d8f59c74dde03321ac91
+{}
+CONFIG_ID= 03b5e500f7c246599b5bf8dca44f3ed7896ab55b904fbf17ab354112f82687c3
+{}
+CONFIG_ID= 0405ebe1e744f919dcd3cbe3873db5d71bc421b12a233d4bd8cc3e80133d63c2
+{}
+CONFIG_ID= 04196f5787a5a45ee4c380bd69004040f68746efdb7667dc18fa9f3ae2cd7e46
+{}
+CONFIG_ID= 045e8b55cf14f5030d02e788934433fe74746d2368fe066948824c5c1e509852
+{}
+CONFIG_ID= 04a9d5cf453988e41348c458f17674658117b12aa37f307615e7491108a69033
+{}
+
+========== [5/8] POLICY STRUCTURE ==========
+CONFIG_ID= 0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b
+{
+  "config_id": "0005b59402dba7067f194107052f8335b56ec9b39619ff75aa29d0d22c0e496b",
+  "consecutive_error": 0,
+  "consecutive_healthy": 0,
+  "consecutive_unhealthy": 5,
+  "deep_quarantine": true,
+  "delete_candidate_shadow": true,
+  "last_healthy_at": null,
+  "last_result_finished_at": "2026-09-04T21:55:57.771109+00:00",
+  "last_result_state": "unhealthy",
+  "policy_state": "delete_candidate_shadow",
+  "production_delete_allowed": false,
+  "publish_eligible": false,
+  "quarantine": true,
+  "quarantine_started_at": "2026-09-04T09:57:15.590567+00:00",
+  "reason": "unhealthy_threshold_reached_shadow_only",
+  "retry_required": true
+}
+CONFIG_ID= 000a7d1616951d4bc6b84337b91ef8019e96296ddf4820aec8f652d06a698158
+{}
+CONFIG_ID= 001e830e29f6b5b30b933cd9ad47537a4edb63fc3ebabf38bce82b092309fb0c
+{}
+CONFIG_ID= 002d0ac5485365f4e03213a920e595d081d724617e870444428b745d524a5910
+{}
+CONFIG_ID= 0044dd9293d1dd9dea802dd701bb7d98d3f8afb5ebdac6f45463b886aaaec483
+{}
+CONFIG_ID= 0087226310ed683d52c765121242bc3f4880f2650e103c1471eac960141a80bb
+{}
+CONFIG_ID= 00cb849d4f7ac465e13d501f65c666aad7eca1a1acceb209c2ccc106eb290467
+{}
+CONFIG_ID= 01578c4527dd9c690273928e5478505f3747c3c1037d8712852b92dfd8a6fc67
+{}
+CONFIG_ID= 015b480de27c4749548846f09e2188dd9b7cde24db6fa181256d6e0db06a2202
+{}
+CONFIG_ID= 01901f75454e419a35b34771daf560c845a11e0ed95e27cae9585a28e8e5af61
+{}
+CONFIG_ID= 01a10cdecae3198ecc14dc592d5fcc8ec56a0374a66488961339ab16ff7b5e71
+{}
+CONFIG_ID= 025b51e24b650eb276894e4951caaef5c2592e9fb99ded70bd9458d600f3efd1
+{}
+CONFIG_ID= 0278110cb5bf9cc9f287c8742c2942db554d9b9130ac7208d5fa79d50e31a5fc
+{}
+CONFIG_ID= 02afbbd8b6820d96f4384c28e40a582ff0055f357998bd36387e277eb8a0cdbd
+{}
+CONFIG_ID= 02b7abd583914db701ae6197c8f0faaa537d1c0ed692a6c96a948d5311ce752e
+{}
+CONFIG_ID= 02c3519d73bef81ceaafdaf8bf994f80f9f7c2a0f7375ed7d55443a1760a8469
+{}
+CONFIG_ID= 0313c1a96589205bf3d7d3810ca41aef3fa98b4b875853ff134afab365a3ec28
+{}
+CONFIG_ID= 033305d9ef8fe3cb8770e3bc07005a7789c4d7f97533a2feb212b69e12239440
+{}
+CONFIG_ID= 0344487a167e958dc7416bdcffe41cc9c71ffba6b97fe0ec1dceb0b1119e4d79
+{}
+CONFIG_ID= 03677a4886cf42c80f002f1aa8542a560d502bd3ff83d8f59c74dde03321ac91
+{}
+CONFIG_ID= 03b5e500f7c246599b5bf8dca44f3ed7896ab55b904fbf17ab354112f82687c3
+{}
+CONFIG_ID= 0405ebe1e744f919dcd3cbe3873db5d71bc421b12a233d4bd8cc3e80133d63c2
+{}
+CONFIG_ID= 04196f5787a5a45ee4c380bd69004040f68746efdb7667dc18fa9f3ae2cd7e46
+{}
+CONFIG_ID= 045e8b55cf14f5030d02e788934433fe74746d2368fe066948824c5c1e509852
+{}
+CONFIG_ID= 04a9d5cf453988e41348c458f17674658117b12aa37f307615e7491108a69033
+{}
+
+========== [6/8] STORE SAFETY ==========
+9151bd539a1864d5017b0500b923ca69abe384ca61549ecac7c76664d62bd27e  /var/lib/config-location/health-lifecycle/policy-latest.json
+5a51440d2ddefbc8b17df1dbbf6cad7eda4a5a5ce9b6405b5135866b8b853e75  /var/lib/config-location/health-lifecycle/consecutive-state.json
+58b4f2b844fae43738ea8eb1590e829a58bc17e30f00a98f72542696057b0801  /var/lib/config-location/health-lifecycle/safety-latest.json
+NO_WRITE_FUNCTION_CALLED=YES
+NO_SNAPSHOT_WRITE_CALLED=YES
+NO_CONFIG_DELETE=YES
+
+========== [7/8] SERVICE HEALTH ==========
+active
+SERVICE_RESTART=NONE
+
+========== [8/8] FINAL ==========
+CANONICAL_SAFETY_RECONCILIATION=COMPLETE
+PRODUCTION_DELETE=DISABLED
+STATE_MUTATION=NONE
+PHASE4_PASS3_SUCCESS
