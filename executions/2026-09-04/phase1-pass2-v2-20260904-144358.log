@@ -1,0 +1,70 @@
+==============================================
+ CONFIG LOCATION PHASE 1 PASS 2 v2
+==============================================
+
+START:
+2026-09-04T14:43:58+00:00
+
+HOST:
+serverprojects.ptr.network
+
+RESOURCE BEFORE
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda2       118G   42G   71G  37% /
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       2.1Gi       1.2Gi       4.9Mi       4.7Gi       5.6Gi
+Swap:             0B          0B          0B
+ 14:43:58 up  9:32,  1 user,  load average: 5.09, 4.97, 4.81
+
+========== BACKUP ==========
+
+========== RUNTIME DIRECTORY ==========
+
+========== TMPFILES ==========
+
+========== PERMISSION TEST ==========
+LOCK_CREATE_OK
+LOCK_REMOVE_OK
+
+========== SETTINGS TEST ==========
+REVISION: 1
+CHECKSUM: b9f25f4d03dae27c75da7458bb451be457abf8706248cbb171fb6bf422264fda
+SETTINGS_STATUS_OK
+
+========== SETTINGS FILE ==========
+SETTINGS_FILE_OK
+
+========== PANEL TEST ==========
+active
+
+HTTP TEST
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0  0     10   0      0   0      0      0      0                              0  0     10   0      0   0      0      0      0                              0  0     10   0      0   0      0      0      0                              0
+HTTP/1.1 302 Found
+Content-Type: text/plain; charset=utf-8
+Location: /login
+Content-Length: 10
+Date: Fri, 04 Sep 2026 14:44:02 GMT
+Server: Python/3.14 aiohttp/3.14.3
+
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0  0     10   0      0   0      0      0      0                              0  0     10   0      0   0      0      0      0                              0  0     10   0      0   0      0      0      0                              0
+HTTP/1.1 302 Found
+Content-Type: text/plain; charset=utf-8
+Location: /login
+Content-Length: 10
+Date: Fri, 04 Sep 2026 14:44:02 GMT
+Server: Python/3.14 aiohttp/3.14.3
+
+
+========== RESOURCE AFTER ==========
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda2       118G   42G   71G  37% /
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       2.2Gi       1.2Gi       4.9Mi       4.7Gi       5.6Gi
+Swap:             0B          0B          0B
+ 14:44:02 up  9:32,  1 user,  load average: 4.84, 4.92, 4.80
+
+========== GIT SYNC ==========
