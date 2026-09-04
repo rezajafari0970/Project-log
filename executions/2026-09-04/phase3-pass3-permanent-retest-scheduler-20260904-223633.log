@@ -1,0 +1,125 @@
+================================================
+ PHASE 3 PASS 3
+ PERMANENT RETEST SCHEDULER SERVICE
+================================================
+START=2026-09-04T22:36:33+00:00
+HOST=serverprojects.ptr.network
+
+========== [1/12] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/12] BACKUP ==========
+BACKUP_OK
+
+========== [3/12] RUNTIME DIRECTORIES ==========
+DIRECTORIES_OK
+
+========== [4/12] INSTALL WORKER ==========
+WORKER_INSTALLED
+
+========== [5/12] COMPILE ==========
+COMPILE_OK
+
+========== [6/12] IMPORT TEST ==========
+IMPORT_TEST_OK
+RETEST_MINUTES= 5
+DUE_TOTAL= 1125
+
+========== [7/12] SYSTEMD SERVICE ==========
+SYSTEMD_SERVICE_READY
+
+========== [8/12] ENABLE + START ==========
+Created symlink '/etc/systemd/system/multi-user.target.wants/config-location-retest.service' → '/etc/systemd/system/config-location-retest.service'.
+CHECK_1 ACTIVE=active
+SERVICE_ACTIVE
+
+========== [9/12] OBSERVE FIRST CYCLE ==========
+OBSERVE_2 STATE=testing TESTS=0
+OBSERVE_3 STATE=testing TESTS=0
+OBSERVE_4 STATE=testing TESTS=0
+OBSERVE_5 STATE=testing TESTS=0
+OBSERVE_6 STATE=testing TESTS=0
+OBSERVE_7 STATE=testing TESTS=0
+OBSERVE_8 STATE=testing TESTS=0
+OBSERVE_9 STATE=testing TESTS=0
+OBSERVE_10 STATE=testing TESTS=0
+OBSERVE_11 STATE=testing TESTS=0
+OBSERVE_12 STATE=testing TESTS=0
+OBSERVE_13 STATE=testing TESTS=0
+OBSERVE_14 STATE=testing TESTS=0
+OBSERVE_15 STATE=testing TESTS=0
+OBSERVE_16 STATE=testing TESTS=0
+OBSERVE_17 STATE=testing TESTS=0
+OBSERVE_18 STATE=testing TESTS=0
+OBSERVE_19 STATE=testing TESTS=0
+OBSERVE_20 STATE=testing TESTS=0
+OBSERVE_21 STATE=testing TESTS=0
+OBSERVE_22 STATE=testing TESTS=0
+OBSERVE_23 STATE=testing TESTS=0
+OBSERVE_24 STATE=testing TESTS=0
+OBSERVE_25 STATE=testing TESTS=0
+OBSERVE_26 STATE=testing TESTS=0
+OBSERVE_27 STATE=testing TESTS=0
+OBSERVE_28 STATE=testing TESTS=0
+OBSERVE_29 STATE=testing TESTS=0
+OBSERVE_30 STATE=testing TESTS=0
+OBSERVE_31 STATE=testing TESTS=0
+OBSERVE_32 STATE=testing TESTS=0
+OBSERVE_33 STATE=testing TESTS=0
+OBSERVE_34 STATE=testing TESTS=0
+OBSERVE_35 STATE=testing TESTS=0
+OBSERVE_36 STATE=testing TESTS=0
+OBSERVE_37 STATE=testing TESTS=0
+OBSERVE_38 STATE=running TESTS=1
+FIRST_REAL_RETEST_OBSERVED
+
+========== [10/12] STATUS VALIDATION ==========
+STATUS_VALID
+STATE = running
+CYCLE = 1
+RETEST_MINUTES = 5
+REAL_HEALTHY = 1169
+DUE_TOTAL = 1125
+SELECTED_COUNT = 3
+TOTAL_TESTS = 1
+TOTAL_HEALTHY = 0
+TOTAL_UNHEALTHY = 1
+TOTAL_ERRORS = 0
+
+========== [11/12] SERVICE HEALTH ==========
+active
+enabled
+● config-location-retest.service - Config Location Permanent Health Retest Scheduler
+     Loaded: loaded (/etc/systemd/system/config-location-retest.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-09-04 22:36:34 UTC; 40s ago
+ Invocation: 2b19b7077b3144b5bcc962dcae571763
+   Main PID: 1931809 (python)
+      Tasks: 1 (limit: 8077)
+     Memory: 15.3M (peak: 24M)
+        CPU: 537ms
+     CGroup: /system.slice/config-location-retest.service
+             └─1931809 /opt/config-location/venv/bin/python -m app.health.retest.worker
+
+Sep 04 22:36:34 serverprojects.ptr.network systemd[1]: Started config-location-retest.service - Config Location Permanent Health Retest Scheduler.
+SERVICE_JOURNAL_OK
+
+========== [12/12] SAFETY ==========
+PERMANENT_SERVICE=ACTIVE
+BOOT_ENABLE=YES
+RETEST_INTERVAL_SOURCE=CENTRAL_SETTINGS
+MAX_BATCH_PER_CYCLE=3
+CONCURRENCY=1
+BETWEEN_TEST_SECONDS=2
+IDLE_SLEEP_SECONDS=30
+DEDICATED_LOCK=YES
+CANONICAL_HEALTH_ENGINE=YES
+CANONICAL_HEALTH_STORE=YES
+MANUAL_CONFIG_DELETE=NO
+EXISTING_HEALTH_SERVICE_MODIFIED=NO
+PANEL_SERVICE_MODIFIED=NO
+
+PHASE3_PASS3_SUCCESS
+
+========== FINAL ==========
+RESULT=SUCCESS
+END=2026-09-04T22:37:14+00:00
