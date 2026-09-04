@@ -1,0 +1,113 @@
+================================================
+ CONFIG LOCATION
+ PHASE 1 FINAL INTEGRATION / REGRESSION TEST
+================================================
+
+START=2026-09-04T15:27:59+00:00
+HOST=serverprojects.ptr.network
+
+========== [1/16] PRECHECK ==========
+uid=999(configloc) gid=983(configloc) groups=983(configloc)
+PRECHECK_OK
+
+========== [2/16] BACKUP ==========
+BACKUP_OK
+
+========== [3/16] OWNERSHIP + LOCK ==========
+SETTINGS_DIR=configloc:configloc 750 /var/lib/config-location/settings
+SETTINGS_FILE=configloc:configloc 640 /var/lib/config-location/settings/settings.json
+HISTORY_DIR=configloc:configloc 750 /var/lib/config-location/settings/history
+LOCK_FILE=configloc:configloc 600 /run/config-location/settings.lock
+OWNERSHIP_LOCK_OK
+
+========== [4/16] PYTHON COMPILE ==========
+PYTHON_COMPILE_OK
+
+========== [5/16] IMPORT + RENDERER ==========
+IMPORT_OK
+RENDERER_OK
+
+========== [6/16] SETTINGS BASELINE ==========
+ORIGINAL_VALUE=12
+TEST_VALUE=13
+REVISION_START=4
+BASE_CHECKSUM=7325f7224653a8cf503623d79fed45ecef53e0d8f35bd78e7a9bb620ce5ab8f0
+HISTORY_START=3
+
+========== [7/16] TEMPORARY SETTINGS UPDATE ==========
+TEMP_UPDATE_OK
+REVISION= 5
+CHECKSUM= db70f14fbe9c4aa0d6ae38e5267320112d7164a4e2a5098366630b84af4efb59
+
+========== [8/16] NEW PROCESS PERSISTENCE ==========
+NEW_PROCESS_READ_OK
+REVISION_TEST=5
+TEST_CHECKSUM=db70f14fbe9c4aa0d6ae38e5267320112d7164a4e2a5098366630b84af4efb59
+
+========== [9/16] HISTORY AFTER UPDATE ==========
+HISTORY_AFTER_UPDATE=4
+2026-09-04 15:05:37.1981781860 /var/lib/config-location/settings/history/settings-r00000001-1788534337.json
+2026-09-04 15:26:35.6987626850 /var/lib/config-location/settings/history/settings-r00000002-1788535595.json
+2026-09-04 15:26:45.5904363970 /var/lib/config-location/settings/history/settings-r00000003-1788535605.json
+2026-09-04 15:28:00.0974001240 /var/lib/config-location/settings/history/settings-r00000004-1788535680.json
+HISTORY_UPDATE_OK
+
+========== [10/16] PANEL RESTART / TEMP VALUE ==========
+CHECK_1 ACTIVE=active LISTENING=0
+CHECK_2 ACTIVE=active LISTENING=0
+CHECK_3 ACTIVE=active LISTENING=1
+PANEL_RESTART_TEMP_OK
+
+========== [11/16] PERSISTENCE AFTER RESTART ==========
+PERSIST_AFTER_RESTART_OK
+VALUE= 13
+
+========== [12/16] RESTORE ORIGINAL SETTING ==========
+ORIGINAL_VALUE_RESTORED
+REVISION= 6
+CHECKSUM= e495818b8906328eb8151dd1f524a247d3b2a147414087cf17fb82222176ce05
+
+========== [13/16] VERIFY RESTORE ==========
+RESTORE_NEW_PROCESS_OK
+REVISION_RESTORE=6
+RESTORE_CHECKSUM=e495818b8906328eb8151dd1f524a247d3b2a147414087cf17fb82222176ce05
+REVISION_SEQUENCE_OK
+
+========== [14/16] FINAL PANEL RESTART ==========
+FINAL_CHECK_1 ACTIVE=active LISTENING=0
+FINAL_CHECK_2 ACTIVE=active LISTENING=1
+SETTINGS_HTTP=302
+SETTINGS_ROUTE_OK
+
+========== [15/16] FINAL HISTORY + JOURNAL ==========
+HISTORY_START=3
+HISTORY_FINAL=5
+NO_FINAL_FATAL_ERRORS
+
+========== [16/16] FINAL STATE ==========
+FINAL_SETTINGS_READ_OK
+FINAL_VALUE= 12
+FINAL_REVISION= 6
+FINAL_CHECKSUM= e495818b8906328eb8151dd1f524a247d3b2a147414087cf17fb82222176ce05
+
+SERVICE:
+active
+
+PORT:
+LISTEN 0      128          0.0.0.0:4040       0.0.0.0:*    users:(("python",pid=1545436,fd=6))                                                                                                 
+
+LOCK:
+configloc:configloc 600 /run/config-location/settings.lock
+
+SETTINGS:
+configloc:configloc 640 /var/lib/config-location/settings/settings.json
+
+================================================
+ PHASE 1 FINAL REGRESSION: PASS
+================================================
+
+================================================
+ FINAL RESULT
+================================================
+RESULT=SUCCESS
+END=2026-09-04T15:28:05+00:00

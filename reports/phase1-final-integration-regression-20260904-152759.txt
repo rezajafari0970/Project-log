@@ -1,0 +1,38 @@
+CONFIG LOCATION
+PHASE 1 FINAL INTEGRATION / REGRESSION REPORT
+
+Phase:
+phase1-final-integration-regression
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T15:27:59+00:00
+
+End:
+2026-09-04T15:28:05+00:00
+
+Original healthy_window_hours:
+12
+
+Temporary test value:
+13
+
+Revision start:
+4
+
+Revision after test update:
+5
+
+Revision after restore:
+6
+
+Backup:
+/root/3245/phase1-final-integration-regression-backup-20260904-152759
+
+Log:
+/root/project-log/executions/2026-09-04/phase1-final-integration-regression-20260904-152759.log
+
+Errors:
+
