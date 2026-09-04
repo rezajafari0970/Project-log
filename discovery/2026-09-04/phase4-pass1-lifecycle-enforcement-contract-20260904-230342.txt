@@ -1,0 +1,6147 @@
+================================================
+ CONFIG LOCATION
+ PHASE 4 PASS 1
+ LIFECYCLE / ENFORCEMENT CONTRACT
+================================================
+TIME=2026-09-04T23:03:42+00:00
+HOST=serverprojects.ptr.network
+
+========== [2] SYMBOL MAP ==========
+
+FILE: app/health/lifecycle/engine.py
+   43    51 ClassDef           LifecycleState
+   55    74 ClassDef           LifecycleDecision
+   77    80 FunctionDef        now_iso
+   83   103 FunctionDef        _read_json
+  106   180 FunctionDef        _atomic_json
+  183   396 FunctionDef        decide_lifecycle
+  399   428 FunctionDef        load_configs
+  431   460 FunctionDef        load_health_results
+  463   608 FunctionDef        build_lifecycle_snapshot
+
+FILE: app/health/lifecycle/policy.py
+   37    49 ClassDef           PolicyState
+   53    58 ClassDef           PolicyConfig
+   62    83 ClassDef           PolicyDecision
+   86    90 FunctionDef        now_iso
+   93   111 FunctionDef        _read_json
+  114   186 FunctionDef        _atomic_json
+  189   444 FunctionDef        decide_policy
+  447   596 FunctionDef        build_policy_snapshot
+
+FILE: app/health/lifecycle/consecutive.py
+   42    46 FunctionDef        now_iso
+   49    70 FunctionDef        _read_json
+   73   145 FunctionDef        _atomic_json
+  148   208 FunctionDef        result_fingerprint
+  211   257 FunctionDef        empty_record
+  260   499 FunctionDef        apply_result
+  502   542 FunctionDef        load_tracker
+  545   585 FunctionDef        load_latest_results
+  588   717 FunctionDef        update_tracker
+
+FILE: app/health/lifecycle/enforcement.py
+   29    32 FunctionDef        now_iso
+   35    47 FunctionDef        load
+   50    62 FunctionDef        sha256
+   65    92 FunctionDef        atomic_write
+   95   242 FunctionDef        build
+  245   293 FunctionDef        backup_canary
+  296   317 FunctionDef        main
+
+FILE: app/health/lifecycle/safety_gates.py
+   54    57 FunctionDef        now_iso
+   60    78 FunctionDef        read_json
+   81    88 FunctionDef        safe_int
+   91    99 FunctionDef        file_age
+  102   120 FunctionDef        service_active
+  123   146 FunctionDef        tracker_records
+  149   171 FunctionDef        decisions
+  174   714 FunctionDef        build_safety_snapshot
+  717   756 FunctionDef        write_snapshot
+  759   777 FunctionDef        main
+
+FILE: app/health/lifecycle/write_control.py
+   29    43 FunctionDef        without_keys
+   46    61 FunctionDef        canonical_json_bytes
+   64    79 FunctionDef        semantic_hash
+   82   105 FunctionDef        existing_json
+  108   133 FunctionDef        json_semantically_equal
+  136   217 FunctionDef        atomic_json_write
+  220   242 FunctionDef        atomic_json_if_changed
+  245   314 ClassDef           HeartbeatGate
+
+FILE: app/health/lifecycle/sync_daemon.py
+   58    61 FunctionDef        now_iso
+   64   112 FunctionDef        atomic_json
+  115   139 FunctionDef        result_signature
+  142   147 FunctionDef        handle_signal
+  167   210 FunctionDef        write_status
+  213   443 FunctionDef        main
+
+FILE: app/core/config_store.py
+   49    52 FunctionDef        now_iso
+   55    61 FunctionDef        _path
+   64    73 FunctionDef        _lock
+   76   117 FunctionDef        _atomic_write
+  120   198 FunctionDef        upsert_config
+  201   233 FunctionDef        list_configs
+  236   259 FunctionDef        config_stats
+  262   369 FunctionDef        detach_source_from_configs
+  372   473 FunctionDef        detach_sources_from_configs
+  477   487 FunctionDef        _source_snapshot_path
+  490   503 FunctionDef        _source_snapshot_lock
+  506   552 FunctionDef        read_source_snapshot
+  555   583 FunctionDef        write_source_snapshot
+  586   597 FunctionDef        remove_source_snapshot
+  600   615 FunctionDef        remove_source_snapshots
+  618   632 FunctionDef        delete_all_source_snapshots
+  635   854 FunctionDef        sync_source_snapshot
+  856   881 FunctionDef        delete_all_configs
+
+FILE: app/integrity/referential_guard.py
+   43    46 FunctionDef        now
+   49    50 FunctionDef        now_iso
+   53    72 FunctionDef        _sha256
+   75   129 FunctionDef        _atomic_json
+  132   144 FunctionDef        _archive_dir
+  147   340 FunctionDef        archive_latest_before_config_delete
+  343   422 FunctionDef        reconcile_one_orphan
+  425   575 FunctionDef        sweep_orphans
+  578   597 FunctionDef        main
+
+FILE: app/publish/filter.py
+   28    43 ClassDef           PublishSnapshot
+   46    67 FunctionDef        _read_json
+   70   106 FunctionDef        _load_configs
+  109   150 FunctionDef        _policy_index
+  153   200 FunctionDef        publishable_config_ids
+  203   390 FunctionDef        build_publish_snapshot
+
+========== [3] LIFECYCLE ENGINE ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	import os
+     5	import tempfile
+     6	
+     7	from dataclasses import (
+     8	    asdict,
+     9	    dataclass,
+    10	)
+    11	from datetime import (
+    12	    datetime,
+    13	    timezone,
+    14	)
+    15	from enum import Enum
+    16	from pathlib import Path
+    17	from typing import Any
+    18	
+    19	
+    20	CONFIG_DIR = Path(
+    21	    "/var/lib/config-location/configs"
+    22	)
+    23	
+    24	RESULT_DIR = Path(
+    25	    "/var/lib/config-location/"
+    26	    "health-results/latest"
+    27	)
+    28	
+    29	STATE_ROOT = Path(
+    30	    "/var/lib/config-location/"
+    31	    "health-lifecycle"
+    32	)
+    33	
+    34	LATEST_STATE = (
+    35	    STATE_ROOT / "latest.json"
+    36	)
+    37	
+    38	HISTORY_DIR = (
+    39	    STATE_ROOT / "history"
+    40	)
+    41	
+    42	
+    43	class LifecycleState(
+    44	    str,
+    45	    Enum,
+    46	):
+    47	    NEW = "new"
+    48	    HEALTHY = "healthy"
+    49	    QUARANTINED = "quarantined"
+    50	    ERROR_RETRY = "error_retry"
+    51	    MISSING_CONFIG = "missing_config"
+    52	
+    53	
+    54	@dataclass(frozen=True)
+    55	class LifecycleDecision:
+    56	    config_id: str
+    57	    config_type: str
+    58	
+    59	    lifecycle_state: LifecycleState
+    60	
+    61	    health_state: str | None
+    62	
+    63	    publish_eligible: bool
+    64	    delete_eligible: bool
+    65	    retest_required: bool
+    66	
+    67	    reason: str
+    68	
+    69	    source_ids: tuple[str, ...]
+    70	
+    71	    last_seen_at: str | None
+    72	    health_finished_at: str | None
+    73	
+    74	    error_code: str | None = None
+    75	
+    76	
+    77	def now_iso() -> str:
+    78	    return datetime.now(
+    79	        timezone.utc
+    80	    ).isoformat()
+    81	
+    82	
+    83	def _read_json(
+    84	    path: Path,
+    85	) -> dict[str, Any] | None:
+    86	
+    87	    try:
+    88	        obj = json.loads(
+    89	            path.read_text(
+    90	                encoding="utf-8"
+    91	            )
+    92	        )
+    93	
+    94	        if isinstance(
+    95	            obj,
+    96	            dict,
+    97	        ):
+    98	            return obj
+    99	
+   100	    except Exception:
+   101	        pass
+   102	
+   103	    return None
+   104	
+   105	
+   106	def _atomic_json(
+   107	    path: Path,
+   108	    value: dict[str, Any],
+   109	) -> None:
+   110	
+   111	    path.parent.mkdir(
+   112	        parents=True,
+   113	        exist_ok=True,
+   114	    )
+   115	
+   116	    fd, tmp = tempfile.mkstemp(
+   117	        dir=str(
+   118	            path.parent
+   119	        ),
+   120	        prefix=(
+   121	            "."
+   122	            + path.name
+   123	            + "."
+   124	        ),
+   125	        suffix=".tmp",
+   126	    )
+   127	
+   128	    try:
+   129	
+   130	        with os.fdopen(
+   131	            fd,
+   132	            "w",
+   133	            encoding="utf-8",
+   134	        ) as f:
+   135	
+   136	            json.dump(
+   137	                value,
+   138	                f,
+   139	                ensure_ascii=False,
+   140	                indent=2,
+   141	                sort_keys=True,
+   142	            )
+   143	
+   144	            f.write("\n")
+   145	
+   146	            f.flush()
+   147	
+   148	            os.fsync(
+   149	                f.fileno()
+   150	            )
+   151	
+   152	        # Preserve the destination directory group.
+   153	        # This keeps lifecycle state readable by
+   154	        # the Panel group after every atomic replace.
+   155	        parent_gid = path.parent.stat().st_gid
+   156	
+   157	        os.chown(
+   158	            tmp,
+   159	            -1,
+   160	            parent_gid,
+   161	        )
+   162	
+   163	        os.chmod(
+   164	            tmp,
+   165	            0o640,
+   166	        )
+   167	
+   168	        os.replace(
+   169	            tmp,
+   170	            path,
+   171	        )
+   172	
+   173	    finally:
+   174	
+   175	        if os.path.exists(
+   176	            tmp
+   177	        ):
+   178	            os.unlink(
+   179	                tmp
+   180	            )
+   181	
+   182	
+   183	def decide_lifecycle(
+   184	    *,
+   185	    config: dict[str, Any] | None,
+   186	    health: dict[str, Any] | None,
+   187	    config_id: str,
+   188	) -> LifecycleDecision:
+   189	
+   190	    if config is None:
+   191	
+   192	        return LifecycleDecision(
+   193	            config_id=config_id,
+   194	            config_type=str(
+   195	                (
+   196	                    health
+   197	                    or {}
+   198	                ).get(
+   199	                    "config_type",
+   200	                    "unknown",
+   201	                )
+   202	            ),
+   203	            lifecycle_state=(
+   204	                LifecycleState.MISSING_CONFIG
+   205	            ),
+   206	            health_state=(
+   207	                str(
+   208	                    health.get(
+   209	                        "state"
+   210	                    )
+   211	                )
+   212	                if health
+   213	                else None
+   214	            ),
+   215	            publish_eligible=False,
+   216	            delete_eligible=False,
+   217	            retest_required=False,
+   218	            reason="config_record_missing",
+   219	            source_ids=(),
+   220	            last_seen_at=None,
+   221	            health_finished_at=(
+   222	                health.get(
+   223	                    "finished_at"
+   224	                )
+   225	                if health
+   226	                else None
+   227	            ),
+   228	            error_code=(
+   229	                health.get(
+   230	                    "error_code"
+   231	                )
+   232	                if health
+   233	                else None
+   234	            ),
+   235	        )
+   236	
+   237	
+   238	    config_type = str(
+   239	        config.get(
+   240	            "type",
+   241	            "unknown",
+   242	        )
+   243	    )
+   244	
+   245	    sources = tuple(
+   246	        sorted(
+   247	            str(x)
+   248	            for x
+   249	            in config.get(
+   250	                "source_ids",
+   251	                [],
+   252	            )
+   253	            if str(x)
+   254	        )
+   255	    )
+   256	
+   257	
+   258	    if health is None:
+   259	
+   260	        return LifecycleDecision(
+   261	            config_id=config_id,
+   262	            config_type=config_type,
+   263	            lifecycle_state=(
+   264	                LifecycleState.NEW
+   265	            ),
+   266	            health_state=None,
+   267	            publish_eligible=False,
+   268	            delete_eligible=False,
+   269	            retest_required=True,
+   270	            reason="health_result_missing",
+   271	            source_ids=sources,
+   272	            last_seen_at=config.get(
+   273	                "last_seen_at"
+   274	            ),
+   275	            health_finished_at=None,
+   276	        )
+   277	
+   278	
+   279	    state = str(
+   280	        health.get(
+   281	            "state",
+   282	            "",
+   283	        )
+   284	    ).strip().lower()
+   285	
+   286	
+   287	    if state == "healthy":
+   288	
+   289	        return LifecycleDecision(
+   290	            config_id=config_id,
+   291	            config_type=config_type,
+   292	            lifecycle_state=(
+   293	                LifecycleState.HEALTHY
+   294	            ),
+   295	            health_state=state,
+   296	            publish_eligible=True,
+   297	            delete_eligible=False,
+   298	            retest_required=True,
+   299	            reason="latest_health_healthy",
+   300	            source_ids=sources,
+   301	            last_seen_at=config.get(
+   302	                "last_seen_at"
+   303	            ),
+   304	            health_finished_at=health.get(
+   305	                "finished_at"
+   306	            ),
+   307	            error_code=health.get(
+   308	                "error_code"
+   309	            ),
+   310	        )
+   311	
+   312	
+   313	    if state == "unhealthy":
+   314	
+   315	        return LifecycleDecision(
+   316	            config_id=config_id,
+   317	            config_type=config_type,
+   318	            lifecycle_state=(
+   319	                LifecycleState.QUARANTINED
+   320	            ),
+   321	            health_state=state,
+   322	            publish_eligible=False,
+   323	            delete_eligible=False,
+   324	            retest_required=True,
+   325	            reason=(
+   326	                "latest_health_unhealthy_"
+   327	                "shadow_quarantine"
+   328	            ),
+   329	            source_ids=sources,
+   330	            last_seen_at=config.get(
+   331	                "last_seen_at"
+   332	            ),
+   333	            health_finished_at=health.get(
+   334	                "finished_at"
+   335	            ),
+   336	            error_code=health.get(
+   337	                "error_code"
+   338	            ),
+   339	        )
+   340	
+   341	
+   342	    if state == "error":
+   343	
+   344	        return LifecycleDecision(
+   345	            config_id=config_id,
+   346	            config_type=config_type,
+   347	            lifecycle_state=(
+   348	                LifecycleState.ERROR_RETRY
+   349	            ),
+   350	            health_state=state,
+   351	            publish_eligible=False,
+   352	            delete_eligible=False,
+   353	            retest_required=True,
+   354	            reason=(
+   355	                "health_error_never_delete"
+   356	            ),
+   357	            source_ids=sources,
+   358	            last_seen_at=config.get(
+   359	                "last_seen_at"
+   360	            ),
+   361	            health_finished_at=health.get(
+   362	                "finished_at"
+   363	            ),
+   364	            error_code=health.get(
+   365	                "error_code"
+   366	            ),
+   367	        )
+   368	
+   369	
+   370	    return LifecycleDecision(
+   371	        config_id=config_id,
+   372	        config_type=config_type,
+   373	        lifecycle_state=(
+   374	            LifecycleState.ERROR_RETRY
+   375	        ),
+   376	        health_state=(
+   377	            state
+   378	            or None
+   379	        ),
+   380	        publish_eligible=False,
+   381	        delete_eligible=False,
+   382	        retest_required=True,
+   383	        reason=(
+   384	            "unknown_health_state"
+   385	        ),
+   386	        source_ids=sources,
+   387	        last_seen_at=config.get(
+   388	            "last_seen_at"
+   389	        ),
+   390	        health_finished_at=health.get(
+   391	            "finished_at"
+   392	        ),
+   393	        error_code=health.get(
+   394	            "error_code"
+   395	        ),
+   396	    )
+   397	
+   398	
+   399	def load_configs() -> dict[
+   400	    str,
+   401	    dict[str, Any],
+   402	]:
+   403	
+   404	    result = {}
+   405	
+   406	    for path in CONFIG_DIR.glob(
+   407	        "*.json"
+   408	    ):
+   409	
+   410	        obj = _read_json(
+   411	            path
+   412	        )
+   413	
+   414	        if not obj:
+   415	            continue
+   416	
+   417	        config_id = str(
+   418	            obj.get(
+   419	                "id"
+   420	            )
+   421	            or path.stem
+   422	        )
+   423	
+   424	        result[
+   425	            config_id
+   426	        ] = obj
+   427	
+   428	    return result
+   429	
+   430	
+   431	def load_health_results() -> dict[
+   432	    str,
+   433	    dict[str, Any],
+   434	]:
+   435	
+   436	    result = {}
+   437	
+   438	    for path in RESULT_DIR.glob(
+   439	        "*.json"
+   440	    ):
+   441	
+   442	        obj = _read_json(
+   443	            path
+   444	        )
+   445	
+   446	        if not obj:
+   447	            continue
+   448	
+   449	        config_id = str(
+   450	            obj.get(
+   451	                "config_id"
+   452	            )
+   453	            or path.stem
+   454	        )
+   455	
+   456	        result[
+   457	            config_id
+   458	        ] = obj
+   459	
+   460	    return result
+   461	
+   462	
+   463	def build_lifecycle_snapshot() -> dict[str, Any]:
+   464	
+   465	    configs = load_configs()
+   466	    health = load_health_results()
+   467	
+   468	    all_ids = sorted(
+   469	        set(configs)
+   470	        | set(health)
+   471	    )
+   472	
+   473	    decisions = []
+   474	
+   475	    counts = {
+   476	        state.value: 0
+   477	        for state
+   478	        in LifecycleState
+   479	    }
+   480	
+   481	    publish_eligible = 0
+   482	    retest_required = 0
+   483	    delete_eligible = 0
+   484	
+   485	
+   486	    for config_id in all_ids:
+   487	
+   488	        decision = decide_lifecycle(
+   489	            config=configs.get(
+   490	                config_id
+   491	            ),
+   492	            health=health.get(
+   493	                config_id
+   494	            ),
+   495	            config_id=config_id,
+   496	        )
+   497	
+   498	        decisions.append(
+   499	            decision
+   500	        )
+   501	
+   502	        counts[
+   503	            decision.lifecycle_state.value
+   504	        ] += 1
+   505	
+   506	        publish_eligible += int(
+   507	            decision.publish_eligible
+   508	        )
+   509	
+   510	        retest_required += int(
+   511	            decision.retest_required
+   512	        )
+   513	
+   514	        delete_eligible += int(
+   515	            decision.delete_eligible
+   516	        )
+   517	
+   518	
+   519	    payload = {
+   520	        "schema_version": 1,
+   521	
+   522	        "generated_at":
+   523	            now_iso(),
+   524	
+   525	        "mode":
+   526	            "shadow",
+   527	
+   528	        "production_mutation":
+   529	            False,
+   530	
+   531	        "config_count":
+   532	            len(configs),
+   533	
+   534	        "health_result_count":
+   535	            len(health),
+   536	
+   537	        "tracked_count":
+   538	            len(decisions),
+   539	
+   540	        "counts":
+   541	            counts,
+   542	
+   543	        "publish_eligible":
+   544	            publish_eligible,
+   545	
+   546	        "retest_required":
+   547	            retest_required,
+   548	
+   549	        "delete_eligible":
+   550	            delete_eligible,
+   551	
+   552	        "decisions": [
+   553	            {
+   554	                **asdict(x),
+   555	                "lifecycle_state":
+   556	                    x.lifecycle_state.value,
+   557	            }
+   558	            for x
+   559	            in decisions
+   560	        ],
+   561	    }
+   562	
+   563	
+   564	    STATE_ROOT.mkdir(
+   565	        parents=True,
+   566	        exist_ok=True,
+   567	    )
+   568	
+   569	    HISTORY_DIR.mkdir(
+   570	        parents=True,
+   571	        exist_ok=True,
+   572	    )
+   573	
+   574	    os.chmod(
+   575	        STATE_ROOT,
+   576	        0o700,
+   577	    )
+   578	
+   579	    os.chmod(
+   580	        HISTORY_DIR,
+   581	        0o700,
+   582	    )
+   583	
+   584	
+   585	    _atomic_json(
+   586	        LATEST_STATE,
+   587	        payload,
+   588	    )
+   589	
+   590	
+   591	    history_name = (
+   592	        datetime.now(
+   593	            timezone.utc
+   594	        ).strftime(
+   595	            "%Y%m%d-%H%M%S"
+   596	        )
+   597	        + ".json"
+   598	    )
+   599	
+   600	
+   601	    _atomic_json(
+   602	        HISTORY_DIR
+   603	        / history_name,
+   604	        payload,
+   605	    )
+   606	
+   607	
+   608	    return payload
+
+========== [4] LIFECYCLE POLICY ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	import os
+     5	import tempfile
+     6	
+     7	from dataclasses import (
+     8	    asdict,
+     9	    dataclass,
+    10	)
+    11	from datetime import (
+    12	    datetime,
+    13	    timezone,
+    14	)
+    15	from enum import Enum
+    16	from pathlib import Path
+    17	from typing import Any
+    18	
+    19	from app.health.lifecycle.write_control import (
+    20	    atomic_json_if_changed,
+    21	)
+    22	
+    23	
+    24	TRACKER_PATH = Path(
+    25	    "/var/lib/config-location/"
+    26	    "health-lifecycle/"
+    27	    "consecutive-state.json"
+    28	)
+    29	
+    30	POLICY_STATE_PATH = Path(
+    31	    "/var/lib/config-location/"
+    32	    "health-lifecycle/"
+    33	    "policy-latest.json"
+    34	)
+    35	
+    36	
+    37	class PolicyState(
+    38	    str,
+    39	    Enum,
+    40	):
+    41	    HEALTHY = "healthy"
+    42	    QUARANTINE = "quarantine"
+    43	    DEEP_QUARANTINE = "deep_quarantine"
+    44	    ERROR_RETRY = "error_retry"
+    45	    RECOVERED = "recovered"
+    46	    UNKNOWN = "unknown"
+    47	    DELETE_CANDIDATE_SHADOW = (
+    48	        "delete_candidate_shadow"
+    49	    )
+    50	
+    51	
+    52	@dataclass(frozen=True)
+    53	class PolicyConfig:
+    54	    deep_quarantine_after_unhealthy: int = 2
+    55	    delete_candidate_after_unhealthy: int = 4
+    56	    healthy_recovery_immediate: bool = True
+    57	    error_never_delete: bool = True
+    58	    production_delete_enabled: bool = False
+    59	
+    60	
+    61	@dataclass(frozen=True)
+    62	class PolicyDecision:
+    63	    config_id: str
+    64	    policy_state: PolicyState
+    65	
+    66	    publish_eligible: bool
+    67	    quarantine: bool
+    68	    deep_quarantine: bool
+    69	    retry_required: bool
+    70	
+    71	    delete_candidate_shadow: bool
+    72	    production_delete_allowed: bool
+    73	
+    74	    consecutive_healthy: int
+    75	    consecutive_unhealthy: int
+    76	    consecutive_error: int
+    77	
+    78	    reason: str
+    79	
+    80	    last_result_state: str | None
+    81	    last_result_finished_at: str | None
+    82	    last_healthy_at: str | None
+    83	    quarantine_started_at: str | None
+    84	
+    85	
+    86	def now_iso() -> str:
+    87	
+    88	    return datetime.now(
+    89	        timezone.utc
+    90	    ).isoformat()
+    91	
+    92	
+    93	def _read_json(
+    94	    path: Path,
+    95	) -> dict[str, Any]:
+    96	
+    97	    value = json.loads(
+    98	        path.read_text(
+    99	            encoding="utf-8"
+   100	        )
+   101	    )
+   102	
+   103	    if not isinstance(
+   104	        value,
+   105	        dict,
+   106	    ):
+   107	        raise ValueError(
+   108	            f"{path} must contain object"
+   109	        )
+   110	
+   111	    return value
+   112	
+   113	
+   114	def _atomic_json(
+   115	    path: Path,
+   116	    value: dict[str, Any],
+   117	) -> None:
+   118	
+   119	    path.parent.mkdir(
+   120	        parents=True,
+   121	        exist_ok=True,
+   122	    )
+   123	
+   124	    fd, tmp = tempfile.mkstemp(
+   125	        dir=str(
+   126	            path.parent
+   127	        ),
+   128	        prefix="."
+   129	        + path.name
+   130	        + ".",
+   131	        suffix=".tmp",
+   132	    )
+   133	
+   134	    try:
+   135	
+   136	        with os.fdopen(
+   137	            fd,
+   138	            "w",
+   139	            encoding="utf-8",
+   140	        ) as f:
+   141	
+   142	            json.dump(
+   143	                value,
+   144	                f,
+   145	                ensure_ascii=False,
+   146	                indent=2,
+   147	                sort_keys=True,
+   148	            )
+   149	
+   150	            f.write("\n")
+   151	
+   152	            f.flush()
+   153	
+   154	            os.fsync(
+   155	                f.fileno()
+   156	            )
+   157	
+   158	        # Preserve the destination directory group.
+   159	        # This keeps lifecycle state readable by
+   160	        # the Panel group after every atomic replace.
+   161	        parent_gid = path.parent.stat().st_gid
+   162	
+   163	        os.chown(
+   164	            tmp,
+   165	            -1,
+   166	            parent_gid,
+   167	        )
+   168	
+   169	        os.chmod(
+   170	            tmp,
+   171	            0o640,
+   172	        )
+   173	
+   174	        os.replace(
+   175	            tmp,
+   176	            path,
+   177	        )
+   178	
+   179	    finally:
+   180	
+   181	        if os.path.exists(
+   182	            tmp
+   183	        ):
+   184	            os.unlink(
+   185	                tmp
+   186	            )
+   187	
+   188	
+   189	def decide_policy(
+   190	    record: dict[str, Any],
+   191	    *,
+   192	    config: PolicyConfig | None = None,
+   193	) -> PolicyDecision:
+   194	
+   195	    cfg = config or PolicyConfig()
+   196	
+   197	    config_id = str(
+   198	        record.get(
+   199	            "config_id",
+   200	            "",
+   201	        )
+   202	    )
+   203	
+   204	    if not config_id:
+   205	        raise ValueError(
+   206	            "tracker record missing config_id"
+   207	        )
+   208	
+   209	    h = int(
+   210	        record.get(
+   211	            "consecutive_healthy",
+   212	            0,
+   213	        )
+   214	    )
+   215	
+   216	    u = int(
+   217	        record.get(
+   218	            "consecutive_unhealthy",
+   219	            0,
+   220	        )
+   221	    )
+   222	
+   223	    e = int(
+   224	        record.get(
+   225	            "consecutive_error",
+   226	            0,
+   227	        )
+   228	    )
+   229	
+   230	    state = str(
+   231	        record.get(
+   232	            "last_result_state"
+   233	        )
+   234	        or ""
+   235	    ).strip().lower()
+   236	
+   237	    previous_had_quarantine = bool(
+   238	        record.get(
+   239	            "quarantine_started_at"
+   240	        )
+   241	    )
+   242	
+   243	    last_healthy_at = record.get(
+   244	        "last_healthy_at"
+   245	    )
+   246	
+   247	    finished = record.get(
+   248	        "last_result_finished_at"
+   249	    )
+   250	
+   251	    quarantine_started_at = record.get(
+   252	        "quarantine_started_at"
+   253	    )
+   254	
+   255	
+   256	    if state == "healthy":
+   257	
+   258	        recovered = (
+   259	            cfg.healthy_recovery_immediate
+   260	            and h >= 1
+   261	            and (
+   262	                record.get(
+   263	                    "last_unhealthy_at"
+   264	                )
+   265	                is not None
+   266	                or record.get(
+   267	                    "last_error_at"
+   268	                )
+   269	                is not None
+   270	            )
+   271	        )
+   272	
+   273	        return PolicyDecision(
+   274	            config_id=config_id,
+   275	            policy_state=(
+   276	                PolicyState.RECOVERED
+   277	                if recovered
+   278	                else PolicyState.HEALTHY
+   279	            ),
+   280	            publish_eligible=True,
+   281	            quarantine=False,
+   282	            deep_quarantine=False,
+   283	            retry_required=True,
+   284	            delete_candidate_shadow=False,
+   285	            production_delete_allowed=False,
+   286	            consecutive_healthy=h,
+   287	            consecutive_unhealthy=u,
+   288	            consecutive_error=e,
+   289	            reason=(
+   290	                "healthy_recovered_immediately"
+   291	                if recovered
+   292	                else "healthy_publish"
+   293	            ),
+   294	            last_result_state=state,
+   295	            last_result_finished_at=finished,
+   296	            last_healthy_at=last_healthy_at,
+   297	            quarantine_started_at=None,
+   298	        )
+   299	
+   300	
+   301	    if state == "unhealthy":
+   302	
+   303	        if (
+   304	            u
+   305	            >= cfg.delete_candidate_after_unhealthy
+   306	        ):
+   307	
+   308	            return PolicyDecision(
+   309	                config_id=config_id,
+   310	                policy_state=(
+   311	                    PolicyState.DELETE_CANDIDATE_SHADOW
+   312	                ),
+   313	                publish_eligible=False,
+   314	                quarantine=True,
+   315	                deep_quarantine=True,
+   316	                retry_required=True,
+   317	                delete_candidate_shadow=True,
+   318	                production_delete_allowed=False,
+   319	                consecutive_healthy=h,
+   320	                consecutive_unhealthy=u,
+   321	                consecutive_error=e,
+   322	                reason=(
+   323	                    "unhealthy_threshold_reached_"
+   324	                    "shadow_only"
+   325	                ),
+   326	                last_result_state=state,
+   327	                last_result_finished_at=finished,
+   328	                last_healthy_at=last_healthy_at,
+   329	                quarantine_started_at=(
+   330	                    quarantine_started_at
+   331	                ),
+   332	            )
+   333	
+   334	
+   335	        if (
+   336	            u
+   337	            >= cfg.deep_quarantine_after_unhealthy
+   338	        ):
+   339	
+   340	            return PolicyDecision(
+   341	                config_id=config_id,
+   342	                policy_state=(
+   343	                    PolicyState.DEEP_QUARANTINE
+   344	                ),
+   345	                publish_eligible=False,
+   346	                quarantine=True,
+   347	                deep_quarantine=True,
+   348	                retry_required=True,
+   349	                delete_candidate_shadow=False,
+   350	                production_delete_allowed=False,
+   351	                consecutive_healthy=h,
+   352	                consecutive_unhealthy=u,
+   353	                consecutive_error=e,
+   354	                reason=(
+   355	                    "consecutive_unhealthy_"
+   356	                    "deep_quarantine"
+   357	                ),
+   358	                last_result_state=state,
+   359	                last_result_finished_at=finished,
+   360	                last_healthy_at=last_healthy_at,
+   361	                quarantine_started_at=(
+   362	                    quarantine_started_at
+   363	                ),
+   364	            )
+   365	
+   366	
+   367	        return PolicyDecision(
+   368	            config_id=config_id,
+   369	            policy_state=(
+   370	                PolicyState.QUARANTINE
+   371	            ),
+   372	            publish_eligible=False,
+   373	            quarantine=True,
+   374	            deep_quarantine=False,
+   375	            retry_required=True,
+   376	            delete_candidate_shadow=False,
+   377	            production_delete_allowed=False,
+   378	            consecutive_healthy=h,
+   379	            consecutive_unhealthy=u,
+   380	            consecutive_error=e,
+   381	            reason="single_unhealthy_quarantine",
+   382	            last_result_state=state,
+   383	            last_result_finished_at=finished,
+   384	            last_healthy_at=last_healthy_at,
+   385	            quarantine_started_at=(
+   386	                quarantine_started_at
+   387	            ),
+   388	        )
+   389	
+   390	
+   391	    if state in (
+   392	        "error",
+   393	        "unknown",
+   394	    ):
+   395	
+   396	        return PolicyDecision(
+   397	            config_id=config_id,
+   398	            policy_state=(
+   399	                PolicyState.ERROR_RETRY
+   400	            ),
+   401	            publish_eligible=False,
+   402	            quarantine=False,
+   403	            deep_quarantine=False,
+   404	            retry_required=True,
+   405	            delete_candidate_shadow=False,
+   406	            production_delete_allowed=False,
+   407	            consecutive_healthy=h,
+   408	            consecutive_unhealthy=u,
+   409	            consecutive_error=e,
+   410	            reason=(
+   411	                "runtime_or_infra_error_retry_only"
+   412	            ),
+   413	            last_result_state=state,
+   414	            last_result_finished_at=finished,
+   415	            last_healthy_at=last_healthy_at,
+   416	            quarantine_started_at=None,
+   417	        )
+   418	
+   419	
+   420	    return PolicyDecision(
+   421	        config_id=config_id,
+   422	        policy_state=(
+   423	            PolicyState.UNKNOWN
+   424	        ),
+   425	        publish_eligible=False,
+   426	        quarantine=False,
+   427	        deep_quarantine=False,
+   428	        retry_required=True,
+   429	        delete_candidate_shadow=False,
+   430	        production_delete_allowed=False,
+   431	        consecutive_healthy=h,
+   432	        consecutive_unhealthy=u,
+   433	        consecutive_error=e,
+   434	        reason="unknown_tracker_state",
+   435	        last_result_state=(
+   436	            state
+   437	            or None
+   438	        ),
+   439	        last_result_finished_at=finished,
+   440	        last_healthy_at=last_healthy_at,
+   441	        quarantine_started_at=(
+   442	            quarantine_started_at
+   443	        ),
+   444	    )
+   445	
+   446	
+   447	def build_policy_snapshot(
+   448	    *,
+   449	    config: PolicyConfig | None = None,
+   450	) -> dict[str, Any]:
+   451	
+   452	    cfg = config or PolicyConfig()
+   453	
+   454	    tracker = _read_json(
+   455	        TRACKER_PATH
+   456	    )
+   457	
+   458	    records = tracker.get(
+   459	        "records",
+   460	        {},
+   461	    )
+   462	
+   463	    if not isinstance(
+   464	        records,
+   465	        dict,
+   466	    ):
+   467	        raise ValueError(
+   468	            "tracker records must be object"
+   469	        )
+   470	
+   471	    decisions: list[
+   472	        PolicyDecision
+   473	    ] = []
+   474	
+   475	    counts = {
+   476	        state.value: 0
+   477	        for state
+   478	        in PolicyState
+   479	    }
+   480	
+   481	    publish_eligible = 0
+   482	    quarantine_count = 0
+   483	    deep_quarantine_count = 0
+   484	    delete_candidate_shadow_count = 0
+   485	
+   486	
+   487	    for config_id in sorted(
+   488	        records
+   489	    ):
+   490	
+   491	        record = records[
+   492	            config_id
+   493	        ]
+   494	
+   495	        decision = decide_policy(
+   496	            record,
+   497	            config=cfg,
+   498	        )
+   499	
+   500	        decisions.append(
+   501	            decision
+   502	        )
+   503	
+   504	        counts[
+   505	            decision.policy_state.value
+   506	        ] += 1
+   507	
+   508	        publish_eligible += int(
+   509	            decision.publish_eligible
+   510	        )
+   511	
+   512	        quarantine_count += int(
+   513	            decision.quarantine
+   514	        )
+   515	
+   516	        deep_quarantine_count += int(
+   517	            decision.deep_quarantine
+   518	        )
+   519	
+   520	        delete_candidate_shadow_count += int(
+   521	            decision.delete_candidate_shadow
+   522	        )
+   523	
+   524	
+   525	    payload = {
+   526	        "schema_version": 1,
+   527	
+   528	        "generated_at":
+   529	            now_iso(),
+   530	
+   531	        "mode":
+   532	            "shadow",
+   533	
+   534	        "production_delete_enabled":
+   535	            cfg.production_delete_enabled,
+   536	
+   537	        "policy": {
+   538	            "deep_quarantine_after_unhealthy":
+   539	                cfg.deep_quarantine_after_unhealthy,
+   540	
+   541	            "delete_candidate_after_unhealthy":
+   542	                cfg.delete_candidate_after_unhealthy,
+   543	
+   544	            "healthy_recovery_immediate":
+   545	                cfg.healthy_recovery_immediate,
+   546	
+   547	            "error_never_delete":
+   548	                cfg.error_never_delete,
+   549	        },
+   550	
+   551	        "tracked_count":
+   552	            len(decisions),
+   553	
+   554	        "counts":
+   555	            counts,
+   556	
+   557	        "publish_eligible":
+   558	            publish_eligible,
+   559	
+   560	        "quarantine_count":
+   561	            quarantine_count,
+   562	
+   563	        "deep_quarantine_count":
+   564	            deep_quarantine_count,
+   565	
+   566	        "delete_candidate_shadow_count":
+   567	            delete_candidate_shadow_count,
+   568	
+   569	        "production_delete_allowed_count":
+   570	            0,
+   571	
+   572	        "decisions": [
+   573	            {
+   574	                **asdict(
+   575	                    decision
+   576	                ),
+   577	                "policy_state":
+   578	                    decision.policy_state.value,
+   579	            }
+   580	            for decision
+   581	            in decisions
+   582	        ],
+   583	    }
+   584	
+   585	
+   586	    write_performed = atomic_json_if_changed(
+   587	        POLICY_STATE_PATH,
+   588	        payload,
+   589	    )
+   590	
+   591	    payload[
+   592	        "write_performed"
+   593	    ] = write_performed
+   594	
+   595	
+   596	    return payload
+
+========== [5] CONSECUTIVE FAILURE ==========
+     1	from __future__ import annotations
+     2	
+     3	import hashlib
+     4	import json
+     5	import os
+     6	import tempfile
+     7	
+     8	from copy import deepcopy
+     9	from datetime import (
+    10	    datetime,
+    11	    timezone,
+    12	)
+    13	from pathlib import Path
+    14	from typing import Any
+    15	
+    16	from app.health.lifecycle.write_control import (
+    17	    atomic_json_if_changed,
+    18	)
+    19	
+    20	
+    21	RESULT_DIR = Path(
+    22	    "/var/lib/config-location/"
+    23	    "health-results/latest"
+    24	)
+    25	
+    26	CONFIG_DIR = Path(
+    27	    "/var/lib/config-location/"
+    28	    "configs"
+    29	)
+    30	
+    31	STATE_ROOT = Path(
+    32	    "/var/lib/config-location/"
+    33	    "health-lifecycle"
+    34	)
+    35	
+    36	TRACKER_PATH = (
+    37	    STATE_ROOT
+    38	    / "consecutive-state.json"
+    39	)
+    40	
+    41	
+    42	def now_iso() -> str:
+    43	
+    44	    return datetime.now(
+    45	        timezone.utc
+    46	    ).isoformat()
+    47	
+    48	
+    49	def _read_json(
+    50	    path: Path,
+    51	) -> dict[str, Any] | None:
+    52	
+    53	    try:
+    54	
+    55	        value = json.loads(
+    56	            path.read_text(
+    57	                encoding="utf-8"
+    58	            )
+    59	        )
+    60	
+    61	        if isinstance(
+    62	            value,
+    63	            dict,
+    64	        ):
+    65	            return value
+    66	
+    67	    except Exception:
+    68	        pass
+    69	
+    70	    return None
+    71	
+    72	
+    73	def _atomic_json(
+    74	    path: Path,
+    75	    value: dict[str, Any],
+    76	) -> None:
+    77	
+    78	    path.parent.mkdir(
+    79	        parents=True,
+    80	        exist_ok=True,
+    81	    )
+    82	
+    83	    fd, tmp = tempfile.mkstemp(
+    84	        dir=str(
+    85	            path.parent
+    86	        ),
+    87	        prefix="."
+    88	        + path.name
+    89	        + ".",
+    90	        suffix=".tmp",
+    91	    )
+    92	
+    93	    try:
+    94	
+    95	        with os.fdopen(
+    96	            fd,
+    97	            "w",
+    98	            encoding="utf-8",
+    99	        ) as f:
+   100	
+   101	            json.dump(
+   102	                value,
+   103	                f,
+   104	                ensure_ascii=False,
+   105	                indent=2,
+   106	                sort_keys=True,
+   107	            )
+   108	
+   109	            f.write("\n")
+   110	
+   111	            f.flush()
+   112	
+   113	            os.fsync(
+   114	                f.fileno()
+   115	            )
+   116	
+   117	        # Preserve the destination directory group.
+   118	        # This keeps lifecycle state readable by
+   119	        # the Panel group after every atomic replace.
+   120	        parent_gid = path.parent.stat().st_gid
+   121	
+   122	        os.chown(
+   123	            tmp,
+   124	            -1,
+   125	            parent_gid,
+   126	        )
+   127	
+   128	        os.chmod(
+   129	            tmp,
+   130	            0o640,
+   131	        )
+   132	
+   133	        os.replace(
+   134	            tmp,
+   135	            path,
+   136	        )
+   137	
+   138	    finally:
+   139	
+   140	        if os.path.exists(
+   141	            tmp
+   142	        ):
+   143	            os.unlink(
+   144	                tmp
+   145	            )
+   146	
+   147	
+   148	def result_fingerprint(
+   149	    result: dict[str, Any],
+   150	) -> str:
+   151	    """
+   152	    Stable identity for one Health Result.
+   153	
+   154	    IMPORTANT:
+   155	    Re-processing the same latest result must not
+   156	    increment streak counters.
+   157	    """
+   158	
+   159	    identity = {
+   160	        "config_id":
+   161	            result.get(
+   162	                "config_id"
+   163	            ),
+   164	
+   165	        "state":
+   166	            result.get(
+   167	                "state"
+   168	            ),
+   169	
+   170	        "started_at":
+   171	            result.get(
+   172	                "started_at"
+   173	            ),
+   174	
+   175	        "finished_at":
+   176	            result.get(
+   177	                "finished_at"
+   178	            ),
+   179	
+   180	        "error_code":
+   181	            result.get(
+   182	                "error_code"
+   183	            ),
+   184	
+   185	        "decision":
+   186	            result.get(
+   187	                "decision"
+   188	            ),
+   189	
+   190	        "health_qualified":
+   191	            result.get(
+   192	                "health_qualified"
+   193	            ),
+   194	    }
+   195	
+   196	    payload = json.dumps(
+   197	        identity,
+   198	        ensure_ascii=False,
+   199	        sort_keys=True,
+   200	        separators=(",", ":"),
+   201	        default=str,
+   202	    )
+   203	
+   204	    return hashlib.sha256(
+   205	        payload.encode(
+   206	            "utf-8"
+   207	        )
+   208	    ).hexdigest()
+   209	
+   210	
+   211	def empty_record(
+   212	    config_id: str,
+   213	) -> dict[str, Any]:
+   214	
+   215	    return {
+   216	        "config_id":
+   217	            config_id,
+   218	
+   219	        "consecutive_healthy":
+   220	            0,
+   221	
+   222	        "consecutive_unhealthy":
+   223	            0,
+   224	
+   225	        "consecutive_error":
+   226	            0,
+   227	
+   228	        "total_health_results_seen":
+   229	            0,
+   230	
+   231	        "last_result_state":
+   232	            None,
+   233	
+   234	        "last_result_finished_at":
+   235	            None,
+   236	
+   237	        "last_result_fingerprint":
+   238	            None,
+   239	
+   240	        "last_healthy_at":
+   241	            None,
+   242	
+   243	        "last_unhealthy_at":
+   244	            None,
+   245	
+   246	        "last_error_at":
+   247	            None,
+   248	
+   249	        "quarantine_started_at":
+   250	            None,
+   251	
+   252	        "first_tracked_at":
+   253	            now_iso(),
+   254	
+   255	        "updated_at":
+   256	            now_iso(),
+   257	    }
+   258	
+   259	
+   260	def apply_result(
+   261	    previous: dict[str, Any] | None,
+   262	    result: dict[str, Any],
+   263	) -> tuple[
+   264	    dict[str, Any],
+   265	    bool,
+   266	]:
+   267	
+   268	    config_id = str(
+   269	        result.get(
+   270	            "config_id",
+   271	            "",
+   272	        )
+   273	    )
+   274	
+   275	    if not config_id:
+   276	
+   277	        raise ValueError(
+   278	            "health result missing config_id"
+   279	        )
+   280	
+   281	
+   282	    record = deepcopy(
+   283	        previous
+   284	        or empty_record(
+   285	            config_id
+   286	        )
+   287	    )
+   288	
+   289	
+   290	    fingerprint = (
+   291	        result_fingerprint(
+   292	            result
+   293	        )
+   294	    )
+   295	
+   296	
+   297	    if (
+   298	        record.get(
+   299	            "last_result_fingerprint"
+   300	        )
+   301	        == fingerprint
+   302	    ):
+   303	
+   304	        return record, False
+   305	
+   306	
+   307	    state = str(
+   308	        result.get(
+   309	            "state",
+   310	            "",
+   311	        )
+   312	    ).strip().lower()
+   313	
+   314	
+   315	    finished_at = (
+   316	        result.get(
+   317	            "finished_at"
+   318	        )
+   319	        or now_iso()
+   320	    )
+   321	
+   322	
+   323	    record[
+   324	        "total_health_results_seen"
+   325	    ] = (
+   326	        int(
+   327	            record.get(
+   328	                "total_health_results_seen",
+   329	                0,
+   330	            )
+   331	        )
+   332	        + 1
+   333	    )
+   334	
+   335	
+   336	    if state == "healthy":
+   337	
+   338	        record[
+   339	            "consecutive_healthy"
+   340	        ] = (
+   341	            int(
+   342	                record.get(
+   343	                    "consecutive_healthy",
+   344	                    0,
+   345	                )
+   346	            )
+   347	            + 1
+   348	        )
+   349	
+   350	        record[
+   351	            "consecutive_unhealthy"
+   352	        ] = 0
+   353	
+   354	        record[
+   355	            "consecutive_error"
+   356	        ] = 0
+   357	
+   358	        record[
+   359	            "last_healthy_at"
+   360	        ] = finished_at
+   361	
+   362	        record[
+   363	            "quarantine_started_at"
+   364	        ] = None
+   365	
+   366	
+   367	    elif state == "unhealthy":
+   368	
+   369	        previous_unhealthy = int(
+   370	            record.get(
+   371	                "consecutive_unhealthy",
+   372	                0,
+   373	            )
+   374	        )
+   375	
+   376	        record[
+   377	            "consecutive_unhealthy"
+   378	        ] = (
+   379	            previous_unhealthy
+   380	            + 1
+   381	        )
+   382	
+   383	        record[
+   384	            "consecutive_healthy"
+   385	        ] = 0
+   386	
+   387	        record[
+   388	            "consecutive_error"
+   389	        ] = 0
+   390	
+   391	        record[
+   392	            "last_unhealthy_at"
+   393	        ] = finished_at
+   394	
+   395	
+   396	        if (
+   397	            previous_unhealthy == 0
+   398	            or not record.get(
+   399	                "quarantine_started_at"
+   400	            )
+   401	        ):
+   402	
+   403	            record[
+   404	                "quarantine_started_at"
+   405	            ] = finished_at
+   406	
+   407	
+   408	    elif state == "error":
+   409	
+   410	        record[
+   411	            "consecutive_error"
+   412	        ] = (
+   413	            int(
+   414	                record.get(
+   415	                    "consecutive_error",
+   416	                    0,
+   417	                )
+   418	            )
+   419	            + 1
+   420	        )
+   421	
+   422	        record[
+   423	            "consecutive_healthy"
+   424	        ] = 0
+   425	
+   426	        # IMPORTANT:
+   427	        # Runtime/infra errors do NOT increase
+   428	        # consecutive_unhealthy.
+   429	        record[
+   430	            "consecutive_unhealthy"
+   431	        ] = 0
+   432	
+   433	        record[
+   434	            "last_error_at"
+   435	        ] = finished_at
+   436	
+   437	        record[
+   438	            "quarantine_started_at"
+   439	        ] = None
+   440	
+   441	
+   442	    else:
+   443	
+   444	        # Unknown result states behave like an
+   445	        # operational error, never a confirmed
+   446	        # unhealthy result.
+   447	
+   448	        state = (
+   449	            state
+   450	            or "unknown"
+   451	        )
+   452	
+   453	        record[
+   454	            "consecutive_error"
+   455	        ] = (
+   456	            int(
+   457	                record.get(
+   458	                    "consecutive_error",
+   459	                    0,
+   460	                )
+   461	            )
+   462	            + 1
+   463	        )
+   464	
+   465	        record[
+   466	            "consecutive_healthy"
+   467	        ] = 0
+   468	
+   469	        record[
+   470	            "consecutive_unhealthy"
+   471	        ] = 0
+   472	
+   473	        record[
+   474	            "last_error_at"
+   475	        ] = finished_at
+   476	
+   477	        record[
+   478	            "quarantine_started_at"
+   479	        ] = None
+   480	
+   481	
+   482	    record[
+   483	        "last_result_state"
+   484	    ] = state
+   485	
+   486	    record[
+   487	        "last_result_finished_at"
+   488	    ] = finished_at
+   489	
+   490	    record[
+   491	        "last_result_fingerprint"
+   492	    ] = fingerprint
+   493	
+   494	    record[
+   495	        "updated_at"
+   496	    ] = now_iso()
+   497	
+   498	
+   499	    return record, True
+   500	
+   501	
+   502	def load_tracker() -> dict[str, Any]:
+   503	
+   504	    value = _read_json(
+   505	        TRACKER_PATH
+   506	    )
+   507	
+   508	    if not value:
+   509	
+   510	        return {
+   511	            "schema_version":
+   512	                1,
+   513	
+   514	            "mode":
+   515	                "shadow",
+   516	
+   517	            "production_mutation":
+   518	                False,
+   519	
+   520	            "generated_at":
+   521	                now_iso(),
+   522	
+   523	            "records":
+   524	                {},
+   525	        }
+   526	
+   527	
+   528	    records = value.get(
+   529	        "records"
+   530	    )
+   531	
+   532	    if not isinstance(
+   533	        records,
+   534	        dict,
+   535	    ):
+   536	
+   537	        value[
+   538	            "records"
+   539	        ] = {}
+   540	
+   541	
+   542	    return value
+   543	
+   544	
+   545	def load_latest_results() -> dict[
+   546	    str,
+   547	    dict[str, Any],
+   548	]:
+   549	
+   550	    results = {}
+   551	
+   552	    for path in RESULT_DIR.glob(
+   553	        "*.json"
+   554	    ):
+   555	
+   556	        obj = _read_json(
+   557	            path
+   558	        )
+   559	
+   560	        if not obj:
+   561	            continue
+   562	
+   563	
+   564	        config_id = str(
+   565	            obj.get(
+   566	                "config_id"
+   567	            )
+   568	            or path.stem
+   569	        )
+   570	
+   571	
+   572	        if not config_id:
+   573	            continue
+   574	
+   575	
+   576	        obj[
+   577	            "config_id"
+   578	        ] = config_id
+   579	
+   580	        results[
+   581	            config_id
+   582	        ] = obj
+   583	
+   584	
+   585	    return results
+   586	
+   587	
+   588	def update_tracker() -> dict[str, Any]:
+   589	
+   590	    state = load_tracker()
+   591	
+   592	    records = state[
+   593	        "records"
+   594	    ]
+   595	
+   596	    latest = load_latest_results()
+   597	
+   598	    current_config_ids = {
+   599	        path.stem
+   600	        for path in CONFIG_DIR.glob(
+   601	            "*.json"
+   602	        )
+   603	    }
+   604	
+   605	    stale_record_ids = [
+   606	        config_id
+   607	        for config_id in records
+   608	        if config_id
+   609	        not in current_config_ids
+   610	    ]
+   611	
+   612	    for config_id in stale_record_ids:
+   613	        records.pop(
+   614	            config_id,
+   615	            None,
+   616	        )
+   617	
+   618	    latest = {
+   619	        config_id: result
+   620	        for config_id, result
+
+========== [6] ENFORCEMENT ==========
+     1	from __future__ import annotations
+     2	
+     3	import hashlib
+     4	import json
+     5	import os
+     6	
+     7	from datetime import datetime, timezone
+     8	from pathlib import Path
+     9	from typing import Any
+    10	
+    11	
+    12	STATE = Path(
+    13	    "/var/lib/config-location/health-lifecycle"
+    14	)
+    15	
+    16	CONFIGS = Path(
+    17	    "/var/lib/config-location/configs"
+    18	)
+    19	
+    20	SAFETY = STATE / "safety-latest.json"
+    21	
+    22	OUTPUT = STATE / "enforcement-latest.json"
+    23	
+    24	JOURNAL = STATE / "enforcement-journal"
+    25	
+    26	MAX_CANARY = 1
+    27	
+    28	
+    29	def now_iso() -> str:
+    30	    return datetime.now(
+    31	        timezone.utc
+    32	    ).isoformat()
+    33	
+    34	
+    35	def load(path: Path) -> dict[str, Any]:
+    36	    obj = json.loads(
+    37	        path.read_text(
+    38	            encoding="utf-8"
+    39	        )
+    40	    )
+    41	
+    42	    if not isinstance(obj, dict):
+    43	        raise ValueError(
+    44	            f"object expected: {path}"
+    45	        )
+    46	
+    47	    return obj
+    48	
+    49	
+    50	def sha256(path: Path) -> str:
+    51	    h = hashlib.sha256()
+    52	
+    53	    with path.open("rb") as f:
+    54	        while True:
+    55	            block = f.read(1024 * 1024)
+    56	
+    57	            if not block:
+    58	                break
+    59	
+    60	            h.update(block)
+    61	
+    62	    return h.hexdigest()
+    63	
+    64	
+    65	def atomic_write(
+    66	    path: Path,
+    67	    obj: dict[str, Any],
+    68	) -> None:
+    69	
+    70	    tmp = path.with_name(
+    71	        "." + path.name + ".tmp"
+    72	    )
+    73	
+    74	    tmp.write_text(
+    75	        json.dumps(
+    76	            obj,
+    77	            ensure_ascii=False,
+    78	            indent=2,
+    79	            sort_keys=True,
+    80	        ) + "\n",
+    81	        encoding="utf-8",
+    82	    )
+    83	
+    84	    os.chown(
+    85	        tmp,
+    86	        -1,
+    87	        path.parent.stat().st_gid,
+    88	    )
+    89	
+    90	    os.chmod(tmp, 0o640)
+    91	
+    92	    os.replace(tmp, path)
+    93	
+    94	
+    95	def build() -> dict[str, Any]:
+    96	
+    97	    safety = load(SAFETY)
+    98	
+    99	    failed = list(
+   100	        safety.get(
+   101	            "failed_gates",
+   102	            []
+   103	        )
+   104	    )
+   105	
+   106	    global_freeze = bool(
+   107	        safety.get(
+   108	            "global_freeze",
+   109	            True
+   110	        )
+   111	    )
+   112	
+   113	    delete_allowed = bool(
+   114	        safety.get(
+   115	            "production_delete_allowed",
+   116	            False
+   117	        )
+   118	    )
+   119	
+   120	    sample = safety.get(
+   121	        "future_enforcement_candidate_sample",
+   122	        []
+   123	    )
+   124	
+   125	    if not isinstance(sample, list):
+   126	        sample = []
+   127	
+   128	
+   129	    candidates = []
+   130	
+   131	    for item in sample:
+   132	
+   133	        if not isinstance(item, dict):
+   134	            continue
+   135	
+   136	        cid = str(
+   137	            item.get(
+   138	                "config_id",
+   139	                ""
+   140	            )
+   141	        )
+   142	
+   143	        if not cid:
+   144	            continue
+   145	
+   146	        path = CONFIGS / f"{cid}.json"
+   147	
+   148	        if not path.is_file():
+   149	            continue
+   150	
+   151	        candidates.append({
+   152	            "config_id": cid,
+   153	
+   154	            "consecutive_unhealthy":
+   155	                int(
+   156	                    item.get(
+   157	                        "consecutive_unhealthy",
+   158	                        0
+   159	                    )
+   160	                ),
+   161	
+   162	            "path":
+   163	                str(path),
+   164	
+   165	            "sha256":
+   166	                sha256(path),
+   167	        })
+   168	
+   169	
+   170	    canary = candidates[:MAX_CANARY]
+   171	
+   172	
+   173	    # HT18.10A hard boundary:
+   174	    # even with healthy gates, mutation is forbidden.
+   175	    mutation_allowed = False
+   176	
+   177	
+   178	    if global_freeze:
+   179	        state = "hold"
+   180	        reason = "global_freeze"
+   181	
+   182	    elif failed:
+   183	        state = "hold"
+   184	        reason = "failed_safety_gate"
+   185	
+   186	    elif not canary:
+   187	        state = "hold"
+   188	        reason = "no_valid_canary"
+   189	
+   190	    else:
+   191	        state = "canary_ready"
+   192	        reason = "all_gates_passed"
+   193	
+   194	
+   195	    return {
+   196	        "schema_version": 1,
+   197	
+   198	        "generated_at":
+   199	            now_iso(),
+   200	
+   201	        "stage":
+   202	            "HT18.10A",
+   203	
+   204	        "mode":
+   205	            "controlled-canary",
+   206	
+   207	        "state":
+   208	            state,
+   209	
+   210	        "reason":
+   211	            reason,
+   212	
+   213	        "global_freeze":
+   214	            global_freeze,
+   215	
+   216	        "failed_gates":
+   217	            failed,
+   218	
+   219	        "safety_production_delete_allowed":
+   220	            delete_allowed,
+   221	
+   222	        "mutation_allowed":
+   223	            mutation_allowed,
+   224	
+   225	        "max_canary":
+   226	            MAX_CANARY,
+   227	
+   228	        "valid_candidate_count":
+   229	            len(candidates),
+   230	
+   231	        "selected_canary_count":
+   232	            len(canary),
+   233	
+   234	        "selected_canary":
+   235	            canary,
+   236	
+   237	        "rollback_required":
+   238	            True,
+   239	
+   240	        "hard_boundary":
+   241	            "NO_CONFIG_MUTATION_HT18_10A",
+   242	    }
+   243	
+   244	
+   245	def backup_canary(
+   246	    result: dict[str, Any],
+   247	) -> list[dict[str, Any]]:
+   248	
+   249	    JOURNAL.mkdir(
+   250	        parents=True,
+   251	        exist_ok=True,
+   252	    )
+   253	
+   254	    saved = []
+   255	
+   256	    for item in result.get(
+   257	        "selected_canary",
+   258	        []
+   259	    ):
+   260	
+   261	        source = Path(
+   262	            item["path"]
+   263	        )
+   264	
+   265	        target = (
+   266	            JOURNAL
+   267	            / (
+   268	                item["config_id"]
+   269	                + ".json"
+   270	            )
+   271	        )
+   272	
+   273	        data = source.read_bytes()
+   274	
+   275	        if not target.exists():
+   276	            target.write_bytes(data)
+   277	            os.chmod(target, 0o600)
+   278	
+   279	        saved.append({
+   280	            "config_id":
+   281	                item["config_id"],
+   282	
+   283	            "backup":
+   284	                str(target),
+   285	
+   286	            "backup_sha256":
+   287	                sha256(target),
+   288	
+   289	            "source_sha256":
+   290	                item["sha256"],
+   291	        })
+   292	
+   293	    return saved
+   294	
+   295	
+   296	def main() -> int:
+   297	
+   298	    result = build()
+   299	
+   300	    result["rollback_backups"] = (
+   301	        backup_canary(result)
+   302	    )
+   303	
+   304	    atomic_write(
+   305	        OUTPUT,
+   306	        result
+   307	    )
+   308	
+   309	    print(
+   310	        json.dumps(
+   311	            result,
+   312	            ensure_ascii=False,
+   313	            indent=2,
+   314	        )
+   315	    )
+   316	
+   317	    return 0
+   318	
+   319	
+   320	if __name__ == "__main__":
+   321	    raise SystemExit(main())
+
+========== [7] SAFETY GATES ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	import subprocess
+     5	import time
+     6	
+     7	from datetime import datetime, timezone
+     8	from pathlib import Path
+     9	from typing import Any
+    10	
+    11	
+    12	STATE = Path(
+    13	    "/var/lib/config-location/"
+    14	    "health-lifecycle"
+    15	)
+    16	
+    17	POLICY_PATH = (
+    18	    STATE / "policy-latest.json"
+    19	)
+    20	
+    21	TRACKER_PATH = (
+    22	    STATE / "consecutive-state.json"
+    23	)
+    24	
+    25	SYNC_PATH = (
+    26	    STATE / "sync-status.json"
+    27	)
+    28	
+    29	WATCHDOG_PATH = (
+    30	    STATE / "watchdog-status.json"
+    31	)
+    32	
+    33	SETTINGS_PATH = (
+    34	    STATE / "safety-policy.json"
+    35	)
+    36	
+    37	SNAPSHOT_PATH = (
+    38	    STATE / "safety-latest.json"
+    39	)
+    40	
+    41	
+    42	SERVICES = {
+    43	    "panel":
+    44	        "config-location-panel.service",
+    45	
+    46	    "fetcher":
+    47	        "config-location-fetcher.service",
+    48	
+    49	    "health":
+    50	        "config-location-health-adaptive.service",
+    51	}
+    52	
+    53	
+    54	def now_iso() -> str:
+    55	    return datetime.now(
+    56	        timezone.utc
+    57	    ).isoformat()
+    58	
+    59	
+    60	def read_json(
+    61	    path: Path,
+    62	) -> dict[str, Any]:
+    63	
+    64	    value = json.loads(
+    65	        path.read_text(
+    66	            encoding="utf-8"
+    67	        )
+    68	    )
+    69	
+    70	    if not isinstance(
+    71	        value,
+    72	        dict,
+    73	    ):
+    74	        raise ValueError(
+    75	            f"expected object: {path}"
+    76	        )
+    77	
+    78	    return value
+    79	
+    80	
+    81	def safe_int(
+    82	    value: Any,
+    83	) -> int:
+    84	
+    85	    try:
+    86	        return int(value)
+    87	    except Exception:
+    88	        return 0
+    89	
+    90	
+    91	def file_age(
+    92	    path: Path,
+    93	) -> float:
+    94	
+    95	    return max(
+    96	        0.0,
+    97	        time.time()
+    98	        - path.stat().st_mtime,
+    99	    )
+   100	
+   101	
+   102	def service_active(
+   103	    name: str,
+   104	) -> bool:
+   105	
+   106	    result = subprocess.run(
+   107	        [
+   108	            "systemctl",
+   109	            "is-active",
+   110	            "--quiet",
+   111	            name,
+   112	        ],
+   113	        check=False,
+   114	        stdout=subprocess.DEVNULL,
+   115	        stderr=subprocess.DEVNULL,
+   116	    )
+   117	
+   118	    return (
+   119	        result.returncode == 0
+   120	    )
+   121	
+   122	
+   123	def tracker_records(
+   124	    tracker: dict[str, Any],
+   125	) -> dict[str, dict[str, Any]]:
+   126	
+   127	    records = tracker.get(
+   128	        "records",
+   129	        {}
+   130	    )
+   131	
+   132	    if not isinstance(
+   133	        records,
+   134	        dict,
+   135	    ):
+   136	        return {}
+   137	
+   138	    return {
+   139	        str(k): v
+   140	        for k, v
+   141	        in records.items()
+   142	        if isinstance(
+   143	            v,
+   144	            dict,
+   145	        )
+   146	    }
+   147	
+   148	
+   149	def decisions(
+   150	    policy: dict[str, Any],
+   151	) -> list[dict[str, Any]]:
+   152	
+   153	    value = policy.get(
+   154	        "decisions",
+   155	        []
+   156	    )
+   157	
+   158	    if not isinstance(
+   159	        value,
+   160	        list,
+   161	    ):
+   162	        return []
+   163	
+   164	    return [
+   165	        x
+   166	        for x in value
+   167	        if isinstance(
+   168	            x,
+   169	            dict,
+   170	        )
+   171	    ]
+   172	
+   173	
+   174	def build_safety_snapshot(
+   175	    *,
+   176	    policy: dict[str, Any] | None = None,
+   177	    tracker: dict[str, Any] | None = None,
+   178	    sync: dict[str, Any] | None = None,
+   179	    watchdog: dict[str, Any] | None = None,
+   180	    settings: dict[str, Any] | None = None,
+   181	    service_states: dict[str, bool] | None = None,
+   182	    policy_age_seconds: float | None = None,
+   183	    tracker_age_seconds: float | None = None,
+   184	) -> dict[str, Any]:
+   185	
+   186	    policy = (
+   187	        policy
+   188	        if policy is not None
+   189	        else read_json(
+   190	            POLICY_PATH
+   191	        )
+   192	    )
+   193	
+   194	    tracker = (
+   195	        tracker
+   196	        if tracker is not None
+   197	        else read_json(
+   198	            TRACKER_PATH
+   199	        )
+   200	    )
+   201	
+   202	    sync = (
+   203	        sync
+   204	        if sync is not None
+   205	        else read_json(
+   206	            SYNC_PATH
+   207	        )
+   208	    )
+   209	
+   210	    watchdog = (
+   211	        watchdog
+   212	        if watchdog is not None
+   213	        else read_json(
+   214	            WATCHDOG_PATH
+   215	        )
+   216	    )
+   217	
+   218	    settings = (
+   219	        settings
+   220	        if settings is not None
+   221	        else read_json(
+   222	            SETTINGS_PATH
+   223	        )
+   224	    )
+   225	
+   226	
+   227	    if service_states is None:
+   228	
+   229	        service_states = {
+   230	            key:
+   231	                service_active(
+   232	                    service
+   233	                )
+   234	            for key, service
+   235	            in SERVICES.items()
+   236	        }
+   237	
+   238	
+   239	    if policy_age_seconds is None:
+   240	        policy_age_seconds = (
+   241	            file_age(
+   242	                POLICY_PATH
+   243	            )
+   244	        )
+   245	
+   246	
+   247	    if tracker_age_seconds is None:
+   248	        tracker_age_seconds = (
+   249	            file_age(
+   250	                TRACKER_PATH
+   251	            )
+   252	        )
+   253	
+   254	
+   255	    records = tracker_records(
+   256	        tracker
+   257	    )
+   258	
+   259	    policy_decisions = decisions(
+   260	        policy
+   261	    )
+   262	
+   263	
+   264	    tracked = safe_int(
+   265	        policy.get(
+   266	            "tracked_count",
+   267	            len(records),
+   268	        )
+   269	    )
+   270	
+   271	
+   272	    states: dict[str, int] = {}
+   273	
+   274	    shadow_candidate_ids = []
+   275	
+   276	
+   277	    for item in policy_decisions:
+   278	
+   279	        state = str(
+   280	            item.get(
+   281	                "policy_state",
+   282	                "unknown",
+   283	            )
+   284	        ).strip().lower()
+   285	
+   286	        states[state] = (
+   287	            states.get(
+   288	                state,
+   289	                0
+   290	            )
+   291	            + 1
+   292	        )
+   293	
+   294	
+   295	        if (
+   296	            state
+   297	            == "delete_candidate_shadow"
+   298	        ):
+   299	
+   300	            config_id = str(
+   301	                item.get(
+   302	                    "config_id",
+   303	                    ""
+   304	                )
+   305	            )
+   306	
+   307	            if config_id:
+   308	                shadow_candidate_ids.append(
+   309	                    config_id
+   310	                )
+   311	
+   312	
+   313	    unhealthy_states = {
+   314	        "quarantine",
+   315	        "deep_quarantine",
+   316	        "delete_candidate_shadow",
+   317	        "error_retry",
+   318	    }
+   319	
+   320	
+   321	    unhealthy_total = sum(
+   322	        states.get(
+   323	            state,
+   324	            0,
+   325	        )
+   326	        for state in unhealthy_states
+   327	    )
+   328	
+   329	
+   330	    unhealthy_ratio = (
+   331	        unhealthy_total
+   332	        / tracked
+   333	        if tracked > 0
+   334	        else 1.0
+   335	    )
+   336	
+   337	
+   338	    candidate_ratio = (
+   339	        len(
+   340	            shadow_candidate_ids
+   341	        )
+   342	        / tracked
+   343	        if tracked > 0
+   344	        else 1.0
+   345	    )
+   346	
+   347	
+   348	    min_streak = safe_int(
+   349	        settings.get(
+   350	            "candidate_min_consecutive_unhealthy",
+   351	            8,
+   352	        )
+   353	    )
+   354	
+   355	
+   356	    future_eligible = []
+   357	
+   358	    rejected_streak = []
+   359	
+   360	
+   361	    for config_id in (
+   362	        shadow_candidate_ids
+   363	    ):
+   364	
+   365	        record = records.get(
+   366	            config_id,
+   367	            {}
+   368	        )
+   369	
+   370	
+   371	        streak = safe_int(
+   372	            record.get(
+   373	                "consecutive_unhealthy",
+   374	                0,
+   375	            )
+   376	        )
+   377	
+   378	
+   379	        healthy_streak = safe_int(
+   380	            record.get(
+   381	                "consecutive_healthy",
+   382	                0,
+   383	            )
+   384	        )
+   385	
+   386	
+   387	        if (
+   388	            streak >= min_streak
+   389	            and healthy_streak == 0
+   390	        ):
+   391	
+   392	            future_eligible.append(
+   393	                {
+   394	                    "config_id":
+   395	                        config_id,
+   396	
+   397	                    "consecutive_unhealthy":
+   398	                        streak,
+   399	                }
+   400	            )
+   401	
+   402	        else:
+   403	
+   404	            rejected_streak.append(
+   405	                config_id
+   406	            )
+   407	
+   408	
+   409	    sync_state = str(
+   410	        sync.get(
+   411	            "state",
+   412	            "missing",
+   413	        )
+   414	    )
+   415	
+   416	
+   417	    watchdog_state = str(
+   418	        watchdog.get(
+   419	            "evaluation",
+   420	            {},
+   421	        ).get(
+   422	            "state",
+   423	            "missing",
+   424	        )
+   425	    )
+   426	
+   427	
+   428	    gates: dict[str, dict[str, Any]] = {}
+   429	
+   430	
+   431	    def gate(
+   432	        name: str,
+   433	        passed: bool,
+   434	        reason: str,
+   435	        value: Any = None,
+   436	    ) -> None:
+   437	
+   438	        gates[name] = {
+   439	            "passed":
+   440	                bool(
+   441	                    passed
+   442	                ),
+   443	
+   444	            "reason":
+   445	                reason,
+   446	
+   447	            "value":
+   448	                value,
+   449	        }
+   450	
+   451	
+   452	    minimum_population = safe_int(
+   453	        settings.get(
+   454	            "minimum_tracked_population",
+   455	            100,
+   456	        )
+   457	    )
+   458	
+   459	
+   460	    gate(
+   461	        "minimum_population",
+   462	        tracked >= minimum_population,
+   463	        "tracked_population",
+   464	        tracked,
+   465	    )
+   466	
+   467	
+   468	    global_limit = float(
+   469	        settings.get(
+   470	            "global_unhealthy_freeze_ratio",
+   471	            0.45,
+   472	        )
+   473	    )
+   474	
+   475	
+   476	    gate(
+   477	        "global_unhealthy_ratio",
+   478	        unhealthy_ratio < global_limit,
+   479	        "global_circuit_breaker",
+   480	        round(
+   481	            unhealthy_ratio,
+   482	            6,
+   483	        ),
+   484	    )
+   485	
+   486	
+   487	    candidate_limit = float(
+   488	        settings.get(
+   489	            "delete_candidate_freeze_ratio",
+   490	            0.35,
+   491	        )
+   492	    )
+   493	
+   494	
+   495	    gate(
+   496	        "candidate_ratio",
+   497	        candidate_ratio < candidate_limit,
+   498	        "candidate_burst_breaker",
+   499	        round(
+   500	            candidate_ratio,
+   501	            6,
+   502	        ),
+   503	    )
+   504	
+   505	
+   506	    max_policy_age = float(
+   507	        settings.get(
+   508	            "max_policy_age_seconds",
+   509	            90,
+   510	        )
+   511	    )
+   512	
+   513	
+   514	    gate(
+   515	        "policy_freshness",
+   516	        policy_age_seconds
+   517	        <= max_policy_age,
+   518	        "policy_age",
+   519	        round(
+   520	            policy_age_seconds,
+   521	            3,
+   522	        ),
+   523	    )
+   524	
+   525	
+   526	    max_tracker_age = float(
+   527	        settings.get(
+   528	            "max_tracker_age_seconds",
+   529	            90,
+   530	        )
+   531	    )
+   532	
+   533	
+   534	    gate(
+   535	        "tracker_freshness",
+   536	        tracker_age_seconds
+   537	        <= max_tracker_age,
+   538	        "tracker_age",
+   539	        round(
+   540	            tracker_age_seconds,
+   541	            3,
+   542	        ),
+   543	    )
+   544	
+   545	
+   546	    allowed_sync_states = set(
+   547	        str(x)
+   548	        for x in settings.get(
+   549	            "allowed_sync_states",
+   550	            [
+   551	                "synced",
+   552	                "idle",
+   553	            ],
+   554	        )
+   555	    )
+   556	
+   557	
+   558	    gate(
+   559	        "sync_state",
+   560	        sync_state
+   561	        in allowed_sync_states,
+   562	        "lifecycle_sync_state",
+   563	        sync_state,
+   564	    )
+   565	
+   566	
+   567	    required_watchdog = str(
+   568	        settings.get(
+   569	            "required_watchdog_state",
+   570	            "healthy",
+   571	        )
+   572	    )
+   573	
+   574	
+   575	    gate(
+   576	        "watchdog_state",
+   577	        watchdog_state
+   578	        == required_watchdog,
+   579	        "stale_watchdog_state",
+   580	        watchdog_state,
+   581	    )
+   582	
+   583	
+   584	    for name in (
+   585	        "panel",
+   586	        "fetcher",
+   587	        "health",
+   588	    ):
+   589	
+   590	        required = bool(
+   591	            settings.get(
+   592	                f"require_{name}_active",
+   593	                True,
+   594	            )
+   595	        )
+   596	
+   597	        passed = (
+   598	            bool(
+   599	                service_states.get(
+   600	                    name,
+   601	                    False,
+   602	                )
+   603	            )
+   604	            if required
+   605	            else True
+   606	        )
+   607	
+   608	        gate(
+   609	            f"{name}_service",
+   610	            passed,
+   611	            f"{name}_service_active",
+   612	            service_states.get(
+   613	                name,
+   614	                False,
+   615	            ),
+   616	        )
+   617	
+   618	
+   619	    failed_gates = [
+   620	        name
+   621	        for name, value
+   622	        in gates.items()
+   623	        if not value[
+   624	            "passed"
+   625	        ]
+   626	    ]
+   627	
+   628	
+   629	    global_freeze = bool(
+   630	        failed_gates
+   631	    )
+   632	
+   633	
+   634	    configured_delete = bool(
+   635	        settings.get(
+   636	            "production_delete_enabled",
+   637	            False,
+   638	        )
+   639	    )
+   640	
+   641	
+   642	    # Hard boundary for HT18.9:
+   643	    production_delete_allowed = False
+   644	
+   645	
+   646	    return {
+   647	        "schema_version": 1,
+   648	
+   649	        "generated_at":
+   650	            now_iso(),
+   651	
+   652	        "mode":
+   653	            "shadow",
+   654	
+   655	        "tracked_count":
+   656	            tracked,
+   657	
+   658	        "policy_states":
+   659	            states,
+   660	
+   661	        "unhealthy_total":
+   662	            unhealthy_total,
+   663	
+   664	        "unhealthy_ratio":
+   665	            round(
+   666	                unhealthy_ratio,
+   667	                6,
+   668	            ),
+   669	
+   670	        "delete_candidate_shadow":
+   671	            len(
+   672	                shadow_candidate_ids
+   673	            ),
+   674	
+   675	        "delete_candidate_ratio":
+   676	            round(
+   677	                candidate_ratio,
+   678	                6,
+   679	            ),
+   680	
+   681	        "candidate_min_consecutive_unhealthy":
+   682	            min_streak,
+   683	
+   684	        "future_enforcement_candidates":
+   685	            len(
+   686	                future_eligible
+   687	            ),
+   688	
+   689	        "future_enforcement_candidate_sample":
+   690	            future_eligible[:25],
+   691	
+   692	        "rejected_by_streak":
+   693	            len(
+   694	                rejected_streak
+   695	            ),
+   696	
+   697	        "gates":
+   698	            gates,
+   699	
+   700	        "failed_gates":
+   701	            failed_gates,
+   702	
+   703	        "global_freeze":
+   704	            global_freeze,
+   705	
+   706	        "configured_production_delete":
+   707	            configured_delete,
+   708	
+   709	        "production_delete_allowed":
+   710	            production_delete_allowed,
+   711	
+   712	        "hard_safety_boundary":
+   713	            "HT18.9_SHADOW_ONLY",
+   714	    }
+   715	
+   716	
+   717	def write_snapshot(
+   718	    snapshot: dict[str, Any],
+   719	) -> None:
+   720	
+
+========== [8] WRITE CONTROL ==========
+     1	from __future__ import annotations
+     2	
+     3	import hashlib
+     4	import json
+     5	import os
+     6	import tempfile
+     7	import time
+     8	
+     9	from copy import deepcopy
+    10	from pathlib import Path
+    11	from typing import Any, Iterable
+    12	
+    13	
+    14	DEFAULT_VOLATILE_KEYS = frozenset({
+    15	    # Timestamps / write diagnostics
+    16	    "generated_at",
+    17	    "updated_at",
+    18	    "write_performed",
+    19	    "write_reason",
+    20	
+    21	    # Per-run Tracker telemetry.
+    22	    # These describe the current invocation,
+    23	    # not the persisted lifecycle state.
+    24	    "processed_new_results",
+    25	    "unchanged_results",
+    26	})
+    27	
+    28	
+    29	def without_keys(
+    30	    value: dict[str, Any],
+    31	    ignored_keys: Iterable[str],
+    32	) -> dict[str, Any]:
+    33	
+    34	    ignored = set(
+    35	        ignored_keys
+    36	    )
+    37	
+    38	    return {
+    39	        key: deepcopy(item)
+    40	        for key, item
+    41	        in value.items()
+    42	        if key not in ignored
+    43	    }
+    44	
+    45	
+    46	def canonical_json_bytes(
+    47	    value: dict[str, Any],
+    48	) -> bytes:
+    49	
+    50	    return (
+    51	        json.dumps(
+    52	            value,
+    53	            ensure_ascii=False,
+    54	            sort_keys=True,
+    55	            separators=(",", ":"),
+    56	            default=str,
+    57	        )
+    58	        + "\n"
+    59	    ).encode(
+    60	        "utf-8"
+    61	    )
+    62	
+    63	
+    64	def semantic_hash(
+    65	    value: dict[str, Any],
+    66	    *,
+    67	    ignored_keys: Iterable[str] = (),
+    68	) -> str:
+    69	
+    70	    stable = without_keys(
+    71	        value,
+    72	        ignored_keys,
+    73	    )
+    74	
+    75	    return hashlib.sha256(
+    76	        canonical_json_bytes(
+    77	            stable
+    78	        )
+    79	    ).hexdigest()
+    80	
+    81	
+    82	def existing_json(
+    83	    path: Path,
+    84	) -> dict[str, Any] | None:
+    85	
+    86	    try:
+    87	
+    88	        obj = json.loads(
+    89	            path.read_text(
+    90	                encoding="utf-8"
+    91	            )
+    92	        )
+    93	
+    94	    except Exception:
+    95	        return None
+    96	
+    97	
+    98	    if not isinstance(
+    99	        obj,
+   100	        dict,
+   101	    ):
+   102	        return None
+   103	
+   104	
+   105	    return obj
+   106	
+   107	
+   108	def json_semantically_equal(
+   109	    path: Path,
+   110	    value: dict[str, Any],
+   111	    *,
+   112	    ignored_keys: Iterable[str] = DEFAULT_VOLATILE_KEYS,
+   113	) -> bool:
+   114	
+   115	    old = existing_json(
+   116	        path
+   117	    )
+   118	
+   119	    if old is None:
+   120	        return False
+   121	
+   122	
+   123	    return (
+   124	        semantic_hash(
+   125	            old,
+   126	            ignored_keys=ignored_keys,
+   127	        )
+   128	        ==
+   129	        semantic_hash(
+   130	            value,
+   131	            ignored_keys=ignored_keys,
+   132	        )
+   133	    )
+   134	
+   135	
+   136	def atomic_json_write(
+   137	    path: Path,
+   138	    value: dict[str, Any],
+   139	    *,
+   140	    mode: int = 0o640,
+   141	) -> None:
+   142	
+   143	    path.parent.mkdir(
+   144	        parents=True,
+   145	        exist_ok=True,
+   146	    )
+   147	
+   148	
+   149	    fd, tmp = tempfile.mkstemp(
+   150	        dir=str(
+   151	            path.parent
+   152	        ),
+   153	        prefix="."
+   154	        + path.name
+   155	        + ".",
+   156	        suffix=".tmp",
+   157	    )
+   158	
+   159	
+   160	    try:
+   161	
+   162	        with os.fdopen(
+   163	            fd,
+   164	            "w",
+   165	            encoding="utf-8",
+   166	        ) as f:
+   167	
+   168	            json.dump(
+   169	                value,
+   170	                f,
+   171	                ensure_ascii=False,
+   172	                indent=2,
+   173	                sort_keys=True,
+   174	                default=str,
+   175	            )
+   176	
+   177	            f.write("\n")
+   178	
+   179	            f.flush()
+   180	
+   181	            os.fsync(
+   182	                f.fileno()
+   183	            )
+   184	
+   185	
+   186	        parent_gid = (
+   187	            path.parent.stat().st_gid
+   188	        )
+   189	
+   190	
+   191	        os.chown(
+   192	            tmp,
+   193	            -1,
+   194	            parent_gid,
+   195	        )
+   196	
+   197	
+   198	        os.chmod(
+   199	            tmp,
+   200	            mode,
+   201	        )
+   202	
+   203	
+   204	        os.replace(
+   205	            tmp,
+   206	            path,
+   207	        )
+   208	
+   209	
+   210	    finally:
+   211	
+   212	        if os.path.exists(
+   213	            tmp
+   214	        ):
+   215	            os.unlink(
+   216	                tmp
+   217	            )
+   218	
+   219	
+   220	def atomic_json_if_changed(
+   221	    path: Path,
+   222	    value: dict[str, Any],
+   223	    *,
+   224	    mode: int = 0o640,
+   225	    ignored_keys: Iterable[str] = DEFAULT_VOLATILE_KEYS,
+   226	) -> bool:
+   227	
+   228	    if json_semantically_equal(
+   229	        path,
+   230	        value,
+   231	        ignored_keys=ignored_keys,
+   232	    ):
+   233	        return False
+   234	
+   235	
+   236	    atomic_json_write(
+   237	        path,
+   238	        value,
+   239	        mode=mode,
+   240	    )
+   241	
+   242	    return True
+   243	
+   244	
+   245	class HeartbeatGate:
+   246	
+   247	    def __init__(
+   248	        self,
+   249	        *,
+   250	        heartbeat_seconds: float,
+   251	    ) -> None:
+   252	
+   253	        self.heartbeat_seconds = float(
+   254	            heartbeat_seconds
+   255	        )
+   256	
+   257	        self._last_write_monotonic: float | None = None
+   258	        self._last_semantic_hash: str | None = None
+   259	
+   260	
+   261	    def should_write(
+   262	        self,
+   263	        semantic_payload: dict[str, Any],
+   264	    ) -> tuple[bool, str]:
+   265	
+   266	        now = time.monotonic()
+   267	
+   268	        current_hash = semantic_hash(
+   269	            semantic_payload
+   270	        )
+   271	
+   272	
+   273	        if (
+   274	            self._last_semantic_hash
+   275	            != current_hash
+   276	        ):
+   277	
+   278	            self._last_semantic_hash = (
+   279	                current_hash
+   280	            )
+   281	
+   282	            self._last_write_monotonic = (
+   283	                now
+   284	            )
+   285	
+   286	            return True, "state_changed"
+   287	
+   288	
+   289	        if (
+   290	            self._last_write_monotonic
+   291	            is None
+   292	        ):
+   293	
+   294	            self._last_write_monotonic = (
+   295	                now
+   296	            )
+   297	
+   298	            return True, "initial"
+   299	
+   300	
+   301	        if (
+   302	            now
+   303	            - self._last_write_monotonic
+   304	            >= self.heartbeat_seconds
+   305	        ):
+   306	
+   307	            self._last_write_monotonic = (
+   308	                now
+   309	            )
+   310	
+   311	            return True, "heartbeat"
+   312	
+   313	
+   314	        return False, "suppressed"
+
+========== [9] SYNC DAEMON ==========
+     1	from __future__ import annotations
+     2	
+     3	import fcntl
+     4	import json
+     5	import os
+     6	import signal
+     7	import sys
+     8	import time
+     9	from datetime import datetime, timezone
+    10	from pathlib import Path
+    11	
+    12	from app.health.lifecycle.write_control import (
+    13	    HeartbeatGate,
+    14	    atomic_json_if_changed,
+    15	)
+    16	
+    17	from app.health.lifecycle.consecutive import (
+    18	    update_tracker,
+    19	)
+    20	from app.health.lifecycle.policy import (
+    21	    build_policy_snapshot,
+    22	)
+    23	
+    24	
+    25	RESULT_DIR = Path(
+    26	    "/var/lib/config-location/"
+    27	    "health-results/latest"
+    28	)
+    29	
+    30	STATE_DIR = Path(
+    31	    "/var/lib/config-location/"
+    32	    "health-lifecycle"
+    33	)
+    34	
+    35	STATUS_PATH = (
+    36	    STATE_DIR
+    37	    / "sync-status.json"
+    38	)
+    39	
+    40	LOCK_PATH = (
+    41	    STATE_DIR
+    42	    / "sync.lock"
+    43	)
+    44	
+    45	
+    46	MIN_SLEEP = 2.0
+    47	MAX_SLEEP = 15.0
+    48	
+    49	MAX_STALE_SECONDS = 60.0
+    50	ERROR_BACKOFF_MIN = 5.0
+    51	ERROR_BACKOFF_MAX = 30.0
+    52	
+    53	STATUS_HEARTBEAT_SECONDS = 30.0
+    54	
+    55	_shutdown = False
+    56	
+    57	
+    58	def now_iso() -> str:
+    59	    return datetime.now(
+    60	        timezone.utc
+    61	    ).isoformat()
+    62	
+    63	
+    64	def atomic_json(
+    65	    path: Path,
+    66	    payload: dict,
+    67	) -> None:
+    68	
+    69	    tmp = path.with_name(
+    70	        "."
+    71	        + path.name
+    72	        + ".tmp"
+    73	    )
+    74	
+    75	    with tmp.open(
+    76	        "w",
+    77	        encoding="utf-8",
+    78	    ) as f:
+    79	
+    80	        json.dump(
+    81	            payload,
+    82	            f,
+    83	            ensure_ascii=False,
+    84	            indent=2,
+    85	            sort_keys=True,
+    86	        )
+    87	
+    88	        f.write("\n")
+    89	
+    90	        f.flush()
+    91	        os.fsync(
+    92	            f.fileno()
+    93	        )
+    94	
+    95	    # Preserve destination directory group.
+    96	    parent_gid = path.parent.stat().st_gid
+    97	
+    98	    os.chown(
+    99	        tmp,
+   100	        -1,
+   101	        parent_gid,
+   102	    )
+   103	
+   104	    os.chmod(
+   105	        tmp,
+   106	        0o640,
+   107	    )
+   108	
+   109	    os.replace(
+   110	        tmp,
+   111	        path,
+   112	    )
+   113	
+   114	
+   115	def result_signature() -> tuple[int, int]:
+   116	
+   117	    count = 0
+   118	    newest_ns = 0
+   119	
+   120	    for path in RESULT_DIR.glob(
+   121	        "*.json"
+   122	    ):
+   123	
+   124	        try:
+   125	            stat = path.stat()
+   126	        except FileNotFoundError:
+   127	            continue
+   128	
+   129	        count += 1
+   130	
+   131	        newest_ns = max(
+   132	            newest_ns,
+   133	            stat.st_mtime_ns,
+   134	        )
+   135	
+   136	    return (
+   137	        count,
+   138	        newest_ns,
+   139	    )
+   140	
+   141	
+   142	def handle_signal(
+   143	    signum,
+   144	    frame,
+   145	):
+   146	    global _shutdown
+   147	    _shutdown = True
+   148	
+   149	
+   150	signal.signal(
+   151	    signal.SIGTERM,
+   152	    handle_signal,
+   153	)
+   154	
+   155	signal.signal(
+   156	    signal.SIGINT,
+   157	    handle_signal,
+   158	)
+   159	
+   160	
+   161	_status_gate = HeartbeatGate(
+   162	    heartbeat_seconds=
+   163	        STATUS_HEARTBEAT_SECONDS,
+   164	)
+   165	
+   166	
+   167	def write_status(
+   168	    **kwargs,
+   169	) -> None:
+   170	
+   171	    semantic = {
+   172	        key: value
+   173	        for key, value
+   174	        in kwargs.items()
+   175	        if key not in {
+   176	            "cycle",
+   177	            "sleep_seconds",
+   178	        }
+   179	    }
+   180	
+   181	    should_write, reason = (
+   182	        _status_gate.should_write(
+   183	            semantic
+   184	        )
+   185	    )
+   186	
+   187	    if not should_write:
+   188	        return
+   189	
+   190	
+   191	    base = {
+   192	        "schema_version": 1,
+   193	        "component":
+   194	            "lifecycle-sync",
+   195	        "updated_at":
+   196	            now_iso(),
+   197	        "pid":
+   198	            os.getpid(),
+   199	        "write_reason":
+   200	            reason,
+   201	    }
+   202	
+   203	    base.update(
+   204	        kwargs
+   205	    )
+   206	
+   207	    atomic_json_if_changed(
+   208	        STATUS_PATH,
+   209	        base,
+   210	    )
+   211	
+   212	
+   213	def main() -> int:
+   214	
+   215	    STATE_DIR.mkdir(
+   216	        parents=True,
+   217	        exist_ok=True,
+   218	    )
+   219	
+   220	    lock_file = LOCK_PATH.open(
+   221	        "a+"
+   222	    )
+   223	
+   224	    try:
+   225	        fcntl.flock(
+   226	            lock_file.fileno(),
+   227	            fcntl.LOCK_EX
+   228	            | fcntl.LOCK_NB,
+   229	        )
+   230	    except BlockingIOError:
+   231	        print(
+   232	            "another lifecycle sync "
+   233	            "instance is already running",
+   234	            file=sys.stderr,
+   235	        )
+   236	        return 2
+   237	
+   238	
+   239	    last_signature = None
+   240	    sleep_seconds = MIN_SLEEP
+   241	    cycle = 0
+   242	    sync_count = 0
+   243	    error_count = 0
+   244	    consecutive_errors = 0
+   245	    last_success_monotonic = time.monotonic()
+   246	
+   247	
+   248	    write_status(
+   249	        state="starting",
+   250	        cycle=cycle,
+   251	        sync_count=sync_count,
+   252	        error_count=error_count,
+   253	        sleep_seconds=
+   254	            sleep_seconds,
+   255	    )
+   256	
+   257	
+   258	    while not _shutdown:
+   259	
+   260	        cycle += 1
+   261	
+   262	        try:
+   263	
+   264	            signature = (
+   265	                result_signature()
+   266	            )
+   267	
+   268	            changed = (
+   269	                signature
+   270	                != last_signature
+   271	            )
+   272	
+   273	
+   274	            if changed:
+   275	
+   276	                before = time.monotonic()
+   277	
+   278	                tracker = (
+   279	                    update_tracker()
+   280	                )
+   281	
+   282	                policy = (
+   283	                    build_policy_snapshot()
+   284	                )
+   285	
+   286	                elapsed_ms = (
+   287	                    time.monotonic()
+   288	                    - before
+   289	                ) * 1000.0
+   290	
+   291	                sync_count += 1
+   292	                consecutive_errors = 0
+   293	                last_success_monotonic = time.monotonic()
+   294	
+   295	                last_signature = (
+   296	                    signature
+   297	                )
+   298	
+   299	                sleep_seconds = (
+   300	                    MIN_SLEEP
+   301	                )
+   302	
+   303	
+   304	                write_status(
+   305	                    state="synced",
+   306	                    cycle=cycle,
+   307	                    sync_count=
+   308	                        sync_count,
+   309	                    error_count=
+   310	                        error_count,
+   311	                    result_count=
+   312	                        signature[0],
+   313	                    newest_result_mtime_ns=
+   314	                        signature[1],
+   315	                    processed_new_results=
+   316	                        tracker.get(
+   317	                            "processed_new_results",
+   318	                            0,
+   319	                        ),
+   320	                    unchanged_results=
+   321	                        tracker.get(
+   322	                            "unchanged_results",
+   323	                            0,
+   324	                        ),
+   325	                    tracked_count=
+   326	                        tracker.get(
+   327	                            "tracked_count",
+   328	                            0,
+   329	                        ),
+   330	                    publish_eligible=
+   331	                        policy.get(
+   332	                            "publish_eligible",
+   333	                            0,
+   334	                        ),
+   335	                    quarantine_count=
+   336	                        policy.get(
+   337	                            "quarantine_count",
+   338	                            0,
+   339	                        ),
+   340	                    sync_duration_ms=
+   341	                        round(
+   342	                            elapsed_ms,
+   343	                            3,
+   344	                        ),
+   345	                    sleep_seconds=
+   346	                        sleep_seconds,
+   347	                )
+   348	
+   349	            else:
+   350	
+   351	                sleep_seconds = min(
+   352	                    MAX_SLEEP,
+   353	                    sleep_seconds
+   354	                    + 1.0,
+   355	                )
+   356	
+   357	                write_status(
+   358	                    state="idle",
+   359	                    cycle=cycle,
+   360	                    sync_count=
+   361	                        sync_count,
+   362	                    error_count=
+   363	                        error_count,
+   364	                    result_count=
+   365	                        signature[0],
+   366	                    newest_result_mtime_ns=
+   367	                        signature[1],
+   368	                    sleep_seconds=
+   369	                        sleep_seconds,
+   370	                )
+   371	
+   372	
+   373	        except Exception as exc:
+   374	
+   375	            error_count += 1
+   376	            consecutive_errors += 1
+   377	
+   378	            sleep_seconds = min(
+   379	                ERROR_BACKOFF_MAX,
+   380	                max(
+   381	                    ERROR_BACKOFF_MIN,
+   382	                    float(
+   383	                        2 ** min(
+   384	                            consecutive_errors,
+   385	                            4,
+   386	                        )
+   387	                    ),
+   388	                ),
+   389	            )
+   390	
+   391	            write_status(
+   392	                state="error",
+   393	                cycle=cycle,
+   394	                sync_count=
+   395	                    sync_count,
+   396	                error_count=
+   397	                    error_count,
+   398	                error_type=
+   399	                    type(exc).__name__,
+   400	                error_message=
+   401	                    str(exc)[:1000],
+   402	                consecutive_errors=
+   403	                    consecutive_errors,
+   404	                stale_seconds=
+   405	                    round(
+   406	                        time.monotonic()
+   407	                        - last_success_monotonic,
+   408	                        3,
+   409	                    ),
+   410	                sleep_seconds=
+   411	                    sleep_seconds,
+   412	            )
+   413	
+   414	
+   415	        end = (
+   416	            time.monotonic()
+   417	            + sleep_seconds
+   418	        )
+   419	
+   420	        while (
+   421	            not _shutdown
+   422	            and time.monotonic()
+   423	            < end
+   424	        ):
+   425	            time.sleep(
+   426	                min(
+   427	                    0.5,
+   428	                    end
+   429	                    - time.monotonic(),
+   430	                )
+   431	            )
+   432	
+   433	
+   434	    write_status(
+   435	        state="stopped",
+   436	        cycle=cycle,
+   437	        sync_count=sync_count,
+   438	        error_count=error_count,
+   439	        sleep_seconds=
+   440	            sleep_seconds,
+   441	    )
+   442	
+   443	    return 0
+   444	
+   445	
+   446	if __name__ == "__main__":
+   447	    raise SystemExit(
+   448	        main()
+   449	    )
+
+========== [10] CONFIG STORE DELETE APIs ==========
+115:            os.unlink(
+354:                path.unlink()
+360:    remove_source_snapshot(
+462:                path.unlink()
+477:def _source_snapshot_path(
+490:def _source_snapshot_lock(
+506:def read_source_snapshot(
+516:    path = _source_snapshot_path(
+555:def write_source_snapshot(
+577:        _source_snapshot_path(
+586:def remove_source_snapshot(
+589:    path = _source_snapshot_path(
+594:        path.unlink()
+600:def remove_source_snapshots(
+610:        if remove_source_snapshot(
+618:def delete_all_source_snapshots():
+627:            path.unlink()
+635:def sync_source_snapshot(
+708:    with _source_snapshot_lock(
+712:        previous = read_source_snapshot(
+720:            write_source_snapshot(
+833:                            reason="source_snapshot_last_owner",
+836:                        path.unlink()
+845:        write_source_snapshot(
+856:def delete_all_configs():
+862:    delete_all_source_snapshots()
+875:            path.unlink()
+
+--- relevant config_store excerpts ---
+
+--- lines 19-64 ---
+   19 )
+   20 
+   21 CONFIG_DIR = (
+   22     DATA / "configs"
+   23 )
+   24 
+   25 LOCK_DIR = (
+   26     DATA / "locks"
+   27 )
+   28 
+   29 SOURCE_SNAPSHOT_DIR = (
+   30     DATA / "source-snapshots"
+   31 )
+   32 
+   33 CONFIG_DIR.mkdir(
+   34     parents=True,
+   35     exist_ok=True
+   36 )
+   37 
+   38 LOCK_DIR.mkdir(
+   39     parents=True,
+   40     exist_ok=True
+   41 )
+   42 
+   43 SOURCE_SNAPSHOT_DIR.mkdir(
+   44     parents=True,
+   45     exist_ok=True
+   46 )
+   47 
+   48 
+   49 def now_iso():
+   50     return datetime.now(
+   51         timezone.utc
+   52     ).isoformat()
+   53 
+   54 
+   55 def _path(
+   56     fingerprint: str
+   57 ):
+   58     return (
+   59         CONFIG_DIR
+   60         / f"{fingerprint}.json"
+   61     )
+   62 
+   63 
+   64 def _lock(
+
+--- lines 33-78 ---
+   33 CONFIG_DIR.mkdir(
+   34     parents=True,
+   35     exist_ok=True
+   36 )
+   37 
+   38 LOCK_DIR.mkdir(
+   39     parents=True,
+   40     exist_ok=True
+   41 )
+   42 
+   43 SOURCE_SNAPSHOT_DIR.mkdir(
+   44     parents=True,
+   45     exist_ok=True
+   46 )
+   47 
+   48 
+   49 def now_iso():
+   50     return datetime.now(
+   51         timezone.utc
+   52     ).isoformat()
+   53 
+   54 
+   55 def _path(
+   56     fingerprint: str
+   57 ):
+   58     return (
+   59         CONFIG_DIR
+   60         / f"{fingerprint}.json"
+   61     )
+   62 
+   63 
+   64 def _lock(
+   65     fingerprint: str
+   66 ):
+   67     return FileLock(
+   68         str(
+   69             LOCK_DIR
+   70             / f"config-{fingerprint}.lock"
+   71         ),
+   72         timeout=15,
+   73     )
+   74 
+   75 
+   76 def _atomic_write(
+   77     path: Path,
+   78     data: dict
+
+--- lines 105-150 ---
+  105 
+  106         os.replace(
+  107             tmp,
+  108             path
+  109         )
+  110 
+  111     finally:
+  112         if os.path.exists(
+  113             tmp
+  114         ):
+  115             os.unlink(
+  116                 tmp
+  117             )
+  118 
+  119 
+  120 def upsert_config(
+  121     item: dict,
+  122     source_id: str,
+  123 ):
+  124     fingerprint = item[
+  125         "fingerprint"
+  126     ]
+  127 
+  128     path = _path(
+  129         fingerprint
+  130     )
+  131 
+  132     with _lock(
+  133         fingerprint
+  134     ):
+  135         if path.exists():
+  136             try:
+  137                 record = json.loads(
+  138                     path.read_text(
+  139                         encoding="utf-8"
+  140                     )
+  141                 )
+  142             except Exception:
+  143                 record = {}
+  144         else:
+  145             record = {}
+  146 
+  147         created = not bool(
+  148             record
+  149         )
+  150 
+
+--- lines 344-389 ---
+  344             kept += 1
+  345 
+  346         else:
+  347 
+  348             try:
+  349                 archive_latest_before_config_delete(
+  350                     path.stem,
+  351                     reason="detach_source_last_owner",
+  352                 )
+  353 
+  354                 path.unlink()
+  355                 deleted += 1
+  356 
+  357             except FileNotFoundError:
+  358                 pass
+  359 
+  360     remove_source_snapshot(
+  361         source_id
+  362     )
+  363 
+  364     return {
+  365         "scanned": scanned,
+  366         "detached": detached,
+  367         "deleted": deleted,
+  368         "kept": kept,
+  369     }
+  370 
+  371 
+  372 def detach_sources_from_configs(source_ids):
+  373     """
+  374     Bulk version of detach_source_from_configs().
+  375 
+  376     A config survives if at least one source_id remains.
+  377     """
+  378 
+  379     ids = {
+  380         str(x).strip()
+  381         for x in source_ids
+  382         if str(x).strip()
+  383     }
+  384 
+  385     if not ids:
+  386         return {
+  387             "scanned": 0,
+  388             "detached": 0,
+  389             "deleted": 0,
+
+--- lines 350-395 ---
+  350                     path.stem,
+  351                     reason="detach_source_last_owner",
+  352                 )
+  353 
+  354                 path.unlink()
+  355                 deleted += 1
+  356 
+  357             except FileNotFoundError:
+  358                 pass
+  359 
+  360     remove_source_snapshot(
+  361         source_id
+  362     )
+  363 
+  364     return {
+  365         "scanned": scanned,
+  366         "detached": detached,
+  367         "deleted": deleted,
+  368         "kept": kept,
+  369     }
+  370 
+  371 
+  372 def detach_sources_from_configs(source_ids):
+  373     """
+  374     Bulk version of detach_source_from_configs().
+  375 
+  376     A config survives if at least one source_id remains.
+  377     """
+  378 
+  379     ids = {
+  380         str(x).strip()
+  381         for x in source_ids
+  382         if str(x).strip()
+  383     }
+  384 
+  385     if not ids:
+  386         return {
+  387             "scanned": 0,
+  388             "detached": 0,
+  389             "deleted": 0,
+  390             "kept": 0,
+  391         }
+  392 
+  393     scanned = 0
+  394     detached = 0
+  395     deleted = 0
+
+--- lines 452-497 ---
+  452             kept += 1
+  453 
+  454         else:
+  455 
+  456             try:
+  457                 archive_latest_before_config_delete(
+  458                     path.stem,
+  459                     reason="detach_sources_last_owner",
+  460                 )
+  461 
+  462                 path.unlink()
+  463                 deleted += 1
+  464 
+  465             except FileNotFoundError:
+  466                 pass
+  467 
+  468     return {
+  469         "scanned": scanned,
+  470         "detached": detached,
+  471         "deleted": deleted,
+  472         "kept": kept,
+  473     }
+  474 
+  475 
+  476 
+  477 def _source_snapshot_path(
+  478     source_id: str
+  479 ):
+  480     source_id = str(
+  481         source_id
+  482     ).strip()
+  483 
+  484     return (
+  485         SOURCE_SNAPSHOT_DIR
+  486         / f"{source_id}.json"
+  487     )
+  488 
+  489 
+  490 def _source_snapshot_lock(
+  491     source_id: str
+  492 ):
+  493     source_id = str(
+  494         source_id
+  495     ).strip()
+  496 
+  497     return FileLock(
+
+--- lines 467-512 ---
+  467 
+  468     return {
+  469         "scanned": scanned,
+  470         "detached": detached,
+  471         "deleted": deleted,
+  472         "kept": kept,
+  473     }
+  474 
+  475 
+  476 
+  477 def _source_snapshot_path(
+  478     source_id: str
+  479 ):
+  480     source_id = str(
+  481         source_id
+  482     ).strip()
+  483 
+  484     return (
+  485         SOURCE_SNAPSHOT_DIR
+  486         / f"{source_id}.json"
+  487     )
+  488 
+  489 
+  490 def _source_snapshot_lock(
+  491     source_id: str
+  492 ):
+  493     source_id = str(
+  494         source_id
+  495     ).strip()
+  496 
+  497     return FileLock(
+  498         str(
+  499             LOCK_DIR
+  500             / f"source-snapshot-{source_id}.lock"
+  501         ),
+  502         timeout=30,
+  503     )
+  504 
+  505 
+  506 def read_source_snapshot(
+  507     source_id: str
+  508 ):
+  509     """
+  510     Return the last authoritative config fingerprint
+  511     snapshot for one source.
+  512 
+
+--- lines 475-520 ---
+  475 
+  476 
+  477 def _source_snapshot_path(
+  478     source_id: str
+  479 ):
+  480     source_id = str(
+  481         source_id
+  482     ).strip()
+  483 
+  484     return (
+  485         SOURCE_SNAPSHOT_DIR
+  486         / f"{source_id}.json"
+  487     )
+  488 
+  489 
+  490 def _source_snapshot_lock(
+  491     source_id: str
+  492 ):
+  493     source_id = str(
+  494         source_id
+  495     ).strip()
+  496 
+  497     return FileLock(
+  498         str(
+  499             LOCK_DIR
+  500             / f"source-snapshot-{source_id}.lock"
+  501         ),
+  502         timeout=30,
+  503     )
+  504 
+  505 
+  506 def read_source_snapshot(
+  507     source_id: str
+  508 ):
+  509     """
+  510     Return the last authoritative config fingerprint
+  511     snapshot for one source.
+  512 
+  513     None means no baseline exists yet.
+  514     """
+  515 
+  516     path = _source_snapshot_path(
+  517         source_id
+  518     )
+  519 
+  520     if not path.exists():
+
+--- lines 480-525 ---
+  480     source_id = str(
+  481         source_id
+  482     ).strip()
+  483 
+  484     return (
+  485         SOURCE_SNAPSHOT_DIR
+  486         / f"{source_id}.json"
+  487     )
+  488 
+  489 
+  490 def _source_snapshot_lock(
+  491     source_id: str
+  492 ):
+  493     source_id = str(
+  494         source_id
+  495     ).strip()
+  496 
+  497     return FileLock(
+  498         str(
+  499             LOCK_DIR
+  500             / f"source-snapshot-{source_id}.lock"
+  501         ),
+  502         timeout=30,
+  503     )
+  504 
+  505 
+  506 def read_source_snapshot(
+  507     source_id: str
+  508 ):
+  509     """
+  510     Return the last authoritative config fingerprint
+  511     snapshot for one source.
+  512 
+  513     None means no baseline exists yet.
+  514     """
+  515 
+  516     path = _source_snapshot_path(
+  517         source_id
+  518     )
+  519 
+  520     if not path.exists():
+  521         return None
+  522 
+  523     try:
+  524         obj = json.loads(
+  525             path.read_text(
+
+--- lines 496-541 ---
+  496 
+  497     return FileLock(
+  498         str(
+  499             LOCK_DIR
+  500             / f"source-snapshot-{source_id}.lock"
+  501         ),
+  502         timeout=30,
+  503     )
+  504 
+  505 
+  506 def read_source_snapshot(
+  507     source_id: str
+  508 ):
+  509     """
+  510     Return the last authoritative config fingerprint
+  511     snapshot for one source.
+  512 
+  513     None means no baseline exists yet.
+  514     """
+  515 
+  516     path = _source_snapshot_path(
+  517         source_id
+  518     )
+  519 
+  520     if not path.exists():
+  521         return None
+  522 
+  523     try:
+  524         obj = json.loads(
+  525             path.read_text(
+  526                 encoding="utf-8"
+  527             )
+  528         )
+  529     except Exception:
+  530         return None
+  531 
+  532     if not isinstance(
+  533         obj,
+  534         dict
+  535     ):
+  536         return None
+  537 
+  538     values = obj.get(
+  539         "fingerprints"
+  540     )
+  541 
+
+--- lines 506-551 ---
+  506 def read_source_snapshot(
+  507     source_id: str
+  508 ):
+  509     """
+  510     Return the last authoritative config fingerprint
+  511     snapshot for one source.
+  512 
+  513     None means no baseline exists yet.
+  514     """
+  515 
+  516     path = _source_snapshot_path(
+  517         source_id
+  518     )
+  519 
+  520     if not path.exists():
+  521         return None
+  522 
+  523     try:
+  524         obj = json.loads(
+  525             path.read_text(
+  526                 encoding="utf-8"
+  527             )
+  528         )
+  529     except Exception:
+  530         return None
+  531 
+  532     if not isinstance(
+  533         obj,
+  534         dict
+  535     ):
+  536         return None
+  537 
+  538     values = obj.get(
+  539         "fingerprints"
+  540     )
+  541 
+  542     if not isinstance(
+  543         values,
+  544         list
+  545     ):
+  546         return None
+  547 
+  548     return {
+  549         str(x).strip()
+  550         for x in values
+  551         if str(x).strip()
+
+--- lines 545-590 ---
+  545     ):
+  546         return None
+  547 
+  548     return {
+  549         str(x).strip()
+  550         for x in values
+  551         if str(x).strip()
+  552     }
+  553 
+  554 
+  555 def write_source_snapshot(
+  556     source_id: str,
+  557     fingerprints,
+  558 ):
+  559     source_id = str(
+  560         source_id
+  561     ).strip()
+  562 
+  563     values = sorted({
+  564         str(x).strip()
+  565         for x in fingerprints
+  566         if str(x).strip()
+  567     })
+  568 
+  569     data = {
+  570         "source_id": source_id,
+  571         "updated_at": now_iso(),
+  572         "count": len(values),
+  573         "fingerprints": values,
+  574     }
+  575 
+  576     _atomic_write(
+  577         _source_snapshot_path(
+  578             source_id
+  579         ),
+  580         data
+  581     )
+  582 
+  583     return data
+  584 
+  585 
+  586 def remove_source_snapshot(
+  587     source_id: str
+  588 ):
+  589     path = _source_snapshot_path(
+  590         source_id
+
+--- lines 567-612 ---
+  567     })
+  568 
+  569     data = {
+  570         "source_id": source_id,
+  571         "updated_at": now_iso(),
+  572         "count": len(values),
+  573         "fingerprints": values,
+  574     }
+  575 
+  576     _atomic_write(
+  577         _source_snapshot_path(
+  578             source_id
+  579         ),
+  580         data
+  581     )
+  582 
+  583     return data
+  584 
+  585 
+  586 def remove_source_snapshot(
+  587     source_id: str
+  588 ):
+  589     path = _source_snapshot_path(
+  590         source_id
+  591     )
+  592 
+  593     try:
+  594         path.unlink()
+  595         return True
+  596     except FileNotFoundError:
+  597         return False
+  598 
+  599 
+  600 def remove_source_snapshots(
+  601     source_ids
+  602 ):
+  603     removed = 0
+  604 
+  605     for source_id in {
+  606         str(x).strip()
+  607         for x in source_ids
+  608         if str(x).strip()
+  609     }:
+  610         if remove_source_snapshot(
+  611             source_id
+  612         ):
+
+--- lines 576-621 ---
+  576     _atomic_write(
+  577         _source_snapshot_path(
+  578             source_id
+  579         ),
+  580         data
+  581     )
+  582 
+  583     return data
+  584 
+  585 
+  586 def remove_source_snapshot(
+  587     source_id: str
+  588 ):
+  589     path = _source_snapshot_path(
+  590         source_id
+  591     )
+  592 
+  593     try:
+  594         path.unlink()
+  595         return True
+  596     except FileNotFoundError:
+  597         return False
+  598 
+  599 
+  600 def remove_source_snapshots(
+  601     source_ids
+  602 ):
+  603     removed = 0
+  604 
+  605     for source_id in {
+  606         str(x).strip()
+  607         for x in source_ids
+  608         if str(x).strip()
+  609     }:
+  610         if remove_source_snapshot(
+  611             source_id
+  612         ):
+  613             removed += 1
+  614 
+  615     return removed
+  616 
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+
+--- lines 579-624 ---
+  579         ),
+  580         data
+  581     )
+  582 
+  583     return data
+  584 
+  585 
+  586 def remove_source_snapshot(
+  587     source_id: str
+  588 ):
+  589     path = _source_snapshot_path(
+  590         source_id
+  591     )
+  592 
+  593     try:
+  594         path.unlink()
+  595         return True
+  596     except FileNotFoundError:
+  597         return False
+  598 
+  599 
+  600 def remove_source_snapshots(
+  601     source_ids
+  602 ):
+  603     removed = 0
+  604 
+  605     for source_id in {
+  606         str(x).strip()
+  607         for x in source_ids
+  608         if str(x).strip()
+  609     }:
+  610         if remove_source_snapshot(
+  611             source_id
+  612         ):
+  613             removed += 1
+  614 
+  615     return removed
+  616 
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+  622         SOURCE_SNAPSHOT_DIR.glob(
+  623             "*.json"
+  624         )
+
+--- lines 584-629 ---
+  584 
+  585 
+  586 def remove_source_snapshot(
+  587     source_id: str
+  588 ):
+  589     path = _source_snapshot_path(
+  590         source_id
+  591     )
+  592 
+  593     try:
+  594         path.unlink()
+  595         return True
+  596     except FileNotFoundError:
+  597         return False
+  598 
+  599 
+  600 def remove_source_snapshots(
+  601     source_ids
+  602 ):
+  603     removed = 0
+  604 
+  605     for source_id in {
+  606         str(x).strip()
+  607         for x in source_ids
+  608         if str(x).strip()
+  609     }:
+  610         if remove_source_snapshot(
+  611             source_id
+  612         ):
+  613             removed += 1
+  614 
+  615     return removed
+  616 
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+  622         SOURCE_SNAPSHOT_DIR.glob(
+  623             "*.json"
+  624         )
+  625     ):
+  626         try:
+  627             path.unlink()
+  628             removed += 1
+  629         except FileNotFoundError:
+
+--- lines 590-635 ---
+  590         source_id
+  591     )
+  592 
+  593     try:
+  594         path.unlink()
+  595         return True
+  596     except FileNotFoundError:
+  597         return False
+  598 
+  599 
+  600 def remove_source_snapshots(
+  601     source_ids
+  602 ):
+  603     removed = 0
+  604 
+  605     for source_id in {
+  606         str(x).strip()
+  607         for x in source_ids
+  608         if str(x).strip()
+  609     }:
+  610         if remove_source_snapshot(
+  611             source_id
+  612         ):
+  613             removed += 1
+  614 
+  615     return removed
+  616 
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+  622         SOURCE_SNAPSHOT_DIR.glob(
+  623             "*.json"
+  624         )
+  625     ):
+  626         try:
+  627             path.unlink()
+  628             removed += 1
+  629         except FileNotFoundError:
+  630             pass
+  631 
+  632     return removed
+  633 
+  634 
+  635 def sync_source_snapshot(
+
+--- lines 600-645 ---
+  600 def remove_source_snapshots(
+  601     source_ids
+  602 ):
+  603     removed = 0
+  604 
+  605     for source_id in {
+  606         str(x).strip()
+  607         for x in source_ids
+  608         if str(x).strip()
+  609     }:
+  610         if remove_source_snapshot(
+  611             source_id
+  612         ):
+  613             removed += 1
+  614 
+  615     return removed
+  616 
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+  622         SOURCE_SNAPSHOT_DIR.glob(
+  623             "*.json"
+  624         )
+  625     ):
+  626         try:
+  627             path.unlink()
+  628             removed += 1
+  629         except FileNotFoundError:
+  630             pass
+  631 
+  632     return removed
+  633 
+  634 
+  635 def sync_source_snapshot(
+  636     source_id: str,
+  637     current_fingerprints,
+  638     authoritative: bool = True,
+  639 ):
+  640     """
+  641     Synchronize ownership for exactly ONE source.
+  642 
+  643     IMPORTANT:
+  644 
+  645     Only an authoritative/complete source cycle is allowed
+
+--- lines 608-653 ---
+  608         if str(x).strip()
+  609     }:
+  610         if remove_source_snapshot(
+  611             source_id
+  612         ):
+  613             removed += 1
+  614 
+  615     return removed
+  616 
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+  622         SOURCE_SNAPSHOT_DIR.glob(
+  623             "*.json"
+  624         )
+  625     ):
+  626         try:
+  627             path.unlink()
+  628             removed += 1
+  629         except FileNotFoundError:
+  630             pass
+  631 
+  632     return removed
+  633 
+  634 
+  635 def sync_source_snapshot(
+  636     source_id: str,
+  637     current_fingerprints,
+  638     authoritative: bool = True,
+  639 ):
+  640     """
+  641     Synchronize ownership for exactly ONE source.
+  642 
+  643     IMPORTANT:
+  644 
+  645     Only an authoritative/complete source cycle is allowed
+  646     to remove old ownership.
+  647 
+  648     New configs are already attached by upsert_config().
+  649 
+  650     For fingerprints that existed in the previous
+  651     authoritative source snapshot but are absent now:
+  652 
+  653         - remove this source_id from source_ids
+
+--- lines 612-657 ---
+  612         ):
+  613             removed += 1
+  614 
+  615     return removed
+  616 
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+  622         SOURCE_SNAPSHOT_DIR.glob(
+  623             "*.json"
+  624         )
+  625     ):
+  626         try:
+  627             path.unlink()
+  628             removed += 1
+  629         except FileNotFoundError:
+  630             pass
+  631 
+  632     return removed
+  633 
+  634 
+  635 def sync_source_snapshot(
+  636     source_id: str,
+  637     current_fingerprints,
+  638     authoritative: bool = True,
+  639 ):
+  640     """
+  641     Synchronize ownership for exactly ONE source.
+  642 
+  643     IMPORTANT:
+  644 
+  645     Only an authoritative/complete source cycle is allowed
+  646     to remove old ownership.
+  647 
+  648     New configs are already attached by upsert_config().
+  649 
+  650     For fingerprints that existed in the previous
+  651     authoritative source snapshot but are absent now:
+  652 
+  653         - remove this source_id from source_ids
+  654         - keep config if another source owns it
+  655         - delete config if no source remains
+  656 
+  657     The first successful authoritative cycle only creates
+
+--- lines 617-662 ---
+  617 
+  618 def delete_all_source_snapshots():
+  619     removed = 0
+  620 
+  621     for path in list(
+  622         SOURCE_SNAPSHOT_DIR.glob(
+  623             "*.json"
+  624         )
+  625     ):
+  626         try:
+  627             path.unlink()
+  628             removed += 1
+  629         except FileNotFoundError:
+  630             pass
+  631 
+  632     return removed
+  633 
+  634 
+  635 def sync_source_snapshot(
+  636     source_id: str,
+  637     current_fingerprints,
+  638     authoritative: bool = True,
+  639 ):
+  640     """
+  641     Synchronize ownership for exactly ONE source.
+  642 
+  643     IMPORTANT:
+  644 
+  645     Only an authoritative/complete source cycle is allowed
+  646     to remove old ownership.
+  647 
+  648     New configs are already attached by upsert_config().
+  649 
+  650     For fingerprints that existed in the previous
+  651     authoritative source snapshot but are absent now:
+  652 
+  653         - remove this source_id from source_ids
+  654         - keep config if another source owns it
+  655         - delete config if no source remains
+  656 
+  657     The first successful authoritative cycle only creates
+  658     a baseline and does not delete anything.
+  659     """
+  660 
+  661     source_id = str(
+  662         source_id or ""
+
+--- lines 625-670 ---
+  625     ):
+  626         try:
+  627             path.unlink()
+  628             removed += 1
+  629         except FileNotFoundError:
+  630             pass
+  631 
+  632     return removed
+  633 
+  634 
+  635 def sync_source_snapshot(
+  636     source_id: str,
+  637     current_fingerprints,
+  638     authoritative: bool = True,
+  639 ):
+  640     """
+  641     Synchronize ownership for exactly ONE source.
+  642 
+  643     IMPORTANT:
+  644 
+  645     Only an authoritative/complete source cycle is allowed
+  646     to remove old ownership.
+  647 
+  648     New configs are already attached by upsert_config().
+  649 
+  650     For fingerprints that existed in the previous
+  651     authoritative source snapshot but are absent now:
+  652 
+  653         - remove this source_id from source_ids
+  654         - keep config if another source owns it
+  655         - delete config if no source remains
+  656 
+  657     The first successful authoritative cycle only creates
+  658     a baseline and does not delete anything.
+  659     """
+  660 
+  661     source_id = str(
+  662         source_id or ""
+  663     ).strip()
+  664 
+  665     current = {
+  666         str(x).strip()
+  667         for x in current_fingerprints
+  668         if str(x).strip()
+  669     }
+  670 
+
+--- lines 698-743 ---
+  698         "snapshot_updated":
+  699             False,
+  700     }
+  701 
+  702     if not source_id:
+  703         return result
+  704 
+  705     if not authoritative:
+  706         return result
+  707 
+  708     with _source_snapshot_lock(
+  709         source_id
+  710     ):
+  711 
+  712         previous = read_source_snapshot(
+  713             source_id
+  714         )
+  715 
+  716         # First authoritative cycle:
+  717         # establish baseline only.
+  718         if previous is None:
+  719 
+  720             write_source_snapshot(
+  721                 source_id,
+  722                 current
+  723             )
+  724 
+  725             result[
+  726                 "baseline_created"
+  727             ] = True
+  728 
+  729             result[
+  730                 "snapshot_updated"
+  731             ] = True
+  732 
+  733             return result
+  734 
+  735         result[
+  736             "previous"
+  737         ] = len(
+  738             previous
+  739         )
+  740 
+  741         missing = (
+  742             previous
+  743             - current
+
+--- lines 702-747 ---
+  702     if not source_id:
+  703         return result
+  704 
+  705     if not authoritative:
+  706         return result
+  707 
+  708     with _source_snapshot_lock(
+  709         source_id
+  710     ):
+  711 
+  712         previous = read_source_snapshot(
+  713             source_id
+  714         )
+  715 
+  716         # First authoritative cycle:
+  717         # establish baseline only.
+  718         if previous is None:
+  719 
+  720             write_source_snapshot(
+  721                 source_id,
+  722                 current
+  723             )
+  724 
+  725             result[
+  726                 "baseline_created"
+  727             ] = True
+  728 
+  729             result[
+  730                 "snapshot_updated"
+  731             ] = True
+  732 
+  733             return result
+  734 
+  735         result[
+  736             "previous"
+  737         ] = len(
+  738             previous
+  739         )
+  740 
+  741         missing = (
+  742             previous
+  743             - current
+  744         )
+  745 
+  746         result[
+  747             "missing"
+
+--- lines 710-755 ---
+  710     ):
+  711 
+  712         previous = read_source_snapshot(
+  713             source_id
+  714         )
+  715 
+  716         # First authoritative cycle:
+  717         # establish baseline only.
+  718         if previous is None:
+  719 
+  720             write_source_snapshot(
+  721                 source_id,
+  722                 current
+  723             )
+  724 
+  725             result[
+  726                 "baseline_created"
+  727             ] = True
+  728 
+  729             result[
+  730                 "snapshot_updated"
+  731             ] = True
+  732 
+  733             return result
+  734 
+  735         result[
+  736             "previous"
+  737         ] = len(
+  738             previous
+  739         )
+  740 
+  741         missing = (
+  742             previous
+  743             - current
+  744         )
+  745 
+  746         result[
+  747             "missing"
+  748         ] = len(
+  749             missing
+  750         )
+  751 
+  752         for fingerprint in missing:
+  753 
+  754             path = _path(
+  755                 fingerprint
+
+--- lines 823-868 ---
+  823 
+  824                     result[
+  825                         "kept_shared"
+  826                     ] += 1
+  827 
+  828                 else:
+  829 
+  830                     try:
+  831                         archive_latest_before_config_delete(
+  832                             path.stem,
+  833                             reason="source_snapshot_last_owner",
+  834                         )
+  835 
+  836                         path.unlink()
+  837 
+  838                         result[
+  839                             "deleted"
+  840                         ] += 1
+  841 
+  842                     except FileNotFoundError:
+  843                         pass
+  844 
+  845         write_source_snapshot(
+  846             source_id,
+  847             current
+  848         )
+  849 
+  850         result[
+  851             "snapshot_updated"
+  852         ] = True
+  853 
+  854     return result
+  855 
+  856 def delete_all_configs():
+  857     """
+  858     Delete every stored config.
+  859     Used when all sources are deleted.
+  860     """
+  861 
+  862     delete_all_source_snapshots()
+  863 
+  864     deleted = 0
+  865 
+  866     for path in list(
+  867         CONFIG_DIR.glob("*.json")
+  868     ):
+
+--- lines 826-871 ---
+  826                     ] += 1
+  827 
+  828                 else:
+  829 
+  830                     try:
+  831                         archive_latest_before_config_delete(
+  832                             path.stem,
+  833                             reason="source_snapshot_last_owner",
+  834                         )
+  835 
+  836                         path.unlink()
+  837 
+  838                         result[
+  839                             "deleted"
+  840                         ] += 1
+  841 
+  842                     except FileNotFoundError:
+  843                         pass
+  844 
+  845         write_source_snapshot(
+  846             source_id,
+  847             current
+  848         )
+  849 
+  850         result[
+  851             "snapshot_updated"
+  852         ] = True
+  853 
+  854     return result
+  855 
+  856 def delete_all_configs():
+  857     """
+  858     Delete every stored config.
+  859     Used when all sources are deleted.
+  860     """
+  861 
+  862     delete_all_source_snapshots()
+  863 
+  864     deleted = 0
+  865 
+  866     for path in list(
+  867         CONFIG_DIR.glob("*.json")
+  868     ):
+  869         try:
+  870             archive_latest_before_config_delete(
+  871                 path.stem,
+
+--- lines 835-880 ---
+  835 
+  836                         path.unlink()
+  837 
+  838                         result[
+  839                             "deleted"
+  840                         ] += 1
+  841 
+  842                     except FileNotFoundError:
+  843                         pass
+  844 
+  845         write_source_snapshot(
+  846             source_id,
+  847             current
+  848         )
+  849 
+  850         result[
+  851             "snapshot_updated"
+  852         ] = True
+  853 
+  854     return result
+  855 
+  856 def delete_all_configs():
+  857     """
+  858     Delete every stored config.
+  859     Used when all sources are deleted.
+  860     """
+  861 
+  862     delete_all_source_snapshots()
+  863 
+  864     deleted = 0
+  865 
+  866     for path in list(
+  867         CONFIG_DIR.glob("*.json")
+  868     ):
+  869         try:
+  870             archive_latest_before_config_delete(
+  871                 path.stem,
+  872                 reason="delete_all_configs",
+  873             )
+  874 
+  875             path.unlink()
+  876             deleted += 1
+  877 
+  878         except FileNotFoundError:
+  879             pass
+  880 
+
+--- lines 846-881 ---
+  846             source_id,
+  847             current
+  848         )
+  849 
+  850         result[
+  851             "snapshot_updated"
+  852         ] = True
+  853 
+  854     return result
+  855 
+  856 def delete_all_configs():
+  857     """
+  858     Delete every stored config.
+  859     Used when all sources are deleted.
+  860     """
+  861 
+  862     delete_all_source_snapshots()
+  863 
+  864     deleted = 0
+  865 
+  866     for path in list(
+  867         CONFIG_DIR.glob("*.json")
+  868     ):
+  869         try:
+  870             archive_latest_before_config_delete(
+  871                 path.stem,
+  872                 reason="delete_all_configs",
+  873             )
+  874 
+  875             path.unlink()
+  876             deleted += 1
+  877 
+  878         except FileNotFoundError:
+  879             pass
+  880 
+  881     return deleted
+
+--- lines 852-881 ---
+  852         ] = True
+  853 
+  854     return result
+  855 
+  856 def delete_all_configs():
+  857     """
+  858     Delete every stored config.
+  859     Used when all sources are deleted.
+  860     """
+  861 
+  862     delete_all_source_snapshots()
+  863 
+  864     deleted = 0
+  865 
+  866     for path in list(
+  867         CONFIG_DIR.glob("*.json")
+  868     ):
+  869         try:
+  870             archive_latest_before_config_delete(
+  871                 path.stem,
+  872                 reason="delete_all_configs",
+  873             )
+  874 
+  875             path.unlink()
+  876             deleted += 1
+  877 
+  878         except FileNotFoundError:
+  879             pass
+  880 
+  881     return deleted
+
+--- lines 865-881 ---
+  865 
+  866     for path in list(
+  867         CONFIG_DIR.glob("*.json")
+  868     ):
+  869         try:
+  870             archive_latest_before_config_delete(
+  871                 path.stem,
+  872                 reason="delete_all_configs",
+  873             )
+  874 
+  875             path.unlink()
+  876             deleted += 1
+  877 
+  878         except FileNotFoundError:
+  879             pass
+  880 
+  881     return deleted
+
+========== [11] REFERENTIAL GUARD ==========
+   280	            reason,
+   281	
+   282	        "archived_at":
+   283	            now_iso(),
+   284	
+   285	        "sha256":
+   286	            original_sha,
+   287	
+   288	        "source_latest":
+   289	            str(latest),
+   290	
+   291	        "archive_file":
+   292	            str(archived),
+   293	    }
+   294	
+   295	
+   296	    _atomic_json(
+   297	        archived.with_suffix(
+   298	            ".meta.json"
+   299	        ),
+   300	        metadata,
+   301	    )
+   302	
+   303	
+   304	    result["archived"] = True
+   305	    result["archive_file"] = str(
+   306	        archived
+   307	    )
+   308	
+   309	    result["sha256"] = (
+   310	        original_sha
+   311	    )
+   312	
+   313	
+   314	    # Latest may have changed while we copied it.
+   315	    if not latest.is_file():
+   316	
+   317	        return result
+   318	
+   319	
+   320	    current_sha = _sha256(
+   321	        latest
+   322	    )
+   323	
+   324	
+   325	    if current_sha != original_sha:
+   326	
+   327	        result[
+   328	            "latest_changed"
+   329	        ] = True
+   330	
+   331	        return result
+   332	
+   333	
+   334	    latest.unlink()
+   335	
+   336	    result[
+   337	        "latest_removed"
+   338	    ] = True
+   339	
+   340	    return result
+   341	
+   342	
+   343	def reconcile_one_orphan(
+   344	    config_id: str,
+   345	    *,
+   346	    reason: str = (
+   347	        "periodic_orphan_sweep"
+   348	    ),
+   349	) -> dict[str, Any]:
+   350	
+   351	    config_id = str(
+   352	        config_id
+   353	        or ""
+   354	    ).strip()
+   355	
+   356	
+   357	    config = (
+   358	        CONFIG_DIR
+   359	        / f"{config_id}.json"
+   360	    )
+   361	
+   362	
+   363	    if config.is_file():
+   364	
+   365	        return {
+   366	            "config_id":
+   367	                config_id,
+   368	
+   369	            "skipped":
+   370	                "config_exists",
+   371	        }
+   372	
+   373	
+   374	    latest = (
+   375	        LATEST_DIR
+   376	        / f"{config_id}.json"
+   377	    )
+   378	
+   379	
+   380	    if not latest.is_file():
+   381	
+   382	        return {
+   383	            "config_id":
+   384	                config_id,
+   385	
+   386	            "skipped":
+   387	                "latest_missing",
+   388	        }
+   389	
+   390	
+   391	    # archive_latest... does not examine Config because
+   392	    # it is also used by the Config deletion path.
+   393	    # Re-check immediately before calling it.
+   394	    if config.is_file():
+   395	
+   396	        return {
+   397	            "config_id":
+   398	                config_id,
+   399	
+   400	            "skipped":
+   401	                "config_reappeared",
+   402	        }
+   403	
+   404	
+   405	    result = (
+   406	        archive_latest_before_config_delete(
+   407	            config_id,
+   408	            reason=reason,
+   409	        )
+   410	    )
+   411	
+   412	
+   413	    # If config appeared while archive was being made,
+   414	    # preserve the active relation if possible.
+   415	    if config.is_file():
+   416	
+   417	        result[
+   418	            "config_reappeared_after_archive"
+   419	        ] = True
+   420	
+   421	
+   422	    return result
+   423	
+   424	
+   425	def sweep_orphans(
+   426	    *,
+   427	    max_items: int = 5000,
+   428	) -> dict[str, Any]:
+   429	
+   430	    started = now_iso()
+   431	
+   432	    config_ids = {
+   433	        p.stem
+   434	        for p
+   435	        in CONFIG_DIR.glob(
+   436	            "*.json"
+   437	        )
+   438	    }
+   439	
+   440	    latest_ids = {
+   441	        p.stem
+   442	        for p
+   443	        in LATEST_DIR.glob(
+   444	            "*.json"
+   445	        )
+   446	    }
+   447	
+   448	    candidates = sorted(
+   449	        latest_ids
+   450	        -
+   451	        config_ids
+   452	    )[:max_items]
+   453	
+   454	
+   455	    archived = 0
+   456	    removed = 0
+   457	    skipped = 0
+   458	    changed = 0
+   459	    errors: list[dict[str, str]] = []
+   460	
+   461	
+   462	    for config_id in candidates:
+   463	
+   464	        try:
+   465	
+   466	            result = reconcile_one_orphan(
+   467	                config_id
+   468	            )
+   469	
+   470	        except Exception as exc:
+   471	
+   472	            errors.append({
+   473	                "config_id":
+   474	                    config_id,
+   475	
+   476	                "error":
+   477	                    (
+   478	                        f"{type(exc).__name__}: "
+   479	                        f"{exc}"
+   480	                    ),
+   481	            })
+   482	
+   483	            continue
+   484	
+   485	
+   486	        if result.get(
+   487	            "archived"
+   488	        ):
+   489	            archived += 1
+   490	
+   491	        if result.get(
+   492	            "latest_removed"
+   493	        ):
+   494	            removed += 1
+   495	
+   496	        elif result.get(
+   497	            "latest_changed"
+   498	        ):
+   499	            changed += 1
+   500	
+   501	        else:
+   502	            skipped += 1
+   503	
+   504	
+   505	    # Fresh post-sweep count.
+   506	    post_configs = {
+   507	        p.stem
+   508	        for p
+   509	        in CONFIG_DIR.glob(
+   510	            "*.json"
+   511	        )
+   512	    }
+   513	
+   514	    post_latest = {
+   515	        p.stem
+   516	        for p
+   517	        in LATEST_DIR.glob(
+   518	            "*.json"
+   519	        )
+   520	    }
+   521	
+   522	    remaining = sorted(
+   523	        post_latest
+   524	        -
+   525	        post_configs
+   526	    )
+   527	
+   528	
+   529	    status = {
+   530	        "schema_version": 1,
+   531	
+   532	        "stage":
+   533	            "FIX20.2C",
+   534	
+   535	        "started_at":
+   536	            started,
+   537	
+   538	        "finished_at":
+   539	            now_iso(),
+   540	
+   541	        "candidates":
+   542	            len(candidates),
+   543	
+   544	        "archived":
+   545	            archived,
+   546	
+   547	        "latest_removed":
+   548	            removed,
+   549	
+   550	        "skipped":
+   551	            skipped,
+   552	
+   553	        "changed":
+   554	            changed,
+   555	
+   556	        "errors":
+   557	            errors,
+   558	
+   559	        "error_count":
+   560	            len(errors),
+
+========== [12] PUBLISH FILTER ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	
+     5	from dataclasses import dataclass
+     6	from pathlib import Path
+     7	from typing import Any
+     8	
+     9	
+    10	CONFIG_DIR = Path(
+    11	    "/var/lib/config-location/configs"
+    12	)
+    13	
+    14	POLICY_PATH = Path(
+    15	    "/var/lib/config-location/"
+    16	    "health-lifecycle/"
+    17	    "policy-latest.json"
+    18	)
+    19	
+    20	
+    21	ALLOWED_STATES = {
+    22	    "healthy",
+    23	    "recovered",
+    24	}
+    25	
+    26	
+    27	@dataclass(frozen=True)
+    28	class PublishSnapshot:
+    29	
+    30	    policy_available: bool
+    31	
+    32	    total_configs: int
+    33	    policy_tracked: int
+    34	
+    35	    publishable: int
+    36	    suppressed: int
+    37	
+    38	    missing_policy_record: int
+    39	
+    40	    configs: tuple[
+    41	        dict[str, Any],
+    42	        ...
+    43	    ]
+    44	
+    45	
+    46	def _read_json(
+    47	    path: Path,
+    48	) -> dict[str, Any] | None:
+    49	
+    50	    try:
+    51	
+    52	        obj = json.loads(
+    53	            path.read_text(
+    54	                encoding="utf-8"
+    55	            )
+    56	        )
+    57	
+    58	        if isinstance(
+    59	            obj,
+    60	            dict,
+    61	        ):
+    62	            return obj
+    63	
+    64	    except Exception:
+    65	        pass
+    66	
+    67	    return None
+    68	
+    69	
+    70	def _load_configs() -> dict[str, dict[str, Any]]:
+    71	
+    72	    configs = {}
+    73	
+    74	    for path in CONFIG_DIR.glob(
+    75	        "*.json"
+    76	    ):
+    77	
+    78	        obj = _read_json(
+    79	            path
+    80	        )
+    81	
+    82	        if not obj:
+    83	            continue
+    84	
+    85	        config_id = str(
+    86	            obj.get(
+    87	                "id"
+    88	            )
+    89	            or path.stem
+    90	        )
+    91	
+    92	        raw = obj.get(
+    93	            "raw"
+    94	        )
+    95	
+    96	        if not isinstance(
+    97	            raw,
+    98	            str,
+    99	        ):
+   100	            continue
+   101	
+   102	        configs[
+   103	            config_id
+   104	        ] = obj
+   105	
+   106	    return configs
+   107	
+   108	
+   109	def _policy_index(
+   110	    value: dict[str, Any],
+   111	) -> dict[str, dict[str, Any]]:
+   112	
+   113	    result = {}
+   114	
+   115	    decisions = value.get(
+   116	        "decisions",
+   117	        [],
+   118	    )
+   119	
+   120	    if not isinstance(
+   121	        decisions,
+   122	        list,
+   123	    ):
+   124	        return result
+   125	
+   126	
+   127	    for item in decisions:
+   128	
+   129	        if not isinstance(
+   130	            item,
+   131	            dict,
+   132	        ):
+   133	            continue
+   134	
+   135	        config_id = str(
+   136	            item.get(
+   137	                "config_id",
+   138	                "",
+   139	            )
+   140	        )
+   141	
+   142	        if not config_id:
+   143	            continue
+   144	
+   145	        result[
+   146	            config_id
+   147	        ] = item
+   148	
+   149	
+   150	    return result
+   151	
+   152	
+   153	def publishable_config_ids() -> set[str]:
+   154	
+   155	    policy = _read_json(
+   156	        POLICY_PATH
+   157	    )
+   158	
+   159	    if not policy:
+   160	        # Fail closed.
+   161	        return set()
+   162	
+   163	
+   164	    index = _policy_index(
+   165	        policy
+   166	    )
+   167	
+   168	
+   169	    allowed = set()
+   170	
+   171	    for config_id, item in (
+   172	        index.items()
+   173	    ):
+   174	
+   175	        state = str(
+   176	            item.get(
+   177	                "policy_state",
+   178	                "",
+   179	            )
+   180	        ).strip().lower()
+   181	
+   182	        publish_flag = bool(
+   183	            item.get(
+   184	                "publish_eligible",
+   185	                False,
+   186	            )
+   187	        )
+   188	
+   189	
+   190	        if (
+   191	            state in ALLOWED_STATES
+   192	            and publish_flag
+   193	        ):
+   194	
+   195	            allowed.add(
+   196	                config_id
+   197	            )
+   198	
+   199	
+   200	    return allowed
+   201	
+   202	
+   203	def build_publish_snapshot(
+   204	    *,
+   205	    config_type: str | None = None,
+   206	) -> PublishSnapshot:
+   207	
+   208	    configs = _load_configs()
+   209	
+   210	    policy = _read_json(
+   211	        POLICY_PATH
+   212	    )
+   213	
+   214	
+   215	    if not policy:
+   216	
+   217	        return PublishSnapshot(
+   218	            policy_available=False,
+   219	
+   220	            total_configs=len(
+   221	                configs
+   222	            ),
+   223	
+   224	            policy_tracked=0,
+   225	
+   226	            publishable=0,
+   227	
+   228	            suppressed=len(
+   229	                configs
+   230	            ),
+   231	
+   232	            missing_policy_record=len(
+   233	                configs
+   234	            ),
+   235	
+   236	            configs=(),
+   237	        )
+   238	
+   239	
+   240	    policy_index = _policy_index(
+   241	        policy
+   242	    )
+   243	
+   244	
+   245	    output = []
+   246	
+   247	    missing_policy_record = 0
+   248	
+   249	
+   250	    kind_filter = (
+   251	        str(
+   252	            config_type
+   253	        )
+   254	        .strip()
+   255	        .lower()
+   256	        if config_type
+   257	        else None
+   258	    )
+   259	
+   260	
+   261	    for config_id, record in (
+   262	        configs.items()
+   263	    ):
+   264	
+   265	        kind = str(
+   266	            record.get(
+   267	                "type",
+   268	                "",
+   269	            )
+   270	        ).strip().lower()
+   271	
+   272	
+   273	        if (
+   274	            kind_filter
+   275	            and kind != kind_filter
+   276	        ):
+   277	            continue
+   278	
+   279	
+   280	        decision = (
+   281	            policy_index.get(
+   282	                config_id
+   283	            )
+   284	        )
+   285	
+   286	
+   287	        if decision is None:
+   288	
+   289	            missing_policy_record += 1
+   290	
+   291	            # Fail closed:
+   292	            # never expose an untested/unclassified
+   293	            # config.
+   294	            continue
+   295	
+   296	
+   297	        state = str(
+   298	            decision.get(
+   299	                "policy_state",
+   300	                "",
+   301	            )
+   302	        ).strip().lower()
+   303	
+   304	
+   305	        eligible = bool(
+   306	            decision.get(
+   307	                "publish_eligible",
+   308	                False,
+   309	            )
+   310	        )
+   311	
+   312	
+   313	        if (
+   314	            state not in ALLOWED_STATES
+   315	            or not eligible
+   316	        ):
+   317	
+   318	            continue
+   319	
+   320	
+   321	        output.append(
+   322	            record
+   323	        )
+   324	
+   325	
+   326	    # Deterministic order prevents random output
+   327	    # churn between identical requests.
+   328	    output.sort(
+   329	        key=lambda x: (
+   330	            str(
+   331	                x.get(
+   332	                    "type",
+   333	                    "",
+   334	                )
+   335	            ),
+   336	            str(
+   337	                x.get(
+   338	                    "id",
+   339	                    "",
+   340	                )
+   341	            ),
+   342	        )
+   343	    )
+   344	
+   345	
+   346	    relevant_total = sum(
+   347	        1
+   348	        for record in configs.values()
+   349	        if (
+   350	            not kind_filter
+   351	            or str(
+   352	                record.get(
+   353	                    "type",
+   354	                    "",
+   355	                )
+   356	            ).strip().lower()
+   357	            == kind_filter
+   358	        )
+   359	    )
+   360	
+
+========== [13] CENTRAL SETTINGS CONTRACT ==========
+{
+  "config_lifetime": {
+    "max_age_hours": 72
+  },
+  "cleanup": {
+    "audit_retention_days": 7,
+    "default_retention_days": 7,
+    "devlog_retention_days": 7,
+    "failed_xray_retention_days": 14,
+    "successful_xray_retention_days": 3,
+    "temporary_retention_days": 7
+  },
+  "removal": {
+    "preserve_forensic_record": true,
+    "remove_definitive_unhealthy": true,
+    "remove_infrastructure_errors": false
+  },
+  "health": {
+    "batch_size": 1000,
+    "download_timeout": 6,
+    "max_workers": 50,
+    "runtime_retry_count": 3,
+    "startup_timeout": 6,
+    "upload_payload_bytes": 65536,
+    "upload_timeout": 6
+  },
+  "features": {
+    "config_lifetime": false,
+    "country_remark": false,
+    "definitive_unhealthy_removal": false,
+    "fair_rotation": false,
+    "health_retest": false,
+    "publish_country_routes": false,
+    "resource_guardian": false,
+    "retention_manager": false,
+    "source_intelligence": false
+  },
+  "publish": {
+    "country_routes": true,
+    "fair_rotation_default_ed": 80,
+    "panel_port": 4040,
+    "preserve_original_raw": true,
+    "protocol_routes": true,
+    "public_port": 80,
+    "remark_transform_on_output": true
+  }
+}
+
+========== [14] LIFECYCLE RUNTIME STATE ==========
+
+--- /var/lib/config-location/lifecycle ---
+32K	/var/lib/config-location/lifecycle
+2026-09-03 08:41:39.0451061710 52 /var/lib/config-location/lifecycle/results/latest.json
+2026-09-03 08:41:39.0341061970 61 /var/lib/config-location/lifecycle/policy/retention-policy.json
+2026-09-03 08:41:39.0181062340 121 /var/lib/config-location/lifecycle/policy/lifecycle-policy.json
+2026-09-03 08:41:38.9751063330 156 /var/lib/config-location/lifecycle/schema.json
+
+--- /var/lib/config-location/quarantine ---
+14M	/var/lib/config-location/quarantine
+2026-08-29 02:18:40.0000000000 5041 /var/lib/config-location/quarantine/fake-wireguard-v6/cleanup-report.json
+2026-08-29 01:58:59.0000000000 1522405 /var/lib/config-location/quarantine/fake-wireguard-v6/4c4fe4fc9799bc55f2fa860bc51c09aa8dccd08a50809be799b373bf47a5e3c0.json
+2026-08-29 01:56:58.0000000000 1522573 /var/lib/config-location/quarantine/fake-wireguard-v6/21cb33dff55c0c08297a863aad0c90aa6e5397245a804c4812273fe319b26acc.json
+2026-08-29 01:55:58.0000000000 1530841 /var/lib/config-location/quarantine/fake-wireguard-v6/9d63d72910759f2b664d26a580f7c51e73184485aafe25005215e6ce6a41ebbc.json
+2026-08-29 01:54:57.0000000000 1530967 /var/lib/config-location/quarantine/fake-wireguard-v6/2e277fb1ad798d8d127744e61d3827125177dee1b89531b79cfd45155071622c.json
+2026-08-29 01:53:57.0000000000 1531645 /var/lib/config-location/quarantine/fake-wireguard-v6/434984a27c05afd9be1b8b4186dbc99f9ffd1915f101f25b41a1f76c80b27b29.json
+2026-08-29 01:52:57.0000000000 1532251 /var/lib/config-location/quarantine/fake-wireguard-v6/27ea9397c297a02c23abf9230653a6279b923611c3720fd1092c4b039edabd8a.json
+2026-08-29 01:51:57.0000000000 1532789 /var/lib/config-location/quarantine/fake-wireguard-v6/9540b51341db757404a0acecc9778e10a60146db84400f1b505a07cca33bbdd5.json
+2026-08-29 01:50:56.0000000000 1541211 /var/lib/config-location/quarantine/fake-wireguard-v6/3e6c6d6358f22e71808e99f883b5fa986c86a8e1e77ff73f9b30bb0925bc7df6.json
+2026-08-29 01:50:26.0000000000 1541311 /var/lib/config-location/quarantine/fake-wireguard-v6/905a0d1a8211ae57835fa26fd47a6b156fa87db85b4d71e193deb4cd97495166.json
+
+--- /var/lib/config-location/removal ---
+MISSING
+
+========== [15] EXACT CALL GRAPH ==========
+/opt/config-location/app/observability/http.py:435:        "delete_candidate_shadow",
+/opt/config-location/app/observability/selftest.py:72:                    "delete_candidate_shadow": 1,
+/opt/config-location/app/observability/selftest.py:140:                    "delete_candidate_shadow"
+/opt/config-location/app/observability/lifecycle.py:18:    / "consecutive-state.json"
+/opt/config-location/app/observability/lifecycle.py:178:    delete_candidate = safe_int(
+/opt/config-location/app/observability/lifecycle.py:180:            "delete_candidate_shadow"
+/opt/config-location/app/observability/lifecycle.py:422:            "delete_candidate_shadow":
+/opt/config-location/app/observability/lifecycle.py:423:                delete_candidate,
+/opt/config-location/app/observability/lifecycle.py:440:                    + delete_candidate
+/opt/config-location/app/panel/server.py:2013:        consecutive_failures=0,
+/opt/config-location/app/panel/server.py:2352:                    "consecutive_failures",
+/opt/config-location/app/panel/server.py:3394:        "delete_candidate_shadow",
+/opt/config-location/app/health/core/always_on_adaptive.py:423:    consecutive_errors = 0
+/opt/config-location/app/health/core/always_on_adaptive.py:683:            consecutive_errors = 0
+/opt/config-location/app/health/core/always_on_adaptive.py:702:                "consecutive_errors":
+/opt/config-location/app/health/core/always_on_adaptive.py:703:                    consecutive_errors,
+/opt/config-location/app/health/core/always_on_adaptive.py:754:            consecutive_errors += 1
+/opt/config-location/app/health/core/always_on_adaptive.py:775:                "consecutive_errors":
+/opt/config-location/app/health/core/always_on_adaptive.py:776:                    consecutive_errors,
+/opt/config-location/app/health/core/always_on_adaptive.py:794:                        consecutive_errors,
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:10:        "candidate_min_consecutive_unhealthy":
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:19:        "delete_candidate_freeze_ratio":
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:51:                    "delete_candidate_shadow",
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:114:                "consecutive_unhealthy": 9,
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:115:                "consecutive_healthy": 0,
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:178:        good["future_enforcement_candidates"]
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:239:        "[PASS] Failed Health service freezes enforcement"
+/opt/config-location/app/health/lifecycle/selftest_safety_gates.py:243:        "[PASS] Stale Policy freezes enforcement"
+/opt/config-location/app/health/lifecycle/run_consecutive.py:5:from .consecutive import (
+/opt/config-location/app/health/lifecycle/run_consecutive.py:24:                "consecutive_healthy",
+/opt/config-location/app/health/lifecycle/run_consecutive.py:36:                "consecutive_unhealthy",
+/opt/config-location/app/health/lifecycle/run_consecutive.py:48:                "consecutive_error",
+/opt/config-location/app/health/lifecycle/__init__.py:8:from .consecutive import (
+/opt/config-location/app/health/lifecycle/consecutive.py:38:    / "consecutive-state.json"
+/opt/config-location/app/health/lifecycle/consecutive.py:219:        "consecutive_healthy":
+/opt/config-location/app/health/lifecycle/consecutive.py:222:        "consecutive_unhealthy":
+/opt/config-location/app/health/lifecycle/consecutive.py:225:        "consecutive_error":
+/opt/config-location/app/health/lifecycle/consecutive.py:339:            "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/consecutive.py:343:                    "consecutive_healthy",
+/opt/config-location/app/health/lifecycle/consecutive.py:351:            "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/consecutive.py:355:            "consecutive_error"
+/opt/config-location/app/health/lifecycle/consecutive.py:371:                "consecutive_unhealthy",
+/opt/config-location/app/health/lifecycle/consecutive.py:377:            "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/consecutive.py:384:            "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/consecutive.py:388:            "consecutive_error"
+/opt/config-location/app/health/lifecycle/consecutive.py:411:            "consecutive_error"
+/opt/config-location/app/health/lifecycle/consecutive.py:415:                    "consecutive_error",
+/opt/config-location/app/health/lifecycle/consecutive.py:423:            "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/consecutive.py:428:        # consecutive_unhealthy.
+/opt/config-location/app/health/lifecycle/consecutive.py:430:            "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/consecutive.py:454:            "consecutive_error"
+/opt/config-location/app/health/lifecycle/consecutive.py:458:                    "consecutive_error",
+/opt/config-location/app/health/lifecycle/consecutive.py:466:            "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/consecutive.py:470:            "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/engine.py:183:def decide_lifecycle(
+/opt/config-location/app/health/lifecycle/engine.py:463:def build_lifecycle_snapshot() -> dict[str, Any]:
+/opt/config-location/app/health/lifecycle/engine.py:488:        decision = decide_lifecycle(
+/opt/config-location/app/health/lifecycle/selftest_policy.py:27:        "consecutive_healthy":
+/opt/config-location/app/health/lifecycle/selftest_policy.py:30:        "consecutive_unhealthy":
+/opt/config-location/app/health/lifecycle/selftest_policy.py:33:        "consecutive_error":
+/opt/config-location/app/health/lifecycle/selftest_policy.py:73:        delete_candidate_after_unhealthy=4,
+/opt/config-location/app/health/lifecycle/selftest_policy.py:77:    healthy = decide_policy(
+/opt/config-location/app/health/lifecycle/selftest_policy.py:96:    recovered = decide_policy(
+/opt/config-location/app/health/lifecycle/selftest_policy.py:116:    q1 = decide_policy(
+/opt/config-location/app/health/lifecycle/selftest_policy.py:130:    q2 = decide_policy(
+/opt/config-location/app/health/lifecycle/selftest_policy.py:144:    q4 = decide_policy(
+/opt/config-location/app/health/lifecycle/selftest_policy.py:158:        q4.delete_candidate_shadow
+/opt/config-location/app/health/lifecycle/selftest_policy.py:168:    err = decide_policy(
+/opt/config-location/app/health/lifecycle/selftest_policy.py:182:        err.delete_candidate_shadow
+/opt/config-location/app/health/lifecycle/run_policy.py:49:                "delete_candidate_shadow_count":
+/opt/config-location/app/health/lifecycle/run_policy.py:51:                        "delete_candidate_shadow_count"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:3:from .consecutive import (
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:41:        "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:45:        "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:60:        "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:74:        "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:87:        "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:91:        "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:111:        "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:125:        "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:129:        "consecutive_error"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:142:        "consecutive_healthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:146:        "consecutive_unhealthy"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:150:        "consecutive_error"
+/opt/config-location/app/health/lifecycle/selftest_consecutive.py:182:        "[PASS] HT18.1 consecutive tracking"
+/opt/config-location/app/health/lifecycle/selftest.py:22:    new = decide_lifecycle(
+/opt/config-location/app/health/lifecycle/selftest.py:44:    healthy = decide_lifecycle(
+/opt/config-location/app/health/lifecycle/selftest.py:70:    bad = decide_lifecycle(
+/opt/config-location/app/health/lifecycle/selftest.py:101:    error = decide_lifecycle(
+/opt/config-location/app/health/lifecycle/selftest.py:122:    missing = decide_lifecycle(
+/opt/config-location/app/health/lifecycle/safety_gates.py:22:    STATE / "consecutive-state.json"
+/opt/config-location/app/health/lifecycle/safety_gates.py:297:            == "delete_candidate_shadow"
+/opt/config-location/app/health/lifecycle/safety_gates.py:316:        "delete_candidate_shadow",
+/opt/config-location/app/health/lifecycle/safety_gates.py:350:            "candidate_min_consecutive_unhealthy",
+/opt/config-location/app/health/lifecycle/safety_gates.py:373:                "consecutive_unhealthy",
+/opt/config-location/app/health/lifecycle/safety_gates.py:381:                "consecutive_healthy",
+/opt/config-location/app/health/lifecycle/safety_gates.py:397:                    "consecutive_unhealthy":
+/opt/config-location/app/health/lifecycle/safety_gates.py:489:            "delete_candidate_freeze_ratio",
+/opt/config-location/app/health/lifecycle/safety_gates.py:670:        "delete_candidate_shadow":
+/opt/config-location/app/health/lifecycle/safety_gates.py:675:        "delete_candidate_ratio":
+/opt/config-location/app/health/lifecycle/safety_gates.py:681:        "candidate_min_consecutive_unhealthy":
+/opt/config-location/app/health/lifecycle/safety_gates.py:684:        "future_enforcement_candidates":
+/opt/config-location/app/health/lifecycle/safety_gates.py:689:        "future_enforcement_candidate_sample":
+/opt/config-location/app/health/lifecycle/run_once.py:13:        build_lifecycle_snapshot()
+/opt/config-location/app/health/lifecycle/policy.py:27:    "consecutive-state.json"
+/opt/config-location/app/health/lifecycle/policy.py:48:        "delete_candidate_shadow"
+/opt/config-location/app/health/lifecycle/policy.py:55:    delete_candidate_after_unhealthy: int = 4
+/opt/config-location/app/health/lifecycle/policy.py:71:    delete_candidate_shadow: bool
+/opt/config-location/app/health/lifecycle/policy.py:74:    consecutive_healthy: int
+/opt/config-location/app/health/lifecycle/policy.py:75:    consecutive_unhealthy: int
+/opt/config-location/app/health/lifecycle/policy.py:76:    consecutive_error: int
+/opt/config-location/app/health/lifecycle/policy.py:189:def decide_policy(
+/opt/config-location/app/health/lifecycle/policy.py:211:            "consecutive_healthy",
+/opt/config-location/app/health/lifecycle/policy.py:218:            "consecutive_unhealthy",
+/opt/config-location/app/health/lifecycle/policy.py:225:            "consecutive_error",
+/opt/config-location/app/health/lifecycle/policy.py:284:            delete_candidate_shadow=False,
+/opt/config-location/app/health/lifecycle/policy.py:286:            consecutive_healthy=h,
+/opt/config-location/app/health/lifecycle/policy.py:287:            consecutive_unhealthy=u,
+/opt/config-location/app/health/lifecycle/policy.py:288:            consecutive_error=e,
+/opt/config-location/app/health/lifecycle/policy.py:305:            >= cfg.delete_candidate_after_unhealthy
+/opt/config-location/app/health/lifecycle/policy.py:317:                delete_candidate_shadow=True,
+/opt/config-location/app/health/lifecycle/policy.py:319:                consecutive_healthy=h,
+/opt/config-location/app/health/lifecycle/policy.py:320:                consecutive_unhealthy=u,
+/opt/config-location/app/health/lifecycle/policy.py:321:                consecutive_error=e,
+/opt/config-location/app/health/lifecycle/policy.py:349:                delete_candidate_shadow=False,
+/opt/config-location/app/health/lifecycle/policy.py:351:                consecutive_healthy=h,
+/opt/config-location/app/health/lifecycle/policy.py:352:                consecutive_unhealthy=u,
+/opt/config-location/app/health/lifecycle/policy.py:353:                consecutive_error=e,
+/opt/config-location/app/health/lifecycle/policy.py:355:                    "consecutive_unhealthy_"
+/opt/config-location/app/health/lifecycle/policy.py:376:            delete_candidate_shadow=False,
+/opt/config-location/app/health/lifecycle/policy.py:378:            consecutive_healthy=h,
+/opt/config-location/app/health/lifecycle/policy.py:379:            consecutive_unhealthy=u,
+/opt/config-location/app/health/lifecycle/policy.py:380:            consecutive_error=e,
+/opt/config-location/app/health/lifecycle/policy.py:405:            delete_candidate_shadow=False,
+/opt/config-location/app/health/lifecycle/policy.py:407:            consecutive_healthy=h,
+/opt/config-location/app/health/lifecycle/policy.py:408:            consecutive_unhealthy=u,
+/opt/config-location/app/health/lifecycle/policy.py:409:            consecutive_error=e,
+/opt/config-location/app/health/lifecycle/policy.py:429:        delete_candidate_shadow=False,
+/opt/config-location/app/health/lifecycle/policy.py:431:        consecutive_healthy=h,
+/opt/config-location/app/health/lifecycle/policy.py:432:        consecutive_unhealthy=u,
+/opt/config-location/app/health/lifecycle/policy.py:433:        consecutive_error=e,
+/opt/config-location/app/health/lifecycle/policy.py:484:    delete_candidate_shadow_count = 0
+/opt/config-location/app/health/lifecycle/policy.py:495:        decision = decide_policy(
+/opt/config-location/app/health/lifecycle/policy.py:520:        delete_candidate_shadow_count += int(
+/opt/config-location/app/health/lifecycle/policy.py:521:            decision.delete_candidate_shadow
+/opt/config-location/app/health/lifecycle/policy.py:541:            "delete_candidate_after_unhealthy":
+/opt/config-location/app/health/lifecycle/policy.py:542:                cfg.delete_candidate_after_unhealthy,
+/opt/config-location/app/health/lifecycle/policy.py:566:        "delete_candidate_shadow_count":
+/opt/config-location/app/health/lifecycle/policy.py:567:            delete_candidate_shadow_count,
+/opt/config-location/app/health/lifecycle/stale_watchdog.py:35:    STATE_DIR / "consecutive-state.json"
+/opt/config-location/app/health/lifecycle/sync_daemon.py:17:from app.health.lifecycle.consecutive import (
+/opt/config-location/app/health/lifecycle/sync_daemon.py:244:    consecutive_errors = 0
+/opt/config-location/app/health/lifecycle/sync_daemon.py:292:                consecutive_errors = 0
+/opt/config-location/app/health/lifecycle/sync_daemon.py:376:            consecutive_errors += 1
+/opt/config-location/app/health/lifecycle/sync_daemon.py:384:                            consecutive_errors,
+/opt/config-location/app/health/lifecycle/sync_daemon.py:402:                consecutive_errors=
+/opt/config-location/app/health/lifecycle/sync_daemon.py:403:                    consecutive_errors,
+/opt/config-location/app/health/lifecycle/enforcement.py:22:OUTPUT = STATE / "enforcement-latest.json"
+/opt/config-location/app/health/lifecycle/enforcement.py:24:JOURNAL = STATE / "enforcement-journal"
+/opt/config-location/app/health/lifecycle/enforcement.py:121:        "future_enforcement_candidate_sample",
+/opt/config-location/app/health/lifecycle/enforcement.py:154:            "consecutive_unhealthy":
+/opt/config-location/app/health/lifecycle/enforcement.py:157:                        "consecutive_unhealthy",
+/opt/config-location/app/fetcher/engine.py:853:            consecutive_failures=0,
+/opt/config-location/app/fetcher/engine.py:914:        consecutive_failures = (
+/opt/config-location/app/fetcher/engine.py:917:                    "consecutive_failures",
+/opt/config-location/app/fetcher/engine.py:926:            consecutive_failures - 1,
+/opt/config-location/app/fetcher/engine.py:968:            consecutive_failures=(
+/opt/config-location/app/fetcher/engine.py:969:                consecutive_failures
+/opt/config-location/app/publish/filter.py:153:def publishable_config_ids() -> set[str]:
+/opt/config-location/app/integrity/referential_guard.py:343:def reconcile_one_orphan(
+/opt/config-location/app/integrity/referential_guard.py:425:def sweep_orphans(
+/opt/config-location/app/integrity/referential_guard.py:466:            result = reconcile_one_orphan(
+/opt/config-location/app/integrity/referential_guard.py:580:    result = sweep_orphans()
+
+========== [16] CONTRACT QUESTIONS ==========
+Q1. What is the canonical LifecycleState enum?
+Q2. What fields exist in LifecycleDecision?
+Q3. What exact health states map to quarantine?
+Q4. What exact rule escalates quarantine -> deep_quarantine?
+Q5. What exact rule creates DELETE_CANDIDATE_SHADOW?
+Q6. Does DELETE_CANDIDATE_SHADOW actually delete anything?
+Q7. Which function is the true enforcement entrypoint?
+Q8. Does enforcement call ConfigStore delete/remove APIs?
+Q9. What safety gates must pass before destructive removal?
+Q10. Is destructive removal currently enabled or shadow-only?
+Q11. What canonical timestamp determines config lifetime?
+Q12. Is config_lifetime.lifetime_hours already used in lifecycle logic?
+Q13. What happens when a quarantined config becomes healthy again?
+Q14. Does Publish exclude quarantine/deep_quarantine/delete-candidate immediately?
+Q15. What state/files must be cleaned after a true config removal?
+Q16. Does Referential Guard remove orphan country/health/lifecycle state?
+Q17. Is there an existing lock/write-control preventing duplicate destructive writes?
+Q18. What exact function should a future removal scheduler call?
+Q19. What parts can be enabled without changing lifecycle semantics?
+Q20. What is the safest Phase 4 Pass 2 dry-run architecture?
+
+READ_ONLY=true
+DELETE_EXECUTION=false
+STATE_MUTATION=false
+SERVICE_RESTART=false
+PHASE4_PASS1_CONTRACT_COMPLETE
