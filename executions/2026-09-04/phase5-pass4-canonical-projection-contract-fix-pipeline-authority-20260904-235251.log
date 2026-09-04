@@ -1,0 +1,126 @@
+================================================
+ PHASE 5 PASS 4
+ CANONICAL PROJECTION CONTRACT FIX
+ PIPELINE AUTHORITY
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] BACKUP ==========
+BACKUP_OK
+
+========== [3/10] INSTALL CONTRACT FIX ==========
+CONTRACT_FIX_INSTALLED
+
+========== [4/10] COMPILE ==========
+COMPILE_OK
+
+========== [5/10] CONTRACT SELFTEST ==========
+SELFTEST_OK
+FINAL_PIPELINE_ACCEPTED=YES
+PENDING_BLOCKED=YES
+AMBIGUOUS_BLOCKED=YES
+IDENTITY_PRIORITY=YES
+CROSS_SOURCE_FAIL_CLOSED=YES
+
+========== [6/10] LIVE SHADOW BUILD ==========
+CURRENT_CONFIGS= 2787
+RESOLVED= 1591
+UNKNOWN= 1196
+CONFLICT= 0
+SOURCE_COUNTS= {'pipeline_latest': 1461, 'identity': 130}
+PATH_COUNTS= {'pipeline_latest:$.fusion': 1426, 'pipeline_latest:$': 35, 'identity:$': 130}
+
+========== [7/10] SUMMARY ==========
+{
+  "phase": "phase5-pass4-canonical-projection-contract-fix-pipeline-authority",
+  "mode": "shadow",
+  "schema": 2,
+  "current_config_count": 2787,
+  "resolved": 1591,
+  "unknown": 1196,
+  "conflict": 0,
+  "resolved_percent": 57.086,
+  "unknown_percent": 42.914,
+  "selected_source_counts": {
+    "pipeline_latest": 1461,
+    "identity": 130
+  },
+  "selected_path_counts": {
+    "pipeline_latest:$.fusion": 1426,
+    "pipeline_latest:$": 35,
+    "identity:$": 130
+  },
+  "authority": [
+    "locked_identity",
+    "final_results",
+    "final_pipeline"
+  ],
+  "orphan_inventory": {
+    "results": {
+      "record_count": 8775,
+      "current_overlap": 158,
+      "orphan_count": 8617,
+      "delete_allowed": false
+    },
+    "identity": {
+      "record_count": 4623,
+      "current_overlap": 130,
+      "orphan_count": 4493,
+      "delete_allowed": false
+    },
+    "pipeline_latest": {
+      "record_count": 15731,
+      "current_overlap": 2019,
+      "orphan_count": 13712,
+      "delete_allowed": false
+    }
+  },
+  "mutations": {
+    "config": false,
+    "country_store": false,
+    "orphan_delete": false,
+    "panel": false,
+    "publish": false
+  }
+}
+
+========== [8/10] VALIDATE ==========
+CONTRACT_VALID
+PIPELINE_AUTHORITY_ACTIVE_SHADOW=YES
+RESOLVED= 1591
+UNKNOWN= 1196
+CONFLICT= 0
+RESOLVED_PERCENT= 57.086
+
+========== [9/10] SERVICES ==========
+config-location-country-worker.service ACTIVE=active ENABLED=enabled
+config-location-country-event-consumer.service ACTIVE=active ENABLED=enabled
+SERVICE_RESTART=NONE
+CONFIG_WRITE=NO
+COUNTRY_STORE_WRITE=NO
+ORPHAN_DELETE=NO
+PANEL_WIRING=NO
+PUBLISH_WIRING=NO
+
+========== [10/10] FINAL ==========
+CANONICAL_PROJECTION_SCHEMA=2
+LOCKED_IDENTITY_AUTHORITY=READY
+FINAL_RESULTS_AUTHORITY=READY
+FINAL_PIPELINE_AUTHORITY=READY
+CONFIRMED_STATE=ACCEPTED
+CONFIRMED_STABLE_STATE=ACCEPTED
+CONFIRMED_ROTATING_IP_STATE=ACCEPTED
+PENDING_CONFIRMATION=BLOCKED
+AMBIGUOUS=BLOCKED
+UNSTABLE_EXIT=BLOCKED
+ERROR_STATE=BLOCKED
+CROSS_SOURCE_CONFLICT=FAIL_CLOSED
+CONFIG_WRITE=NO
+COUNTRY_STORE_WRITE=NO
+ORPHAN_DELETE=NO
+PANEL_WIRING=NO
+PUBLISH_WIRING=NO
+
+PHASE5_PASS4_SUCCESS

@@ -1,0 +1,52 @@
+{
+  "phase": "phase5-pass4-canonical-projection-contract-fix-pipeline-authority",
+  "mode": "shadow",
+  "schema": 2,
+  "current_config_count": 2787,
+  "resolved": 1591,
+  "unknown": 1196,
+  "conflict": 0,
+  "resolved_percent": 57.086,
+  "unknown_percent": 42.914,
+  "selected_source_counts": {
+    "pipeline_latest": 1461,
+    "identity": 130
+  },
+  "selected_path_counts": {
+    "pipeline_latest:$.fusion": 1426,
+    "pipeline_latest:$": 35,
+    "identity:$": 130
+  },
+  "authority": [
+    "locked_identity",
+    "final_results",
+    "final_pipeline"
+  ],
+  "orphan_inventory": {
+    "results": {
+      "record_count": 8775,
+      "current_overlap": 158,
+      "orphan_count": 8617,
+      "delete_allowed": false
+    },
+    "identity": {
+      "record_count": 4623,
+      "current_overlap": 130,
+      "orphan_count": 4493,
+      "delete_allowed": false
+    },
+    "pipeline_latest": {
+      "record_count": 15731,
+      "current_overlap": 2019,
+      "orphan_count": 13712,
+      "delete_allowed": false
+    }
+  },
+  "mutations": {
+    "config": false,
+    "country_store": false,
+    "orphan_delete": false,
+    "panel": false,
+    "publish": false
+  }
+}

@@ -1,0 +1,52 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass4-canonical-projection-contract-fix-pipeline-authority
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T23:52:51+00:00
+
+End:
+2026-09-04T23:52:54+00:00
+
+Mode:
+SHADOW CANONICAL PROJECTION CONTRACT FIX
+
+Projection code:
+UPDATED
+
+Config mutation:
+NONE
+
+Country-store mutation:
+NONE
+
+Orphan deletion:
+NONE
+
+Panel wiring:
+NONE
+
+Publish wiring:
+NONE
+
+Service restart:
+NONE
+
+Projection:
+/root/project-log/discovery/2026-09-04/phase5-pass4-canonical-projection-contract-fix-pipeline-authority-20260904-235251.json
+
+Summary:
+/root/project-log/discovery/2026-09-04/phase5-pass4-canonical-projection-contract-fix-pipeline-authority-20260904-235251-summary.json
+
+Backup:
+/root/3245/phase5-pass4-canonical-projection-contract-fix-pipeline-authority-backup-20260904-235251
+
+Log:
+/root/project-log/executions/2026-09-04/phase5-pass4-canonical-projection-contract-fix-pipeline-authority-20260904-235251.log
+
+Errors:
+
