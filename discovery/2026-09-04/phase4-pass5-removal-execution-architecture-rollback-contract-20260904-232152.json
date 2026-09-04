@@ -1,0 +1,8 @@
+{
+  "mode": "dry_run",
+  "state": "WAITING_NO_CANDIDATE",
+  "production_delete": false,
+  "delete_performed": false,
+  "candidate": null,
+  "generated_at": "2026-09-04T23:21:52.702460+00:00"
+}
