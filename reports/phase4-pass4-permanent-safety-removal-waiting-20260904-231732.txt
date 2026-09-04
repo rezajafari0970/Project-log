@@ -1,0 +1,40 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase4-pass4-permanent-safety-removal-waiting
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T23:17:32+00:00
+
+End:
+2026-09-04T23:17:34+00:00
+
+Service:
+config-location-removal-wait.service
+
+Mode:
+PERMANENT SHADOW-ONLY WAITING
+
+Production delete:
+DISABLED
+
+Config deletion:
+NEVER
+
+Status:
+/var/lib/config-location/removal-wait/status.json
+
+Observation:
+/root/project-log/discovery/2026-09-04/phase4-pass4-permanent-safety-removal-waiting-20260904-231732.json
+
+Backup:
+/root/3245/phase4-pass4-permanent-safety-removal-waiting-backup-20260904-231732
+
+Log:
+/root/project-log/executions/2026-09-04/phase4-pass4-permanent-safety-removal-waiting-20260904-231732.log
+
+Errors:
+
