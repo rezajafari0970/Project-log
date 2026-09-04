@@ -1,0 +1,22 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase1-pass8-settings-renderer-fix
+
+Result:
+FAILED
+
+Start:
+2026-09-04T15:15:18+00:00
+
+End:
+2026-09-04T15:15:18+00:00
+
+Backup:
+/root/3245/phase1-pass8-settings-renderer-fix-backup-20260904-151518
+
+Log:
+/root/project-log/executions/2026-09-04/phase1-pass8-settings-renderer-fix-20260904-151518.log
+
+Errors:
+\nscript exit code 1
