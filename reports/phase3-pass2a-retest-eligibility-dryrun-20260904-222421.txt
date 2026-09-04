@@ -1,0 +1,34 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase3-pass2a-retest-eligibility-dryrun
+
+Result:
+SUCCESS
+
+Start:
+2026-09-04T22:24:21+00:00
+
+End:
+2026-09-04T22:24:22+00:00
+
+Mode:
+DRY RUN ONLY
+
+Production execution:
+DISABLED
+
+Health mutation:
+NONE
+
+Dryrun:
+/root/project-log/discovery/2026-09-04/phase3-pass2a-retest-eligibility-dryrun-20260904-222421.json
+
+Backup:
+/root/3245/phase3-pass2a-retest-eligibility-dryrun-backup-20260904-222421
+
+Log:
+/root/project-log/executions/2026-09-04/phase3-pass2a-retest-eligibility-dryrun-20260904-222421.log
+
+Errors:
+

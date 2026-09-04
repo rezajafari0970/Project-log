@@ -1,0 +1,17 @@
+{
+  "mode": "dry_run",
+  "generated_at": "2026-09-04T22:24:22.157969+00:00",
+  "retest_minutes": 5,
+  "interval_seconds": 300,
+  "scanned_records": 0,
+  "healthy_records": 0,
+  "unique_healthy": 0,
+  "duplicate_records": 0,
+  "invalid_records": 0,
+  "inflight_ids": 0,
+  "due_total": 0,
+  "candidate_count": 0,
+  "candidates": [],
+  "production_execution": false,
+  "health_state_mutation": false
+}
