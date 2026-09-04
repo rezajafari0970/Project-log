@@ -1,0 +1,2934 @@
+================================================
+ CONFIG LOCATION
+ HEALTH RETEST INTEGRATION CONTRACT
+================================================
+
+TIME=2026-09-04T22:19:16+00:00
+HOST=serverprojects.ptr.network
+
+========== [1] HEALTH MODELS ==========
+     1	from __future__ import annotations
+     2	
+     3	from dataclasses import dataclass, field
+     4	from datetime import datetime, timezone
+     5	from enum import Enum
+     6	from typing import Any
+     7	
+     8	
+     9	def utc_now() -> str:
+    10	    return datetime.now(timezone.utc).isoformat()
+    11	
+    12	
+    13	class HealthState(str, Enum):
+    14	    NEW = "new"
+    15	    QUEUED = "queued"
+    16	    RUNNING = "running"
+    17	    HEALTHY = "healthy"
+    18	    UNHEALTHY = "unhealthy"
+    19	    ERROR = "error"
+    20	    RUNTIME_FAILED = "runtime_failed"
+    21	    UNSUPPORTED_BY_XRAY = "unsupported_by_xray"
+    22	    UNSUPPORTED_BY_XRAY_VERSION = "unsupported_by_xray_version"
+    23	    INVALID = "invalid"
+    24	    NOT_TESTED = "not_tested"
+    25	
+    26	
+    27	@dataclass(frozen=True)
+    28	class HealthJob:
+    29	    job_id: str
+    30	    config_id: str
+    31	    config_type: str
+    32	    created_at: str = field(default_factory=utc_now)
+    33	    attempt: int = 1
+    34	    metadata: dict[str, Any] = field(default_factory=dict)
+    35	
+    36	
+    37	@dataclass(frozen=True)
+    38	class ProbeResult:
+    39	    provider: str
+    40	    direction: str
+    41	    success: bool
+    42	    bytes_transferred: int = 0
+    43	    duration_ms: int | None = None
+    44	    error: str | None = None
+    45	    metadata: dict[str, Any] = field(default_factory=dict)
+    46	
+    47	
+    48	@dataclass
+    49	class HealthResult:
+    50	    job_id: str
+    51	    config_id: str
+    52	    config_type: str
+    53	    state: HealthState
+    54	
+    55	    started_at: str | None = None
+    56	    finished_at: str | None = None
+    57	
+    58	    xray_started: bool = False
+    59	    xray_exit_code: int | None = None
+    60	
+    61	    download_verified: bool = False
+    62	    upload_verified: bool = False
+    63	
+    64	    download_results: list[ProbeResult] = field(default_factory=list)
+    65	    upload_results: list[ProbeResult] = field(default_factory=list)
+    66	
+    67	    error_code: str | None = None
+    68	    error_message: str | None = None
+    69	
+    70	    metadata: dict[str, Any] = field(default_factory=dict)
+    71	
+    72	    @property
+    73	    def healthy(self) -> bool:
+    74	        return (
+    75	            self.state == HealthState.HEALTHY
+    76	            and self.xray_started
+    77	            and self.download_verified
+    78	            and self.upload_verified
+    79	        )
+
+========== [2] HEALTH ENGINE ==========
+     1	from __future__ import annotations
+     2	
+     3	import time
+     4	from typing import Any
+     5	
+     6	from .decision import apply_health_decision
+     7	from .models import (
+     8	    HealthResult,
+     9	    HealthState,
+    10	    ProbeResult,
+    11	    utc_now,
+    12	)
+    13	
+    14	from ..runtime.launcher import (
+    15	    RuntimeLauncher,
+    16	    RuntimeLaunchError,
+    17	)
+    18	
+    19	from ..probes.download import (
+    20	    DEFAULT_TARGETS as DOWNLOAD_TARGETS,
+    21	    run_download,
+    22	)
+    23	
+    24	from ..probes.upload import (
+    25	    DEFAULT_TARGETS as UPLOAD_TARGETS,
+    26	    run_upload,
+    27	)
+    28	
+    29	
+    30	class HealthExecutionError(RuntimeError):
+    31	    pass
+    32	
+    33	
+    34	def _download_probe_result(
+    35	    measurement,
+    36	) -> ProbeResult:
+    37	
+    38	    return ProbeResult(
+    39	        provider=measurement.provider,
+    40	        direction="download",
+    41	        success=measurement.success,
+    42	        bytes_transferred=(
+    43	            measurement.bytes_transferred
+    44	        ),
+    45	        duration_ms=measurement.duration_ms,
+    46	        error=measurement.error,
+    47	        metadata={
+    48	            "http_code":
+    49	                measurement.http_code,
+    50	        },
+    51	    )
+    52	
+    53	
+    54	def _upload_probe_result(
+    55	    measurement,
+    56	) -> ProbeResult:
+    57	
+    58	    return ProbeResult(
+    59	        provider=measurement.provider,
+    60	        direction="upload",
+    61	        success=measurement.success,
+    62	        bytes_transferred=(
+    63	            measurement.bytes_transferred
+    64	        ),
+    65	        duration_ms=measurement.duration_ms,
+    66	        error=measurement.error,
+    67	        metadata={
+    68	            "http_code":
+    69	                measurement.http_code,
+    70	        },
+    71	    )
+    72	
+    73	
+    74	def run_health_once(
+    75	    *,
+    76	    config_id: str,
+    77	    config_type: str,
+    78	    source: Any,
+    79	    launcher: RuntimeLauncher | None = None,
+    80	    startup_timeout: float = 6.0,
+    81	    download_timeout: float = 12.0,
+    82	    upload_timeout: float = 15.0,
+    83	    upload_payload_bytes: int = 65536,
+    84	    cancel_check=None,
+    85	) -> HealthResult:
+    86	
+    87	    launcher = (
+    88	        launcher
+    89	        or RuntimeLauncher()
+    90	    )
+    91	
+    92	    result = HealthResult(
+    93	        job_id=(
+    94	            "health-"
+    95	            + config_id
+    96	            + "-"
+    97	            + str(
+    98	                time.time_ns()
+    99	            )
+   100	        ),
+   101	        config_id=config_id,
+   102	        config_type=config_type,
+   103	        state=HealthState.RUNNING,
+   104	        started_at=utc_now(),
+   105	    )
+   106	
+   107	    runtime = None
+   108	
+   109	    try:
+   110	        runtime = launcher.launch(
+   111	            config_id=config_id,
+   112	            config_type=config_type,
+   113	            source=source,
+   114	            startup_timeout=startup_timeout,
+   115	        )
+   116	
+   117	        result.xray_started = True
+   118	
+   119	        result.metadata[
+   120	            "runtime"
+   121	        ] = {
+   122	            "pid": runtime.pid,
+   123	            "socks_port":
+   124	                runtime.socks_port,
+   125	            "builder":
+   126	                runtime.metadata.get(
+   127	                    "builder"
+   128	                ),
+   129	            "protocol":
+   130	                runtime.metadata.get(
+   131	                    "protocol"
+   132	                ),
+   133	            "network":
+   134	                runtime.metadata.get(
+   135	                    "network"
+   136	                ),
+   137	            "security":
+   138	                runtime.metadata.get(
+   139	                    "security"
+   140	                ),
+   141	        }
+   142	
+   143	        if (
+   144	            cancel_check is not None
+   145	            and cancel_check()
+   146	        ):
+   147	            raise InterruptedError(
+   148	                "health_cancelled"
+   149	            )
+   150	
+   151	        # Download fallback chain.
+   152	        # Stop as soon as one provider proves
+   153	        # download/connectivity successfully.
+   154	        for target in DOWNLOAD_TARGETS:
+   155	
+   156	            measurement = run_download(
+   157	                target=target,
+   158	                proxy_url=runtime.proxy_url,
+   159	                timeout_seconds=download_timeout,
+   160	                cancel_check=cancel_check,
+   161	            )
+   162	
+   163	            probe = _download_probe_result(
+   164	                measurement
+   165	            )
+   166	
+   167	            result.download_results.append(
+   168	                probe
+   169	            )
+   170	
+   171	            if probe.success:
+   172	                break
+   173	
+   174	        if (
+   175	            cancel_check is not None
+   176	            and cancel_check()
+   177	        ):
+   178	            raise InterruptedError(
+   179	                "health_cancelled"
+   180	            )
+   181	
+   182	        # Upload fallback chain.
+   183	        # Stop as soon as one provider proves
+   184	        # real payload transmission.
+   185	        for target in UPLOAD_TARGETS:
+   186	
+   187	            measurement = run_upload(
+   188	                target=target,
+   189	                proxy_url=runtime.proxy_url,
+   190	                timeout_seconds=upload_timeout,
+   191	                payload_bytes=(
+   192	                    upload_payload_bytes
+   193	                ),
+   194	                cancel_check=cancel_check,
+   195	            )
+   196	
+   197	            probe = _upload_probe_result(
+   198	                measurement
+   199	            )
+   200	
+   201	            result.upload_results.append(
+   202	                probe
+   203	            )
+   204	
+   205	            if probe.success:
+   206	                break
+   207	
+   208	        # Capture Xray log metadata before
+   209	        # sandbox cleanup. We deliberately do
+   210	        # not expose raw runtime configuration.
+   211	        stdout_path = (
+   212	            runtime.sandbox.paths.stdout
+   213	        )
+   214	
+   215	        stderr_path = (
+   216	            runtime.sandbox.paths.stderr
+   217	        )
+   218	
+   219	        result.metadata[
+   220	            "xray_logs"
+   221	        ] = {
+   222	            "stdout_bytes": (
+   223	                stdout_path.stat().st_size
+   224	                if stdout_path.exists()
+   225	                else 0
+   226	            ),
+   227	            "stderr_bytes": (
+   228	                stderr_path.stat().st_size
+   229	                if stderr_path.exists()
+   230	                else 0
+   231	            ),
+   232	        }
+   233	
+   234	        apply_health_decision(
+   235	            result
+   236	        )
+   237	
+   238	        # FIX22K2 SAME_RUNTIME_COUNTRY_FASTPATH
+   239	        # Health is already decided here; Country is
+   240	        # strictly non-fatal and reuses this live Xray.
+   241	        if (
+   242	            result.state == HealthState.HEALTHY
+   243	            and runtime is not None
+   244	        ):
+   245	            try:
+   246	                from app.country.same_runtime_fastpath import (
+   247	                    run_same_runtime_fastpath,
+   248	                )
+   249	                _country_fastpath = (
+   250	                    run_same_runtime_fastpath(
+   251	                        config_id=result.config_id,
+   252	                        job_id=result.job_id,
+   253	                        proxy_url=runtime.proxy_url,
+   254	                    )
+   255	                )
+   256	
+   257	                # K2 durable handoff:
+   258	                # Preserve the already-observed Exit-IP
+   259	                # inside the canonical HealthResult.
+   260	                result.metadata[
+   261	                    "same_runtime_country"
+   262	                ] = _country_fastpath
+   263	            except Exception:
+   264	                pass
+   265	
+   266	    except RuntimeLaunchError as exc:
+   267	
+   268	        result.xray_started = False
+   269	
+   270	        code = getattr(
+   271	            exc,
+   272	            "code",
+   273	            "runtime_launch_failed",
+   274	        )
+   275	
+   276	        retryable = bool(
+   277	            getattr(
+   278	                exc,
+   279	                "retryable",
+   280	                False,
+   281	            )
+   282	        )
+   283	
+   284	        source_invalid = bool(
+   285	            getattr(
+   286	                exc,
+   287	                "source_invalid",
+   288	                False,
+   289	            )
+   290	        )
+   291	
+   292	        if code == "unsupported_by_xray":
+   293	
+   294	            result.state = (
+   295	                HealthState.UNSUPPORTED_BY_XRAY
+   296	            )
+   297	
+   298	        elif code == "unsupported_by_xray_version":
+   299	
+   300	            result.state = (
+
+========== [3] HEALTH DECISION ==========
+     1	from __future__ import annotations
+     2	
+     3	from dataclasses import dataclass, field
+     4	from typing import Any
+     5	
+     6	from .models import (
+     7	    HealthResult,
+     8	    HealthState,
+     9	    ProbeResult,
+    10	)
+    11	
+    12	
+    13	@dataclass(frozen=True)
+    14	class HealthDecision:
+    15	    healthy: bool
+    16	    xray_ok: bool
+    17	    download_ok: bool
+    18	    upload_ok: bool
+    19	
+    20	    download_success_count: int
+    21	    upload_success_count: int
+    22	
+    23	    reason: str
+    24	    metadata: dict[str, Any] = field(
+    25	        default_factory=dict
+    26	    )
+    27	
+    28	
+    29	def _qualified(
+    30	    results: list[ProbeResult],
+    31	) -> list[ProbeResult]:
+    32	
+    33	    qualified = []
+    34	
+    35	    for result in results:
+    36	
+    37	        if not result.success:
+    38	            continue
+    39	
+    40	        # Real traffic must have been observed.
+    41	        # For download, a provider such as
+    42	        # Google generate_204 may legitimately
+    43	        # return 0 bytes. Therefore success is
+    44	        # trusted from the probe plugin itself.
+    45	        #
+    46	        # Upload plugins only set success=True
+    47	        # after payload bytes were actually sent.
+    48	        qualified.append(result)
+    49	
+    50	    return qualified
+    51	
+    52	
+    53	def decide_health(
+    54	    *,
+    55	    xray_started: bool,
+    56	    download_results: list[ProbeResult],
+    57	    upload_results: list[ProbeResult],
+    58	) -> HealthDecision:
+    59	
+    60	    downloads = _qualified(
+    61	        download_results
+    62	    )
+    63	
+    64	    uploads = _qualified(
+    65	        upload_results
+    66	    )
+    67	
+    68	    xray_ok = bool(
+    69	        xray_started
+    70	    )
+    71	
+    72	    download_ok = (
+    73	        len(downloads) >= 1
+    74	    )
+    75	
+    76	    upload_ok = (
+    77	        len(uploads) >= 1
+    78	    )
+    79	
+    80	    healthy = (
+    81	        xray_ok
+    82	        and download_ok
+    83	        and upload_ok
+    84	    )
+    85	
+    86	    if healthy:
+    87	        reason = "healthy"
+    88	
+    89	    elif not xray_ok:
+    90	        reason = "xray_failed"
+    91	
+    92	    elif not download_ok:
+    93	        reason = "download_failed"
+    94	
+    95	    elif not upload_ok:
+    96	        reason = "upload_failed"
+    97	
+    98	    else:
+    99	        reason = "unhealthy"
+   100	
+   101	    return HealthDecision(
+   102	        healthy=healthy,
+   103	        xray_ok=xray_ok,
+   104	        download_ok=download_ok,
+   105	        upload_ok=upload_ok,
+   106	        download_success_count=len(
+   107	            downloads
+   108	        ),
+   109	        upload_success_count=len(
+   110	            uploads
+   111	        ),
+   112	        reason=reason,
+   113	    )
+   114	
+   115	
+   116	def apply_health_decision(
+   117	    result: HealthResult,
+   118	) -> HealthResult:
+   119	
+   120	    decision = decide_health(
+   121	        xray_started=(
+   122	            result.xray_started
+   123	        ),
+   124	        download_results=(
+   125	            result.download_results
+   126	        ),
+   127	        upload_results=(
+   128	            result.upload_results
+   129	        ),
+   130	    )
+   131	
+   132	    result.download_verified = (
+   133	        decision.download_ok
+   134	    )
+   135	
+   136	    result.upload_verified = (
+   137	        decision.upload_ok
+   138	    )
+   139	
+   140	    result.metadata[
+   141	        "health_decision"
+   142	    ] = {
+   143	        "healthy":
+   144	            decision.healthy,
+   145	
+   146	        "xray_ok":
+   147	            decision.xray_ok,
+   148	
+   149	        "download_ok":
+   150	            decision.download_ok,
+   151	
+   152	        "upload_ok":
+   153	            decision.upload_ok,
+   154	
+   155	        "download_success_count":
+   156	            decision.download_success_count,
+   157	
+   158	        "upload_success_count":
+   159	            decision.upload_success_count,
+   160	
+   161	        "reason":
+   162	            decision.reason,
+   163	    }
+   164	
+   165	    if decision.healthy:
+   166	        result.state = (
+   167	            HealthState.HEALTHY
+   168	        )
+   169	    else:
+   170	        result.state = (
+   171	            HealthState.UNHEALTHY
+   172	        )
+   173	
+   174	    return result
+
+========== [4] STATE MACHINE ==========
+     1	from __future__ import annotations
+     2	
+     3	from .models import HealthState
+     4	
+     5	
+     6	_ALLOWED = {
+     7	    HealthState.NEW: {
+     8	        HealthState.QUEUED,
+     9	        HealthState.ERROR,
+    10	    },
+    11	
+    12	    HealthState.QUEUED: {
+    13	        HealthState.RUNNING,
+    14	        HealthState.ERROR,
+    15	    },
+    16	
+    17	    HealthState.RUNNING: {
+    18	        HealthState.HEALTHY,
+    19	        HealthState.UNHEALTHY,
+    20	        HealthState.ERROR,
+    21	        HealthState.RUNTIME_FAILED,
+    22	        HealthState.UNSUPPORTED_BY_XRAY,
+    23	        HealthState.UNSUPPORTED_BY_XRAY_VERSION,
+    24	        HealthState.INVALID,
+    25	        HealthState.NOT_TESTED,
+    26	    },
+    27	
+    28	    HealthState.HEALTHY: {
+    29	        HealthState.QUEUED,
+    30	    },
+    31	
+    32	    HealthState.UNHEALTHY: {
+    33	        HealthState.QUEUED,
+    34	    },
+    35	
+    36	    HealthState.ERROR: {
+    37	        HealthState.QUEUED,
+    38	    },
+    39	
+    40	    HealthState.RUNTIME_FAILED: {
+    41	        HealthState.QUEUED,
+    42	    },
+    43	
+    44	    HealthState.UNSUPPORTED_BY_XRAY: {
+    45	        HealthState.QUEUED,
+    46	    },
+    47	
+    48	    HealthState.UNSUPPORTED_BY_XRAY_VERSION: {
+    49	        HealthState.QUEUED,
+    50	    },
+    51	
+    52	    HealthState.INVALID: {
+    53	        HealthState.QUEUED,
+    54	    },
+    55	
+    56	    HealthState.NOT_TESTED: {
+    57	        HealthState.QUEUED,
+    58	    },
+    59	}
+    60	
+    61	
+    62	class InvalidHealthTransition(RuntimeError):
+    63	    pass
+    64	
+    65	
+    66	def validate_transition(
+    67	    current: HealthState,
+    68	    target: HealthState,
+    69	) -> None:
+    70	
+    71	    allowed = _ALLOWED.get(current, set())
+    72	
+    73	    if target not in allowed:
+    74	        raise InvalidHealthTransition(
+    75	            f"invalid health transition: "
+    76	            f"{current.value} -> {target.value}"
+    77	        )
+
+========== [5] RETRY ==========
+     1	from __future__ import annotations
+     2	
+     3	import random
+     4	import time
+     5	
+     6	from dataclasses import dataclass
+     7	
+     8	from .models import (
+     9	    HealthResult,
+    10	    HealthState,
+    11	)
+    12	
+    13	from .engine import (
+    14	    run_health_once,
+    15	)
+    16	
+    17	
+    18	RETRYABLE_ERROR_CODES = {
+    19	    "SandboxPortError",
+    20	    "runtime_launch_failed",
+    21	}
+    22	
+    23	
+    24	@dataclass(frozen=True)
+    25	class RetryExecution:
+    26	    result: HealthResult
+    27	    retries_used: int
+    28	    retry_reason: str | None
+    29	
+    30	
+    31	def is_retryable_result(
+    32	    result: HealthResult,
+    33	) -> bool:
+    34	
+    35	    if result.state not in {
+    36	        HealthState.ERROR,
+    37	        HealthState.RUNTIME_FAILED,
+    38	    }:
+    39	        return False
+    40	
+    41	    code = (
+    42	        result.error_code
+    43	        or ""
+    44	    )
+    45	
+    46	    if code in RETRYABLE_ERROR_CODES:
+    47	        return True
+    48	
+    49	    message = (
+    50	        result.error_message
+    51	        or ""
+    52	    ).lower()
+    53	
+    54	    retry_markers = (
+    55	        "sandboxporterror",
+    56	        "port allocation",
+    57	        "failed to allocate",
+    58	        "address already in use",
+    59	        "port unavailable",
+    60	    )
+    61	
+    62	    return any(
+    63	        marker in message
+    64	        for marker in retry_markers
+    65	    )
+    66	
+    67	
+    68	def run_health_with_retry(
+    69	    *,
+    70	    config_id: str,
+    71	    config_type: str,
+    72	    source,
+    73	    startup_timeout: float,
+    74	    download_timeout: float,
+    75	    upload_timeout: float,
+    76	    upload_payload_bytes: int,
+    77	    retry_count: int,
+    78	    jitter_min: float = 0.05,
+    79	    jitter_max: float = 0.35,
+    80	    cancel_check=None,
+    81	) -> RetryExecution:
+    82	
+    83	    retries_used = 0
+    84	    retry_reason = None
+    85	
+    86	    for attempt in range(
+    87	        retry_count + 1
+    88	    ):
+    89	
+    90	        if (
+    91	            cancel_check is not None
+    92	            and cancel_check()
+    93	        ):
+    94	            raise InterruptedError(
+    95	                "health_cancelled"
+    96	            )
+    97	
+    98	        result = run_health_once(
+    99	            config_id=config_id,
+   100	            config_type=config_type,
+   101	            source=source,
+   102	
+   103	            startup_timeout=(
+   104	                startup_timeout
+   105	            ),
+   106	
+   107	            download_timeout=(
+   108	                download_timeout
+   109	            ),
+   110	
+   111	            upload_timeout=(
+   112	                upload_timeout
+   113	            ),
+   114	
+   115	            upload_payload_bytes=(
+   116	                upload_payload_bytes
+   117	            ),
+   118	
+   119	            cancel_check=
+   120	                cancel_check,
+   121	        )
+   122	
+   123	        if not is_retryable_result(
+   124	            result
+   125	        ):
+   126	            return RetryExecution(
+   127	                result=result,
+   128	                retries_used=retries_used,
+   129	                retry_reason=retry_reason,
+   130	            )
+   131	
+   132	        retry_reason = (
+   133	            result.error_code
+   134	            or "retryable_runtime_error"
+   135	        )
+   136	
+   137	        if attempt >= retry_count:
+   138	            return RetryExecution(
+   139	                result=result,
+   140	                retries_used=retries_used,
+   141	                retry_reason=retry_reason,
+   142	            )
+   143	
+   144	        retries_used += 1
+   145	
+   146	        delay = random.uniform(
+   147	            jitter_min,
+   148	            jitter_max,
+   149	        )
+   150	
+   151	        deadline = (
+   152	            time.monotonic()
+   153	            + delay
+   154	        )
+   155	
+   156	        while time.monotonic() < deadline:
+   157	            if (
+   158	                cancel_check is not None
+   159	                and cancel_check()
+   160	            ):
+   161	                raise InterruptedError(
+   162	                    "health_cancelled"
+   163	                )
+   164	
+   165	            time.sleep(
+   166	                min(
+   167	                    0.05,
+   168	                    max(
+   169	                        0.0,
+   170	                        deadline
+   171	                        - time.monotonic()
+   172	                    ),
+   173	                )
+   174	            )
+   175	
+   176	    raise RuntimeError(
+   177	        "retry loop exhausted unexpectedly"
+   178	    )
+
+========== [6] BATCH ==========
+     1	from __future__ import annotations
+     2	
+     3	from concurrent.futures import (
+     4	    ThreadPoolExecutor,
+     5	    as_completed,
+     6	)
+     7	from dataclasses import dataclass
+     8	from typing import Any, Iterable
+     9	
+    10	from .engine import run_health_once
+    11	from .models import (
+    12	    HealthResult,
+    13	    HealthState,
+    14	)
+    15	
+    16	from ..storage.json_store import (
+    17	    JsonHealthResultStore,
+    18	)
+    19	
+    20	
+    21	@dataclass(frozen=True)
+    22	class BatchJob:
+    23	    config_id: str
+    24	    config_type: str
+    25	    source: Any
+    26	
+    27	
+    28	@dataclass(frozen=True)
+    29	class BatchSummary:
+    30	    total: int
+    31	    completed: int
+    32	    healthy: int
+    33	    unhealthy: int
+    34	    error: int
+    35	    max_workers: int
+    36	
+    37	
+    38	class BatchRunner:
+    39	    """
+    40	    Controlled-concurrency health runner.
+    41	
+    42	    Every health job receives:
+    43	      - its own Xray process
+    44	      - its own loopback SOCKS port
+    45	      - its own sandbox
+    46	      - its own logs
+    47	
+    48	    This class never uses shared runtime ports.
+    49	    """
+    50	
+    51	    def __init__(
+    52	        self,
+    53	        *,
+    54	        max_workers: int = 2,
+    55	        result_store: (
+    56	            JsonHealthResultStore
+    57	            | None
+    58	        ) = None,
+    59	    ) -> None:
+    60	
+    61	        if max_workers < 1:
+    62	            raise ValueError(
+    63	                "max_workers must be >= 1"
+    64	            )
+    65	
+    66	        self.max_workers = max_workers
+    67	        self.result_store = result_store
+    68	
+    69	    def _run_one(
+    70	        self,
+    71	        job: BatchJob,
+    72	    ) -> HealthResult:
+    73	
+    74	        result = run_health_once(
+    75	            config_id=job.config_id,
+    76	            config_type=job.config_type,
+    77	            source=job.source,
+    78	        )
+    79	
+    80	        if self.result_store is not None:
+    81	            self.result_store.save(
+    82	                result
+    83	            )
+    84	
+    85	        return result
+    86	
+    87	    def run(
+    88	        self,
+    89	        jobs: Iterable[BatchJob],
+    90	    ) -> tuple[
+    91	        list[HealthResult],
+    92	        BatchSummary,
+    93	    ]:
+    94	
+    95	        items = list(jobs)
+    96	
+    97	        if not items:
+    98	            return (
+    99	                [],
+   100	                BatchSummary(
+   101	                    total=0,
+   102	                    completed=0,
+   103	                    healthy=0,
+   104	                    unhealthy=0,
+   105	                    error=0,
+   106	                    max_workers=(
+   107	                        self.max_workers
+   108	                    ),
+   109	                ),
+   110	            )
+   111	
+   112	        results: list[
+   113	            HealthResult
+   114	        ] = []
+   115	
+   116	        with ThreadPoolExecutor(
+   117	            max_workers=self.max_workers,
+   118	            thread_name_prefix=(
+   119	                "config-health"
+   120	            ),
+   121	        ) as pool:
+   122	
+   123	            future_map = {
+   124	                pool.submit(
+   125	                    self._run_one,
+   126	                    job,
+   127	                ): job
+   128	
+   129	                for job in items
+   130	            }
+   131	
+   132	            for future in as_completed(
+   133	                future_map
+   134	            ):
+   135	                job = future_map[
+   136	                    future
+   137	                ]
+   138	
+   139	                try:
+   140	                    result = (
+   141	                        future.result()
+   142	                    )
+   143	
+   144	                except Exception as exc:
+   145	
+   146	                    result = HealthResult(
+   147	                        job_id=(
+   148	                            "batch-exception-"
+   149	                            + job.config_id
+   150	                        ),
+   151	                        config_id=(
+   152	                            job.config_id
+   153	                        ),
+   154	                        config_type=(
+   155	                            job.config_type
+   156	                        ),
+   157	                        state=(
+   158	                            HealthState.ERROR
+   159	                        ),
+   160	                        error_code=(
+   161	                            type(
+   162	                                exc
+   163	                            ).__name__
+   164	                        ),
+   165	                        error_message=str(
+   166	                            exc
+   167	                        ),
+   168	                    )
+   169	
+   170	                    if (
+   171	                        self.result_store
+   172	                        is not None
+   173	                    ):
+   174	                        self.result_store.save(
+   175	                            result
+   176	                        )
+   177	
+   178	                results.append(
+   179	                    result
+   180	                )
+   181	
+   182	        healthy = sum(
+   183	            1
+   184	            for r in results
+   185	            if (
+   186	                r.state
+   187	                == HealthState.HEALTHY
+   188	            )
+   189	        )
+   190	
+   191	        unhealthy = sum(
+   192	            1
+   193	            for r in results
+   194	            if (
+   195	                r.state
+   196	                == HealthState.UNHEALTHY
+   197	            )
+   198	        )
+   199	
+   200	        error = sum(
+   201	            1
+   202	            for r in results
+   203	            if (
+   204	                r.state
+   205	                == HealthState.ERROR
+   206	            )
+   207	        )
+   208	
+   209	        summary = BatchSummary(
+   210	            total=len(items),
+   211	            completed=len(results),
+   212	            healthy=healthy,
+   213	            unhealthy=unhealthy,
+   214	            error=error,
+   215	            max_workers=(
+   216	                self.max_workers
+   217	            ),
+   218	        )
+   219	
+   220	        return (
+   221	            results,
+   222	            summary,
+   223	        )
+
+========== [7] PRODUCTION SCHEDULER SYMBOLS ==========
+   63    80 ClassDef           ProductionRunSummary
+   83   113 FunctionDef        _atomic_json
+  116   191 FunctionDef        load_state
+  194   278 FunctionDef        discover_jobs
+  281   328 FunctionDef        select_jobs
+  331   370 FunctionDef        execute_one
+  373   647 FunctionDef        run_production_scheduler_once
+
+========== [8] PRODUCTION SCHEDULER CORE ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	import os
+     5	import time
+     6	
+     7	from collections import Counter
+     8	from concurrent.futures import (
+     9	    ThreadPoolExecutor,
+    10	    as_completed,
+    11	)
+    12	
+    13	from dataclasses import dataclass
+    14	from pathlib import Path
+    15	
+    16	from .batch import BatchJob
+    17	from .models import (
+    18	    HealthResult,
+    19	    HealthState,
+    20	)
+    21	from .retry import (
+    22	    run_health_with_retry,
+    23	)
+    24	from .scheduler import (
+    25	    SchedulerBusy,
+    26	    SchedulerLock,
+    27	    mix_jobs_by_type,
+    28	)
+    29	from ..settings import (
+    30	    HealthSettings,
+    31	    load_health_settings,
+    32	)
+    33	from ..storage.json_store import (
+    34	    JsonHealthResultStore,
+    35	)
+    36	
+    37	
+    38	ORDERING_VERSION = (
+    39	    "type-interleaved-v1"
+    40	)
+    41	
+    42	SUPPORTED_TYPES = {
+    43	    "vless",
+    44	    "vmess",
+    45	    "ss",
+    46	    "trojan",
+    47	    "socks",
+    48	    "wireguard",
+    49	    "json_xray",
+    50	
+    51	    "hysteria",
+    52	    "hysteria2",
+    53	    "hy",
+    54	    "hy2",
+    55	    "tuic",
+    56	    "anytls",
+    57	    "naive",
+    58	    "juicity",
+    59	}
+    60	
+    61	
+    62	@dataclass(frozen=True)
+    63	class ProductionRunSummary:
+    64	    discovered: int
+    65	    selected: int
+    66	    completed: int
+    67	
+    68	    healthy: int
+    69	    unhealthy: int
+    70	    error: int
+    71	
+    72	    retries_used: int
+    73	
+    74	    cursor_before: int
+    75	    cursor_after: int
+    76	
+    77	    duration_ms: int
+    78	
+    79	    max_workers: int
+    80	    batch_size: int
+    81	
+    82	
+    83	def _atomic_json(
+    84	    path: Path,
+    85	    value: dict,
+    86	) -> None:
+    87	
+    88	    path.parent.mkdir(
+    89	        parents=True,
+    90	        exist_ok=True,
+    91	    )
+    92	
+    93	    tmp = path.with_name(
+    94	        "." + path.name + ".tmp"
+    95	    )
+    96	
+    97	    tmp.write_text(
+    98	        json.dumps(
+    99	            value,
+   100	            ensure_ascii=False,
+   101	            separators=(",", ":"),
+   102	            sort_keys=True,
+   103	        )
+   104	        + "\n",
+   105	        encoding="utf-8",
+   106	    )
+   107	
+   108	    tmp.chmod(0o600)
+   109	
+   110	    os.replace(
+   111	        tmp,
+   112	        path,
+   113	    )
+   114	
+   115	
+   116	def load_state(
+   117	    path: Path,
+   118	) -> dict:
+   119	
+   120	    if not path.exists():
+   121	        return {
+   122	            "ordering_version":
+   123	                ORDERING_VERSION,
+   124	
+   125	            "cursor":
+   126	                0,
+   127	        }
+   128	
+   129	    try:
+   130	
+   131	        obj = json.loads(
+   132	            path.read_text(
+   133	                encoding="utf-8"
+   134	            )
+   135	        )
+   136	
+   137	    except Exception:
+   138	
+   139	        return {
+   140	            "ordering_version":
+   141	                ORDERING_VERSION,
+   142	
+   143	            "cursor":
+   144	                0,
+   145	        }
+   146	
+   147	
+   148	    if (
+   149	        obj.get(
+   150	            "ordering_version"
+   151	        )
+   152	        != ORDERING_VERSION
+   153	    ):
+   154	
+   155	        # Previous scheduler used another
+   156	        # ordering. Reset cursor safely instead
+   157	        # of applying an old cursor to a new
+   158	        # sequence.
+   159	        return {
+   160	            "ordering_version":
+   161	                ORDERING_VERSION,
+   162	
+   163	            "cursor":
+   164	                0,
+   165	
+   166	            "migration":
+   167	                "ordering_reset",
+   168	        }
+   169	
+   170	
+   171	    try:
+   172	        cursor = max(
+   173	            0,
+   174	            int(
+   175	                obj.get(
+   176	                    "cursor",
+   177	                    0,
+   178	                )
+   179	            ),
+   180	        )
+   181	    except Exception:
+   182	        cursor = 0
+   183	
+   184	
+   185	    return {
+   186	        "ordering_version":
+   187	            ORDERING_VERSION,
+   188	
+   189	        "cursor":
+   190	            cursor,
+   191	    }
+   192	
+   193	
+   194	def discover_jobs(
+   195	    store_root: Path,
+   196	) -> list[BatchJob]:
+   197	
+   198	    jobs = []
+   199	
+   200	    seen = set()
+   201	
+   202	
+   203	    for path in store_root.glob(
+   204	        "*.json"
+   205	    ):
+   206	
+   207	        try:
+   208	
+   209	            record = json.loads(
+   210	                path.read_text(
+   211	                    encoding="utf-8"
+   212	                )
+   213	            )
+   214	
+   215	        except Exception:
+   216	            continue
+   217	
+   218	
+   219	        if not isinstance(
+   220	            record,
+   221	            dict,
+   222	        ):
+   223	            continue
+   224	
+   225	
+   226	        config_id = record.get(
+   227	            "id"
+   228	        )
+   229	
+   230	        kind = str(
+   231	            record.get(
+   232	                "type",
+   233	                "",
+   234	            )
+   235	        ).strip().lower()
+   236	
+   237	        raw = record.get(
+   238	            "raw"
+   239	        )
+   240	
+   241	
+   242	        if (
+   243	            not config_id
+   244	            or kind not in SUPPORTED_TYPES
+   245	            or not isinstance(
+   246	                raw,
+   247	                str,
+   248	            )
+   249	        ):
+   250	            continue
+   251	
+   252	
+   253	        config_id = str(
+   254	            config_id
+   255	        )
+   256	
+   257	
+   258	        if config_id in seen:
+   259	            continue
+   260	
+   261	
+   262	        seen.add(
+   263	            config_id
+   264	        )
+   265	
+   266	
+   267	        jobs.append(
+   268	            BatchJob(
+   269	                config_id=config_id,
+   270	                config_type=kind,
+   271	                source=raw,
+   272	            )
+   273	        )
+   274	
+   275	
+   276	    return mix_jobs_by_type(
+   277	        jobs
+   278	    )
+   279	
+   280	
+   281	def select_jobs(
+   282	    jobs: list[BatchJob],
+   283	    *,
+   284	    cursor: int,
+   285	    batch_size: int,
+   286	) -> tuple[
+   287	    list[BatchJob],
+   288	    int,
+   289	]:
+   290	
+   291	    if not jobs:
+   292	        return [], 0
+   293	
+   294	
+   295	    cursor = (
+   296	        cursor
+   297	        % len(jobs)
+   298	    )
+   299	
+   300	
+   301	    count = min(
+   302	        batch_size,
+   303	        len(jobs),
+   304	    )
+   305	
+   306	
+   307	    selected = []
+   308	
+   309	    index = cursor
+   310	
+   311	
+   312	    for _ in range(
+   313	        count
+   314	    ):
+   315	
+   316	        selected.append(
+   317	            jobs[index]
+   318	        )
+   319	
+   320	        index = (
+   321	            index + 1
+   322	        ) % len(jobs)
+   323	
+   324	
+   325	    return (
+   326	        selected,
+   327	        index,
+   328	    )
+   329	
+   330	
+   331	def execute_one(
+   332	    job: BatchJob,
+   333	    *,
+   334	    settings: HealthSettings,
+   335	    result_store: JsonHealthResultStore,
+   336	):
+   337	
+   338	    outcome = run_health_with_retry(
+   339	        config_id=job.config_id,
+   340	        config_type=job.config_type,
+   341	        source=job.source,
+   342	
+   343	        startup_timeout=(
+   344	            settings.startup_timeout
+   345	        ),
+   346	
+   347	        download_timeout=(
+   348	            settings.download_timeout
+   349	        ),
+   350	
+   351	        upload_timeout=(
+   352	            settings.upload_timeout
+   353	        ),
+   354	
+   355	        upload_payload_bytes=(
+   356	            settings.upload_payload_bytes
+   357	        ),
+   358	
+   359	        retry_count=(
+   360	            settings.runtime_retry_count
+   361	        ),
+   362	    )
+   363	
+   364	
+   365	    result_store.save(
+   366	        outcome.result
+   367	    )
+   368	
+   369	
+   370	    return outcome
+   371	
+   372	
+   373	def run_production_scheduler_once(
+   374	    *,
+   375	    store_root: Path = Path(
+   376	        "/var/lib/config-location/configs"
+   377	    ),
+   378	
+   379	    result_root: Path = Path(
+   380	        "/var/lib/config-location/"
+   381	        "health-results"
+   382	    ),
+   383	
+   384	    state_path: Path = Path(
+   385	        "/var/lib/config-location/"
+   386	        "health-scheduler/state.json"
+   387	    ),
+   388	
+   389	    lock_path: Path = Path(
+   390	        "/run/config-location-health.lock"
+   391	    ),
+   392	
+   393	) -> ProductionRunSummary:
+   394	
+   395	    settings = (
+   396	        load_health_settings()
+   397	    )
+   398	
+   399	
+   400	    started = time.monotonic()
+   401	
+   402	
+   403	    with SchedulerLock(
+   404	        lock_path
+   405	    ):
+   406	
+   407	        jobs = discover_jobs(
+   408	            store_root
+   409	        )
+   410	
+   411	
+   412	        state = load_state(
+   413	            state_path
+   414	        )
+   415	
+   416	
+   417	        cursor_before = int(
+   418	            state.get(
+   419	                "cursor",
+   420	                0,
+   421	            )
+   422	        )
+   423	
+   424	
+   425	        selected, cursor_after = (
+   426	            select_jobs(
+   427	                jobs,
+   428	                cursor=cursor_before,
+   429	                batch_size=(
+   430	                    settings.batch_size
+   431	                ),
+   432	            )
+   433	        )
+   434	
+   435	
+   436	        result_store = (
+   437	            JsonHealthResultStore(
+   438	                result_root
+   439	            )
+   440	        )
+   441	
+   442	
+   443	        outcomes = []
+   444	
+   445	
+   446	        with ThreadPoolExecutor(
+   447	            max_workers=(
+   448	                settings.max_workers
+   449	            ),
+   450	
+   451	            thread_name_prefix=(
+   452	                "production-health"
+   453	            ),
+   454	        ) as pool:
+   455	
+   456	            futures = {
+   457	                pool.submit(
+   458	                    execute_one,
+   459	                    job,
+   460	                    settings=settings,
+   461	                    result_store=(
+   462	                        result_store
+   463	                    ),
+   464	                ): job
+   465	
+   466	                for job in selected
+   467	            }
+   468	
+   469	
+   470	            for future in as_completed(
+   471	                futures
+   472	            ):
+   473	
+   474	                job = futures[
+   475	                    future
+   476	                ]
+   477	
+   478	                try:
+   479	
+   480	                    outcome = (
+   481	                        future.result()
+   482	                    )
+   483	
+   484	                except Exception as exc:
+   485	
+   486	                    # A batch-level exception must
+   487	                    # still become an explicit result.
+   488	                    result = HealthResult(
+   489	                        job_id=(
+   490	                            "production-exception-"
+   491	                            + job.config_id
+   492	                            + "-"
+   493	                            + str(
+   494	                                time.time_ns()
+   495	                            )
+   496	                        ),
+   497	
+   498	                        config_id=(
+   499	                            job.config_id
+   500	                        ),
+   501	
+   502	                        config_type=(
+   503	                            job.config_type
+   504	                        ),
+   505	
+   506	                        state=(
+   507	                            HealthState.ERROR
+   508	                        ),
+   509	
+   510	                        error_code=(
+   511	                            type(
+   512	                                exc
+   513	                            ).__name__
+   514	                        ),
+   515	
+   516	                        error_message=str(
+   517	                            exc
+   518	                        ),
+   519	                    )
+   520	
+   521	
+   522	                    result_store.save(
+   523	                        result
+   524	                    )
+   525	
+   526	
+   527	                    class SyntheticOutcome:
+   528	                        pass
+   529	
+   530	
+   531	                    outcome = (
+   532	                        SyntheticOutcome()
+   533	                    )
+   534	
+   535	                    outcome.result = result
+   536	                    outcome.retries_used = 0
+   537	                    outcome.retry_reason = None
+   538	
+   539	
+   540	                outcomes.append(
+   541	                    outcome
+   542	                )
+   543	
+   544	
+   545	        # Advance cursor only after every selected
+   546	        # job has produced and persisted a result.
+   547	        _atomic_json(
+   548	            state_path,
+   549	            {
+   550	                "ordering_version":
+   551	                    ORDERING_VERSION,
+   552	
+   553	                "cursor":
+   554	                    cursor_after,
+   555	
+   556	                "last_run_completed":
+   557	                    True,
+   558	
+   559	                "last_run_selected":
+   560	                    len(selected),
+   561	
+   562	                "last_run_timestamp_ns":
+   563	                    time.time_ns(),
+   564	            },
+   565	        )
+   566	
+   567	
+   568	    results = [
+   569	        outcome.result
+   570	        for outcome in outcomes
+   571	    ]
+   572	
+   573	
+   574	    healthy = sum(
+   575	        result.state
+   576	        == HealthState.HEALTHY
+   577	
+   578	        for result
+   579	        in results
+   580	    )
+   581	
+   582	
+   583	    unhealthy = sum(
+   584	        result.state
+   585	        == HealthState.UNHEALTHY
+   586	
+   587	        for result
+   588	        in results
+   589	    )
+   590	
+   591	
+   592	    error = sum(
+   593	        result.state
+   594	        == HealthState.ERROR
+   595	
+   596	        for result
+   597	        in results
+   598	    )
+   599	
+   600	
+   601	    retries_used = sum(
+   602	        int(
+   603	            getattr(
+   604	                outcome,
+   605	                "retries_used",
+   606	                0,
+   607	            )
+   608	        )
+   609	
+   610	        for outcome
+   611	        in outcomes
+   612	    )
+   613	
+   614	
+   615	    duration_ms = int(
+   616	        (
+   617	            time.monotonic()
+   618	            - started
+   619	        )
+   620	        * 1000
+   621	    )
+   622	
+   623	
+   624	    return ProductionRunSummary(
+   625	        discovered=len(jobs),
+   626	        selected=len(selected),
+   627	        completed=len(results),
+   628	
+   629	        healthy=healthy,
+   630	        unhealthy=unhealthy,
+   631	        error=error,
+   632	
+   633	        retries_used=retries_used,
+   634	
+   635	        cursor_before=cursor_before,
+   636	        cursor_after=cursor_after,
+   637	
+   638	        duration_ms=duration_ms,
+   639	
+   640	        max_workers=(
+   641	            settings.max_workers
+   642	        ),
+   643	
+   644	        batch_size=(
+   645	            settings.batch_size
+   646	        ),
+   647	    )
+
+========== [9] JSON STORE SYMBOLS ==========
+   18   538 ClassDef           JsonHealthResultStore
+   21    62 FunctionDef        __init__
+   65    84 FunctionDef        _safe_name
+   87   112 FunctionDef        _probe_to_dict
+  115   173 FunctionDef        _result_to_dict
+  176   243 FunctionDef        _probe_from_dict
+  246   347 FunctionDef        _result_from_dict
+  350   436 FunctionDef        _atomic_write_json
+  438   480 FunctionDef        save
+  482   509 FunctionDef        get
+  511   538 FunctionDef        get_job
+
+========== [10] JSON STORE ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	import os
+     5	import tempfile
+     6	from dataclasses import asdict
+     7	from pathlib import Path
+     8	from typing import Any
+     9	
+    10	from .base import HealthResultStore
+    11	from ..core.models import (
+    12	    HealthResult,
+    13	    HealthState,
+    14	    ProbeResult,
+    15	)
+    16	
+    17	
+    18	class JsonHealthResultStore(
+    19	    HealthResultStore
+    20	):
+    21	    def __init__(
+    22	        self,
+    23	        root: Path = Path(
+    24	            "/var/lib/config-location/"
+    25	            "health-results"
+    26	        ),
+    27	    ) -> None:
+    28	
+    29	        self.root = root
+    30	
+    31	        self.latest_dir = (
+    32	            root / "latest"
+    33	        )
+    34	
+    35	        self.history_dir = (
+    36	            root / "history"
+    37	        )
+    38	
+    39	        self.latest_dir.mkdir(
+    40	            parents=True,
+    41	            exist_ok=True,
+    42	        )
+    43	
+    44	        self.history_dir.mkdir(
+    45	            parents=True,
+    46	            exist_ok=True,
+    47	        )
+    48	
+    49	        os.chmod(
+    50	            self.root,
+    51	            0o700,
+    52	        )
+    53	
+    54	        os.chmod(
+    55	            self.latest_dir,
+    56	            0o700,
+    57	        )
+    58	
+    59	        os.chmod(
+    60	            self.history_dir,
+    61	            0o700,
+    62	        )
+    63	
+    64	    @staticmethod
+    65	    def _safe_name(
+    66	        value: str,
+    67	    ) -> str:
+    68	
+    69	        safe = "".join(
+    70	            c
+    71	            if c.isalnum()
+    72	            or c in "._-"
+    73	            else "_"
+    74	            for c in value
+    75	        )
+    76	
+    77	        safe = safe[:160]
+    78	
+    79	        if not safe:
+    80	            raise ValueError(
+    81	                "empty safe filename"
+    82	            )
+    83	
+    84	        return safe
+    85	
+    86	    @staticmethod
+    87	    def _probe_to_dict(
+    88	        probe: ProbeResult,
+    89	    ) -> dict[str, Any]:
+    90	
+    91	        return {
+    92	            "provider":
+    93	                probe.provider,
+    94	
+    95	            "direction":
+    96	                probe.direction,
+    97	
+    98	            "success":
+    99	                probe.success,
+   100	
+   101	            "bytes_transferred":
+   102	                probe.bytes_transferred,
+   103	
+   104	            "duration_ms":
+   105	                probe.duration_ms,
+   106	
+   107	            "error":
+   108	                probe.error,
+   109	
+   110	            "metadata":
+   111	                probe.metadata,
+   112	        }
+   113	
+   114	    @classmethod
+   115	    def _result_to_dict(
+   116	        cls,
+   117	        result: HealthResult,
+   118	    ) -> dict[str, Any]:
+   119	
+   120	        return {
+   121	            "schema_version": 1,
+   122	
+   123	            "job_id":
+   124	                result.job_id,
+   125	
+   126	            "config_id":
+   127	                result.config_id,
+   128	
+   129	            "config_type":
+   130	                result.config_type,
+   131	
+   132	            "state":
+   133	                result.state.value,
+   134	
+   135	            "started_at":
+   136	                result.started_at,
+   137	
+   138	            "finished_at":
+   139	                result.finished_at,
+   140	
+   141	            "xray_started":
+   142	                result.xray_started,
+   143	
+   144	            "xray_exit_code":
+   145	                result.xray_exit_code,
+   146	
+   147	            "download_verified":
+   148	                result.download_verified,
+   149	
+   150	            "upload_verified":
+   151	                result.upload_verified,
+   152	
+   153	            "download_results": [
+   154	                cls._probe_to_dict(p)
+   155	                for p
+   156	                in result.download_results
+   157	            ],
+   158	
+   159	            "upload_results": [
+   160	                cls._probe_to_dict(p)
+   161	                for p
+   162	                in result.upload_results
+   163	            ],
+   164	
+   165	            "error_code":
+   166	                result.error_code,
+   167	
+   168	            "error_message":
+   169	                result.error_message,
+   170	
+   171	            "metadata":
+   172	                result.metadata,
+   173	        }
+   174	
+   175	    @staticmethod
+   176	    def _probe_from_dict(
+   177	        value: dict[str, Any],
+   178	    ) -> ProbeResult:
+   179	
+   180	        return ProbeResult(
+   181	            provider=str(
+   182	                value.get(
+   183	                    "provider",
+   184	                    "",
+   185	                )
+   186	            ),
+   187	
+   188	            direction=str(
+   189	                value.get(
+   190	                    "direction",
+   191	                    "",
+   192	                )
+   193	            ),
+   194	
+   195	            success=bool(
+   196	                value.get(
+   197	                    "success",
+   198	                    False,
+   199	                )
+   200	            ),
+   201	
+   202	            bytes_transferred=int(
+   203	                value.get(
+   204	                    "bytes_transferred",
+   205	                    0,
+   206	                )
+   207	                or 0
+   208	            ),
+   209	
+   210	            duration_ms=(
+   211	                int(
+   212	                    value[
+   213	                        "duration_ms"
+   214	                    ]
+   215	                )
+   216	                if value.get(
+   217	                    "duration_ms"
+   218	                )
+   219	                is not None
+   220	                else None
+   221	            ),
+   222	
+   223	            error=(
+   224	                str(
+   225	                    value[
+   226	                        "error"
+   227	                    ]
+   228	                )
+   229	                if value.get(
+   230	                    "error"
+   231	                )
+   232	                is not None
+   233	                else None
+   234	            ),
+   235	
+   236	            metadata=dict(
+   237	                value.get(
+   238	                    "metadata",
+   239	                    {},
+   240	                )
+   241	                or {}
+   242	            ),
+   243	        )
+   244	
+   245	    @classmethod
+   246	    def _result_from_dict(
+   247	        cls,
+   248	        value: dict[str, Any],
+   249	    ) -> HealthResult:
+   250	
+   251	        state = HealthState(
+   252	            value["state"]
+   253	        )
+   254	
+   255	        result = HealthResult(
+   256	            job_id=str(
+   257	                value["job_id"]
+   258	            ),
+   259	
+   260	            config_id=str(
+   261	                value["config_id"]
+   262	            ),
+   263	
+   264	            config_type=str(
+   265	                value["config_type"]
+   266	            ),
+   267	
+   268	            state=state,
+   269	
+   270	            started_at=value.get(
+   271	                "started_at"
+   272	            ),
+   273	
+   274	            finished_at=value.get(
+   275	                "finished_at"
+   276	            ),
+   277	
+   278	            xray_started=bool(
+   279	                value.get(
+   280	                    "xray_started",
+   281	                    False,
+   282	                )
+   283	            ),
+   284	
+   285	            xray_exit_code=(
+   286	                int(
+   287	                    value[
+   288	                        "xray_exit_code"
+   289	                    ]
+   290	                )
+   291	                if value.get(
+   292	                    "xray_exit_code"
+   293	                )
+   294	                is not None
+   295	                else None
+   296	            ),
+   297	
+   298	            download_verified=bool(
+   299	                value.get(
+   300	                    "download_verified",
+   301	                    False,
+   302	                )
+   303	            ),
+   304	
+   305	            upload_verified=bool(
+   306	                value.get(
+   307	                    "upload_verified",
+   308	                    False,
+   309	                )
+   310	            ),
+   311	
+   312	            error_code=value.get(
+   313	                "error_code"
+   314	            ),
+   315	
+   316	            error_message=value.get(
+   317	                "error_message"
+   318	            ),
+   319	
+   320	            metadata=dict(
+   321	                value.get(
+   322	                    "metadata",
+   323	                    {},
+   324	                )
+   325	                or {}
+   326	            ),
+   327	        )
+   328	
+   329	        result.download_results = [
+   330	            cls._probe_from_dict(x)
+   331	            for x
+   332	            in value.get(
+   333	                "download_results",
+   334	                [],
+   335	            )
+   336	        ]
+   337	
+   338	        result.upload_results = [
+   339	            cls._probe_from_dict(x)
+   340	            for x
+   341	            in value.get(
+   342	                "upload_results",
+   343	                [],
+   344	            )
+   345	        ]
+   346	
+   347	        return result
+   348	
+   349	    @staticmethod
+   350	    def _atomic_write_json(
+   351	        path: Path,
+   352	        value: dict[str, Any],
+   353	    ) -> None:
+   354	
+   355	        path.parent.mkdir(
+   356	            parents=True,
+   357	            exist_ok=True,
+   358	        )
+   359	
+   360	        fd, tmp_name = (
+   361	            tempfile.mkstemp(
+   362	                prefix=(
+   363	                    "."
+   364	                    + path.name
+   365	                    + "."
+   366	                ),
+   367	                suffix=".tmp",
+   368	                dir=str(
+   369	                    path.parent
+   370	                ),
+   371	            )
+   372	        )
+   373	
+   374	        tmp = Path(
+   375	            tmp_name
+   376	        )
+   377	
+   378	        try:
+   379	            with os.fdopen(
+   380	                fd,
+   381	                "w",
+   382	                encoding="utf-8",
+   383	            ) as fh:
+   384	
+   385	                json.dump(
+   386	                    value,
+   387	                    fh,
+   388	                    ensure_ascii=False,
+   389	                    separators=(
+   390	                        ",",
+   391	                        ":",
+   392	                    ),
+   393	                    sort_keys=True,
+   394	                )
+   395	
+   396	                fh.write(
+   397	                    "\n"
+   398	                )
+   399	
+   400	                fh.flush()
+   401	
+   402	                os.fsync(
+   403	                    fh.fileno()
+   404	                )
+   405	
+   406	            os.chmod(
+   407	                tmp,
+   408	                0o600,
+   409	            )
+   410	
+   411	            os.replace(
+   412	                tmp,
+   413	                path,
+   414	            )
+   415	
+   416	            dir_fd = os.open(
+   417	                str(
+   418	                    path.parent
+   419	                ),
+   420	                os.O_DIRECTORY,
+   421	            )
+   422	
+   423	            try:
+   424	                os.fsync(
+   425	                    dir_fd
+   426	                )
+   427	            finally:
+   428	                os.close(
+   429	                    dir_fd
+   430	                )
+   431	
+   432	        finally:
+   433	            if tmp.exists():
+   434	                tmp.unlink(
+   435	                    missing_ok=True
+   436	                )
+   437	
+   438	    def save(
+   439	        self,
+   440	        result: HealthResult,
+   441	    ) -> None:
+   442	
+   443	        payload = (
+   444	            self._result_to_dict(
+   445	                result
+   446	            )
+   447	        )
+   448	
+   449	        config_name = (
+   450	            self._safe_name(
+   451	                result.config_id
+   452	            )
+   453	        )
+   454	
+   455	        job_name = (
+   456	            self._safe_name(
+   457	                result.job_id
+   458	            )
+   459	        )
+   460	
+   461	        latest_path = (
+   462	            self.latest_dir
+   463	            / f"{config_name}.json"
+   464	        )
+   465	
+   466	        history_path = (
+   467	            self.history_dir
+   468	            / f"{job_name}.json"
+   469	        )
+   470	
+   471	        # History first, then latest pointer.
+   472	        self._atomic_write_json(
+   473	            history_path,
+   474	            payload,
+   475	        )
+   476	
+   477	        self._atomic_write_json(
+   478	            latest_path,
+   479	            payload,
+   480	        )
+   481	
+   482	    def get(
+   483	        self,
+   484	        config_id: str,
+   485	    ) -> HealthResult | None:
+   486	
+   487	        name = self._safe_name(
+   488	            config_id
+   489	        )
+   490	
+   491	        path = (
+   492	            self.latest_dir
+   493	            / f"{name}.json"
+   494	        )
+   495	
+   496	        if not path.exists():
+   497	            return None
+   498	
+   499	        value = json.loads(
+   500	            path.read_text(
+   501	                encoding="utf-8"
+   502	            )
+   503	        )
+   504	
+   505	        return (
+   506	            self._result_from_dict(
+   507	                value
+   508	            )
+   509	        )
+   510	
+   511	    def get_job(
+   512	        self,
+   513	        job_id: str,
+   514	    ) -> HealthResult | None:
+   515	
+   516	        name = self._safe_name(
+   517	            job_id
+   518	        )
+   519	
+   520	        path = (
+
+========== [11] CENTRAL SETTINGS HEALTH CONTRACT ==========
+162:            "health_retest": False,
+163:            "config_lifetime": False,
+173:            "healthy_window_hours": 12,
+178:        "health_retest": {
+184:        "config_lifetime": {
+296:        "health_retest",
+297:        "config_lifetime",
+316:            "healthy_window_hours"
+319:        "healthy_window_hours",
+343:        "health_retest"
+350:        "health_retest."
+360:        "health_retest."
+370:        "health_retest."
+382:            "health_retest interval "
+387:        "config_lifetime"
+394:        "config_lifetime."
+654:        "health.max_workers",
+661:        "health.batch_size",
+673:            f"health.{key}",
+682:        "health."
+692:        "health."
+
+--- CURRENT SETTINGS ---
+{
+  "health_retest": {
+    "interval_seconds": 420,
+    "maximum_interval_seconds": 86400,
+    "minimum_interval_seconds": 60
+  },
+  "source_intelligence": {
+    "dashboard_alerts": true,
+    "healthy_window_hours": 12,
+    "minimum_tested_configs": 1
+  },
+  "config_lifetime": {
+    "max_age_hours": 72
+  }
+}
+SETTINGS_REVISION= 10
+SETTINGS_CHECKSUM= 52f39143676d7bbb765503e64927f15a938b390179614ecd6110d79ec54a0ebc
+
+========== [12] HEALTH RESULT STORAGE SUMMARY ==========
+
+--- /var/lib/config-location/health-results ---
+2.3G	/var/lib/config-location/health-results
+2026-09-04 22:19:31.9084347150 1509 /var/lib/config-location/health-results/latest/2d4b4e0ded4ae522ce9c90ed9d2c0cdbbbd5dfcdcff768eda7fffe1395aa0e9c.json
+2026-09-04 22:19:31.8996482080 1509 /var/lib/config-location/health-results/history/health-2d4b4e0ded4ae522ce9c90ed9d2c0cdbbbd5dfcdcff768eda7fffe1395aa0e9c-1788560333530456065.json
+2026-09-04 22:19:29.9132601990 1509 /var/lib/config-location/health-results/latest/4139dd06595ad4ee270d3bc4cf68638269b1a87dd6a25f9efcbb3203924769e8.json
+2026-09-04 22:19:28.2484599620 1509 /var/lib/config-location/health-results/latest/511d415cd90d3bdce6e058932639137d8e327228bfa41b7548983c814965da8d.json
+2026-09-04 22:19:28.2364005390 1509 /var/lib/config-location/health-results/history/health-511d415cd90d3bdce6e058932639137d8e327228bfa41b7548983c814965da8d-1788560333839035143.json
+2026-09-04 22:19:27.8426566180 1508 /var/lib/config-location/health-results/latest/d4a5e57cb85b5882b0c0cbdb083ace7dd7714297ccc96b2e8e15d01105ef204a.json
+2026-09-04 22:19:24.9426142090 1513 /var/lib/config-location/health-results/latest/cd4b751abebc5f40fc56a1bd959cbc40b6300e6f8d9b61d1da968a4319fcc0cd.json
+2026-09-04 22:19:24.4996632030 1508 /var/lib/config-location/health-results/latest/65d2eac7d659abb1c694e7c70734e7a1eb3ebf7280da73516b341aabf010b167.json
+2026-09-04 22:19:24.4863711010 1508 /var/lib/config-location/health-results/history/health-65d2eac7d659abb1c694e7c70734e7a1eb3ebf7280da73516b341aabf010b167-1788560335896096345.json
+2026-09-04 22:19:19.8216724170 1511 /var/lib/config-location/health-results/latest/eb327213366f959eb0c95925f40b9de5bebc03accb56598cf0ed78ee6cf56112.json
+2026-09-04 22:19:19.8165156960 1511 /var/lib/config-location/health-results/history/health-eb327213366f959eb0c95925f40b9de5bebc03accb56598cf0ed78ee6cf56112-1788560332915786300.json
+2026-09-04 22:18:58.2477149100 1511 /var/lib/config-location/health-results/latest/a6f31e282a1c35abb2c8e9743a47e6776440ff985497703d9339b32543552bee.json
+2026-09-04 22:18:58.2367149320 1511 /var/lib/config-location/health-results/history/health-a6f31e282a1c35abb2c8e9743a47e6776440ff985497703d9339b32543552bee-1788560332987551163.json
+2026-09-04 22:18:49.8383349430 1793 /var/lib/config-location/health-results/latest/8ac992fb61edfb1269073604df6b6a9636604b4bb12f5147e133cd877c394124.json
+2026-09-04 22:18:49.8349983380 1793 /var/lib/config-location/health-results/history/health-8ac992fb61edfb1269073604df6b6a9636604b4bb12f5147e133cd877c394124-1788560292760873323.json
+2026-09-04 22:18:49.8308274460 1792 /var/lib/config-location/health-results/latest/676678a04aca7cf72aba95c2fa02d0db150e43b1f72220b847ac988aa0ac324a.json
+2026-09-04 22:18:49.8262262480 1792 /var/lib/config-location/health-results/history/health-676678a04aca7cf72aba95c2fa02d0db150e43b1f72220b847ac988aa0ac324a-1788560292641152398.json
+2026-09-04 22:18:49.8207345360 1792 /var/lib/config-location/health-results/latest/695aad88e560a95deeecc2cca31cbd46fb53cfc81d05dd3652a72fc9511b1741.json
+2026-09-04 22:18:49.8155767420 1792 /var/lib/config-location/health-results/history/health-695aad88e560a95deeecc2cca31cbd46fb53cfc81d05dd3652a72fc9511b1741-1788560292586155398.json
+2026-09-04 22:18:49.8117881390 1792 /var/lib/config-location/health-results/latest/b702a7abdd8390651eef7a3895e766884eead94cadbcaa29fd59e4f75683112d.json
+2026-09-04 22:18:49.8026597510 1792 /var/lib/config-location/health-results/history/health-b702a7abdd8390651eef7a3895e766884eead94cadbcaa29fd59e4f75683112d-1788560292625001053.json
+2026-09-04 22:18:49.7907315680 1792 /var/lib/config-location/health-results/latest/7668cc5104ef6fa853153c4078b712b7ed2d42439387e8488145b9b133a7efdf.json
+2026-09-04 22:18:49.7807315880 1792 /var/lib/config-location/health-results/history/health-7668cc5104ef6fa853153c4078b712b7ed2d42439387e8488145b9b133a7efdf-1788560292631907941.json
+2026-09-04 22:18:19.6257618610 1786 /var/lib/config-location/health-results/latest/994d6720e0e6f74330bf057b97b170bb17f50d5fb463b6f7fb9c8df4e9e9fdf0.json
+2026-09-04 22:18:19.6233947570 1786 /var/lib/config-location/health-results/history/health-994d6720e0e6f74330bf057b97b170bb17f50d5fb463b6f7fb9c8df4e9e9fdf0-1788560292561074988.json
+2026-09-04 22:18:19.6181998020 1786 /var/lib/config-location/health-results/latest/b49d6c043518cd3240b4a989a3454ab38eaf865133f21766b014072cf78e1590.json
+2026-09-04 22:18:19.6156901510 1786 /var/lib/config-location/health-results/history/health-b49d6c043518cd3240b4a989a3454ab38eaf865133f21766b014072cf78e1590-1788560292536680836.json
+2026-09-04 22:18:19.6128463620 1785 /var/lib/config-location/health-results/latest/f82c721c99b28d13e277ee82cc77a0f1142d6b28d5a88d344d5099f5f559284b.json
+2026-09-04 22:18:19.6108405050 1785 /var/lib/config-location/health-results/history/health-f82c721c99b28d13e277ee82cc77a0f1142d6b28d5a88d344d5099f5f559284b-1788560292586423311.json
+2026-09-04 22:18:19.6082658920 1786 /var/lib/config-location/health-results/latest/aac99d4d20663213038f20978272f3091e7100dc9202a29ef9885e650f835ab0.json
+
+--- /var/lib/config-location/health ---
+48K	/var/lib/config-location/health
+2026-09-03 08:38:40.9565195310 40 /var/lib/config-location/health/results/latest.json
+2026-09-03 08:38:40.9395195710 173 /var/lib/config-location/health/score-policy.json
+2026-09-03 08:38:40.9215196130 57 /var/lib/config-location/health/probes/stability.json
+2026-09-03 08:38:40.8965196710 60 /var/lib/config-location/health/probes/latency.json
+2026-09-03 08:38:40.8425070320 66 /var/lib/config-location/health/probes/upload.json
+2026-09-03 08:38:40.8215198460 70 /var/lib/config-location/health/probes/download.json
+2026-09-03 08:38:40.7658895650 165 /var/lib/config-location/health/policy.json
+2026-09-03 08:38:40.7575199950 217 /var/lib/config-location/health/schema.json
+
+--- /var/lib/config-location/health-scheduler ---
+36K	/var/lib/config-location/health-scheduler
+2026-09-03 08:39:20.5294274140 64 /var/lib/config-location/health-scheduler/state/status.json
+2026-09-03 08:39:20.5164274440 116 /var/lib/config-location/health-scheduler/queue/queue-schema.json
+2026-09-03 08:39:20.4824275240 199 /var/lib/config-location/health-scheduler/policy/scheduler-policy.json
+2026-08-31 01:55:29.0856990390 152 /var/lib/config-location/health-scheduler/state.json
+2026-08-31 01:07:43.3059925100 13 /var/lib/config-location/health-scheduler/cursor.json
+
+========== [13] SAMPLE HEALTH RESULT STRUCTURE ==========
+
+FILE: /var/lib/config-location/health/score-policy.json
+TOP_KEYS: ['states', 'version', 'weights']
+
+FILE: /var/lib/config-location/health/policy.json
+TOP_KEYS: ['mode', 'retry', 'tests', 'timeout', 'version']
+
+FILE: /var/lib/config-location/health/schema.json
+TOP_KEYS: ['health_result', 'version']
+
+FILE: /var/lib/config-location/health-lifecycle/enforcement-decision.json
+TOP_KEYS: ['active_store_policy', 'archive_policy', 'decision', 'hard_boundaries', 'permanent_cleanup', 'production_behavior', 'safety', 'schema_version', 'stage']
+
+FILE: /var/lib/config-location/health-lifecycle/enforcement-latest.json
+TOP_KEYS: ['failed_gates', 'generated_at', 'global_freeze', 'hard_boundary', 'max_canary', 'mode', 'mutation_allowed', 'reason', 'rollback_backups', 'rollback_required', 'safety_production_delete_allowed', 'schema_version', 'selected_canary', 'selected_canary_count', 'stage', 'state', 'valid_candidate_count']
+state='canary_ready'
+reason='all_gates_passed'
+
+FILE: /var/lib/config-location/health-lifecycle/sync-status.json
+TOP_KEYS: ['component', 'cycle', 'error_count', 'newest_result_mtime_ns', 'pid', 'result_count', 'schema_version', 'sleep_seconds', 'state', 'sync_count', 'updated_at', 'write_reason']
+state='idle'
+updated_at='2026-09-04T22:19:36.447789+00:00'
+
+FILE: /var/lib/config-location/health-lifecycle/policy-latest.json
+TOP_KEYS: ['counts', 'decisions', 'deep_quarantine_count', 'delete_candidate_shadow_count', 'generated_at', 'mode', 'policy', 'production_delete_allowed_count', 'production_delete_enabled', 'publish_eligible', 'quarantine_count', 'schema_version', 'tracked_count']
+
+FILE: /var/lib/config-location/health-lifecycle/ui19-closeout.json
+TOP_KEYS: ['adaptive_backend_changed', 'adaptive_settings_ui', 'closed_at', 'closeout_assertions', 'error_indicators', 'existing_ui_style_preserved', 'freshness_indicators', 'health_dashboard', 'lifecycle_detail', 'mobile_responsive', 'production_delete_enabled', 'read_only_observability', 'rtl', 'runtime', 'schema_version', 'stage', 'ui19_status', 'validated_soak']
+
+FILE: /var/lib/config-location/health-lifecycle/watchdog-status.json
+TOP_KEYS: ['component', 'cooldown_remaining_seconds', 'cycle', 'evaluation', 'pid', 'production_delete', 'protected_services', 'recovery_count', 'restart_attempted', 'restart_cooldown_seconds', 'restart_error', 'restart_failures', 'restart_success', 'schema_version', 'sync_service_active', 'updated_at', 'write_reason']
+updated_at='2026-09-04T22:19:38.679359+00:00'
+
+FILE: /var/lib/config-location/health-lifecycle/latest.json
+TOP_KEYS: ['config_count', 'counts', 'decisions', 'delete_eligible', 'generated_at', 'health_result_count', 'mode', 'production_mutation', 'publish_eligible', 'retest_required', 'schema_version', 'tracked_count']
+
+FILE: /var/lib/config-location/health-lifecycle/safety-latest.json
+TOP_KEYS: ['candidate_min_consecutive_unhealthy', 'configured_production_delete', 'delete_candidate_ratio', 'delete_candidate_shadow', 'failed_gates', 'future_enforcement_candidate_sample', 'future_enforcement_candidates', 'gates', 'generated_at', 'global_freeze', 'hard_safety_boundary', 'mode', 'policy_states', 'production_delete_allowed', 'rejected_by_streak', 'schema_version', 'tracked_count', 'unhealthy_ratio', 'unhealthy_total']
+
+FILE: /var/lib/config-location/health-lifecycle/consecutive-state.json
+TOP_KEYS: ['current_config_count', 'generated_at', 'latest_result_count', 'mode', 'processed_new_results', 'production_mutation', 'records', 'schema_version', 'tracked_count', 'tracker_gc_removed', 'unchanged_results']
+
+========== [14] PUBLISH FILTER ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	
+     5	from dataclasses import dataclass
+     6	from pathlib import Path
+     7	from typing import Any
+     8	
+     9	
+    10	CONFIG_DIR = Path(
+    11	    "/var/lib/config-location/configs"
+    12	)
+    13	
+    14	POLICY_PATH = Path(
+    15	    "/var/lib/config-location/"
+    16	    "health-lifecycle/"
+    17	    "policy-latest.json"
+    18	)
+    19	
+    20	
+    21	ALLOWED_STATES = {
+    22	    "healthy",
+    23	    "recovered",
+    24	}
+    25	
+    26	
+    27	@dataclass(frozen=True)
+    28	class PublishSnapshot:
+    29	
+    30	    policy_available: bool
+    31	
+    32	    total_configs: int
+    33	    policy_tracked: int
+    34	
+    35	    publishable: int
+    36	    suppressed: int
+    37	
+    38	    missing_policy_record: int
+    39	
+    40	    configs: tuple[
+    41	        dict[str, Any],
+    42	        ...
+    43	    ]
+    44	
+    45	
+    46	def _read_json(
+    47	    path: Path,
+    48	) -> dict[str, Any] | None:
+    49	
+    50	    try:
+    51	
+    52	        obj = json.loads(
+    53	            path.read_text(
+    54	                encoding="utf-8"
+    55	            )
+    56	        )
+    57	
+    58	        if isinstance(
+    59	            obj,
+    60	            dict,
+    61	        ):
+    62	            return obj
+    63	
+    64	    except Exception:
+    65	        pass
+    66	
+    67	    return None
+    68	
+    69	
+    70	def _load_configs() -> dict[str, dict[str, Any]]:
+    71	
+    72	    configs = {}
+    73	
+    74	    for path in CONFIG_DIR.glob(
+    75	        "*.json"
+    76	    ):
+    77	
+    78	        obj = _read_json(
+    79	            path
+    80	        )
+    81	
+    82	        if not obj:
+    83	            continue
+    84	
+    85	        config_id = str(
+    86	            obj.get(
+    87	                "id"
+    88	            )
+    89	            or path.stem
+    90	        )
+    91	
+    92	        raw = obj.get(
+    93	            "raw"
+    94	        )
+    95	
+    96	        if not isinstance(
+    97	            raw,
+    98	            str,
+    99	        ):
+   100	            continue
+   101	
+   102	        configs[
+   103	            config_id
+   104	        ] = obj
+   105	
+   106	    return configs
+   107	
+   108	
+   109	def _policy_index(
+   110	    value: dict[str, Any],
+   111	) -> dict[str, dict[str, Any]]:
+   112	
+   113	    result = {}
+   114	
+   115	    decisions = value.get(
+   116	        "decisions",
+   117	        [],
+   118	    )
+   119	
+   120	    if not isinstance(
+   121	        decisions,
+   122	        list,
+   123	    ):
+   124	        return result
+   125	
+   126	
+   127	    for item in decisions:
+   128	
+   129	        if not isinstance(
+   130	            item,
+   131	            dict,
+   132	        ):
+   133	            continue
+   134	
+   135	        config_id = str(
+   136	            item.get(
+   137	                "config_id",
+   138	                "",
+   139	            )
+   140	        )
+   141	
+   142	        if not config_id:
+   143	            continue
+   144	
+   145	        result[
+   146	            config_id
+   147	        ] = item
+   148	
+   149	
+   150	    return result
+   151	
+   152	
+   153	def publishable_config_ids() -> set[str]:
+   154	
+   155	    policy = _read_json(
+   156	        POLICY_PATH
+   157	    )
+   158	
+   159	    if not policy:
+   160	        # Fail closed.
+   161	        return set()
+   162	
+   163	
+   164	    index = _policy_index(
+   165	        policy
+   166	    )
+   167	
+   168	
+   169	    allowed = set()
+   170	
+   171	    for config_id, item in (
+   172	        index.items()
+   173	    ):
+   174	
+   175	        state = str(
+   176	            item.get(
+   177	                "policy_state",
+   178	                "",
+   179	            )
+   180	        ).strip().lower()
+   181	
+   182	        publish_flag = bool(
+   183	            item.get(
+   184	                "publish_eligible",
+   185	                False,
+   186	            )
+   187	        )
+   188	
+   189	
+   190	        if (
+   191	            state in ALLOWED_STATES
+   192	            and publish_flag
+   193	        ):
+   194	
+   195	            allowed.add(
+   196	                config_id
+   197	            )
+   198	
+   199	
+   200	    return allowed
+   201	
+   202	
+   203	def build_publish_snapshot(
+   204	    *,
+   205	    config_type: str | None = None,
+   206	) -> PublishSnapshot:
+   207	
+   208	    configs = _load_configs()
+   209	
+   210	    policy = _read_json(
+   211	        POLICY_PATH
+   212	    )
+   213	
+   214	
+   215	    if not policy:
+   216	
+   217	        return PublishSnapshot(
+   218	            policy_available=False,
+   219	
+   220	            total_configs=len(
+   221	                configs
+   222	            ),
+   223	
+   224	            policy_tracked=0,
+   225	
+   226	            publishable=0,
+   227	
+   228	            suppressed=len(
+   229	                configs
+   230	            ),
+   231	
+   232	            missing_policy_record=len(
+   233	                configs
+   234	            ),
+   235	
+   236	            configs=(),
+   237	        )
+   238	
+   239	
+   240	    policy_index = _policy_index(
+   241	        policy
+   242	    )
+   243	
+   244	
+   245	    output = []
+   246	
+   247	    missing_policy_record = 0
+   248	
+   249	
+   250	    kind_filter = (
+   251	        str(
+   252	            config_type
+   253	        )
+   254	        .strip()
+   255	        .lower()
+   256	        if config_type
+   257	        else None
+   258	    )
+   259	
+   260	
+   261	    for config_id, record in (
+   262	        configs.items()
+   263	    ):
+   264	
+   265	        kind = str(
+   266	            record.get(
+   267	                "type",
+   268	                "",
+   269	            )
+   270	        ).strip().lower()
+   271	
+   272	
+   273	        if (
+   274	            kind_filter
+   275	            and kind != kind_filter
+   276	        ):
+   277	            continue
+   278	
+   279	
+   280	        decision = (
+   281	            policy_index.get(
+   282	                config_id
+   283	            )
+   284	        )
+   285	
+   286	
+   287	        if decision is None:
+   288	
+   289	            missing_policy_record += 1
+   290	
+   291	            # Fail closed:
+   292	            # never expose an untested/unclassified
+   293	            # config.
+   294	            continue
+   295	
+   296	
+   297	        state = str(
+   298	            decision.get(
+   299	                "policy_state",
+   300	                "",
+   301	            )
+   302	        ).strip().lower()
+   303	
+   304	
+   305	        eligible = bool(
+   306	            decision.get(
+   307	                "publish_eligible",
+   308	                False,
+   309	            )
+   310	        )
+   311	
+   312	
+   313	        if (
+   314	            state not in ALLOWED_STATES
+   315	            or not eligible
+   316	        ):
+   317	
+   318	            continue
+   319	
+   320	
+   321	        output.append(
+   322	            record
+   323	        )
+   324	
+   325	
+   326	    # Deterministic order prevents random output
+   327	    # churn between identical requests.
+   328	    output.sort(
+   329	        key=lambda x: (
+   330	            str(
+   331	                x.get(
+   332	                    "type",
+   333	                    "",
+   334	                )
+   335	            ),
+   336	            str(
+   337	                x.get(
+   338	                    "id",
+   339	                    "",
+   340	                )
+   341	            ),
+   342	        )
+   343	    )
+   344	
+   345	
+   346	    relevant_total = sum(
+   347	        1
+   348	        for record in configs.values()
+   349	        if (
+   350	            not kind_filter
+   351	            or str(
+   352	                record.get(
+   353	                    "type",
+   354	                    "",
+   355	                )
+   356	            ).strip().lower()
+   357	            == kind_filter
+   358	        )
+   359	    )
+   360	
+
+========== [15] EXACT CALL GRAPH ==========
+/opt/config-location/app/panel/publish_read_model.py:35:        app.publish.filter.build_publish_snapshot()
+/opt/config-location/app/panel/publish_read_model.py:80:            snapshot=build_publish_snapshot()
+/opt/config-location/app/health/core/batch.py:74:        result = run_health_once(
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:335:    jobs = discover_jobs(
+/opt/config-location/app/health/core/continuous_adaptive_runner.py:618:        jobs = discover_jobs(
+/opt/config-location/app/health/core/production_scheduler.py:194:def discover_jobs(
+/opt/config-location/app/health/core/production_scheduler.py:338:    outcome = run_health_with_retry(
+/opt/config-location/app/health/core/production_scheduler.py:407:        jobs = discover_jobs(
+/opt/config-location/app/health/core/adaptive_runner.py:171:    jobs = discover_jobs(
+/opt/config-location/app/health/core/engine.py:74:def run_health_once(
+/opt/config-location/app/health/core/engine.py:234:        apply_health_decision(
+/opt/config-location/app/health/core/selftest_decision.py:226:    apply_health_decision(
+/opt/config-location/app/health/core/retry.py:68:def run_health_with_retry(
+/opt/config-location/app/health/core/retry.py:98:        result = run_health_once(
+/opt/config-location/app/health/core/always_on_adaptive.py:522:            jobs = discover_jobs(
+/opt/config-location/app/health/core/decision.py:116:def apply_health_decision(
+/opt/config-location/app/publish/filter.py:153:def publishable_config_ids() -> set[str]:
+/opt/config-location/app/publish/filter.py:203:def build_publish_snapshot(
+/opt/config-location/app/publish/http.py:15:        build_publish_snapshot(
+/opt/config-location/app/publish/http.py:168:        build_publish_snapshot()
+/opt/config-location/app/publish/selftest.py:129:                f.build_publish_snapshot()
+/opt/config-location/app/publish/selftest.py:159:                f.build_publish_snapshot(
+/opt/config-location/app/publish/selftest.py:182:                f.build_publish_snapshot()
+
+========== [16] HEALTH SYSTEMD ==========
+config-location-health-adaptive.service        enabled         enabled
+config-location-health-history-gc.service      disabled        enabled
+config-location-health-history-gc.timer        enabled         enabled
+
+----- config-location-health-adaptive.service -----
+# /etc/systemd/system/config-location-health-adaptive.service
+[Unit]
+Description=Config Location Always-On Adaptive Health Controller
+After=network-online.target config-location-fetcher.service config-location-panel.service
+Wants=network-online.target
+Requires=config-location-fetcher.service
+
+[Service]
+Type=simple
+
+ExecStart=/opt/config-location/bin/health-adaptive-daemon
+
+Restart=always
+RestartSec=3
+
+TimeoutStopSec=90
+KillMode=control-group
+
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=6
+
+CPUAccounting=true
+MemoryAccounting=true
+TasksAccounting=true
+
+LimitNOFILE=65535
+TasksMax=4096
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+ProtectSystem=full
+ProtectHome=true
+
+ReadWritePaths=/var/lib/config-location
+ReadWritePaths=/var/log/config-location
+ReadWritePaths=/run
+ReadWritePaths=/etc/config-location
+
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPATH=/opt/config-location
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+
+STATE:
+● config-location-health-adaptive.service - Config Location Always-On Adaptive Health Controller
+     Loaded: loaded (/etc/systemd/system/config-location-health-adaptive.service; enabled; preset: enabled)
+     Active: active (running) since Fri 2026-09-04 05:11:34 UTC; 17h ago
+ Invocation: 0e4c0559e6b74cbc9254fae260c2b224
+   Main PID: 1077 (python3)
+      Tasks: 27 (limit: 4096)
+     Memory: 366.6M (peak: 916M)
+        CPU: 3h 36min 8.285s
+     CGroup: /system.slice/config-location-health-adaptive.service
+             └─1077 /usr/bin/python3 -m app.health.core.always_on_adaptive
+
+Sep 04 05:11:34 serverprojects.ptr.network systemd[1]: Started config-location-health-adaptive.service - Config Location Always-On Adaptive Health Controller.
+
+----- config-location-health-history-gc.service -----
+# /etc/systemd/system/config-location-health-history-gc.service
+[Unit]
+Description=Config Location Health History Retention GC
+After=local-fs.target
+ConditionPathIsDirectory=/var/lib/config-location/health-results/history
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/opt/config-location
+
+Environment=PYTHONPATH=/opt/config-location
+Environment=CONFIG_LOCATION_HISTORY_RETENTION_HOURS=72
+Environment=CONFIG_LOCATION_HISTORY_MIN_KEEP=20
+Environment=CONFIG_LOCATION_HISTORY_GC_MAX=10000
+
+ExecStart=/opt/config-location/venv/bin/python -m app.integrity.health_history_gc
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+STATE:
+○ config-location-health-history-gc.service - Config Location Health History Retention GC
+     Loaded: loaded (/etc/systemd/system/config-location-health-history-gc.service; disabled; preset: enabled)
+     Active: inactive (dead) since Fri 2026-09-04 17:27:58 UTC; 4h 51min ago
+ Invocation: ed93b596f46a471d983ba7c131eff062
+TriggeredBy: ● config-location-health-history-gc.timer
+    Process: 1686260 ExecStart=/opt/config-location/venv/bin/python -m app.integrity.health_history_gc (code=exited, status=0/SUCCESS)
+   Main PID: 1686260 (code=exited, status=0/SUCCESS)
+   Mem peak: 1.8G
+        CPU: 2min 9.435s
+
+Sep 04 17:27:58 serverprojects.ptr.network python[1686260]:   },
+Sep 04 17:27:58 serverprojects.ptr.network python[1686260]:   "recent_now": 0,
+Sep 04 17:27:58 serverprojects.ptr.network python[1686260]:   "removed": 10000,
+Sep 04 17:27:58 serverprojects.ptr.network python[1686260]:   "schema_version": 1,
+Sep 04 17:27:58 serverprojects.ptr.network python[1686260]:   "stage": "FIX20.3",
+Sep 04 17:27:58 serverprojects.ptr.network python[1686260]:   "started_at": "2026-09-04T17:21:28.353799+00:00"
+Sep 04 17:27:58 serverprojects.ptr.network python[1686260]: }
+Sep 04 17:27:58 serverprojects.ptr.network systemd[1]: config-location-health-history-gc.service: Deactivated successfully.
+Sep 04 17:27:58 serverprojects.ptr.network systemd[1]: Finished config-location-health-history-gc.service - Config Location Health History Retention GC.
+Sep 04 17:27:58 serverprojects.ptr.network systemd[1]: config-location-health-history-gc.service: Consumed 2min 9.435s CPU time over 6min 30.247s wall clock time, 1.8G memory peak.
+
+----- config-location-health-history-gc.timer -----
+# /etc/systemd/system/config-location-health-history-gc.timer
+[Unit]
+Description=Run Config Location Health History GC
+
+[Timer]
+OnBootSec=10m
+OnUnitActiveSec=6h
+AccuracySec=5m
+Persistent=true
+Unit=config-location-health-history-gc.service
+
+[Install]
+WantedBy=timers.target
+
+STATE:
+● config-location-health-history-gc.timer - Run Config Location Health History GC
+     Loaded: loaded (/etc/systemd/system/config-location-health-history-gc.timer; enabled; preset: enabled)
+     Active: active (waiting) since Fri 2026-09-04 05:11:32 UTC; 17h ago
+ Invocation: be41f5ec31534a08b18fa9ec239a104c
+    Trigger: Fri 2026-09-04 23:21:28 UTC; 1h 1min left
+   Triggers: ● config-location-health-history-gc.service
+
+Sep 04 05:11:32 serverprojects.ptr.network systemd[1]: Started config-location-health-history-gc.timer - Run Config Location Health History GC.
+
+========== [17] CONTRACT QUESTIONS ==========
+Q1. What exact object represents a health job?
+Q2. What fields uniquely identify a config?
+Q3. What exact function performs the real health test?
+Q4. Does retry wrap run_health_once or vice versa?
+Q5. Where is HealthResult persisted?
+Q6. Which timestamp represents the last completed health test?
+Q7. How are healthy and unhealthy transitions represented?
+Q8. How does a config become eligible/ineligible for publish?
+Q9. Does the production scheduler already rediscover healthy configs?
+Q10. What state/cursor prevents duplicate scheduling?
+Q11. Which lock prevents multiple health schedulers?
+Q12. What is the safest insertion point for retest eligibility?
+Q13. Can retest reuse discover_jobs without changing the probe engine?
+Q14. What Central Settings key must control the interval?
+Q15. What must happen immediately after a failed retest?
+
+========== [18] CONTRACT COMPLETE ==========
+NO_PRODUCTION_CHANGES=true
+NO_SERVICE_RESTART=true
+NO_HEALTH_STATE_CHANGE=true
+CONTRACT_COMPLETE
