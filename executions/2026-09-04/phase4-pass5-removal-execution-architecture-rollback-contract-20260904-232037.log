@@ -1,0 +1,18 @@
+================================================
+ PHASE 4 PASS 5
+ REMOVAL EXECUTION + ROLLBACK CONTRACT
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] BACKUP ==========
+BACKUP_OK
+
+========== [3/10] INSTALL EXECUTOR CONTRACT ==========
+EXECUTOR_CONTRACT_INSTALLED
+
+========== [4/10] STATIC DESTRUCTIVE GUARD ==========
+839:#   os.remove()
+840:#   shutil.rmtree()
+ERROR: destructive primitive detected
