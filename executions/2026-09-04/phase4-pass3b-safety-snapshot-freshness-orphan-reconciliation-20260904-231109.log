@@ -1,0 +1,57 @@
+================================================
+ PHASE 4 PASS 3B
+ SAFETY SNAPSHOT FRESHNESS / ORPHAN RECONCILIATION
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] BACKUP ==========
+BACKUP_OK
+
+========== [3/10] HASH BEFORE ==========
+SAFETY_HASH_BEFORE=58b4f2b844fae43738ea8eb1590e829a58bc17e30f00a98f72542696057b0801
+POLICY_HASH_BEFORE=72e9a752a9079ffea797eed2e3b4a3ec1a38ad096502c394ef043ed4dac35eb2
+TRACKER_HASH_BEFORE=a7716127246f898997ab84eaac8b1ebd2d17f58d94d65eb916b9624dc2817266
+
+========== [4/10] AUDIT OLD SNAPSHOT ==========
+OLD_FUTURE_CANDIDATES= 1770
+OLD_SAMPLE_COUNT= 25
+OLD_SAMPLE_MISSING_CONFIG= 24
+OLD_SAMPLE_MISSING_HEALTH= 24
+
+========== [5/10] CANONICAL BUILD ==========
+NEW_FUTURE_CANDIDATES= 0
+NEW_MIN_STREAK= 8
+NEW_SAMPLE_COUNT= 0
+CANONICAL_BUILD_OK
+
+========== [6/10] CANONICAL WRITE ==========
+CANONICAL_SAFETY_WRITE_OK
+
+========== [7/10] RECONCILE NEW SNAPSHOT ==========
+{
+  "mode": "canonical_safety_freshness_reconciliation",
+  "production_delete": false,
+  "candidate_min_consecutive_unhealthy": 8,
+  "future_enforcement_candidates": 0,
+  "counts": {
+    "sample_count": 0,
+    "config_exists": 0,
+    "config_missing": 0,
+    "health_exists": 0,
+    "health_missing": 0,
+    "current_health_unhealthy": 0,
+    "policy_delete_shadow": 0,
+    "tracker_streak_pass": 0,
+    "tracker_healthy_zero": 0,
+    "fully_live_safe_candidate": 0
+  },
+  "rows": []
+}
+
+========== [8/10] HASH AFTER ==========
+SAFETY_HASH_AFTER=cf5c91f5c5ab1e29324612cc9537dc2617df5ca03da45c0954eb1e9b7a74d197
+POLICY_HASH_AFTER=8d44c68d33cb0cf9b4846e3e4e2aeaf26b2e524a646565a71738eb53d356e651
+TRACKER_HASH_AFTER=6dc5b2a91b0cff7ceaa4de0bd11260a3f952aad8a09cb2eb6e4357f1c5cc6284
+ERROR: policy unexpectedly mutated

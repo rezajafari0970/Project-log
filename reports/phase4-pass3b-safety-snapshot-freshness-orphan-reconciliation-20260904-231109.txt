@@ -1,0 +1,40 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase4-pass3b-safety-snapshot-freshness-orphan-reconciliation
+
+Result:
+FAILED
+
+Start:
+2026-09-04T23:11:09+00:00
+
+End:
+2026-09-04T23:11:10+00:00
+
+Safety regeneration:
+CANONICAL
+
+Config deletion:
+NONE
+
+Health mutation:
+NONE
+
+Policy mutation:
+NONE
+
+Tracker mutation:
+NONE
+
+Backup:
+/root/3245/phase4-pass3b-safety-snapshot-freshness-orphan-reconciliation-backup-20260904-231109
+
+Result:
+/root/project-log/discovery/2026-09-04/phase4-pass3b-safety-snapshot-freshness-orphan-reconciliation-20260904-231109.json
+
+Log:
+/root/project-log/executions/2026-09-04/phase4-pass3b-safety-snapshot-freshness-orphan-reconciliation-20260904-231109.log
+
+Errors:
+\npolicy unexpectedly mutated\nexit code 1
