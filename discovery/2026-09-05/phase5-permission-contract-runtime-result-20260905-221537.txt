@@ -1,0 +1,29 @@
+================================================
+ PHASE 5 FINAL FIX
+ COUNTRY RUNTIME STATE PERMISSION CONTRACT
+================================================
+
+========== [1/12] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/12] BACKUP ==========
+ACL_BACKUP=/root/3245/phase5-final-country-runtime-state-permission-contract-backup-20260905-221206/acl.before
+BACKUP_OK
+
+========== [3/12] PRODUCTION BASELINE ==========
+SUB_ALL_HTTP_BEFORE=200
+SUB_ALL_SIZE_BEFORE=113271
+SUB_ALL_SHA_BEFORE=3770d618846250719b5a99bedb716794ba498c24777abdba458d7e3686b40f06
+
+========== [4/12] INSTALL RECONCILER ==========
+INITIAL_PERMISSION_RECONCILIATION_OK
+
+========== [5/12] CONFIGLOC READ TRACE ==========
+PROJECTION_RECORDS= 5436
+COUNTRY_STATE_EACCES_COUNT=2
+3103025 openat(AT_FDCWD, "/var/lib/config-location/country/pipeline/latest/15ba1005e974a67a58570bfb9c3f718cf5975fdebb35a5573782c54f5d334e7a.json", O_RDONLY|O_CLOEXEC) = -1 EACCES (Permission denied)
+3103025 openat(AT_FDCWD, "/var/lib/config-location/country/pipeline/latest/1f3c056c6fd517ab33492848178a0a55e00c4810373bd11d08f183f244d666f7.json", O_RDONLY|O_CLOEXEC) = -1 EACCES (Permission denied)
+
+========== AUTOMATIC ROLLBACK ==========
+ROLLBACK_DONE
+ERROR: configloc still receives EACCES
