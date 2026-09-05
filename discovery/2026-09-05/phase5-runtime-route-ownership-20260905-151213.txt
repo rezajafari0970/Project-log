@@ -1,0 +1,191 @@
+========== PORT 4040 OWNER ==========
+LISTEN 0      128          0.0.0.0:4040      0.0.0.0:*    users:(("python",pid=2791583,fd=6))                                                                                                 
+
+========== LSOF ==========
+COMMAND     PID      USER FD   TYPE   DEVICE SIZE/OFF NODE NAME
+python  2791583 configloc 6u  IPv4 13420095      0t0  TCP *:4040 (LISTEN)
+
+========== FUSER ==========
+                     USER        PID ACCESS COMMAND
+4040/tcp:            configloc  2791583 F.... python
+
+PID=2791583
+
+========== PROCESS ==========
+UID          PID    PPID  C STIME TTY          TIME CMD
+configl+ 2791583       1 11 15:08 ?        00:00:27 /opt/config-location/venv/bin/python -m app.panel.server
+
+CMDLINE:
+/opt/config-location/venv/bin/python -m app.panel.server 
+
+CWD:
+/opt/config-location
+
+EXE:
+/usr/bin/python3.14
+
+ENVIRONMENT RELEVANT:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/snap/bin
+
+========== SYSTEMD OWNER ==========
+0::/system.slice/config-location-panel.service
+● config-location-panel.service - Config Location Management Panel
+
+========== OPEN PYTHON FILES ==========
+python  2791583 configloc cwd       DIR              253,2     4096   798594 /opt/config-location
+python  2791583 configloc mem       REG              253,2  1752136   804997 /opt/config-location/venv/lib/python3.14/site-packages/aiohttp/_websocket/reader_c.cpython-314-x86_64-linux-gnu.so
+python  2791583 configloc mem       REG              253,2   247440   804992 /opt/config-location/venv/lib/python3.14/site-packages/aiohttp/_websocket/mask.cpython-314-x86_64-linux-gnu.so
+python  2791583 configloc mem       REG              253,2  2913256   804935 /opt/config-location/venv/lib/python3.14/site-packages/aiohttp/_http_parser.cpython-314-x86_64-linux-gnu.so
+python  2791583 configloc mem       REG              253,2   461888   804938 /opt/config-location/venv/lib/python3.14/site-packages/aiohttp/_http_writer.cpython-314-x86_64-linux-gnu.so
+python  2791583 configloc mem       REG              253,2   151824   804040 /opt/config-location/venv/lib/python3.14/site-packages/propcache/_helpers_c.cpython-314-x86_64-linux-gnu.so
+python  2791583 configloc mem       REG              253,2   749088   804169 /opt/config-location/venv/lib/python3.14/site-packages/frozenlist/_frozenlist.cpython-314-x86_64-linux-gnu.so
+python  2791583 configloc mem       REG              253,2   125040   804623 /opt/config-location/venv/lib/python3.14/site-packages/yarl/_quoting_c.cpython-314-x86_64-linux-gnu.so
+python  2791583 configloc mem       REG              253,2   826736   804070 /opt/config-location/venv/lib/python3.14/site-packages/multidict/_multidict.cpython-314-x86_64-linux-gnu.so
+
+========== ALL 4040-RELATED SERVICES ==========
+  config-location-canary-readiness.service         loaded    active   running Config Location Permanent Canary Readiness Controller
+  config-location-code-scanner.service             loaded    inactive dead    Config Location Code Scanner
+  config-location-country-event-consumer.service   loaded    active   running Config Location Country Event Consumer
+  config-location-country-publish-contract.service loaded    inactive dead    Config Location Country Publish Permanent Contract Guard
+  config-location-country-worker.service           loaded    active   running Config Location Country Detection Shadow Worker
+  config-location-dev-context-watcher.service      loaded    active   running Config Location Dev Context Watcher
+  config-location-fetcher.service                  loaded    active   running Config Location Fetch Engine
+  config-location-health-adaptive.service          loaded    active   running Config Location Always-On Adaptive Health Controller
+  config-location-health-history-gc.service        loaded    inactive dead    Config Location Health History Retention GC
+  config-location-integrity-guard.service          loaded    inactive dead    Config Location Referential Integrity Guard
+  config-location-lifecycle-sync.service           loaded    active   running Config Location Lifecycle Sync
+  config-location-lifecycle-watchdog.service       loaded    active   running Config Location Lifecycle Stale State Watchdog
+  config-location-lock-gc.service                  loaded    inactive dead    Config Location Real Schema Lock Garbage Collection
+  config-location-panel.service                    loaded    active   running Config Location Management Panel
+  config-location-removal-wait.service             loaded    active   running Config Location Permanent Safety Removal Waiting Worker
+  config-location-retest.service                   loaded    active   running Config Location Permanent Health Retest Scheduler
+  config-location-xray-log-cleanup.service         loaded    inactive dead    Config Location Xray forensic log cleanup
+  config-manager.service                           loaded    active   running Config Manager V1
+  initrd-parse-etc.service                         loaded    inactive dead    Mountpoints Configured in the Real Root
+  ldconfig.service                                 loaded    inactive dead    Rebuild Dynamic Linker Cache
+  modprobe@configfs.service                        loaded    inactive dead    Load Kernel Module configfs
+  netplan-configure.service                        loaded    active   exited  Netplan Backend Configuration
+  netplan-ovs-cleanup.service                      loaded    inactive dead    OpenVSwitch configuration for cleanup
+  systemd-confext-initrd.service                   loaded    inactive dead    Merge System Configuration Images into /etc/
+  systemd-confext.service                          loaded    inactive dead    Merge System Configuration Images into /etc/
+
+========== PANEL UNIT ==========
+# /etc/systemd/system/config-location-panel.service
+[Unit]
+Description=Config Location Management Panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+User=configloc
+Group=configloc
+
+WorkingDirectory=/opt/config-location
+
+EnvironmentFile=/etc/config-location/panel.env
+
+ExecStart=/opt/config-location/venv/bin/python -m app.panel.server
+
+Restart=always
+RestartSec=3
+
+TimeoutStartSec=30
+TimeoutStopSec=15
+
+KillSignal=SIGTERM
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+ProtectSystem=full
+ProtectHome=true
+
+ReadWritePaths=/var/lib/config-location
+ReadWritePaths=/var/log/config-location
+ReadWritePaths=/run/config-location
+
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+RestrictSUIDSGID=true
+
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target
+
+# /etc/systemd/system/config-location-panel.service.d/99-final.conf
+[Service]
+ExecStart=
+ExecStart=/opt/config-location/venv/bin/python -m app.panel.server
+WorkingDirectory=/opt/config-location
+
+RuntimeDirectory=config-location
+RuntimeDirectoryMode=0750
+RuntimeDirectoryPreserve=yes
+
+========== CONFIG COUNTRY PANEL UNIT ==========
+
+========== PYTHON PROCESSES ==========
+root        1061 43.8  6.9 1497464 562716 ?      Dsl  Sep04 895:48 /opt/config-location/venv/bin/python -m app.country.event_consumer
+configl+    1063 41.0  0.9 676136 75104 ?        Rsl  Sep04 837:55 /opt/config-location/venv/bin/python -m app.fetcher.engine
+root        1082  1.5  0.4 600060 36824 ?        SNs  Sep04  31:08 /opt/config-location/venv/bin/python -m app.country.daemon
+root        1083  0.6  0.3  35476 25720 ?        SNs  Sep04  13:35 /opt/config-location/venv/bin/python -m app.health.lifecycle.stale_watchdog
+root       82269  8.1  0.8  76584 66680 ?        SNs  Sep04 164:04 /opt/config-location/venv/bin/python -m app.health.lifecycle.sync_daemon
+root     1973229  0.3  1.3 122132 111752 ?       SNs  Sep04   3:31 /opt/config-location/venv/bin/python -m app.health.lifecycle.removal_wait_worker
+root     1985043 12.3  0.3  40208 31200 ?        SNs  Sep04 116:47 /opt/config-location/venv/bin/python -m app.health.lifecycle.canary_readiness_controller
+root     2482219  2.3  0.4 861592 36764 ?        SNs  06:55  11:34 /opt/config-location/venv/bin/python -m app.health.retest.worker
+configl+ 2791583 11.5  0.7  71680 60632 ?        Ss   15:08   0:27 /opt/config-location/venv/bin/python -m app.panel.server
+
+========== ROUTE SOURCE COPIES ==========
+/opt/config-location/app/publish/http.py:83:    app.router.add_get('/sub/country/{country_code}', subscription_country)
+
+========== CURRENT PATCH SOURCE ==========
+4:from app.country.production_publish_projection import country_code_for_config, refresh as refresh_country_projection
+35:def _country_subscription_text(country_code):
+36:    refresh_country_projection()
+68:async def subscription_country(request):
+73:        text, snapshot, count = _country_subscription_text(country_code)
+83:    app.router.add_get('/sub/country/{country_code}', subscription_country)
+
+========== DIRECT MODULE LOCATION ==========
+MODULE_FILE = /opt/config-location/app/publish/http.py
+COUNTRY_FUNCTION_FILE = /opt/config-location/app/publish/http.py
+
+def _country_subscription_text(country_code):
+    refresh_country_projection()
+    snapshot = build_publish_snapshot()
+    records = snapshot.configs
+    if not isinstance(records, tuple):
+        raise RuntimeError('PublishSnapshot.configs must be tuple')
+    wanted = str(country_code or '').strip().upper()
+    if not wanted:
+        return ('', snapshot, 0)
+    if wanted != 'UNKNOWN':
+        if len(wanted) != 2 or not wanted.isalpha():
+            return ('', snapshot, 0)
+    lines = []
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        cid = record.get('id')
+        if not isinstance(cid, str) or not cid:
+            continue
+        resolved = country_code_for_config(cid)
+        if wanted == 'UNKNOWN':
+            match = resolved is None
+        else:
+            match = resolved == wanted
+        if not match:
+            continue
+        raw = record.get('raw')
+        if isinstance(raw, str):
+            raw = raw.strip()
+            if raw:
+                lines.append(raw)
+    return ('\n'.join(lines), snapshot, len(lines))
+
+
+PHASE5_RUNTIME_ROUTE_OWNERSHIP_DISCOVERY_COMPLETE
