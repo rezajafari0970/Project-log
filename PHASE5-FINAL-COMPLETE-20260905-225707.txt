@@ -1,0 +1,35 @@
+================================================
+ PHASE 5 FINAL INTEGRATION / REGRESSION / CLOSURE
+ FINAL RERUN
+================================================
+
+========== [1/9] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/9] COMPILE ==========
+COMPILE_OK
+
+========== [3/9] PERMISSION CONTRACT ==========
+PIPELINE_UNREADABLE=0
+IDENTITY_UNREADABLE=0
+PERMISSION_CONTRACT=PASS
+
+========== [4/9] SERVICES ==========
+config-location-panel.service=active
+config-location-country-worker.service=active
+config-location-country-event-consumer.service=active
+config-location-country-publish-contract.timer=active
+SERVICE_BASELINE=PASS
+
+========== [5/9] BASIC ENDPOINTS ==========
+SUB_ALL_HTTP=200
+UNKNOWN_HTTP=200
+INVALID_HTTP=404
+BASIC_ENDPOINTS=PASS
+
+========== [6/9] STABLE ALL-COUNTRY VALIDATION ==========
+
+---------- ATTEMPT 1/3 ----------
+Traceback (most recent call last):
+  File "<stdin>", line 65, in <module>
+PermissionError: [Errno 13] Permission denied: '/root/project-log/discovery/2026-09-05/phase5-final-integration-regression-closure-final-rerun-20260905-224641/snapshot-before-1.json'
