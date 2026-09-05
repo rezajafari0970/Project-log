@@ -1,0 +1,22 @@
+========== PRECHECK ==========
+BASELINE_COMPILE_OK
+BACKUP=/root/3245/phase5-b1-backup-20260905-222904
+
+========== PATCH ==========
+PATCHED=/opt/config-location/app/country/worker.py
+PATCHED=/opt/config-location/app/country/pipeline.py
+CORRECTED_ATOMIC_PATCH=YES
+
+========== COMPILE PATCH ==========
+PATCH_COMPILE_OK
+
+========== EXISTING FILES ==========
+EXISTING_FILES_MODE_0640=YES
+
+========== RESTART SERVICES ==========
+config-location-country-worker.service=active
+config-location-country-event-consumer.service=active
+config-location-panel.service=active
+SERVICES_OK
+
+========== OBSERVE NEW FILES ==========
