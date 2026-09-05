@@ -1,0 +1,46 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6b-controlled-publish-canary-wiring
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T12:16:02+00:00
+
+End:
+2026-09-05T12:16:04+00:00
+
+Mode:
+CONTROLLED PUBLISH CANARY
+
+Production publish wiring:
+NO
+
+/sub/all mutation:
+NO
+
+Production endpoint mutation:
+NO
+
+Config mutation:
+NONE
+
+Country canonical-store mutation:
+NONE
+
+Canary state:
+/var/lib/config-location/country/publish-canary
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6b-controlled-publish-canary-wiring-20260905-121602.json
+
+Backup:
+/root/3245/phase5-pass6b-controlled-publish-canary-wiring-backup-20260905-121602
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6b-controlled-publish-canary-wiring-20260905-121602.log
+
+Errors:
+

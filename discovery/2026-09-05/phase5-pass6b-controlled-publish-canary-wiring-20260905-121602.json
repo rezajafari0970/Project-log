@@ -1,0 +1,170 @@
+{
+  "component": "country-publish-canary",
+  "conflict": 0,
+  "expected_group_files": [
+    "AL.json",
+    "AR.json",
+    "AT.json",
+    "AU.json",
+    "BG.json",
+    "CA.json",
+    "CZ.json",
+    "DE.json",
+    "EE.json",
+    "ES.json",
+    "FI.json",
+    "FR.json",
+    "GB.json",
+    "GR.json",
+    "IN.json",
+    "IR.json",
+    "IT.json",
+    "JP.json",
+    "KR.json",
+    "KZ.json",
+    "LV.json",
+    "NL.json",
+    "NO.json",
+    "PL.json",
+    "SE.json",
+    "SG.json",
+    "TW.json",
+    "UNKNOWN.json",
+    "US.json",
+    "ZA.json"
+  ],
+  "generated_at": "2026-09-05T12:16:02.840801+00:00",
+  "group_count": 30,
+  "group_meta": {
+    "AL": {
+      "count": 1,
+      "sha256": "c570269aa58dc739ec085b0116c741cc785b6b6dc46d956cff539d04734ccc82"
+    },
+    "AR": {
+      "count": 1,
+      "sha256": "af0faefe9b4d319f706c5139c0e7177abd880ff1ee7bb49b2165fbe50e748d2d"
+    },
+    "AT": {
+      "count": 1,
+      "sha256": "6cde9815d2fd154bd9a02cff42ba0fc0594d28ae6d0c6bccc6994f2a184d80ec"
+    },
+    "AU": {
+      "count": 15,
+      "sha256": "6a230f87677f64d1512edc0ee00010b0693054636afca8ed9c6bf18e619bd3f9"
+    },
+    "BG": {
+      "count": 1,
+      "sha256": "cb98e088979e1d9fe69bb124b794a3c2cca9efa1428477715b5dad5302669a3f"
+    },
+    "CA": {
+      "count": 7,
+      "sha256": "83cf650a7ea8949ae4f7000f4c73cb9801c6014dd88fb6bc488dc8423b7f55e0"
+    },
+    "CZ": {
+      "count": 1,
+      "sha256": "fdf580f2a1ce752cc733603bd0406832e1aa8e4e2efd4b9af678df77a6a6a0af"
+    },
+    "DE": {
+      "count": 132,
+      "sha256": "e06b1d740434dbec847772edb4f5e236d525e11186cc163461fe020d774cbd80"
+    },
+    "EE": {
+      "count": 1,
+      "sha256": "acb939faff7f0c3395ca2bde1b6050928bc5eb9e39ae99e0a0b5a231e261e728"
+    },
+    "ES": {
+      "count": 2,
+      "sha256": "2d7fc9adc94a30979935921bac8a80525d0aea69d3248c4ec91b2ecc2e7d0df1"
+    },
+    "FI": {
+      "count": 7,
+      "sha256": "bf93a7d4aed7170f921665cf953721caa86babe6dd78d16635904bef7be29451"
+    },
+    "FR": {
+      "count": 15,
+      "sha256": "8872f7ed82a8d40041fc057d60930d22bda4643cc1c1095fbd87b8874bba5ea0"
+    },
+    "GB": {
+      "count": 65,
+      "sha256": "ad88c4c0409749c09427d989d78cecc609e319ed9bdd1fdeef49de32efd32e19"
+    },
+    "GR": {
+      "count": 3,
+      "sha256": "ddbe23b2dd7e2aaef3af902c630accd9db67010e906559c136a131e37dc36c2e"
+    },
+    "IN": {
+      "count": 1,
+      "sha256": "d021f652d57980eca61f02a02787d0f0dfed034e8a83d68d66dec792c8caa562"
+    },
+    "IR": {
+      "count": 1,
+      "sha256": "79b4c54852e5f03e4e5f7e27796ff2cc386ee21928e6419674542894b0461abc"
+    },
+    "IT": {
+      "count": 3,
+      "sha256": "c95666026646bc4c3672e5d83d8a6cd6269ce7f69127d918bcf7053a37358b92"
+    },
+    "JP": {
+      "count": 9,
+      "sha256": "0d6e4fd5487f26a8fb893d9b2fe1d18e719357773370350bcbabf8fabf3574c5"
+    },
+    "KR": {
+      "count": 1,
+      "sha256": "9d0f037ea6efdb36256cef825b471b0778c694090049cd2485521c498e5967fc"
+    },
+    "KZ": {
+      "count": 1,
+      "sha256": "41abeae2956eb23794aeb2a7541fe439c1b7008c06e6638412d5100928a06209"
+    },
+    "LV": {
+      "count": 1,
+      "sha256": "af44ba2b29856576d8d3fd4e5a66a47b07589968c91b83b67f43eeaf313cb57f"
+    },
+    "NL": {
+      "count": 125,
+      "sha256": "f518d4c0c37bb9c344ebb5a14558b24078ef92d2b552fe0901ea1a22fd4325d0"
+    },
+    "NO": {
+      "count": 4,
+      "sha256": "13f83665f38d13b4180f642854dcfcd82af2f1b021bc65e1e61cc97fd7cd59a5"
+    },
+    "PL": {
+      "count": 11,
+      "sha256": "dd87b2d3728ecb82e758828a880eae3964d45b719b68e88a1042948a8cfe8e52"
+    },
+    "SE": {
+      "count": 14,
+      "sha256": "5dcd46a7a93f9269acf22edf7202706baf45b0600113c1e5ee82ebd81e14ed0b"
+    },
+    "SG": {
+      "count": 9,
+      "sha256": "6de7ab618306f39b7ac94a8e5df22da07736cf419ce33b6e94eaedd503212765"
+    },
+    "TW": {
+      "count": 1,
+      "sha256": "5d443cb2d328f33611dfaa87ab1ca3883f15e8d927012754c4a849aa22c878ff"
+    },
+    "UNKNOWN": {
+      "count": 105,
+      "sha256": "ab9d05658583458bbe36609adbb92707f025bbdd4145a72b1e1588c31d90b3f2"
+    },
+    "US": {
+      "count": 41,
+      "sha256": "b6ad793088f121dbb18e13f65c09bba90d53dd526d54ed792ceeed3835d49efa"
+    },
+    "ZA": {
+      "count": 1,
+      "sha256": "f7f73b1a649bd8cd3c39de9ec348855dadcc0a27e3bfcf94b38f0d902c253a30"
+    }
+  },
+  "mode": "canary_only",
+  "production_wiring": false,
+  "projection_schema": 2,
+  "publishable_count": 580,
+  "resolved": 475,
+  "resolved_percent": 81.897,
+  "schema": 1,
+  "stale_canary_cleanup": false,
+  "sub_all_mutated": false,
+  "unknown": 105
+}
