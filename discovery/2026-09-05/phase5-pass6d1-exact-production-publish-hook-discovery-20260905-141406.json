@@ -1,0 +1,40 @@
+{
+  "phase": "phase5-pass6d1-exact-production-publish-hook-discovery",
+  "read_only": true,
+  "sub_route_hits": [
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "contains_sub_all": true
+    },
+    {
+      "file": "/opt/config-location/app/publish/http.py",
+      "contains_sub_all": true
+    }
+  ],
+  "country_function_hits": [
+    {
+      "file": "/opt/config-location/app/country/production_publish_projection.py",
+      "function": "country_for_config",
+      "line": 20
+    },
+    {
+      "file": "/opt/config-location/app/country/production_publish_projection.py",
+      "function": "country_code_for_config",
+      "line": 41
+    },
+    {
+      "file": "/opt/config-location/app/country/production_publish_projection.py",
+      "function": "config_ids_for_country",
+      "line": 65
+    },
+    {
+      "file": "/opt/config-location/app/country/shadow_integration.py",
+      "function": "config_store_country",
+      "line": 91
+    }
+  ],
+  "sub_route_hit_count": 2,
+  "country_function_hit_count": 4,
+  "production_mutation": false,
+  "service_restart": false
+}
