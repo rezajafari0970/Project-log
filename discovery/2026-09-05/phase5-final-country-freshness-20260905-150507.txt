@@ -1,0 +1,156 @@
+========== PRODUCTION ADAPTER ==========
+     1	from __future__ import annotations
+     2	
+     3	from functools import lru_cache
+     4	from typing import Any
+     5	
+     6	from app.country.projection import (
+     7	    build_projection,
+     8	)
+     9	
+    10	
+    11	@lru_cache(maxsize=1)
+    12	def projection() -> dict[str,Any]:
+    13	    return build_projection()
+    14	
+    15	
+    16	def refresh() -> None:
+    17	    projection.cache_clear()
+    18	
+    19	
+    20	def country_for_config(
+    21	    config_id: str,
+    22	) -> dict[str,Any]:
+    23	
+    24	    row=(
+    25	        projection()
+    26	        .get("records",{})
+    27	        .get(str(config_id))
+    28	    )
+    29	
+    30	    if not isinstance(row,dict):
+    31	        return {
+    32	            "state":"unknown",
+    33	            "country_code":None,
+    34	            "country_name":None,
+    35	            "flag":None,
+    36	        }
+    37	
+    38	    return row
+    39	
+    40	
+    41	def country_code_for_config(
+    42	    config_id: str,
+    43	) -> str | None:
+    44	
+    45	    row=country_for_config(
+    46	        config_id
+    47	    )
+    48	
+    49	    if row.get("state")!="resolved":
+    50	        return None
+    51	
+    52	    code=row.get(
+    53	        "country_code"
+    54	    )
+    55	
+    56	    if (
+    57	        isinstance(code,str)
+    58	        and len(code.strip())==2
+    59	    ):
+    60	        return code.strip().upper()
+    61	
+    62	    return None
+    63	
+    64	
+    65	def config_ids_for_country(
+    66	    country_code: str,
+    67	    config_ids,
+    68	) -> list[str]:
+    69	
+    70	    wanted=str(
+    71	        country_code
+    72	    ).strip().upper()
+    73	
+    74	    out=[]
+    75	
+    76	    for cid in config_ids:
+    77	
+    78	        if (
+    79	            country_code_for_config(
+    80	                str(cid)
+    81	            )
+    82	            == wanted
+    83	        ):
+    84	            out.append(
+    85	                str(cid)
+    86	            )
+    87	
+    88	    return out
+
+========== CACHE REFERENCES ==========
+/opt/config-location/app/country/production_publish_projection.py:3:from functools import lru_cache
+/opt/config-location/app/country/production_publish_projection.py:11:@lru_cache(maxsize=1)
+/opt/config-location/app/country/production_publish_projection.py:16:def refresh() -> None:
+/opt/config-location/app/country/production_publish_projection.py:17:    projection.cache_clear()
+/opt/config-location/app/country/production_publish_projection.py:41:def country_code_for_config(
+/opt/config-location/app/country/production_publish_projection.py:79:            country_code_for_config(
+/opt/config-location/app/country/panel_projection_adapter.py:3:from functools import lru_cache
+/opt/config-location/app/country/panel_projection_adapter.py:11:@lru_cache(maxsize=1)
+/opt/config-location/app/country/panel_projection_adapter.py:16:def refresh_projection_cache() -> None:
+/opt/config-location/app/country/panel_projection_adapter.py:17:    _projection_cache.cache_clear()
+/opt/config-location/app/publish/http.py:4:from app.country.production_publish_projection import country_code_for_config
+/opt/config-location/app/publish/http.py:53:        resolved = country_code_for_config(cid)
+
+========== DIRECT VS CACHED ==========
+PUBLISHABLE = 534
+FRESH_UNKNOWN = 97
+CACHED_UNKNOWN = 97
+
+CODE FRESH CACHED DELTA
+AR 1 1 0
+AT 2 2 0
+AU 18 18 0
+BG 2 2 0
+CA 8 8 0
+DE 126 126 0
+EE 1 1 0
+ES 2 2 0
+FI 9 9 0
+FR 8 8 0
+GB 59 59 0
+GR 1 1 0
+IT 4 4 0
+JP 8 8 0
+LV 1 1 0
+MY 1 1 0
+NL 113 113 0
+NO 3 3 0
+PL 12 12 0
+SE 5 5 0
+SG 7 7 0
+TR 1 1 0
+US 44 44 0
+ZA 1 1 0
+
+SAME_OBJECT = False
+CACHE_INFO = CacheInfo(hits=0, misses=1, maxsize=1, currsize=1)
+
+REFRESHING...
+REFRESHED_UNKNOWN = 97
+REFRESH_MATCHES_FRESH = True
+CACHE_INFO_AFTER = CacheInfo(hits=0, misses=1, maxsize=1, currsize=1)
+
+========== LIVE COUNTRY COUNTS ==========
+DE 16
+NL 19
+GB 9
+US 30
+AU 0
+FR 3
+FI 5
+CA 4
+PL 4
+SE 1
+
+PHASE5_FINAL_FRESHNESS_DISCOVERY_COMPLETE
