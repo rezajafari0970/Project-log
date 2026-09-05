@@ -1,0 +1,40 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6d1-exact-production-publish-hook-discovery
+
+Result:
+FAILED
+
+Start:
+2026-09-05T13:47:42+00:00
+
+End:
+2026-09-05T13:47:45+00:00
+
+Mode:
+READ ONLY EXACT PUBLISH HOOK DISCOVERY
+
+Production mutation:
+NONE
+
+Publish mutation:
+NONE
+
+Endpoint mutation:
+NONE
+
+Service restart:
+NONE
+
+Discovery:
+/root/project-log/discovery/2026-09-05/phase5-pass6d1-exact-production-publish-hook-discovery-20260905-134742.txt
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6d1-exact-production-publish-hook-discovery-20260905-134742.json
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6d1-exact-production-publish-hook-discovery-20260905-134742.log
+
+Errors:
+\nexit code 1
