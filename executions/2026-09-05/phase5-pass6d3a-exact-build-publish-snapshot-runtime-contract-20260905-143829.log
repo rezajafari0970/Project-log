@@ -1,0 +1,564 @@
+================================================
+ PHASE 5 PASS 6D.3A
+ EXACT build_publish_snapshot() CONTRACT
+================================================
+
+========== [1/8] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/8] COMPILE ==========
+COMPILE_OK
+
+========== [3/8] SOURCE CAPTURE ==========
+
+========== [4/8] RUNTIME INTROSPECTION ==========
+SNAPSHOT_TYPE= app.publish.filter.PublishSnapshot
+SNAPSHOT_IS_DICT= False
+SNAPSHOT_IS_MAPPING= False
+SNAPSHOT_IS_SEQUENCE= False
+SNAPSHOT_IS_DATACLASS= True
+RUNTIME_INTROSPECTION_OK
+
+========== [5/8] SEMANTIC FIELD DISCOVERY ==========
+PATH= $.total_configs TYPE= int LEN= None
+PATH= $.publishable TYPE= int LEN= None
+PATH= $.suppressed TYPE= int LEN= None
+PATH= $.missing_policy_record TYPE= int LEN= None
+PATH= $.configs TYPE= tuple LEN= 519
+PATH= $.configs[0] TYPE= dict LEN= 7
+PATH= $.configs[0].id TYPE= str LEN= 64
+PATH= $.configs[0].type TYPE= str LEN= 9
+PATH= $.configs[0].raw TYPE= str LEN= 1809
+PATH= $.configs[0].canonical TYPE= str LEN= 1809
+PATH= $.configs[0].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[0].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[0].source_ids TYPE= list LEN= 1
+PATH= $.configs[0].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[1] TYPE= dict LEN= 7
+PATH= $.configs[1].id TYPE= str LEN= 64
+PATH= $.configs[1].type TYPE= str LEN= 9
+PATH= $.configs[1].raw TYPE= str LEN= 1887
+PATH= $.configs[1].canonical TYPE= str LEN= 1887
+PATH= $.configs[1].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[1].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[1].source_ids TYPE= list LEN= 1
+PATH= $.configs[1].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[2] TYPE= dict LEN= 7
+PATH= $.configs[2].id TYPE= str LEN= 64
+PATH= $.configs[2].type TYPE= str LEN= 9
+PATH= $.configs[2].raw TYPE= str LEN= 1902
+PATH= $.configs[2].canonical TYPE= str LEN= 1902
+PATH= $.configs[2].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[2].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[2].source_ids TYPE= list LEN= 1
+PATH= $.configs[2].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[3] TYPE= dict LEN= 7
+PATH= $.configs[3].id TYPE= str LEN= 64
+PATH= $.configs[3].type TYPE= str LEN= 2
+PATH= $.configs[3].raw TYPE= str LEN= 94
+PATH= $.configs[3].canonical TYPE= str LEN= 94
+PATH= $.configs[3].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[3].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[3].source_ids TYPE= list LEN= 1
+PATH= $.configs[3].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[4] TYPE= dict LEN= 7
+PATH= $.configs[4].id TYPE= str LEN= 64
+PATH= $.configs[4].type TYPE= str LEN= 2
+PATH= $.configs[4].raw TYPE= str LEN= 88
+PATH= $.configs[4].canonical TYPE= str LEN= 88
+PATH= $.configs[4].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[4].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[4].source_ids TYPE= list LEN= 1
+PATH= $.configs[4].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[5] TYPE= dict LEN= 7
+PATH= $.configs[5].id TYPE= str LEN= 64
+PATH= $.configs[5].type TYPE= str LEN= 2
+PATH= $.configs[5].raw TYPE= str LEN= 176
+PATH= $.configs[5].canonical TYPE= str LEN= 176
+PATH= $.configs[5].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[5].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[5].source_ids TYPE= list LEN= 1
+PATH= $.configs[5].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[6] TYPE= dict LEN= 7
+PATH= $.configs[6].id TYPE= str LEN= 64
+PATH= $.configs[6].type TYPE= str LEN= 2
+PATH= $.configs[6].raw TYPE= str LEN= 94
+PATH= $.configs[6].canonical TYPE= str LEN= 94
+PATH= $.configs[6].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[6].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[6].source_ids TYPE= list LEN= 1
+PATH= $.configs[6].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[7] TYPE= dict LEN= 7
+PATH= $.configs[7].id TYPE= str LEN= 64
+PATH= $.configs[7].type TYPE= str LEN= 2
+PATH= $.configs[7].raw TYPE= str LEN= 63
+PATH= $.configs[7].canonical TYPE= str LEN= 63
+PATH= $.configs[7].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[7].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[7].source_ids TYPE= list LEN= 1
+PATH= $.configs[7].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[8] TYPE= dict LEN= 7
+PATH= $.configs[8].id TYPE= str LEN= 64
+PATH= $.configs[8].type TYPE= str LEN= 2
+PATH= $.configs[8].raw TYPE= str LEN= 93
+PATH= $.configs[8].canonical TYPE= str LEN= 93
+PATH= $.configs[8].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[8].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[8].source_ids TYPE= list LEN= 1
+PATH= $.configs[8].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[9] TYPE= dict LEN= 7
+PATH= $.configs[9].id TYPE= str LEN= 64
+PATH= $.configs[9].type TYPE= str LEN= 2
+PATH= $.configs[9].raw TYPE= str LEN= 93
+PATH= $.configs[9].canonical TYPE= str LEN= 93
+PATH= $.configs[9].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[9].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[9].source_ids TYPE= list LEN= 1
+PATH= $.configs[9].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[10] TYPE= dict LEN= 7
+PATH= $.configs[10].id TYPE= str LEN= 64
+PATH= $.configs[10].type TYPE= str LEN= 2
+PATH= $.configs[10].raw TYPE= str LEN= 79
+PATH= $.configs[10].canonical TYPE= str LEN= 79
+PATH= $.configs[10].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[10].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[10].source_ids TYPE= list LEN= 1
+PATH= $.configs[10].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[11] TYPE= dict LEN= 7
+PATH= $.configs[11].id TYPE= str LEN= 64
+PATH= $.configs[11].type TYPE= str LEN= 2
+PATH= $.configs[11].raw TYPE= str LEN= 65
+PATH= $.configs[11].canonical TYPE= str LEN= 65
+PATH= $.configs[11].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[11].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[11].source_ids TYPE= list LEN= 2
+PATH= $.configs[11].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[11].source_ids[1] TYPE= str LEN= 36
+PATH= $.configs[12] TYPE= dict LEN= 7
+PATH= $.configs[12].id TYPE= str LEN= 64
+PATH= $.configs[12].type TYPE= str LEN= 2
+PATH= $.configs[12].raw TYPE= str LEN= 94
+PATH= $.configs[12].canonical TYPE= str LEN= 94
+PATH= $.configs[12].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[12].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[12].source_ids TYPE= list LEN= 1
+PATH= $.configs[12].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[13] TYPE= dict LEN= 7
+PATH= $.configs[13].id TYPE= str LEN= 64
+PATH= $.configs[13].type TYPE= str LEN= 2
+PATH= $.configs[13].raw TYPE= str LEN= 86
+PATH= $.configs[13].canonical TYPE= str LEN= 86
+PATH= $.configs[13].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[13].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[13].source_ids TYPE= list LEN= 1
+PATH= $.configs[13].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[14] TYPE= dict LEN= 7
+PATH= $.configs[14].id TYPE= str LEN= 64
+PATH= $.configs[14].type TYPE= str LEN= 2
+PATH= $.configs[14].raw TYPE= str LEN= 94
+PATH= $.configs[14].canonical TYPE= str LEN= 94
+PATH= $.configs[14].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[14].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[14].source_ids TYPE= list LEN= 1
+PATH= $.configs[14].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[15] TYPE= dict LEN= 7
+PATH= $.configs[15].id TYPE= str LEN= 64
+PATH= $.configs[15].type TYPE= str LEN= 2
+PATH= $.configs[15].raw TYPE= str LEN= 94
+PATH= $.configs[15].canonical TYPE= str LEN= 94
+PATH= $.configs[15].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[15].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[15].source_ids TYPE= list LEN= 1
+PATH= $.configs[15].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[16] TYPE= dict LEN= 7
+PATH= $.configs[16].id TYPE= str LEN= 64
+PATH= $.configs[16].type TYPE= str LEN= 2
+PATH= $.configs[16].raw TYPE= str LEN= 94
+PATH= $.configs[16].canonical TYPE= str LEN= 94
+PATH= $.configs[16].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[16].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[16].source_ids TYPE= list LEN= 1
+PATH= $.configs[16].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[17] TYPE= dict LEN= 7
+PATH= $.configs[17].id TYPE= str LEN= 64
+PATH= $.configs[17].type TYPE= str LEN= 2
+PATH= $.configs[17].raw TYPE= str LEN= 68
+PATH= $.configs[17].canonical TYPE= str LEN= 68
+PATH= $.configs[17].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[17].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[17].source_ids TYPE= list LEN= 1
+PATH= $.configs[17].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[18] TYPE= dict LEN= 7
+PATH= $.configs[18].id TYPE= str LEN= 64
+PATH= $.configs[18].type TYPE= str LEN= 2
+PATH= $.configs[18].raw TYPE= str LEN= 85
+PATH= $.configs[18].canonical TYPE= str LEN= 85
+PATH= $.configs[18].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[18].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[18].source_ids TYPE= list LEN= 1
+PATH= $.configs[18].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[19] TYPE= dict LEN= 7
+PATH= $.configs[19].id TYPE= str LEN= 64
+PATH= $.configs[19].type TYPE= str LEN= 2
+PATH= $.configs[19].raw TYPE= str LEN= 94
+PATH= $.configs[19].canonical TYPE= str LEN= 94
+PATH= $.configs[19].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[19].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[19].source_ids TYPE= list LEN= 1
+PATH= $.configs[19].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[20] TYPE= dict LEN= 7
+PATH= $.configs[20].id TYPE= str LEN= 64
+PATH= $.configs[20].type TYPE= str LEN= 2
+PATH= $.configs[20].raw TYPE= str LEN= 94
+PATH= $.configs[20].canonical TYPE= str LEN= 94
+PATH= $.configs[20].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[20].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[20].source_ids TYPE= list LEN= 1
+PATH= $.configs[20].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[21] TYPE= dict LEN= 7
+PATH= $.configs[21].id TYPE= str LEN= 64
+PATH= $.configs[21].type TYPE= str LEN= 2
+PATH= $.configs[21].raw TYPE= str LEN= 88
+PATH= $.configs[21].canonical TYPE= str LEN= 88
+PATH= $.configs[21].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[21].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[21].source_ids TYPE= list LEN= 1
+PATH= $.configs[21].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[22] TYPE= dict LEN= 7
+PATH= $.configs[22].id TYPE= str LEN= 64
+PATH= $.configs[22].type TYPE= str LEN= 2
+PATH= $.configs[22].raw TYPE= str LEN= 92
+PATH= $.configs[22].canonical TYPE= str LEN= 92
+PATH= $.configs[22].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[22].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[22].source_ids TYPE= list LEN= 1
+PATH= $.configs[22].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[23] TYPE= dict LEN= 7
+PATH= $.configs[23].id TYPE= str LEN= 64
+PATH= $.configs[23].type TYPE= str LEN= 2
+PATH= $.configs[23].raw TYPE= str LEN= 66
+PATH= $.configs[23].canonical TYPE= str LEN= 66
+PATH= $.configs[23].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[23].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[23].source_ids TYPE= list LEN= 1
+PATH= $.configs[23].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[24] TYPE= dict LEN= 7
+PATH= $.configs[24].id TYPE= str LEN= 64
+PATH= $.configs[24].type TYPE= str LEN= 2
+PATH= $.configs[24].raw TYPE= str LEN= 84
+PATH= $.configs[24].canonical TYPE= str LEN= 84
+PATH= $.configs[24].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[24].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[24].source_ids TYPE= list LEN= 1
+PATH= $.configs[24].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[25] TYPE= dict LEN= 7
+PATH= $.configs[25].id TYPE= str LEN= 64
+PATH= $.configs[25].type TYPE= str LEN= 2
+PATH= $.configs[25].raw TYPE= str LEN= 94
+PATH= $.configs[25].canonical TYPE= str LEN= 94
+PATH= $.configs[25].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[25].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[25].source_ids TYPE= list LEN= 1
+PATH= $.configs[25].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[26] TYPE= dict LEN= 7
+PATH= $.configs[26].id TYPE= str LEN= 64
+PATH= $.configs[26].type TYPE= str LEN= 2
+PATH= $.configs[26].raw TYPE= str LEN= 74
+PATH= $.configs[26].canonical TYPE= str LEN= 74
+PATH= $.configs[26].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[26].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[26].source_ids TYPE= list LEN= 1
+PATH= $.configs[26].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[27] TYPE= dict LEN= 7
+PATH= $.configs[27].id TYPE= str LEN= 64
+PATH= $.configs[27].type TYPE= str LEN= 2
+PATH= $.configs[27].raw TYPE= str LEN= 83
+PATH= $.configs[27].canonical TYPE= str LEN= 83
+PATH= $.configs[27].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[27].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[27].source_ids TYPE= list LEN= 1
+PATH= $.configs[27].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[28] TYPE= dict LEN= 7
+PATH= $.configs[28].id TYPE= str LEN= 64
+PATH= $.configs[28].type TYPE= str LEN= 2
+PATH= $.configs[28].raw TYPE= str LEN= 71
+PATH= $.configs[28].canonical TYPE= str LEN= 71
+PATH= $.configs[28].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[28].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[28].source_ids TYPE= list LEN= 1
+PATH= $.configs[28].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[29] TYPE= dict LEN= 7
+PATH= $.configs[29].id TYPE= str LEN= 64
+PATH= $.configs[29].type TYPE= str LEN= 2
+PATH= $.configs[29].raw TYPE= str LEN= 94
+PATH= $.configs[29].canonical TYPE= str LEN= 94
+PATH= $.configs[29].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[29].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[29].source_ids TYPE= list LEN= 1
+PATH= $.configs[29].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[30] TYPE= dict LEN= 7
+PATH= $.configs[30].id TYPE= str LEN= 64
+PATH= $.configs[30].type TYPE= str LEN= 2
+PATH= $.configs[30].raw TYPE= str LEN= 66
+PATH= $.configs[30].canonical TYPE= str LEN= 66
+PATH= $.configs[30].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[30].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[30].source_ids TYPE= list LEN= 1
+PATH= $.configs[30].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[31] TYPE= dict LEN= 7
+PATH= $.configs[31].id TYPE= str LEN= 64
+PATH= $.configs[31].type TYPE= str LEN= 2
+PATH= $.configs[31].raw TYPE= str LEN= 66
+PATH= $.configs[31].canonical TYPE= str LEN= 66
+PATH= $.configs[31].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[31].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[31].source_ids TYPE= list LEN= 1
+PATH= $.configs[31].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[32] TYPE= dict LEN= 7
+PATH= $.configs[32].id TYPE= str LEN= 64
+PATH= $.configs[32].type TYPE= str LEN= 2
+PATH= $.configs[32].raw TYPE= str LEN= 93
+PATH= $.configs[32].canonical TYPE= str LEN= 93
+PATH= $.configs[32].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[32].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[32].source_ids TYPE= list LEN= 1
+PATH= $.configs[32].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[33] TYPE= dict LEN= 7
+PATH= $.configs[33].id TYPE= str LEN= 64
+PATH= $.configs[33].type TYPE= str LEN= 2
+PATH= $.configs[33].raw TYPE= str LEN= 85
+PATH= $.configs[33].canonical TYPE= str LEN= 85
+PATH= $.configs[33].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[33].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[33].source_ids TYPE= list LEN= 1
+PATH= $.configs[33].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[34] TYPE= dict LEN= 7
+PATH= $.configs[34].id TYPE= str LEN= 64
+PATH= $.configs[34].type TYPE= str LEN= 2
+PATH= $.configs[34].raw TYPE= str LEN= 143
+PATH= $.configs[34].canonical TYPE= str LEN= 143
+PATH= $.configs[34].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[34].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[34].source_ids TYPE= list LEN= 1
+PATH= $.configs[34].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[35] TYPE= dict LEN= 7
+PATH= $.configs[35].id TYPE= str LEN= 64
+PATH= $.configs[35].type TYPE= str LEN= 2
+PATH= $.configs[35].raw TYPE= str LEN= 59
+PATH= $.configs[35].canonical TYPE= str LEN= 59
+PATH= $.configs[35].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[35].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[35].source_ids TYPE= list LEN= 1
+PATH= $.configs[35].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[36] TYPE= dict LEN= 7
+PATH= $.configs[36].id TYPE= str LEN= 64
+PATH= $.configs[36].type TYPE= str LEN= 2
+PATH= $.configs[36].raw TYPE= str LEN= 94
+PATH= $.configs[36].canonical TYPE= str LEN= 94
+PATH= $.configs[36].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[36].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[36].source_ids TYPE= list LEN= 1
+PATH= $.configs[36].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[37] TYPE= dict LEN= 7
+PATH= $.configs[37].id TYPE= str LEN= 64
+PATH= $.configs[37].type TYPE= str LEN= 2
+PATH= $.configs[37].raw TYPE= str LEN= 87
+PATH= $.configs[37].canonical TYPE= str LEN= 87
+PATH= $.configs[37].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[37].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[37].source_ids TYPE= list LEN= 1
+PATH= $.configs[37].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[38] TYPE= dict LEN= 7
+PATH= $.configs[38].id TYPE= str LEN= 64
+PATH= $.configs[38].type TYPE= str LEN= 2
+PATH= $.configs[38].raw TYPE= str LEN= 57
+PATH= $.configs[38].canonical TYPE= str LEN= 57
+PATH= $.configs[38].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[38].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[38].source_ids TYPE= list LEN= 1
+PATH= $.configs[38].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[39] TYPE= dict LEN= 7
+PATH= $.configs[39].id TYPE= str LEN= 64
+PATH= $.configs[39].type TYPE= str LEN= 2
+PATH= $.configs[39].raw TYPE= str LEN= 92
+PATH= $.configs[39].canonical TYPE= str LEN= 92
+PATH= $.configs[39].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[39].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[39].source_ids TYPE= list LEN= 1
+PATH= $.configs[39].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[40] TYPE= dict LEN= 7
+PATH= $.configs[40].id TYPE= str LEN= 64
+PATH= $.configs[40].type TYPE= str LEN= 2
+PATH= $.configs[40].raw TYPE= str LEN= 93
+PATH= $.configs[40].canonical TYPE= str LEN= 93
+PATH= $.configs[40].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[40].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[40].source_ids TYPE= list LEN= 1
+PATH= $.configs[40].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[41] TYPE= dict LEN= 7
+PATH= $.configs[41].id TYPE= str LEN= 64
+PATH= $.configs[41].type TYPE= str LEN= 2
+PATH= $.configs[41].raw TYPE= str LEN= 93
+PATH= $.configs[41].canonical TYPE= str LEN= 93
+PATH= $.configs[41].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[41].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[41].source_ids TYPE= list LEN= 1
+PATH= $.configs[41].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[42] TYPE= dict LEN= 7
+PATH= $.configs[42].id TYPE= str LEN= 64
+PATH= $.configs[42].type TYPE= str LEN= 2
+PATH= $.configs[42].raw TYPE= str LEN= 59
+PATH= $.configs[42].canonical TYPE= str LEN= 59
+PATH= $.configs[42].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[42].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[42].source_ids TYPE= list LEN= 1
+PATH= $.configs[42].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[43] TYPE= dict LEN= 7
+PATH= $.configs[43].id TYPE= str LEN= 64
+PATH= $.configs[43].type TYPE= str LEN= 2
+PATH= $.configs[43].raw TYPE= str LEN= 74
+PATH= $.configs[43].canonical TYPE= str LEN= 74
+PATH= $.configs[43].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[43].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[43].source_ids TYPE= list LEN= 1
+PATH= $.configs[43].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[44] TYPE= dict LEN= 7
+PATH= $.configs[44].id TYPE= str LEN= 64
+PATH= $.configs[44].type TYPE= str LEN= 2
+PATH= $.configs[44].raw TYPE= str LEN= 94
+PATH= $.configs[44].canonical TYPE= str LEN= 94
+PATH= $.configs[44].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[44].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[44].source_ids TYPE= list LEN= 1
+PATH= $.configs[44].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[45] TYPE= dict LEN= 7
+PATH= $.configs[45].id TYPE= str LEN= 64
+PATH= $.configs[45].type TYPE= str LEN= 2
+PATH= $.configs[45].raw TYPE= str LEN= 64
+PATH= $.configs[45].canonical TYPE= str LEN= 64
+PATH= $.configs[45].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[45].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[45].source_ids TYPE= list LEN= 1
+PATH= $.configs[45].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[46] TYPE= dict LEN= 7
+PATH= $.configs[46].id TYPE= str LEN= 64
+PATH= $.configs[46].type TYPE= str LEN= 2
+PATH= $.configs[46].raw TYPE= str LEN= 87
+PATH= $.configs[46].canonical TYPE= str LEN= 87
+PATH= $.configs[46].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[46].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[46].source_ids TYPE= list LEN= 1
+PATH= $.configs[46].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[47] TYPE= dict LEN= 7
+PATH= $.configs[47].id TYPE= str LEN= 64
+PATH= $.configs[47].type TYPE= str LEN= 2
+PATH= $.configs[47].raw TYPE= str LEN= 94
+PATH= $.configs[47].canonical TYPE= str LEN= 94
+PATH= $.configs[47].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[47].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[47].source_ids TYPE= list LEN= 1
+PATH= $.configs[47].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[48] TYPE= dict LEN= 7
+PATH= $.configs[48].id TYPE= str LEN= 64
+PATH= $.configs[48].type TYPE= str LEN= 2
+PATH= $.configs[48].raw TYPE= str LEN= 70
+PATH= $.configs[48].canonical TYPE= str LEN= 70
+PATH= $.configs[48].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[48].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[48].source_ids TYPE= list LEN= 2
+PATH= $.configs[48].source_ids[0] TYPE= str LEN= 36
+PATH= $.configs[48].source_ids[1] TYPE= str LEN= 36
+PATH= $.configs[49] TYPE= dict LEN= 7
+PATH= $.configs[49].id TYPE= str LEN= 64
+PATH= $.configs[49].type TYPE= str LEN= 2
+PATH= $.configs[49].raw TYPE= str LEN= 86
+PATH= $.configs[49].canonical TYPE= str LEN= 86
+PATH= $.configs[49].first_seen_at TYPE= str LEN= 32
+PATH= $.configs[49].last_seen_at TYPE= str LEN= 32
+PATH= $.configs[49].source_ids TYPE= list LEN= 1
+PATH= $.configs[49].source_ids[0] TYPE= str LEN= 36
+SEMANTIC_PATH_COUNT= 457
+SEMANTIC_DISCOVERY_OK
+
+========== [6/8] SERIALIZATION CONTRACT ==========
+_subscription_text_signature= (config_type: 'str | None' = None) -> 'tuple[str, dict]'
+========== _subscription_text SOURCE ==========
+def _subscription_text(
+    config_type: str | None = None,
+) -> tuple[str, dict]:
+
+    snapshot = (
+        build_publish_snapshot(
+            config_type=config_type
+        )
+    )
+
+
+    lines = []
+
+    for record in snapshot.configs:
+
+        raw = record.get(
+            "raw"
+        )
+
+        if not isinstance(
+            raw,
+            str,
+        ):
+            continue
+
+        # raw is returned exactly as stored.
+        lines.append(
+            raw
+        )
+
+
+    text = "\n".join(
+        lines
+    )
+
+    if text:
+        text += "\n"
+
+
+    metadata = {
+        "policy_available":
+            snapshot.policy_available,
+
+        "total_configs":
+            snapshot.total_configs,
+
+        "publishable":
+            snapshot.publishable,
+
+        "suppressed":
+            snapshot.suppressed,
+
+        "missing_policy_record":
+            snapshot.missing_policy_record,
+
+        "config_type":
+            config_type,
+    }
+
+
+    return text, metadata
+
+SERIALIZER_SOURCE_CAPTURED=YES
+
+========== [7/8] VALIDATE ==========
+SUMMARY_CONTRACT_VALID
+DISCOVERY_VALID
+
+========== [8/8] FINAL ==========
+SNAPSHOT_RUNTIME_TYPE_DISCOVERED=YES
+SNAPSHOT_STRUCTURE_DISCOVERED=YES
+SEMANTIC_FIELDS_DISCOVERED=YES
+SERIALIZER_CONTRACT_CAPTURED=YES
+PRODUCTION_MUTATION=NO
+PUBLISH_MUTATION=NO
+ENDPOINT_MUTATION=NO
+SERVICE_RESTART=NO
+
+PHASE5_PASS6D3A_SUCCESS

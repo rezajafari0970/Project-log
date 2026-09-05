@@ -1,0 +1,548 @@
+{
+  "phase": "phase5-pass6d3a-exact-build-publish-snapshot-runtime-contract",
+  "read_only": true,
+  "snapshot_type": "app.publish.filter.PublishSnapshot",
+  "snapshot_is_dict": false,
+  "snapshot_is_mapping": false,
+  "snapshot_is_sequence": false,
+  "snapshot_is_dataclass": true,
+  "description": {
+    "type": "app.publish.filter.PublishSnapshot",
+    "dataclass": true,
+    "fields": {
+      "policy_available": {
+        "type": "builtins.bool",
+        "value": "True"
+      },
+      "total_configs": {
+        "type": "builtins.int",
+        "value": "4374"
+      },
+      "policy_tracked": {
+        "type": "builtins.int",
+        "value": "2841"
+      },
+      "publishable": {
+        "type": "builtins.int",
+        "value": "519"
+      },
+      "suppressed": {
+        "type": "builtins.int",
+        "value": "3855"
+      },
+      "missing_policy_record": {
+        "type": "builtins.int",
+        "value": "1533"
+      },
+      "configs": {
+        "type": "builtins.tuple",
+        "sequence": true,
+        "length": 519,
+        "samples": [
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'42c255fb8085ef34fe9946fdd4dc9290d1971c7995fbbf1115174e67a3e0079c'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'json_xray'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'{\"remarks\":\"@VIPV2rayNGNP تست \",\"log\":{\"loglevel\":\"warning\"},\"inbounds\":[{\"tag\":\"socks\",\"port\":10808,\"protocol\":\"socks\",\"settings\":{\"auth\":\"noauth\",\"udp\":true,\"userLevel\":8},\"sniffing\":{\"enabled\":true,\"destOverride\":[\"http\",\"tls\"],\"routeOnly\":false}}],\"outbounds\":[{\"tag\":\"proxy\",\"protocol\":\"vless\","
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'{\"remarks\":\"@VIPV2rayNGNP تست \",\"log\":{\"loglevel\":\"warning\"},\"inbounds\":[{\"tag\":\"socks\",\"port\":10808,\"protocol\":\"socks\",\"settings\":{\"auth\":\"noauth\",\"udp\":true,\"userLevel\":8},\"sniffing\":{\"enabled\":true,\"destOverride\":[\"http\",\"tls\"],\"routeOnly\":false}}],\"outbounds\":[{\"tag\":\"proxy\",\"protocol\":\"vless\","
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T10:59:35.486787+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:50.807717+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'4cce008b931024cabf1811cce40a5afcdbe0403906fa6928274070b9d1e5db00'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'json_xray'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'{\"remarks\":\"@V2rayNGVPN > کانفیگ رایگان\",\"log\":{\"loglevel\":\"warning\"},\"inbounds\":[{\"tag\":\"socks\",\"port\":10808,\"protocol\":\"socks\",\"settings\":{\"auth\":\"noauth\",\"udp\":true,\"userLevel\":8},\"sniffing\":{\"enabled\":true,\"destOverride\":[\"http\",\"tls\"],\"routeOnly\":false}}],\"outbounds\":[{\"tag\":\"proxy\",\"protocol\""
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'{\"remarks\":\"@V2rayNGVPN > کانفیگ رایگان\",\"log\":{\"loglevel\":\"warning\"},\"inbounds\":[{\"tag\":\"socks\",\"port\":10808,\"protocol\":\"socks\",\"settings\":{\"auth\":\"noauth\",\"udp\":true,\"userLevel\":8},\"sniffing\":{\"enabled\":true,\"destOverride\":[\"http\",\"tls\"],\"routeOnly\":false}}],\"outbounds\":[{\"tag\":\"proxy\",\"protocol\""
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T06:23:37.659543+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:50.770538+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'98ccd39619d766b99a718cc74e3cecdab7bd7982604698e365eed009004e91cc'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'json_xray'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'{\"remarks\":\"@V2rayNGVPN > کانفیگ رایگان\",\"log\":{\"loglevel\":\"warning\"},\"inbounds\":[{\"tag\":\"socks\",\"port\":10808,\"protocol\":\"socks\",\"settings\":{\"auth\":\"noauth\",\"udp\":true,\"userLevel\":8},\"sniffing\":{\"enabled\":true,\"destOverride\":[\"http\",\"tls\"],\"routeOnly\":false}}],\"outbounds\":[{\"tag\":\"proxy\",\"protocol\""
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'{\"remarks\":\"@V2rayNGVPN > کانفیگ رایگان\",\"log\":{\"loglevel\":\"warning\"},\"inbounds\":[{\"tag\":\"socks\",\"port\":10808,\"protocol\":\"socks\",\"settings\":{\"auth\":\"noauth\",\"udp\":true,\"userLevel\":8},\"sniffing\":{\"enabled\":true,\"destOverride\":[\"http\",\"tls\"],\"routeOnly\":false}}],\"outbounds\":[{\"tag\":\"proxy\",\"protocol\""
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T07:57:39.254270+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:50.777521+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'0388cabf43085282502bfed0d32122c09d47586617ab9e136ef43af46160dfcf'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'ss'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@82.38.31.191:8080#✅@AR14N24b'"
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@82.38.31.191:8080#✅@AR14N24b'"
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T06:29:11.946127+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:47.534914+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'05219db96e02dc0cbd14faf0920141e9e5366abbcbbf53ca23f797157279118a'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'ss'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@193.29.139.147:8080#🇳🇱'"
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@193.29.139.147:8080#🇳🇱'"
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T07:29:30.497687+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:47.930982+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'073a0b111ea34728da0780f8f9a5811abd6c84cf1f836189a45b57231ff04335'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'ss'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.249:8080#%F0%9F%87%B3%F0%9F%87%B1162478%20%7C%20%E2%9A%A1%EF%B8%8FTelegram%20%3D%20t.me%2FSOSkeyNET'"
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.249:8080#%F0%9F%87%B3%F0%9F%87%B1162478%20%7C%20%E2%9A%A1%EF%B8%8FTelegram%20%3D%20t.me%2FSOSkeyNET'"
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T09:31:55.910995+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:47.660865+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'0a211d067b80501d020ba671b33bf3832673a7cfaccef44c0b6a9b4301340afb'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'ss'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@82.38.31.218:8080#✅@AR14N24b'"
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@82.38.31.218:8080#✅@AR14N24b'"
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T06:21:18.938283+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:47.098968+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'106ad5f764a889c8ca07a68371cafbad38d7955c9e83e5f6a1136b27bb483ef0'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'ss'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'ss://YWVzLTI1Ni1nY206ekROVmVkUkZQUWV4Rzl2@51.222.141.125:445#🇨🇦'"
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'ss://YWVzLTI1Ni1nY206ekROVmVkUkZQUWV4Rzl2@51.222.141.125:445#🇨🇦'"
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T11:23:42.576079+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:48.264645+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'133423cc343e677f97952f88a75311c25719121110c4a696689f5fff81570f2b'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'ss'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.10:8080#✅@AR14N24b'"
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.10:8080#✅@AR14N24b'"
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T07:20:46.803081+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:47.670899+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          },
+          {
+            "type": "builtins.dict",
+            "mapping": true,
+            "keys": [
+              "id",
+              "type",
+              "raw",
+              "canonical",
+              "first_seen_at",
+              "last_seen_at",
+              "source_ids"
+            ],
+            "items": {
+              "id": {
+                "type": "builtins.str",
+                "value": "'159462c6cdd470ab3cab19fcaed927b2523878318aeaf97eefb17f9387eaa167'"
+              },
+              "type": {
+                "type": "builtins.str",
+                "value": "'ss'"
+              },
+              "raw": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.16:8080#✅@AR14N24b'"
+              },
+              "canonical": {
+                "type": "builtins.str",
+                "value": "'ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.16:8080#✅@AR14N24b'"
+              },
+              "first_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T06:29:11.952332+00:00'"
+              },
+              "last_seen_at": {
+                "type": "builtins.str",
+                "value": "'2026-09-05T14:37:47.559942+00:00'"
+              },
+              "source_ids": {
+                "type": "builtins.list",
+                "sequence": true,
+                "length": 1,
+                "samples": [
+                  {
+                    "type": "builtins.str"
+                  }
+                ]
+              }
+            },
+            "length": 7
+          }
+        ]
+      }
+    }
+  },
+  "production_mutation": false,
+  "service_restart": false
+}

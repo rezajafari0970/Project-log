@@ -1,0 +1,40 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6d3a-exact-build-publish-snapshot-runtime-contract
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T14:38:29+00:00
+
+End:
+2026-09-05T14:38:30+00:00
+
+Mode:
+READ ONLY RUNTIME CONTRACT DISCOVERY
+
+Production mutation:
+NONE
+
+Publish mutation:
+NONE
+
+Endpoint mutation:
+NONE
+
+Service restart:
+NONE
+
+Discovery:
+/root/project-log/discovery/2026-09-05/phase5-pass6d3a-exact-build-publish-snapshot-runtime-contract-20260905-143829.txt
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6d3a-exact-build-publish-snapshot-runtime-contract-20260905-143829.json
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6d3a-exact-build-publish-snapshot-runtime-contract-20260905-143829.log
+
+Errors:
+

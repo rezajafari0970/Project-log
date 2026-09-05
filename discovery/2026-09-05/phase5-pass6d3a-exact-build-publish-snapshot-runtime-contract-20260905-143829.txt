@@ -1,0 +1,421 @@
+================================================
+ PHASE 5 PASS 6D.3A
+ build_publish_snapshot() SOURCE
+================================================
+TIME=2026-09-05T14:38:29+00:00
+
+========== filter.py ==========
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	
+     5	from dataclasses import dataclass
+     6	from pathlib import Path
+     7	from typing import Any
+     8	
+     9	
+    10	CONFIG_DIR = Path(
+    11	    "/var/lib/config-location/configs"
+    12	)
+    13	
+    14	POLICY_PATH = Path(
+    15	    "/var/lib/config-location/"
+    16	    "health-lifecycle/"
+    17	    "policy-latest.json"
+    18	)
+    19	
+    20	
+    21	ALLOWED_STATES = {
+    22	    "healthy",
+    23	    "recovered",
+    24	}
+    25	
+    26	
+    27	@dataclass(frozen=True)
+    28	class PublishSnapshot:
+    29	
+    30	    policy_available: bool
+    31	
+    32	    total_configs: int
+    33	    policy_tracked: int
+    34	
+    35	    publishable: int
+    36	    suppressed: int
+    37	
+    38	    missing_policy_record: int
+    39	
+    40	    configs: tuple[
+    41	        dict[str, Any],
+    42	        ...
+    43	    ]
+    44	
+    45	
+    46	def _read_json(
+    47	    path: Path,
+    48	) -> dict[str, Any] | None:
+    49	
+    50	    try:
+    51	
+    52	        obj = json.loads(
+    53	            path.read_text(
+    54	                encoding="utf-8"
+    55	            )
+    56	        )
+    57	
+    58	        if isinstance(
+    59	            obj,
+    60	            dict,
+    61	        ):
+    62	            return obj
+    63	
+    64	    except Exception:
+    65	        pass
+    66	
+    67	    return None
+    68	
+    69	
+    70	def _load_configs() -> dict[str, dict[str, Any]]:
+    71	
+    72	    configs = {}
+    73	
+    74	    for path in CONFIG_DIR.glob(
+    75	        "*.json"
+    76	    ):
+    77	
+    78	        obj = _read_json(
+    79	            path
+    80	        )
+    81	
+    82	        if not obj:
+    83	            continue
+    84	
+    85	        config_id = str(
+    86	            obj.get(
+    87	                "id"
+    88	            )
+    89	            or path.stem
+    90	        )
+    91	
+    92	        raw = obj.get(
+    93	            "raw"
+    94	        )
+    95	
+    96	        if not isinstance(
+    97	            raw,
+    98	            str,
+    99	        ):
+   100	            continue
+   101	
+   102	        configs[
+   103	            config_id
+   104	        ] = obj
+   105	
+   106	    return configs
+   107	
+   108	
+   109	def _policy_index(
+   110	    value: dict[str, Any],
+   111	) -> dict[str, dict[str, Any]]:
+   112	
+   113	    result = {}
+   114	
+   115	    decisions = value.get(
+   116	        "decisions",
+   117	        [],
+   118	    )
+   119	
+   120	    if not isinstance(
+   121	        decisions,
+   122	        list,
+   123	    ):
+   124	        return result
+   125	
+   126	
+   127	    for item in decisions:
+   128	
+   129	        if not isinstance(
+   130	            item,
+   131	            dict,
+   132	        ):
+   133	            continue
+   134	
+   135	        config_id = str(
+   136	            item.get(
+   137	                "config_id",
+   138	                "",
+   139	            )
+   140	        )
+   141	
+   142	        if not config_id:
+   143	            continue
+   144	
+   145	        result[
+   146	            config_id
+   147	        ] = item
+   148	
+   149	
+   150	    return result
+   151	
+   152	
+   153	def publishable_config_ids() -> set[str]:
+   154	
+   155	    policy = _read_json(
+   156	        POLICY_PATH
+   157	    )
+   158	
+   159	    if not policy:
+   160	        # Fail closed.
+   161	        return set()
+   162	
+   163	
+   164	    index = _policy_index(
+   165	        policy
+   166	    )
+   167	
+   168	
+   169	    allowed = set()
+   170	
+   171	    for config_id, item in (
+   172	        index.items()
+   173	    ):
+   174	
+   175	        state = str(
+   176	            item.get(
+   177	                "policy_state",
+   178	                "",
+   179	            )
+   180	        ).strip().lower()
+   181	
+   182	        publish_flag = bool(
+   183	            item.get(
+   184	                "publish_eligible",
+   185	                False,
+   186	            )
+   187	        )
+   188	
+   189	
+   190	        if (
+   191	            state in ALLOWED_STATES
+   192	            and publish_flag
+   193	        ):
+   194	
+   195	            allowed.add(
+   196	                config_id
+   197	            )
+   198	
+   199	
+   200	    return allowed
+   201	
+   202	
+   203	def build_publish_snapshot(
+   204	    *,
+   205	    config_type: str | None = None,
+   206	) -> PublishSnapshot:
+   207	
+   208	    configs = _load_configs()
+   209	
+   210	    policy = _read_json(
+   211	        POLICY_PATH
+   212	    )
+   213	
+   214	
+   215	    if not policy:
+   216	
+   217	        return PublishSnapshot(
+   218	            policy_available=False,
+   219	
+   220	            total_configs=len(
+   221	                configs
+   222	            ),
+   223	
+   224	            policy_tracked=0,
+   225	
+   226	            publishable=0,
+   227	
+   228	            suppressed=len(
+   229	                configs
+   230	            ),
+   231	
+   232	            missing_policy_record=len(
+   233	                configs
+   234	            ),
+   235	
+   236	            configs=(),
+   237	        )
+   238	
+   239	
+   240	    policy_index = _policy_index(
+   241	        policy
+   242	    )
+   243	
+   244	
+   245	    output = []
+   246	
+   247	    missing_policy_record = 0
+   248	
+   249	
+   250	    kind_filter = (
+   251	        str(
+   252	            config_type
+   253	        )
+   254	        .strip()
+   255	        .lower()
+   256	        if config_type
+   257	        else None
+   258	    )
+   259	
+   260	
+   261	    for config_id, record in (
+   262	        configs.items()
+   263	    ):
+   264	
+   265	        kind = str(
+   266	            record.get(
+   267	                "type",
+   268	                "",
+   269	            )
+   270	        ).strip().lower()
+   271	
+   272	
+   273	        if (
+   274	            kind_filter
+   275	            and kind != kind_filter
+   276	        ):
+   277	            continue
+   278	
+   279	
+   280	        decision = (
+   281	            policy_index.get(
+   282	                config_id
+   283	            )
+   284	        )
+   285	
+   286	
+   287	        if decision is None:
+   288	
+   289	            missing_policy_record += 1
+   290	
+   291	            # Fail closed:
+   292	            # never expose an untested/unclassified
+   293	            # config.
+   294	            continue
+   295	
+   296	
+   297	        state = str(
+   298	            decision.get(
+   299	                "policy_state",
+   300	                "",
+   301	            )
+   302	        ).strip().lower()
+   303	
+   304	
+   305	        eligible = bool(
+   306	            decision.get(
+   307	                "publish_eligible",
+   308	                False,
+   309	            )
+   310	        )
+   311	
+   312	
+   313	        if (
+   314	            state not in ALLOWED_STATES
+   315	            or not eligible
+   316	        ):
+   317	
+   318	            continue
+   319	
+   320	
+   321	        output.append(
+   322	            record
+   323	        )
+   324	
+   325	
+   326	    # Deterministic order prevents random output
+   327	    # churn between identical requests.
+   328	    output.sort(
+   329	        key=lambda x: (
+   330	            str(
+   331	                x.get(
+   332	                    "type",
+   333	                    "",
+   334	                )
+   335	            ),
+   336	            str(
+   337	                x.get(
+   338	                    "id",
+   339	                    "",
+   340	                )
+   341	            ),
+   342	        )
+   343	    )
+   344	
+   345	
+   346	    relevant_total = sum(
+   347	        1
+   348	        for record in configs.values()
+   349	        if (
+   350	            not kind_filter
+   351	            or str(
+   352	                record.get(
+   353	                    "type",
+   354	                    "",
+   355	                )
+   356	            ).strip().lower()
+   357	            == kind_filter
+   358	        )
+   359	    )
+   360	
+   361	
+   362	    return PublishSnapshot(
+   363	        policy_available=True,
+   364	
+   365	        total_configs=relevant_total,
+   366	
+   367	        policy_tracked=len(
+   368	            policy_index
+   369	        ),
+   370	
+   371	        publishable=len(
+   372	            output
+   373	        ),
+   374	
+   375	        suppressed=max(
+   376	            0,
+   377	            relevant_total
+   378	            - len(
+   379	                output
+   380	            ),
+   381	        ),
+   382	
+   383	        missing_policy_record=(
+   384	            missing_policy_record
+   385	        ),
+   386	
+   387	        configs=tuple(
+   388	            output
+   389	        ),
+   390	    )
+
+========== REFERENCES ==========
+/opt/config-location/app/panel/publish_read_model.py:35:        app.publish.filter.build_publish_snapshot()
+/opt/config-location/app/panel/publish_read_model.py:53:            build_publish_snapshot,
+/opt/config-location/app/panel/publish_read_model.py:80:            snapshot=build_publish_snapshot()
+/opt/config-location/app/panel/publish_read_model.py:96:                    "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/panel/publish_read_model.py:213:                "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/panel/publish_read_model.py:312:            "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/publish/filter.py:203:def build_publish_snapshot(
+/opt/config-location/app/publish/http.py:6:    build_publish_snapshot,
+/opt/config-location/app/publish/http.py:15:        build_publish_snapshot(
+/opt/config-location/app/publish/http.py:168:        build_publish_snapshot()
+/opt/config-location/app/publish/__init__.py:3:    build_publish_snapshot,
+/opt/config-location/app/publish/__init__.py:9:    "build_publish_snapshot",
+/opt/config-location/app/publish/selftest.py:129:                f.build_publish_snapshot()
+/opt/config-location/app/publish/selftest.py:159:                f.build_publish_snapshot(
+/opt/config-location/app/publish/selftest.py:182:                f.build_publish_snapshot()
+
+READ_ONLY=true
+PRODUCTION_MUTATION=false
+PUBLISH_MUTATION=false
+ENDPOINT_MUTATION=false
+SERVICE_RESTART=false
+PHASE5_PASS6D3A_DISCOVERY_COMPLETE
