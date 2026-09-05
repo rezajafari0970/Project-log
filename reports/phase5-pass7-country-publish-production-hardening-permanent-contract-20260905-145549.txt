@@ -1,0 +1,46 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass7-country-publish-production-hardening-permanent-contract
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T14:55:49+00:00
+
+End:
+2026-09-05T14:56:02+00:00
+
+Mode:
+COUNTRY PUBLISH PRODUCTION HARDENING / PERMANENT CONTRACT
+
+Country Route:
+/sub/country/{country_code}
+
+Permanent Guard:
+config-location-country-publish-contract.timer
+
+Contract Status:
+/var/lib/config-location/country/publish-contract/status.json
+
+Rollback:
+NO
+
+Config mutation:
+NONE
+
+Canonical Country-store mutation:
+NONE
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass7-country-publish-production-hardening-permanent-contract-20260905-145549.json
+
+Backup:
+/root/3245/phase5-pass7-country-publish-production-hardening-permanent-contract-backup-20260905-145549
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass7-country-publish-production-hardening-permanent-contract-20260905-145549.log
+
+Errors:
+

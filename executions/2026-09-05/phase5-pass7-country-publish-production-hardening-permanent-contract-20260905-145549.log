@@ -1,0 +1,177 @@
+================================================
+ PHASE 5 PASS 7
+ COUNTRY PUBLISH PRODUCTION HARDENING
+ PERMANENT CONTRACT
+================================================
+
+========== [1/14] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/14] BACKUP ==========
+BACKUP_OK
+
+========== [3/14] PRODUCTION BASELINE ==========
+SUB_ALL_HTTP_BEFORE=200
+SUB_ALL_SIZE_BEFORE=110626
+SUB_ALL_SHA_BEFORE=ea459828783cd33da5fa6332cb123931e1479df85fde0ba8208a07d0151eddeb
+HTTP_PY_SHA_BEFORE=28cb21ed96bde94f333c903c838b0fd371d838c45105838986f3a3adaf1690d3
+
+========== [4/14] INSTALL CONTRACT GUARD ==========
+GUARD_INSTALLED
+
+========== [5/14] COUNTRY FAIL-CLOSED PATCH ==========
+COUNTRY_FAIL_CLOSED_PATCHED=YES
+COUNTRY_CONTRACT_HEADER=ENABLED
+PROJECTION_FAILURE_HTTP=503
+
+========== [6/14] COMPILE ==========
+COMPILE_OK
+
+========== [7/14] SYSTEMD CONTRACT ==========
+SYSTEMD_CONTRACT_INSTALLED
+
+========== [8/14] PANEL RESTART ==========
+PANEL_ACTIVE=active
+
+========== [9/14] SUB ALL REGRESSION ==========
+SUB_ALL_HTTP_AFTER=200
+SUB_ALL_SIZE_AFTER=110626
+SUB_ALL_SHA_AFTER=ea459828783cd33da5fa6332cb123931e1479df85fde0ba8208a07d0151eddeb
+SUB_ALL_REGRESSION_OK
+
+========== [10/14] START PERMANENT GUARD ==========
+Created symlink '/etc/systemd/system/timers.target.wants/config-location-country-publish-contract.timer' → '/etc/systemd/system/config-location-country-publish-contract.timer'.
+CONTRACT_TIMER_ACTIVE=active
+PERMANENT_GUARD_RUNNING=YES
+
+========== [11/14] CONTRACT VALIDATION ==========
+{
+  "component": "country-publish-contract-guard",
+  "country_source": "CANONICAL_PROJECTION_V2",
+  "elapsed_seconds": 1.9251,
+  "errors": [],
+  "fail_closed_contract": {
+    "country_contract_failure": "guard reports unhealthy and exits non-zero",
+    "invalid_country_404": true
+  },
+  "gates": {
+    "country_count_match": true,
+    "country_http_200": true,
+    "country_source_header": true,
+    "invalid_http_404": true,
+    "max_latency_le_10s": true,
+    "projection_mapping": true,
+    "projection_records": true,
+    "snapshot_configs_tuple": true,
+    "snapshot_count_match": true,
+    "snapshot_type": true,
+    "sub_all_http_200": true,
+    "sub_all_nonempty": true,
+    "sub_type_http_200": true,
+    "target_selection": true,
+    "unknown_count_match": true,
+    "unknown_http_200": true,
+    "unknown_source_header": true
+  },
+  "healthy": true,
+  "max_latency_seconds": 0.4149,
+  "production_mutation": false,
+  "publishable": 522,
+  "results": {
+    "all": {
+      "elapsed_seconds": 0.2521,
+      "path": "/sub/all",
+      "size": 110626,
+      "status": 200
+    },
+    "country": {
+      "elapsed_seconds": 0.4149,
+      "path": "/sub/country/DE",
+      "size": 2451,
+      "status": 200
+    },
+    "invalid": {
+      "elapsed_seconds": 0.0025,
+      "path": "/sub/country/INVALID",
+      "size": 14,
+      "status": 404
+    },
+    "type": {
+      "elapsed_seconds": 0.1222,
+      "path": "/sub/vless",
+      "size": 85567,
+      "status": 200
+    },
+    "unknown": {
+      "elapsed_seconds": 0.1395,
+      "path": "/sub/country/UNKNOWN",
+      "size": 86838,
+      "status": 200
+    }
+  },
+  "schema": 1,
+  "selected_config_type": "vless",
+  "selected_country": "DE",
+  "service_restart": false,
+  "state": "healthy",
+  "updated_at": "2026-09-05T14:55:58.253543+00:00"
+}
+PERMANENT_CONTRACT_HEALTHY=YES
+PERMANENT_CONTRACT_GATES=PASS
+
+========== [12/14] LIVE CONTRACT ==========
+TEST_COUNTRY=DE
+COUNTRY_HTTP=200
+INVALID_HTTP=404
+LIVE_CONTRACT_OK
+
+========== [13/14] RUNTIME REGRESSION ==========
+config-location-panel.service ACTIVE=active
+config-location-country-worker.service ACTIVE=active
+config-location-country-event-consumer.service ACTIVE=active
+RUNTIME_REGRESSION_OK
+
+========== [14/14] FINAL ==========
+{
+  "phase": "phase5-pass7-country-publish-production-hardening-permanent-contract",
+  "result": "SUCCESS",
+  "country_publish_state": "PRODUCTION_HARDENED",
+  "country_route": "/sub/country/{country_code}",
+  "country_source": "CANONICAL_PROJECTION_V2",
+  "permanent_contract": true,
+  "permanent_guard_service": "config-location-country-publish-contract.service",
+  "permanent_guard_timer": "config-location-country-publish-contract.timer",
+  "contract_status": "/var/lib/config-location/country/publish-contract/status.json",
+  "contract_healthy": true,
+  "fail_closed_invalid_country": true,
+  "projection_failure_behavior": "HTTP 503 on country route",
+  "country_contract_header": "X-Country-Contract",
+  "sub_all_http_before": "200",
+  "sub_all_http_after": "200",
+  "sub_all_size_before": 110626,
+  "sub_all_size_after": 110626,
+  "sub_all_sha_before": "ea459828783cd33da5fa6332cb123931e1479df85fde0ba8208a07d0151eddeb",
+  "sub_all_sha_after": "ea459828783cd33da5fa6332cb123931e1479df85fde0ba8208a07d0151eddeb",
+  "http_py_sha_before": "28cb21ed96bde94f333c903c838b0fd371d838c45105838986f3a3adaf1690d3",
+  "http_py_sha_after": "ff830e9ec92e33ef016cc3080e36a8d0d33a6f594b75668e9dbdd4de2c16f0ef",
+  "automatic_rollback": true,
+  "rolled_back": false,
+  "config_write": false,
+  "canonical_country_store_write": false
+}
+
+COUNTRY_PUBLISH=PRODUCTION_HARDENED
+COUNTRY_SOURCE=CANONICAL_PROJECTION_V2
+PERMANENT_CONTRACT=ENABLED
+PERMANENT_GUARD_TIMER=ACTIVE
+COUNTRY_FAILURE_HTTP=503
+INVALID_COUNTRY_HTTP=404
+COUNTRY_CONTRACT_HEADER=ENABLED
+SUB_ALL_REGRESSION=PASS
+SUB_TYPE_CONTRACT=PROTECTED
+AUTOMATIC_ROLLBACK=READY
+ROLLED_BACK=NO
+CONFIG_WRITE=NO
+CANONICAL_COUNTRY_STORE_WRITE=NO
+
+PHASE5_PASS7_SUCCESS
