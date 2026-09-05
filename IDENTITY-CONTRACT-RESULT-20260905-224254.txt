@@ -1,0 +1,52 @@
+========== PRECHECK ==========
+BASELINE_COMPILE_OK
+BACKUP=/root/3245/phase5-identity-contract-20260905-223901
+
+========== PATCH IDENTITY WRITER ==========
+IDENTITY_WRITER_PATCHED=YES
+
+========== COMPILE ==========
+50:        _CONFIGLOC_IDENTITY_GID = __import__('grp').getgrnam('configloc').gr_gid
+51:        os.fchown(fd, -1, _CONFIGLOC_IDENTITY_GID)
+52:        os.fchmod(fd, 416)
+PATCH_COMPILE_OK
+
+========== RECONCILE EXISTING IDENTITY FILES ==========
+EXISTING_IDENTITY_FILES_RECONCILED=YES
+
+========== CONFIGLOC READ CHECK ==========
+IDENTITY_FILES=4623
+UNREADABLE_IDENTITY_FILES=0
+IDENTITY_READ_CONTRACT=PASS
+
+========== RESTART COUNTRY SERVICES ==========
+config-location-country-worker.service=active
+config-location-country-event-consumer.service=active
+config-location-panel.service=active
+SERVICES_OK
+
+========== ROOT / CONFIGLOC COUNTRY PARITY ==========
+ROOT= {'conflict': 0, 'countries': {'AL': 1, 'AR': 1, 'AU': 19, 'BG': 4, 'CA': 12, 'CZ': 3, 'DE': 175, 'EE': 3, 'ES': 5, 'FI': 5, 'FR': 8, 'GB': 55, 'GE': 1, 'GR': 2, 'HK': 2, 'IE': 1, 'IL': 2, 'IR': 1, 'IT': 2, 'JP': 9, 'KR': 6, 'KZ': 1, 'LT': 1, 'LV': 1, 'MY': 1, 'NL': 120, 'NO': 4, 'PL': 9, 'PT': 1, 'RO': 1, 'RS': 2, 'RU': 1, 'SE': 13, 'SG': 9, 'TR': 2, 'US': 48, 'ZA': 1}, 'publishable': 692, 'unknown': 160}
+CONFIGLOC= {'conflict': 0, 'countries': {'AL': 1, 'AR': 1, 'AU': 19, 'BG': 4, 'CA': 12, 'CZ': 3, 'DE': 175, 'EE': 3, 'ES': 5, 'FI': 5, 'FR': 8, 'GB': 55, 'GE': 1, 'GR': 2, 'HK': 2, 'IE': 1, 'IL': 2, 'IR': 1, 'IT': 2, 'JP': 9, 'KR': 6, 'KZ': 1, 'LT': 1, 'LV': 1, 'MY': 1, 'NL': 120, 'NO': 4, 'PL': 9, 'PT': 1, 'RO': 1, 'RS': 2, 'RU': 1, 'SE': 13, 'SG': 9, 'TR': 2, 'US': 48, 'ZA': 1}, 'publishable': 692, 'unknown': 160}
+ROOT_CONFIGLOC_PARITY=PASS
+
+========== ENDPOINT CHECK ==========
+DE 175
+KR 6
+NL 120
+GB 55
+US 48
+AU 19
+SUB_ALL_HTTP=200
+INVALID_HTTP=404
+
+COUNTRY_IDENTITY_WRITER_CONTRACT=PASS
+IDENTITY_FILE_MODE=0640
+CONFIGLOC_IDENTITY_READ=YES
+ROOT_CONFIGLOC_PARITY=PASS
+SUB_ALL_REGRESSION=PASS
+INVALID_COUNTRY_FAIL_CLOSED=PASS
+
+READY_FOR_PHASE5_FINAL_CLOSURE=YES
+
+PHASE5_FINAL_IDENTITY_CONTRACT_SUCCESS
