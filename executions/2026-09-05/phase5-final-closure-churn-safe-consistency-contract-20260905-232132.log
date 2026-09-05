@@ -1,0 +1,159 @@
+================================================
+ PHASE 5 FINAL CLOSURE FIX
+ CHURN-SAFE CONSISTENCY CONTRACT
+================================================
+
+========== [1/9] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/9] COMPILE ==========
+COMPILE_OK
+
+========== [3/9] PERMISSION CONTRACT ==========
+PIPELINE_FILES=17851
+PIPELINE_UNREADABLE=0
+IDENTITY_FILES=4623
+IDENTITY_UNREADABLE=0
+PERMISSION_CONTRACT=PASS
+
+========== [4/9] PRODUCTION BASELINE ==========
+config-location-panel.service=active
+config-location-country-worker.service=active
+config-location-country-event-consumer.service=active
+config-location-country-publish-contract.timer=active
+SUB_ALL_HTTP=200
+UNKNOWN_HTTP=200
+INVALID_HTTP=404
+PRODUCTION_BASELINE=PASS
+
+========== [5/9] CANONICAL SNAPSHOT BEFORE ==========
+PUBLISHABLE= 984
+RESOLVED= 673
+UNKNOWN= 311
+CONFLICT= 0
+COUNTRY_COUNT= 37
+CONSERVATION_OK= True
+FINGERPRINT= 084c1799262a4b3e8e649e89210f7a81601d0c4ee7d16a36b3e57e904cf545c8
+BEFORE_CONSERVATION=PASS
+
+========== [6/9] LIVE COUNTRY CONTRACT — WAVE 1 ==========
+AE: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+AL: snapshot=2 live=2 lines=2 drift=0 http=200 ok=True
+AR: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+AU: snapshot=28 live=28 lines=28 drift=0 http=200 ok=True
+BG: snapshot=6 live=6 lines=6 drift=0 http=200 ok=True
+BY: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+CA: snapshot=13 live=13 lines=13 drift=0 http=200 ok=True
+CZ: snapshot=2 live=2 lines=2 drift=0 http=200 ok=True
+DE: snapshot=210 live=210 lines=210 drift=0 http=200 ok=True
+EE: snapshot=4 live=4 lines=4 drift=0 http=200 ok=True
+ES: snapshot=4 live=4 lines=4 drift=0 http=200 ok=True
+FI: snapshot=9 live=9 lines=9 drift=0 http=200 ok=True
+FR: snapshot=17 live=17 lines=17 drift=0 http=200 ok=True
+GB: snapshot=70 live=70 lines=70 drift=0 http=200 ok=True
+GE: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+GR: snapshot=2 live=2 lines=2 drift=0 http=200 ok=True
+HK: snapshot=10 live=10 lines=10 drift=0 http=200 ok=True
+IL: snapshot=2 live=2 lines=2 drift=0 http=200 ok=True
+IN: snapshot=2 live=2 lines=2 drift=0 http=200 ok=True
+IR: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+IT: snapshot=8 live=8 lines=8 drift=0 http=200 ok=True
+JP: snapshot=16 live=16 lines=16 drift=0 http=200 ok=True
+KR: snapshot=6 live=6 lines=6 drift=0 http=200 ok=True
+KZ: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+LT: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+LV: snapshot=2 live=2 lines=2 drift=0 http=200 ok=True
+MD: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+NL: snapshot=135 live=136 lines=136 drift=1 http=200 ok=True
+NO: snapshot=5 live=5 lines=5 drift=0 http=200 ok=True
+PL: snapshot=18 live=18 lines=18 drift=0 http=200 ok=True
+RS: snapshot=3 live=3 lines=3 drift=0 http=200 ok=True
+RU: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+SE: snapshot=20 live=20 lines=20 drift=0 http=200 ok=True
+SG: snapshot=10 live=10 lines=10 drift=0 http=200 ok=True
+TR: snapshot=3 live=3 lines=3 drift=0 http=200 ok=True
+US: snapshot=56 live=56 lines=56 drift=0 http=200 ok=True
+ZA: snapshot=1 live=1 lines=1 drift=0 http=200 ok=True
+
+ENDPOINTS_TESTED= 37
+ENDPOINTS_PASSED= 37
+ENDPOINTS_FAILED= 0
+WAVE1_SELF_CONSISTENCY=PASS
+
+========== [7/9] CHURN RECONCILIATION ==========
+PUBLISHABLE= 984
+RESOLVED= 674
+UNKNOWN= 310
+CONFLICT= 0
+COUNTRY_COUNT= 37
+CONSERVATION_OK= True
+FINGERPRINT= 18b391909016bec8005922c9d062420671ece58b915406fdbce137d66f4cd1c8
+SNAPSHOT_STABLE= NO
+PUBLISHABLE_DELTA= 0
+UNKNOWN_DELTA= -1
+CHANGED_COUNTRIES= 1
+NEW_COUNTRY_CODES= NONE
+REMOVED_COUNTRY_CODES= NONE
+CHURN_ACCEPTED=YES
+NEW_COUNTRY_COUNT=0
+NO_NEW_COUNTRY_WAVE_REQUIRED
+CHURN_RECONCILIATION=PASS
+
+========== [8/9] PERMANENT GUARD ==========
+GUARD_STATE= healthy
+GUARD_HEALTHY= True
+GUARD_GATES= {'country_count_match': True, 'country_http_200': True, 'country_source_header': True, 'invalid_http_404': True, 'max_latency_le_10s': True, 'projection_mapping': True, 'projection_records': True, 'snapshot_configs_tuple': True, 'snapshot_count_match': True, 'snapshot_type': True, 'sub_all_http_200': True, 'sub_all_nonempty': True, 'sub_type_http_200': True, 'target_selection': True, 'unknown_count_match': True, 'unknown_http_200': True, 'unknown_source_header': True}
+PERMANENT_GUARD=PASS
+
+========== [9/9] FINAL CLOSURE ==========
+{
+  "phase": "phase5-final-closure-churn-safe-consistency-contract",
+  "result": "SUCCESS",
+  "phase5_state": "PRODUCTION_COMPLETE",
+  "ready_for_phase6": true,
+  "closure_contract": "CHURN_SAFE_SELF_CONSISTENT",
+  "country_route": "/sub/country/{country_code}",
+  "country_route_mode": "DYNAMIC_ALL_DISCOVERED_COUNTRIES",
+  "country_source": "CANONICAL_PROJECTION_V2",
+  "before_publishable": 984,
+  "after_publishable": 984,
+  "before_country_count": 37,
+  "after_country_count": 37,
+  "wave1_tested": 37,
+  "wave1_failed": 0,
+  "wave2_new_countries_tested": 0,
+  "wave2_failed": 0,
+  "snapshot_stable": false,
+  "churn_observed": true,
+  "churn_accepted": true,
+  "changed_country_count": 1,
+  "publishable_delta": 0,
+  "unknown_delta": -1,
+  "new_country_codes": [],
+  "removed_country_codes": [],
+  "canonical_conservation": "PASS",
+  "endpoint_self_consistency": "PASS",
+  "permission_contract": "PASS",
+  "permanent_guard": "PASS",
+  "production_mutation": false,
+  "service_restart": false
+}
+
+==============================================
+ PHASE 5 CHURN-SAFE FINAL CLOSURE SUCCESS
+==============================================
+CANONICAL_CONSERVATION=PASS
+ENDPOINT_SELF_CONSISTENCY=PASS
+ALL_DISCOVERED_COUNTRIES=VALIDATED
+NEWLY_DISCOVERED_COUNTRIES=VALIDATED
+CHURN_ALLOWED=YES
+CHURN_RECONCILIATION=PASS
+PERMISSION_CONTRACT=PASS
+PERMANENT_GUARD=PASS
+PRODUCTION_MUTATION=NO
+SERVICE_RESTART=NO
+
+PHASE5_STATE=PRODUCTION_COMPLETE
+READY_FOR_PHASE6=YES
+
+PHASE5_FINAL_SUCCESS

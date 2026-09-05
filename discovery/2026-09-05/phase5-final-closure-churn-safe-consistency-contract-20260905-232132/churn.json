@@ -1,0 +1,21 @@
+{
+  "before_fingerprint": "084c1799262a4b3e8e649e89210f7a81601d0c4ee7d16a36b3e57e904cf545c8",
+  "after_fingerprint": "18b391909016bec8005922c9d062420671ece58b915406fdbce137d66f4cd1c8",
+  "snapshot_stable": false,
+  "publishable_delta": 0,
+  "resolved_delta": 1,
+  "unknown_delta": -1,
+  "conflict_delta": 0,
+  "changed_country_count": 1,
+  "changed_countries": {
+    "NL": {
+      "before": 135,
+      "after": 136,
+      "delta": 1
+    }
+  },
+  "new_codes": [],
+  "removed_codes": [],
+  "before_conservation": true,
+  "after_conservation": true
+}
