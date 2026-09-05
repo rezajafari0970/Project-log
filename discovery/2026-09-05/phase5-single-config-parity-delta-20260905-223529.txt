@@ -1,0 +1,79 @@
+================================================
+ PHASE 5 FINAL FIX C
+ SINGLE CONFIG PARITY DELTA DISCOVERY
+================================================
+
+========== ROOT SNAPSHOT ==========
+ROOT_IDS= 610
+
+========== CONFIGLOC SNAPSHOT ==========
+CONFIGLOC_IDS= 611
+
+========== EXACT DELTAS ==========
+DELTA_COUNT= 4
+
+CONFIG_ID= 460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b
+ROOT= {"projection": {"accepted_evidence_count": 1, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "conflict": false, "country_code": "DE", "country_name": "Germany", "evidence": [{"accepted": true, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "country_code": "DE", "country_name": "Germany", "evidence_path": "$", "flag": "🇩🇪", "locked": true, "reason": "locked_identity", "source": "identity", "state": null}, {"accepted": false, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "country_code": "DE", "country_name": "Germany", "evidence_path": "$", "flag": "🇩🇪", "locked": false, "reason": "non_final_pipeline:pending_confirmation", "source": "pipeline_latest", "state": "pending_confirmation"}, {"accepted": false, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "country_code": "DE", "country_name": "Germany", "evidence_path": "$.fusion", "flag": "🇩🇪", "locked": false, "reason": "fusion_not_canonical_final", "source": "pipeline_latest", "state": "confirmed"}, {"accepted": false, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "country_code": "DE", "country_name": null, "evidence_path": "$.primary", "flag": null, "locked": false, "reason": "primary_not_canonical_final", "source": "pipeline_latest", "state": "confirmed"}], "evidence_count": 4, "flag": "🇩🇪", "selected_path": "$", "selected_source": "identity", "state": "resolved"}, "type": "vless"}
+CONFIGLOC= {"projection": {"accepted_evidence_count": 0, "confidence": null, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "conflict": false, "country_code": null, "country_name": null, "evidence": [{"accepted": false, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "country_code": "DE", "country_name": "Germany", "evidence_path": "$", "flag": "🇩🇪", "locked": false, "reason": "non_final_pipeline:pending_confirmation", "source": "pipeline_latest", "state": "pending_confirmation"}, {"accepted": false, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "country_code": "DE", "country_name": "Germany", "evidence_path": "$.fusion", "flag": "🇩🇪", "locked": false, "reason": "fusion_not_canonical_final", "source": "pipeline_latest", "state": "confirmed"}, {"accepted": false, "confidence": 1.0, "config_id": "460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b", "country_code": "DE", "country_name": null, "evidence_path": "$.primary", "flag": null, "locked": false, "reason": "primary_not_canonical_final", "source": "pipeline_latest", "state": "confirmed"}], "evidence_count": 3, "flag": null, "selected_path": null, "selected_source": null, "state": "unknown"}, "type": "vless"}
+FILE= /var/lib/config-location/country/country-identity/460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b.json MODE= 0o600 UID= 0 GID= 0
+FILE= /var/lib/config-location/country/pipeline/latest/460f9bbfe335db00412eef20c7e0615130d46b34ab973b29a403ea77dc03cc6b.json MODE= 0o640 UID= 0 GID= 983
+
+CONFIG_ID= 6ef24a18663bbf82cf72db007e6a9d5166654a76221eda890dea2874fb05b714
+ROOT= null
+CONFIGLOC= {"projection": {"accepted_evidence_count": 0, "confidence": null, "config_id": "6ef24a18663bbf82cf72db007e6a9d5166654a76221eda890dea2874fb05b714", "conflict": false, "country_code": null, "country_name": null, "evidence": [], "evidence_count": 0, "flag": null, "selected_path": null, "selected_source": null, "state": "unknown"}, "type": "ss"}
+
+CONFIG_ID= cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee
+ROOT= {"projection": {"accepted_evidence_count": 4, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "conflict": false, "country_code": "DE", "country_name": "Germany", "evidence": [{"accepted": true, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "country_code": "DE", "country_name": "Germany", "evidence_path": "$", "flag": "🇩🇪", "locked": true, "reason": "locked_identity", "source": "identity", "state": null}, {"accepted": true, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "country_code": "DE", "country_name": "Germany", "evidence_path": "$", "flag": "🇩🇪", "locked": false, "reason": "final_pipeline", "source": "pipeline_latest", "state": "confirmed_stable"}, {"accepted": true, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "country_code": "DE", "country_name": "Germany", "evidence_path": "$.fusion", "flag": "🇩🇪", "locked": false, "reason": "final_pipeline_fusion", "source": "pipeline_latest", "state": "confirmed"}, {"accepted": true, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "country_code": "DE", "country_name": null, "evidence_path": "$.primary", "flag": null, "locked": false, "reason": "final_pipeline_primary", "source": "pipeline_latest", "state": "confirmed"}], "evidence_count": 4, "flag": "🇩🇪", "selected_path": "$", "selected_source": "identity", "state": "resolved"}, "type": "vless"}
+CONFIGLOC= {"projection": {"accepted_evidence_count": 3, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "conflict": false, "country_code": "DE", "country_name": "Germany", "evidence": [{"accepted": true, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "country_code": "DE", "country_name": "Germany", "evidence_path": "$", "flag": "🇩🇪", "locked": false, "reason": "final_pipeline", "source": "pipeline_latest", "state": "confirmed_stable"}, {"accepted": true, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "country_code": "DE", "country_name": "Germany", "evidence_path": "$.fusion", "flag": "🇩🇪", "locked": false, "reason": "final_pipeline_fusion", "source": "pipeline_latest", "state": "confirmed"}, {"accepted": true, "confidence": 1.0, "config_id": "cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee", "country_code": "DE", "country_name": null, "evidence_path": "$.primary", "flag": null, "locked": false, "reason": "final_pipeline_primary", "source": "pipeline_latest", "state": "confirmed"}], "evidence_count": 3, "flag": "🇩🇪", "selected_path": "$.fusion", "selected_source": "pipeline_latest", "state": "resolved"}, "type": "vless"}
+FILE= /var/lib/config-location/country/country-identity/cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee.json MODE= 0o600 UID= 0 GID= 0
+FILE= /var/lib/config-location/country/pipeline/latest/cb17c088fe595bced77d156243570c483fe3237e4cffead414adcf27ad675dee.json MODE= 0o640 UID= 0 GID= 983
+
+CONFIG_ID= f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06
+ROOT= {"projection": {"accepted_evidence_count": 4, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "conflict": false, "country_code": "KR", "country_name": "South Korea", "evidence": [{"accepted": true, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "country_code": "KR", "country_name": "South Korea", "evidence_path": "$", "flag": "🇰🇷", "locked": true, "reason": "locked_identity", "source": "identity", "state": null}, {"accepted": true, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "country_code": "KR", "country_name": "South Korea", "evidence_path": "$", "flag": "🇰🇷", "locked": false, "reason": "final_pipeline", "source": "pipeline_latest", "state": "confirmed_stable"}, {"accepted": true, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "country_code": "KR", "country_name": "South Korea", "evidence_path": "$.fusion", "flag": "🇰🇷", "locked": false, "reason": "final_pipeline_fusion", "source": "pipeline_latest", "state": "confirmed"}, {"accepted": true, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "country_code": "KR", "country_name": null, "evidence_path": "$.primary", "flag": null, "locked": false, "reason": "final_pipeline_primary", "source": "pipeline_latest", "state": "confirmed"}], "evidence_count": 4, "flag": "🇰🇷", "selected_path": "$", "selected_source": "identity", "state": "resolved"}, "type": "vless"}
+CONFIGLOC= {"projection": {"accepted_evidence_count": 3, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "conflict": false, "country_code": "KR", "country_name": "South Korea", "evidence": [{"accepted": true, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "country_code": "KR", "country_name": "South Korea", "evidence_path": "$", "flag": "🇰🇷", "locked": false, "reason": "final_pipeline", "source": "pipeline_latest", "state": "confirmed_stable"}, {"accepted": true, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "country_code": "KR", "country_name": "South Korea", "evidence_path": "$.fusion", "flag": "🇰🇷", "locked": false, "reason": "final_pipeline_fusion", "source": "pipeline_latest", "state": "confirmed"}, {"accepted": true, "confidence": 1.0, "config_id": "f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06", "country_code": "KR", "country_name": null, "evidence_path": "$.primary", "flag": null, "locked": false, "reason": "final_pipeline_primary", "source": "pipeline_latest", "state": "confirmed"}], "evidence_count": 3, "flag": "🇰🇷", "selected_path": "$.fusion", "selected_source": "pipeline_latest", "state": "resolved"}, "type": "vless"}
+FILE= /var/lib/config-location/country/country-identity/f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06.json MODE= 0o600 UID= 0 GID= 0
+FILE= /var/lib/config-location/country/pipeline/latest/f85b7a78fb93ef6c30e6e88d7dd7b34d23c7ea43c10c2be1293511dbf8794c06.json MODE= 0o640 UID= 0 GID= 983
+
+========== RECENT PIPELINE MODIFICATIONS ==========
+2026-09-05 22:35:13.1985540770 640 root:configloc 2668a795898a3af9fb6f5d0f278ae59426d8a7250ff1a68346d04ed8ad41a5f7.json
+2026-09-05 22:35:11.2286719260 640 root:configloc 11cfae042ff41b189173073f30d0c89cf92d312bc43f5b3891a4e7ac8714c754.json
+2026-09-05 22:34:41.1107324340 640 root:configloc 58329032bb3466e627d994211078248c8ad852f9a15ac314b64d73fce2e73e27.json
+2026-09-05 22:34:24.8427191060 640 root:configloc 55fe0c2304c07d26e97acd84faec44680b5569197019d7c8e6c89b5a561d7c00.json
+2026-09-05 22:34:22.7045620130 640 root:configloc 4a9c8727d26af8bb8125c2d5a219f79d75903b5a12511636fe25969e055fefd0.json
+2026-09-05 22:33:50.8762141340 640 root:configloc 49b76b12362b2f568c07144ae45afd1d9ddfa1bf346ef2e6ba5166f071e7ac54.json
+2026-09-05 22:33:20.8078937520 640 root:configloc 32d1ce4d8fddf492b5110eb36018f5bc9053cbb366e82d6cfb2308005ba478ec.json
+2026-09-05 22:32:50.9727572220 640 root:configloc 724295348ba8d38ba4245b86b257e8d82090f5addf756e3cf5b24ab12778ba6c.json
+2026-09-05 22:32:23.2175050150 640 root:configloc 20720cb6bcbbde27a1bd60d3c855537777c1b23e0801954db3c7087907139e07.json
+2026-09-05 22:31:51.3226495130 640 root:configloc 2c59324fa68283ced95df491d0bea683f5cc95252295418a85c0294bd8dca15e.json
+2026-09-05 22:31:33.3573634510 640 root:configloc 846934148f06de3a8ce072f33abf526f127f531bf4596633b87b8ab160a868cc.json
+2026-09-05 22:31:32.9603196500 640 root:configloc 52664f1be6a6ddf10f3ae047a7e28beeea1176e5928ec7d65a13775523392344.json
+2026-09-05 22:31:11.1228301720 640 root:configloc 7252f593ae41f90833a529ffe8550aa28cc8ddd123080e3ccb80878691eaa0b9.json
+2026-09-05 22:31:10.8466260710 640 root:configloc 3e81c955296c1a280e1c9fba29dcc085f65c3214be5b57ff56f90d393c9bae88.json
+2026-09-05 22:30:49.3874234720 640 root:configloc 83feee2033ff105b4a9ccd02edd8f4a43959fe754de57aa7bde467fba558cc65.json
+2026-09-05 22:30:49.0287971910 640 root:configloc 5240fe6bbee2aa2a038aa478fb0cff12fd02e36ddcb74bc9ea8b3d07b42db52a.json
+2026-09-05 22:30:30.1772675680 640 root:configloc 374e8d12d7bd12747771c144affe58ef4790df0c59c4257935bd03e500e61145.json
+2026-09-05 22:30:29.7910568660 640 root:configloc 2b7a857447cd13e3f7d43b918846de297371e310fd1de94328dc144ade32ae44.json
+2026-09-05 22:30:09.5017189800 640 root:configloc 969338e4affb5942c4c87265c46d681d76792ade4db152d8bf403ac031f38a05.json
+2026-09-05 22:30:09.1885054720 640 root:configloc 8cf0030a3494c9e6d0ad7c0b4ac6917da11c28574828e3ea5d22af1b9f52b93a.json
+2026-09-05 22:29:49.7886690920 640 root:configloc 804a33f35cda4002fbac061264d690884e7694d5326b68d0012838caa3bc9aed.json
+2026-09-05 22:29:49.4087254980 640 root:configloc 759f3906e7133f2453ec395bf0e46a1d5d6a26a40e839c0fb7987629fe2b8076.json
+2026-09-05 22:29:29.5354362900 640 root:configloc 2341ed571c8ab0cc8622bc964e7ab3d603edb39b4b17c15026710e5898f06556.json
+2026-09-05 22:29:29.2655146830 640 root:configloc 18de7e978dee7ea356640b322d6154a63753e72e96a97dfd8a1d0523f0498d75.json
+2026-09-05 22:29:10.4072327820 640 root:configloc 106bdcb931119d377b8dafb594cf4be79f5304131b12810b63c85c7384d30712.json
+2026-09-05 22:29:09.0415047680 640 root:configloc 00603ddf8986e66c0c207a8d23d4db9cde3e10e8150e801b3df1b0c3095a1b1a.json
+2026-09-05 22:28:56.0444255820 640 root:configloc 7494af4c73d613768f8ce05b75b7ed07b1eeadd84275f20730c2b89c12461d4a.json
+2026-09-05 22:28:55.7610691270 640 root:configloc b7a98bb7fd8c9dc5dac1156f77b55387e0de53d8afa4b76a6b06c0e7bb2a3989.json
+2026-09-05 22:28:37.8585136310 640 root:configloc a032ed6824d73fd8cce4cbc556d61efa8f8d1fbaebf3d6385721c5a39157bfb7.json
+2026-09-05 22:28:35.8877278520 640 root:configloc 8ddccfdb5e740b71a2f84a31a2d6ae322d0d7f2791f3fa252b26bf1a458fd9a4.json
+2026-09-05 22:28:05.9657549260 640 root:configloc 6c9c50d5db4816a595aa5701479d5becd99b5f4143776266b91da6f57289d1fa.json
+2026-09-05 22:27:46.0725334570 640 root:configloc 3f191edc53889aba97e46f197475cd21ae94dff8a76672f8b4377a7b4334f22e.json
+2026-09-05 22:27:45.7461882750 640 root:configloc 3ec90da692fd076955eb39f391499210887d3d89c242085498d69b36a7dd7d91.json
+2026-09-05 22:27:09.8174082740 640 root:configloc e716b502b22598154c449a0fdee3782d481236192bd2ac0cb49bb776cc14b187.json
+2026-09-05 22:27:07.8896428650 640 root:configloc e3f6ebc230fcd004eac0f36baaffbea8e6568da9735fc5163dc93c57c8a40025.json
+2026-09-05 22:26:37.5546429750 640 root:configloc 57f1086675e0caadf5d1260fc3167d310da872de681bcff3687219bb617d9e2c.json
+2026-09-05 22:25:39.9621561190 640 root:configloc f202743a4dce7c2c48e7daa5c65585137ce9d0033330620c43ca29036d73266b.json
+2026-09-05 22:25:37.3710759610 640 root:configloc c68f139c9b198089d0330516ca915d2d42d0369933d13f13cd01e725a741befc.json
+2026-09-05 22:25:21.8753008880 640 root:configloc b1720889bd39bbdde7870a897002880a2349135b7b578635844a3b20d37e97a5.json
+2026-09-05 22:25:17.8196790940 640 root:configloc 95ef0ef970df6277fdf7429020cb2adfdde2bf723094081fb5353f5a93a22f63.json
+
+PHASE5_SINGLE_CONFIG_PARITY_DELTA_DISCOVERY_COMPLETE
