@@ -1,0 +1,50 @@
+================================================
+ PHASE 5 PASS 6A
+ CONTROLLED PANEL PRODUCTION READ-MODEL WIRING
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] BACKUP ==========
+BACKUP_OK
+
+========== [3/10] INSTALL ADAPTER ==========
+ADAPTER_INSTALLED
+
+========== [4/10] DISCOVER PANEL CONTRACT ==========
+FUNCTIONS= ['_read_json', '_first_existing', '_config_id_from_record', 'iter_config_records', '_country_view', 'build_config_view', 'iter_config_views', 'dashboard_summary', 'query_configs', '_config_record_by_id', 'config_detail']
+CANDIDATES= ['_read_json', '_config_id_from_record', 'iter_config_records', '_country_view', 'build_config_view', 'iter_config_views', 'query_configs', '_config_record_by_id', 'config_detail']
+
+========== [5/10] CONTROLLED PATCH ==========
+RETURN_PATHS_PATCHED= 13
+PANEL_PATCH_APPLIED
+
+========== [6/10] COMPILE ==========
+IMPORT_OK
+
+========== [7/10] ADAPTER REGRESSION ==========
+ADAPTER_REGRESSION_OK
+TEST_CONFIG_ID= 004024a83d7dd40ae35c80b607735db10c57b9df1c3c9b1ea751438a5edc096e
+COUNTRY_CODE= PL
+COUNTRY_NAME= Poland
+
+========== [8/10] PANEL SERVICE ==========
+PANEL_UNIT=config-location-panel.service
+active
+PANEL_RESTARTED=YES
+
+========== [9/10] RUNTIME VALIDATION ==========
+RUNTIME_VALID
+
+========== [10/10] FINAL ==========
+PANEL_PRODUCTION_READ_MODEL=ENABLED
+COUNTRY_SOURCE=CANONICAL_PROJECTION_V2
+CONFIG_STORE_WRITE=NO
+COUNTRY_STORE_WRITE=NO
+PUBLISH_WIRING=NO
+PUBLISH_ENDPOINTS_UNCHANGED=YES
+ROLLBACK_BACKUP=READY
+FAIL_CLOSED_PATCH=YES
+
+PHASE5_PASS6A_SUCCESS

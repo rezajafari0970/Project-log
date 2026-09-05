@@ -1,0 +1,43 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6a-controlled-panel-production-readmodel-wiring
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T12:10:28+00:00
+
+End:
+2026-09-05T12:10:35+00:00
+
+Mode:
+CONTROLLED PANEL PRODUCTION READ-MODEL WIRING
+
+Panel read-model:
+ENABLED IF CONTRACT PASSED
+
+Publish wiring:
+NO
+
+Config mutation:
+NONE
+
+Country-store mutation:
+NONE
+
+Endpoint mutation:
+NONE
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6a-controlled-panel-production-readmodel-wiring-20260905-121028.json
+
+Backup:
+/root/3245/phase5-pass6a-controlled-panel-production-readmodel-wiring-backup-20260905-121028
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6a-controlled-panel-production-readmodel-wiring-20260905-121028.log
+
+Errors:
+

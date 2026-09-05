@@ -1,0 +1,27 @@
+{
+  "panel_functions": [
+    "_read_json",
+    "_first_existing",
+    "_config_id_from_record",
+    "iter_config_records",
+    "_country_view",
+    "build_config_view",
+    "iter_config_views",
+    "dashboard_summary",
+    "query_configs",
+    "_config_record_by_id",
+    "config_detail"
+  ],
+  "candidate_read_functions": [
+    "_read_json",
+    "_config_id_from_record",
+    "iter_config_records",
+    "_country_view",
+    "build_config_view",
+    "iter_config_views",
+    "query_configs",
+    "_config_record_by_id",
+    "config_detail"
+  ],
+  "candidate_count": 9
+}
