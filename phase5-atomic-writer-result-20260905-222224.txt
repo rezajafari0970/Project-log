@@ -1,0 +1,27 @@
+================================================
+ PHASE 5 FINAL FIX B
+ ATOMIC PIPELINE WRITER PERMISSION CONTRACT
+================================================
+
+========== [1/11] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/11] BACKUP ==========
+BACKUP_OK
+
+========== [3/11] PATCH WRITERS ==========
+PATCHED=/opt/config-location/app/country/worker.py ATOMIC_FUNCTIONS=1
+PATCHED=/opt/config-location/app/country/pipeline.py ATOMIC_FUNCTIONS=1
+ATOMIC_WRITER_CONTRACT_PATCHED=YES
+
+========== [4/11] STATIC VALIDATION ==========
+/opt/config-location/app/country/worker.py:31:    _CONFIGLOC_PIPELINE_GID = grp.getgrnam('configloc').gr_gid
+/opt/config-location/app/country/worker.py:32:    os.fchown(fd, -1, _CONFIGLOC_PIPELINE_GID)
+/opt/config-location/app/country/worker.py:33:    os.fchmod(fd, 416)
+/opt/config-location/app/country/pipeline.py:46:    _CONFIGLOC_PIPELINE_GID = grp.getgrnam('configloc').gr_gid
+/opt/config-location/app/country/pipeline.py:47:    os.fchown(fd, -1, _CONFIGLOC_PIPELINE_GID)
+/opt/config-location/app/country/pipeline.py:48:    os.fchmod(fd, 416)
+  File "app/country/worker.py", line 2
+    from __future__ import annotations
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: from __future__ imports must occur at the beginning of the file
