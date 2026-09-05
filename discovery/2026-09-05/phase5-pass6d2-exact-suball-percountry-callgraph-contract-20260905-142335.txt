@@ -1,0 +1,991 @@
+================================================
+ PHASE 5 PASS 6D.2
+ EXACT CALL-GRAPH CONTRACT
+================================================
+TIME=2026-09-05T14:23:35+00:00
+
+################################################
+FILE: /opt/config-location/app/publish/http.py
+################################################
+     1	from __future__ import annotations
+     2	
+     3	from aiohttp import web
+     4	
+     5	from .filter import (
+     6	    build_publish_snapshot,
+     7	)
+     8	
+     9	
+    10	def _subscription_text(
+    11	    config_type: str | None = None,
+    12	) -> tuple[str, dict]:
+    13	
+    14	    snapshot = (
+    15	        build_publish_snapshot(
+    16	            config_type=config_type
+    17	        )
+    18	    )
+    19	
+    20	
+    21	    lines = []
+    22	
+    23	    for record in snapshot.configs:
+    24	
+    25	        raw = record.get(
+    26	            "raw"
+    27	        )
+    28	
+    29	        if not isinstance(
+    30	            raw,
+    31	            str,
+    32	        ):
+    33	            continue
+    34	
+    35	        # raw is returned exactly as stored.
+    36	        lines.append(
+    37	            raw
+    38	        )
+    39	
+    40	
+    41	    text = "\n".join(
+    42	        lines
+    43	    )
+    44	
+    45	    if text:
+    46	        text += "\n"
+    47	
+    48	
+    49	    metadata = {
+    50	        "policy_available":
+    51	            snapshot.policy_available,
+    52	
+    53	        "total_configs":
+    54	            snapshot.total_configs,
+    55	
+    56	        "publishable":
+    57	            snapshot.publishable,
+    58	
+    59	        "suppressed":
+    60	            snapshot.suppressed,
+    61	
+    62	        "missing_policy_record":
+    63	            snapshot.missing_policy_record,
+    64	
+    65	        "config_type":
+    66	            config_type,
+    67	    }
+    68	
+    69	
+    70	    return text, metadata
+    71	
+    72	
+    73	async def subscription_all(
+    74	    request: web.Request,
+    75	):
+    76	
+    77	    text, metadata = (
+    78	        _subscription_text()
+    79	    )
+    80	
+    81	    return web.Response(
+    82	        text=text,
+    83	
+    84	        content_type="text/plain",
+    85	
+    86	        charset="utf-8",
+    87	
+    88	        headers={
+    89	            "Cache-Control":
+    90	                "no-store",
+    91	
+    92	            "X-Config-Policy":
+    93	                "health-lifecycle",
+    94	
+    95	            "X-Config-Publishable":
+    96	                str(
+    97	                    metadata[
+    98	                        "publishable"
+    99	                    ]
+   100	                ),
+   101	
+   102	            "X-Config-Suppressed":
+   103	                str(
+   104	                    metadata[
+   105	                        "suppressed"
+   106	                    ]
+   107	                ),
+   108	        },
+   109	    )
+   110	
+   111	
+   112	async def subscription_type(
+   113	    request: web.Request,
+   114	):
+   115	
+   116	    config_type = str(
+   117	        request.match_info.get(
+   118	            "config_type",
+   119	            "",
+   120	        )
+   121	    ).strip().lower()
+   122	
+   123	
+   124	    if not config_type:
+   125	
+   126	        raise web.HTTPNotFound()
+   127	
+   128	
+   129	    text, metadata = (
+   130	        _subscription_text(
+   131	            config_type
+   132	        )
+   133	    )
+   134	
+   135	
+   136	    return web.Response(
+   137	        text=text,
+   138	
+   139	        content_type="text/plain",
+   140	
+   141	        charset="utf-8",
+   142	
+   143	        headers={
+   144	            "Cache-Control":
+   145	                "no-store",
+   146	
+   147	            "X-Config-Policy":
+   148	                "health-lifecycle",
+   149	
+   150	            "X-Config-Type":
+   151	                config_type,
+   152	
+   153	            "X-Config-Publishable":
+   154	                str(
+   155	                    metadata[
+   156	                        "publishable"
+   157	                    ]
+   158	                ),
+   159	        },
+   160	    )
+   161	
+   162	
+   163	async def publish_status(
+   164	    request: web.Request,
+   165	):
+   166	
+   167	    snapshot = (
+   168	        build_publish_snapshot()
+   169	    )
+   170	
+   171	
+   172	    return web.json_response({
+   173	        "mode":
+   174	            "production-output-filter",
+   175	
+   176	        "policy_available":
+   177	            snapshot.policy_available,
+   178	
+   179	        "total_configs":
+   180	            snapshot.total_configs,
+   181	
+   182	        "policy_tracked":
+   183	            snapshot.policy_tracked,
+   184	
+   185	        "publishable":
+   186	            snapshot.publishable,
+   187	
+   188	        "suppressed":
+   189	            snapshot.suppressed,
+   190	
+   191	        "missing_policy_record":
+   192	            snapshot.missing_policy_record,
+   193	
+   194	        "allowed_states": [
+   195	            "healthy",
+   196	            "recovered",
+   197	        ],
+   198	
+   199	        "production_delete":
+   200	            False,
+   201	    })
+   202	
+   203	
+   204	def install_publish_routes(
+   205	    app: web.Application,
+   206	) -> None:
+   207	
+   208	    if app.get(
+   209	        "_ht18_publish_installed"
+   210	    ):
+   211	
+   212	        return
+   213	
+   214	
+   215	    app[
+   216	        "_ht18_publish_installed"
+   217	    ] = True
+   218	
+   219	
+   220	    app.router.add_get(
+   221	        "/sub/all",
+   222	        subscription_all,
+   223	    )
+   224	
+   225	
+   226	    app.router.add_get(
+   227	        "/sub/{config_type}",
+   228	        subscription_type,
+   229	    )
+   230	
+   231	
+   232	    app.router.add_get(
+   233	        "/api/publish/status",
+   234	        publish_status,
+   235	    )
+
+################################################
+FILE: /opt/config-location/app/panel/publish_read_model.py
+################################################
+     1	from __future__ import annotations
+     2	
+     3	from typing import Any
+     4	from pathlib import Path
+     5	import inspect
+     6	import re
+     7	
+     8	
+     9	# ============================================================
+    10	# PANEL_A7_PUBLISH_READ_MODEL
+    11	# Canonical publish/subscription discovery
+    12	# READ ONLY
+    13	# ============================================================
+    14	
+    15	
+    16	def _safe_dict(
+    17	    value: Any,
+    18	) -> dict[str, Any]:
+    19	
+    20	    if isinstance(
+    21	        value,
+    22	        dict,
+    23	    ):
+    24	        return value
+    25	
+    26	    return {}
+    27	
+    28	
+    29	def _discover_publish_status() -> dict[str, Any]:
+    30	    """
+    31	    PANEL_A7_R5_COHERENT_CANONICAL_STATUS
+    32	
+    33	    Canonical eligibility remains owned exclusively by:
+    34	
+    35	        app.publish.filter.build_publish_snapshot()
+    36	
+    37	    Healthy/recovered are only a breakdown of the exact
+    38	    publishable IDs returned by that canonical snapshot.
+    39	
+    40	    Because production state changes continuously, we retry
+    41	    briefly until snapshot + policy view are coherent.
+    42	    """
+    43	
+    44	    import time
+    45	
+    46	    try:
+    47	
+    48	        from app.publish.filter import (
+    49	            ALLOWED_STATES,
+    50	            POLICY_PATH,
+    51	            _policy_index,
+    52	            _read_json,
+    53	            build_publish_snapshot,
+    54	        )
+    55	
+    56	    except Exception as exc:
+    57	
+    58	        return {
+    59	            "_source":
+    60	                "app.publish.filter",
+    61	
+    62	            "available":
+    63	                False,
+    64	
+    65	            "error":
+    66	                type(exc).__name__,
+    67	
+    68	            "message":
+    69	                str(exc),
+    70	        }
+    71	
+    72	
+    73	    last=None
+    74	
+    75	
+    76	    for attempt in range(1,9):
+    77	
+    78	        try:
+    79	
+    80	            snapshot=build_publish_snapshot()
+    81	
+    82	            policy=_read_json(
+    83	                POLICY_PATH
+    84	            )
+    85	
+    86	            index=(
+    87	                _policy_index(policy)
+    88	                if policy
+    89	                else {}
+    90	            )
+    91	
+    92	        except Exception as exc:
+    93	
+    94	            return {
+    95	                "_source":
+    96	                    "app.publish.filter.build_publish_snapshot",
+    97	
+    98	                "available":
+    99	                    False,
+   100	
+   101	                "error":
+   102	                    type(exc).__name__,
+   103	
+   104	                "message":
+   105	                    str(exc),
+   106	            }
+   107	
+   108	
+   109	        # These are the exact configs selected by the
+   110	        # canonical filter for this particular snapshot.
+   111	        snapshot_ids=set()
+   112	
+   113	        for record in snapshot.configs:
+   114	
+   115	            if not isinstance(
+   116	                record,
+   117	                dict,
+   118	            ):
+   119	                continue
+   120	
+   121	            config_id=(
+   122	                record.get("id")
+   123	                or record.get(
+   124	                    "config_id"
+   125	                )
+   126	            )
+   127	
+   128	            if config_id:
+   129	
+   130	                snapshot_ids.add(
+   131	                    str(config_id)
+   132	                )
+   133	
+   134	
+   135	        breakdown={
+   136	            "healthy":0,
+   137	            "recovered":0,
+   138	        }
+   139	
+   140	        unresolved_breakdown=0
+   141	
+   142	
+   143	        for config_id in snapshot_ids:
+   144	
+   145	            item=index.get(
+   146	                config_id
+   147	            )
+   148	
+   149	            if not isinstance(
+   150	                item,
+   151	                dict,
+   152	            ):
+   153	
+   154	                unresolved_breakdown+=1
+   155	                continue
+   156	
+   157	
+   158	            state=str(
+   159	                item.get(
+   160	                    "policy_state",
+   161	                    "",
+   162	                )
+   163	            ).strip().lower()
+   164	
+   165	
+   166	            eligible=bool(
+   167	                item.get(
+   168	                    "publish_eligible",
+   169	                    False,
+   170	                )
+   171	            )
+   172	
+   173	
+   174	            if (
+   175	                not eligible
+   176	                or state
+   177	                not in ALLOWED_STATES
+   178	            ):
+   179	
+   180	                # State changed between canonical
+   181	                # snapshot and policy read.
+   182	                unresolved_breakdown+=1
+   183	                continue
+   184	
+   185	
+   186	            if state in breakdown:
+   187	
+   188	                breakdown[state]+=1
+   189	
+   190	            else:
+   191	
+   192	                unresolved_breakdown+=1
+   193	
+   194	
+   195	        classified=(
+   196	            breakdown["healthy"]
+   197	            +breakdown["recovered"]
+   198	        )
+   199	
+   200	
+   201	        coherent=(
+   202	            len(snapshot_ids)
+   203	            ==snapshot.publishable
+   204	            and classified
+   205	            ==snapshot.publishable
+   206	            and unresolved_breakdown
+   207	            ==0
+   208	        )
+   209	
+   210	
+   211	        last={
+   212	            "_source":
+   213	                "app.publish.filter.build_publish_snapshot",
+   214	
+   215	            "available":
+   216	                True,
+   217	
+   218	            "mode":
+   219	                "production-output-filter",
+   220	
+   221	            "policy_available":
+   222	                bool(
+   223	                    snapshot.policy_available
+   224	                ),
+   225	
+   226	            "total_configs":
+   227	                int(
+   228	                    snapshot.total_configs
+   229	                ),
+   230	
+   231	            "policy_tracked":
+   232	                int(
+   233	                    snapshot.policy_tracked
+   234	                ),
+   235	
+   236	            "publishable":
+   237	                int(
+   238	                    snapshot.publishable
+   239	                ),
+   240	
+   241	            "suppressed":
+   242	                int(
+   243	                    snapshot.suppressed
+   244	                ),
+   245	
+   246	            "missing_policy_record":
+   247	                int(
+   248	                    snapshot.missing_policy_record
+   249	                ),
+   250	
+   251	            "healthy":
+   252	                int(
+   253	                    breakdown["healthy"]
+   254	                ),
+   255	
+   256	            "recovered":
+   257	                int(
+   258	                    breakdown["recovered"]
+   259	                ),
+   260	
+   261	            "eligible_by_state":{
+   262	                "healthy":
+   263	                    int(
+   264	                        breakdown[
+   265	                            "healthy"
+   266	                        ]
+   267	                    ),
+   268	
+   269	                "recovered":
+   270	                    int(
+   271	                        breakdown[
+   272	                            "recovered"
+   273	                        ]
+   274	                    ),
+   275	            },
+   276	
+   277	            "allowed_states":
+   278	                sorted(
+   279	                    str(x)
+   280	                    for x
+   281	                    in ALLOWED_STATES
+   282	                ),
+   283	
+   284	            "breakdown_unresolved":
+   285	                int(
+   286	                    unresolved_breakdown
+   287	                ),
+   288	
+   289	            "coherent":
+   290	                bool(coherent),
+   291	
+   292	            "coherence_attempt":
+   293	                attempt,
+   294	
+   295	            "production_delete":
+   296	                False,
+   297	        }
+   298	
+   299	
+   300	        if coherent:
+   301	            return last
+   302	
+   303	
+   304	        # Very short retry only; no production mutation.
+   305	        time.sleep(0.02)
+   306	
+   307	
+   308	    # State may be changing continuously.
+   309	    # Publishable itself is still canonical.
+   310	    return last or {
+   311	        "_source":
+   312	            "app.publish.filter.build_publish_snapshot",
+   313	
+   314	        "available":
+   315	            False,
+   316	
+   317	        "error":
+   318	            "snapshot_unavailable",
+   319	    }
+   320	
+   321	
+   322	def _discover_routes() -> list[str]:
+   323	
+   324	    try:
+   325	
+   326	        from app.panel.server import (
+   327	            create_app,
+   328	        )
+   329	
+   330	        app=create_app()
+   331	
+   332	    except Exception:
+   333	
+   334	        return []
+   335	
+   336	
+   337	    found=set()
+   338	
+   339	    for route in app.router.routes():
+   340	
+   341	        try:
+   342	            path=route.resource.canonical
+   343	        except Exception:
+   344	            continue
+   345	
+   346	        if not isinstance(
+   347	            path,
+   348	            str,
+   349	        ):
+   350	            continue
+   351	
+   352	        if (
+   353	            path.startswith("/sub/")
+   354	            or path=="/sub"
+   355	        ):
+   356	            found.add(path)
+   357	
+   358	
+   359	    return sorted(found)
+   360	
+   361	
+   362	def _classify_routes(
+   363	    routes: list[str],
+   364	) -> dict[str, list[str]]:
+   365	
+   366	    result={
+   367	        "all":[],
+   368	        "type":[],
+   369	        "country":[],
+   370	        "other":[],
+   371	    }
+   372	
+   373	
+   374	    for path in routes:
+   375	
+   376	        low=path.lower()
+   377	
+   378	        if path=="/sub/all":
+   379	
+   380	            result["all"].append(
+   381	                path
+   382	            )
+   383	
+   384	        elif (
+   385	            "{config_type}" in path
+   386	            or "{type}" in path
+   387	        ):
+   388	
+   389	            result["type"].append(
+   390	                path
+   391	            )
+   392	
+   393	        elif (
+   394	            "{country" in low
+   395	            or "/country/" in low
+   396	        ):
+   397	
+   398	            result["country"].append(
+   399	                path
+   400	            )
+   401	
+   402	        else:
+   403	
+   404	            result["other"].append(
+   405	                path
+   406	            )
+   407	
+   408	
+   409	    return result
+   410	
+   411	
+   412	def _known_types() -> list[str]:
+   413	
+   414	    return [
+   415	        "vless",
+   416	        "vmess",
+   417	        "trojan",
+   418	        "ss",
+   419	        "wireguard",
+   420	        "json_xray",
+   421	    ]
+   422	
+   423	
+   424	def publish_summary() -> dict[str, Any]:
+   425	
+   426	    status=_discover_publish_status()
+   427	
+   428	    routes=_discover_routes()
+   429	
+   430	    classes=_classify_routes(
+   431	        routes
+   432	    )
+   433	
+   434	
+   435	    type_links=[]
+   436	
+   437	    route_template=None
+   438	
+   439	    for item in classes[
+   440	        "type"
+   441	    ]:
+   442	
+   443	        if (
+   444	            "{config_type}"
+   445	            in item
+   446	        ):
+   447	            route_template=item
+   448	            break
+   449	
+   450	
+   451	    if route_template:
+   452	
+   453	        for config_type in _known_types():
+   454	
+   455	            type_links.append(
+   456	                {
+   457	                    "type":
+   458	                        config_type,
+   459	
+   460	                    "path":
+   461	                        route_template.replace(
+   462	                            "{config_type}",
+   463	                            config_type,
+   464	                        ),
+   465	                }
+   466	            )
+   467	
+   468	
+   469	    return {
+   470	        "publish_status":
+   471	            status,
+   472	
+   473	        "routes":
+   474	            routes,
+   475	
+   476	        "route_classes":
+   477	            classes,
+   478	
+   479	        "links":{
+   480	            "all":
+   481	                "/sub/all"
+   482	                if "/sub/all"
+   483	                in routes
+   484	                else None,
+   485	
+   486	            "types":
+   487	                type_links,
+   488	
+   489	            "country_templates":
+   490	                classes[
+   491	                    "country"
+   492	                ],
+   493	
+   494	            "other":
+   495	                classes[
+   496	                    "other"
+   497	                ],
+   498	        },
+   499	    }
+
+========== ROUTE REFERENCES ==========
+/opt/config-location/app/publish/http.py:6:    build_publish_snapshot,
+/opt/config-location/app/publish/http.py:10:def _subscription_text(
+/opt/config-location/app/publish/http.py:15:        build_publish_snapshot(
+/opt/config-location/app/publish/http.py:56:        "publishable":
+/opt/config-location/app/publish/http.py:57:            snapshot.publishable,
+/opt/config-location/app/publish/http.py:73:async def subscription_all(
+/opt/config-location/app/publish/http.py:74:    request: web.Request,
+/opt/config-location/app/publish/http.py:78:        _subscription_text()
+/opt/config-location/app/publish/http.py:81:    return web.Response(
+/opt/config-location/app/publish/http.py:98:                        "publishable"
+/opt/config-location/app/publish/http.py:112:async def subscription_type(
+/opt/config-location/app/publish/http.py:113:    request: web.Request,
+/opt/config-location/app/publish/http.py:117:        request.match_info.get(
+/opt/config-location/app/publish/http.py:130:        _subscription_text(
+/opt/config-location/app/publish/http.py:136:    return web.Response(
+/opt/config-location/app/publish/http.py:156:                        "publishable"
+/opt/config-location/app/publish/http.py:163:async def publish_status(
+/opt/config-location/app/publish/http.py:164:    request: web.Request,
+/opt/config-location/app/publish/http.py:168:        build_publish_snapshot()
+/opt/config-location/app/publish/http.py:185:        "publishable":
+/opt/config-location/app/publish/http.py:186:            snapshot.publishable,
+/opt/config-location/app/publish/http.py:204:def install_publish_routes(
+/opt/config-location/app/publish/http.py:209:        "_ht18_publish_installed"
+/opt/config-location/app/publish/http.py:216:        "_ht18_publish_installed"
+/opt/config-location/app/publish/http.py:221:        "/sub/all",
+/opt/config-location/app/publish/http.py:222:        subscription_all,
+/opt/config-location/app/publish/http.py:227:        "/sub/{config_type}",
+/opt/config-location/app/publish/http.py:228:        subscription_type,
+/opt/config-location/app/publish/http.py:233:        "/api/publish/status",
+/opt/config-location/app/publish/http.py:234:        publish_status,
+/opt/config-location/app/panel/publish_read_model.py:4:from pathlib import Path
+/opt/config-location/app/panel/publish_read_model.py:11:# Canonical publish/subscription discovery
+/opt/config-location/app/panel/publish_read_model.py:29:def _discover_publish_status() -> dict[str, Any]:
+/opt/config-location/app/panel/publish_read_model.py:35:        app.publish.filter.build_publish_snapshot()
+/opt/config-location/app/panel/publish_read_model.py:38:    publishable IDs returned by that canonical snapshot.
+/opt/config-location/app/panel/publish_read_model.py:48:        from app.publish.filter import (
+/opt/config-location/app/panel/publish_read_model.py:53:            build_publish_snapshot,
+/opt/config-location/app/panel/publish_read_model.py:60:                "app.publish.filter",
+/opt/config-location/app/panel/publish_read_model.py:80:            snapshot=build_publish_snapshot()
+/opt/config-location/app/panel/publish_read_model.py:96:                    "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/panel/publish_read_model.py:168:                    "publish_eligible",
+/opt/config-location/app/panel/publish_read_model.py:203:            ==snapshot.publishable
+/opt/config-location/app/panel/publish_read_model.py:205:            ==snapshot.publishable
+/opt/config-location/app/panel/publish_read_model.py:213:                "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/panel/publish_read_model.py:236:            "publishable":
+/opt/config-location/app/panel/publish_read_model.py:238:                    snapshot.publishable
+/opt/config-location/app/panel/publish_read_model.py:312:            "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/panel/publish_read_model.py:342:            path=route.resource.canonical
+/opt/config-location/app/panel/publish_read_model.py:347:            path,
+/opt/config-location/app/panel/publish_read_model.py:353:            path.startswith("/sub/")
+/opt/config-location/app/panel/publish_read_model.py:354:            or path=="/sub"
+/opt/config-location/app/panel/publish_read_model.py:356:            found.add(path)
+/opt/config-location/app/panel/publish_read_model.py:369:        "country":[],
+/opt/config-location/app/panel/publish_read_model.py:374:    for path in routes:
+/opt/config-location/app/panel/publish_read_model.py:376:        low=path.lower()
+/opt/config-location/app/panel/publish_read_model.py:378:        if path=="/sub/all":
+/opt/config-location/app/panel/publish_read_model.py:381:                path
+/opt/config-location/app/panel/publish_read_model.py:385:            "{config_type}" in path
+/opt/config-location/app/panel/publish_read_model.py:386:            or "{type}" in path
+/opt/config-location/app/panel/publish_read_model.py:390:                path
+/opt/config-location/app/panel/publish_read_model.py:394:            "{country" in low
+/opt/config-location/app/panel/publish_read_model.py:395:            or "/country/" in low
+/opt/config-location/app/panel/publish_read_model.py:398:            result["country"].append(
+/opt/config-location/app/panel/publish_read_model.py:399:                path
+/opt/config-location/app/panel/publish_read_model.py:405:                path
+/opt/config-location/app/panel/publish_read_model.py:424:def publish_summary() -> dict[str, Any]:
+/opt/config-location/app/panel/publish_read_model.py:426:    status=_discover_publish_status()
+/opt/config-location/app/panel/publish_read_model.py:460:                    "path":
+/opt/config-location/app/panel/publish_read_model.py:470:        "publish_status":
+/opt/config-location/app/panel/publish_read_model.py:481:                "/sub/all"
+/opt/config-location/app/panel/publish_read_model.py:482:                if "/sub/all"
+/opt/config-location/app/panel/publish_read_model.py:489:            "country_templates":
+/opt/config-location/app/panel/publish_read_model.py:491:                    "country"
+
+========== IMPORT MAP ==========
+/opt/config-location/app/publish/http.py:1:from __future__ import annotations
+/opt/config-location/app/publish/http.py:3:from aiohttp import web
+/opt/config-location/app/publish/http.py:5:from .filter import (
+/opt/config-location/app/panel/publish_read_model.py:1:from __future__ import annotations
+/opt/config-location/app/panel/publish_read_model.py:3:from typing import Any
+/opt/config-location/app/panel/publish_read_model.py:4:from pathlib import Path
+/opt/config-location/app/panel/publish_read_model.py:5:import inspect
+/opt/config-location/app/panel/publish_read_model.py:6:import re
+
+========== CROSS REFERENCES ==========
+/opt/config-location/app/panel/server.py:45:from app.publish.http import install_publish_routes
+/opt/config-location/app/panel/server.py:4914:    from app.panel.publish_read_model import (
+
+========== SERIALIZER REFERENCES ==========
+/opt/config-location/app/publish/http.py:10:def _subscription_text(
+/opt/config-location/app/publish/http.py:41:    text = "\n".join(
+/opt/config-location/app/publish/http.py:73:async def subscription_all(
+/opt/config-location/app/publish/http.py:78:        _subscription_text()
+/opt/config-location/app/publish/http.py:81:    return web.Response(
+/opt/config-location/app/publish/http.py:84:        content_type="text/plain",
+/opt/config-location/app/publish/http.py:112:async def subscription_type(
+/opt/config-location/app/publish/http.py:130:        _subscription_text(
+/opt/config-location/app/publish/http.py:136:    return web.Response(
+/opt/config-location/app/publish/http.py:139:        content_type="text/plain",
+/opt/config-location/app/publish/http.py:222:        subscription_all,
+/opt/config-location/app/publish/http.py:228:        subscription_type,
+/opt/config-location/app/panel/publish_read_model.py:11:# Canonical publish/subscription discovery
+
+========== FILTER REFERENCES ==========
+/opt/config-location/app/publish/filter.py:35:    publishable: int
+/opt/config-location/app/publish/filter.py:153:def publishable_config_ids() -> set[str]:
+/opt/config-location/app/publish/filter.py:226:            publishable=0,
+/opt/config-location/app/publish/filter.py:250:    kind_filter = (
+/opt/config-location/app/publish/filter.py:274:            kind_filter
+/opt/config-location/app/publish/filter.py:275:            and kind != kind_filter
+/opt/config-location/app/publish/filter.py:350:            not kind_filter
+/opt/config-location/app/publish/filter.py:357:            == kind_filter
+/opt/config-location/app/publish/filter.py:371:        publishable=len(
+/opt/config-location/app/publish/http.py:5:from .filter import (
+/opt/config-location/app/publish/http.py:56:        "publishable":
+/opt/config-location/app/publish/http.py:57:            snapshot.publishable,
+/opt/config-location/app/publish/http.py:98:                        "publishable"
+/opt/config-location/app/publish/http.py:156:                        "publishable"
+/opt/config-location/app/publish/http.py:174:            "production-output-filter",
+/opt/config-location/app/publish/http.py:185:        "publishable":
+/opt/config-location/app/publish/http.py:186:            snapshot.publishable,
+/opt/config-location/app/publish/__init__.py:1:from .filter import (
+/opt/config-location/app/publish/__init__.py:4:    publishable_config_ids,
+/opt/config-location/app/publish/__init__.py:10:    "publishable_config_ids",
+/opt/config-location/app/publish/selftest.py:8:import app.publish.filter as f
+/opt/config-location/app/publish/selftest.py:133:            ids = {
+/opt/config-location/app/publish/selftest.py:140:            assert ids == {
+/opt/config-location/app/publish/selftest.py:147:                snap.publishable
+/opt/config-location/app/publish/selftest.py:187:                closed.publishable
+/opt/config-location/app/publish/selftest.py:226:        "[PASS] type filter"
+/opt/config-location/app/panel/publish_read_model.py:35:        app.publish.filter.build_publish_snapshot()
+/opt/config-location/app/panel/publish_read_model.py:38:    publishable IDs returned by that canonical snapshot.
+/opt/config-location/app/panel/publish_read_model.py:48:        from app.publish.filter import (
+/opt/config-location/app/panel/publish_read_model.py:60:                "app.publish.filter",
+/opt/config-location/app/panel/publish_read_model.py:96:                    "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/panel/publish_read_model.py:110:        # canonical filter for this particular snapshot.
+/opt/config-location/app/panel/publish_read_model.py:203:            ==snapshot.publishable
+/opt/config-location/app/panel/publish_read_model.py:205:            ==snapshot.publishable
+/opt/config-location/app/panel/publish_read_model.py:213:                "app.publish.filter.build_publish_snapshot",
+/opt/config-location/app/panel/publish_read_model.py:219:                "production-output-filter",
+/opt/config-location/app/panel/publish_read_model.py:236:            "publishable":
+/opt/config-location/app/panel/publish_read_model.py:238:                    snapshot.publishable
+/opt/config-location/app/panel/publish_read_model.py:312:            "app.publish.filter.build_publish_snapshot",
+
+========== LIVE /sub/all BASELINE ==========
+HTTP=200 SIZE=115341
+SHA256=6957d53b5721c72f283eb210a2d8dd38853bad7e50814e3527324d526e133d59
+
+========== PANEL SERVICE ==========
+# /etc/systemd/system/config-location-panel.service
+[Unit]
+Description=Config Location Management Panel
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+User=configloc
+Group=configloc
+
+WorkingDirectory=/opt/config-location
+
+EnvironmentFile=/etc/config-location/panel.env
+
+ExecStart=/opt/config-location/venv/bin/python -m app.panel.server
+
+Restart=always
+RestartSec=3
+
+TimeoutStartSec=30
+TimeoutStopSec=15
+
+KillSignal=SIGTERM
+
+NoNewPrivileges=true
+PrivateTmp=true
+
+ProtectSystem=full
+ProtectHome=true
+
+ReadWritePaths=/var/lib/config-location
+ReadWritePaths=/var/log/config-location
+ReadWritePaths=/run/config-location
+
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+RestrictSUIDSGID=true
+
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target
+
+# /etc/systemd/system/config-location-panel.service.d/99-final.conf
+[Service]
+ExecStart=
+ExecStart=/opt/config-location/venv/bin/python -m app.panel.server
+WorkingDirectory=/opt/config-location
+
+RuntimeDirectory=config-location
+RuntimeDirectoryMode=0750
+RuntimeDirectoryPreserve=yes
+
+========== LISTENER ==========
+LISTEN 0      128          0.0.0.0:4040      0.0.0.0:*    users:(("python",pid=2682289,fd=6))                                                                                                 
+
+========== CONTRACT QUESTIONS ==========
+Q1. What exact function receives GET /sub/all?
+Q2. What exact function receives per-country requests?
+Q3. Is routing explicit or path-parsed dynamically?
+Q4. Does /sub/all and per-country share one handler?
+Q5. Which line distinguishes all vs country?
+Q6. What exact read-model function is called by /sub/all?
+Q7. What exact read-model function is called for country?
+Q8. Where are publishable config IDs obtained?
+Q9. Where is country filtering currently performed?
+Q10. Does current filtering use Config Store country metadata?
+Q11. Where should Canonical Projection v2 enter the call graph?
+Q12. Can that insertion affect only country requests?
+Q13. What function serializes configs into subscription text?
+Q14. Is serialization shared by /sub/all and country?
+Q15. What object/collection exists immediately before serialization?
+Q16. Does filtering happen before serialization?
+Q17. Is UNKNOWN currently a country endpoint/group?
+Q18. What exact file needs modification in 6D.3?
+Q19. What exact function needs modification in 6D.3?
+Q20. Can /sub/all remain byte/logically unchanged?
+Q21. Which service must restart after patch?
+Q22. Which files must be backed up?
+Q23. What HTTP checks prove /sub/all preservation?
+Q24. What country endpoint should be used as production canary?
+Q25. Is there exactly one safe production insertion point?
+
+READ_ONLY=true
+PRODUCTION_MUTATION=false
+PUBLISH_MUTATION=false
+PANEL_MUTATION=false
+ENDPOINT_MUTATION=false
+SERVICE_RESTART=false
+PHASE5_PASS6D2_DISCOVERY_COMPLETE

@@ -1,0 +1,171 @@
+================================================
+ PHASE 5 PASS 6D.2
+ EXACT /sub/all + PER-COUNTRY CALL GRAPH
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] COMPILE ==========
+COMPILE_OK
+
+========== [3/10] SOURCE CAPTURE ==========
+
+========== [4/10] AST CALL GRAPH ==========
+{
+  "sub_all_candidates": [
+    {
+      "file": "/opt/config-location/app/publish/http.py",
+      "function": "install_publish_routes",
+      "line": 204
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "_classify_routes",
+      "line": 362
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "publish_summary",
+      "line": 424
+    }
+  ],
+  "country_candidates": [
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "_classify_routes",
+      "line": 362
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "publish_summary",
+      "line": 424
+    }
+  ],
+  "cross_file_calls": [
+    {
+      "from_file": "/opt/config-location/app/publish/http.py",
+      "from_function": "subscription_all",
+      "to_function": "_subscription_text",
+      "line": 78
+    },
+    {
+      "from_file": "/opt/config-location/app/publish/http.py",
+      "from_function": "subscription_type",
+      "to_function": "_subscription_text",
+      "line": 130
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_discover_publish_status",
+      "line": 426
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_discover_routes",
+      "line": 428
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_classify_routes",
+      "line": 430
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_known_types",
+      "line": 453
+    }
+  ]
+}
+
+========== [5/10] FUNCTION SUMMARY ==========
+
+################################################
+FILE: /opt/config-location/app/publish/http.py
+################################################
+   10-   70 _subscription_text(config_type)
+   73-  109 subscription_all(request)
+  112-  160 subscription_type(request)
+  163-  201 publish_status(request)
+  204-  235 install_publish_routes(app)
+
+################################################
+FILE: /opt/config-location/app/panel/publish_read_model.py
+################################################
+   16-   26 _safe_dict(value)
+   29-  319 _discover_publish_status()
+  322-  359 _discover_routes()
+  362-  409 _classify_routes(routes)
+  412-  421 _known_types()
+  424-  499 publish_summary()
+
+========== [6/10] DIRECT CALL GRAPH ==========
+/opt/config-location/app/publish/http.py:10:def _subscription_text(
+/opt/config-location/app/publish/http.py:70:    return text, metadata
+/opt/config-location/app/publish/http.py:73:async def subscription_all(
+/opt/config-location/app/publish/http.py:78:        _subscription_text()
+/opt/config-location/app/publish/http.py:81:    return web.Response(
+/opt/config-location/app/publish/http.py:112:async def subscription_type(
+/opt/config-location/app/publish/http.py:130:        _subscription_text(
+/opt/config-location/app/publish/http.py:136:    return web.Response(
+/opt/config-location/app/publish/http.py:172:    return web.json_response({
+/opt/config-location/app/publish/http.py:221:        "/sub/all",
+/opt/config-location/app/publish/http.py:222:        subscription_all,
+/opt/config-location/app/publish/http.py:228:        subscription_type,
+/opt/config-location/app/panel/publish_read_model.py:11:# Canonical publish/subscription discovery
+/opt/config-location/app/panel/publish_read_model.py:24:        return value
+/opt/config-location/app/panel/publish_read_model.py:26:    return {}
+/opt/config-location/app/panel/publish_read_model.py:58:        return {
+/opt/config-location/app/panel/publish_read_model.py:94:            return {
+/opt/config-location/app/panel/publish_read_model.py:301:            return last
+/opt/config-location/app/panel/publish_read_model.py:310:    return last or {
+/opt/config-location/app/panel/publish_read_model.py:334:        return []
+/opt/config-location/app/panel/publish_read_model.py:359:    return sorted(found)
+/opt/config-location/app/panel/publish_read_model.py:369:        "country":[],
+/opt/config-location/app/panel/publish_read_model.py:378:        if path=="/sub/all":
+/opt/config-location/app/panel/publish_read_model.py:394:            "{country" in low
+/opt/config-location/app/panel/publish_read_model.py:395:            or "/country/" in low
+/opt/config-location/app/panel/publish_read_model.py:398:            result["country"].append(
+/opt/config-location/app/panel/publish_read_model.py:409:    return result
+/opt/config-location/app/panel/publish_read_model.py:414:    return [
+/opt/config-location/app/panel/publish_read_model.py:469:    return {
+/opt/config-location/app/panel/publish_read_model.py:481:                "/sub/all"
+/opt/config-location/app/panel/publish_read_model.py:482:                if "/sub/all"
+/opt/config-location/app/panel/publish_read_model.py:489:            "country_templates":
+/opt/config-location/app/panel/publish_read_model.py:491:                    "country"
+
+========== [7/10] LIVE REGRESSION BASELINE ==========
+HTTP_CODE=200
+SIZE=115341
+SHA256=6957d53b5721c72f283eb210a2d8dd38853bad7e50814e3527324d526e133d59
+SUB_ALL_BASELINE_OK
+
+========== [8/10] SERVICES ==========
+config-location-panel.service ACTIVE=active
+config-location-country-worker.service ACTIVE=active
+config-location-country-event-consumer.service ACTIVE=active
+SERVICE_BASELINE_OK
+
+========== [9/10] VALIDATE ==========
+CALL_GRAPH_SUMMARY_VALID
+SUB_ALL_CANDIDATE_COUNT= 3
+COUNTRY_CANDIDATE_COUNT= 2
+CROSS_FILE_CALL_COUNT= 6
+DISCOVERY_VALID
+
+========== [10/10] FINAL ==========
+EXACT_SOURCE_CAPTURED=YES
+AST_CALL_GRAPH_CAPTURED=YES
+SUB_ALL_BASELINE=HEALTHY
+SERVICE_BASELINE=HEALTHY
+PRODUCTION_MUTATION=NO
+PUBLISH_MUTATION=NO
+PANEL_MUTATION=NO
+ENDPOINT_MUTATION=NO
+SERVICE_RESTART=NO
+
+PHASE5_PASS6D2_SUCCESS

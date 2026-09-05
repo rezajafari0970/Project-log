@@ -1,0 +1,43 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6d2-exact-suball-percountry-callgraph-contract
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T14:23:35+00:00
+
+End:
+2026-09-05T14:23:36+00:00
+
+Mode:
+READ ONLY EXACT CALL-GRAPH CONTRACT
+
+Production mutation:
+NONE
+
+Publish mutation:
+NONE
+
+Panel mutation:
+NONE
+
+Endpoint mutation:
+NONE
+
+Service restart:
+NONE
+
+Discovery:
+/root/project-log/discovery/2026-09-05/phase5-pass6d2-exact-suball-percountry-callgraph-contract-20260905-142335.txt
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6d2-exact-suball-percountry-callgraph-contract-20260905-142335.json
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6d2-exact-suball-percountry-callgraph-contract-20260905-142335.log
+
+Errors:
+

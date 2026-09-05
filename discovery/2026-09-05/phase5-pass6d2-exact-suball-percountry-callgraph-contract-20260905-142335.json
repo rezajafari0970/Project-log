@@ -1,0 +1,874 @@
+{
+  "phase": "phase5-pass6d2-exact-suball-percountry-callgraph-contract",
+  "read_only": true,
+  "files": {
+    "/opt/config-location/app/publish/http.py": {
+      "functions": [
+        {
+          "name": "_subscription_text",
+          "line": 10,
+          "args": [
+            "config_type"
+          ],
+          "calls": [
+            {
+              "name": "build_publish_snapshot",
+              "line": 15,
+              "string_args": []
+            },
+            {
+              "name": "join",
+              "line": 41,
+              "string_args": []
+            },
+            {
+              "name": "record.get",
+              "line": 25,
+              "string_args": [
+                "raw"
+              ]
+            },
+            {
+              "name": "lines.append",
+              "line": 36,
+              "string_args": []
+            },
+            {
+              "name": "isinstance",
+              "line": 29,
+              "string_args": []
+            }
+          ],
+          "strings": [
+            "\n",
+            "policy_available",
+            "total_configs",
+            "publishable",
+            "suppressed",
+            "missing_policy_record",
+            "config_type",
+            "raw",
+            "\n"
+          ]
+        },
+        {
+          "name": "subscription_all",
+          "line": 73,
+          "args": [
+            "request"
+          ],
+          "calls": [
+            {
+              "name": "_subscription_text",
+              "line": 78,
+              "string_args": []
+            },
+            {
+              "name": "web.Response",
+              "line": 81,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 96,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 103,
+              "string_args": []
+            }
+          ],
+          "strings": [
+            "text/plain",
+            "utf-8",
+            "Cache-Control",
+            "X-Config-Policy",
+            "X-Config-Publishable",
+            "X-Config-Suppressed",
+            "no-store",
+            "health-lifecycle",
+            "publishable",
+            "suppressed"
+          ]
+        },
+        {
+          "name": "subscription_type",
+          "line": 112,
+          "args": [
+            "request"
+          ],
+          "calls": [
+            {
+              "name": "lower",
+              "line": 116,
+              "string_args": []
+            },
+            {
+              "name": "_subscription_text",
+              "line": 130,
+              "string_args": []
+            },
+            {
+              "name": "web.Response",
+              "line": 136,
+              "string_args": []
+            },
+            {
+              "name": "web.HTTPNotFound",
+              "line": 126,
+              "string_args": []
+            },
+            {
+              "name": "strip",
+              "line": 116,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 154,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 116,
+              "string_args": []
+            },
+            {
+              "name": "request.match_info.get",
+              "line": 117,
+              "string_args": [
+                "config_type",
+                ""
+              ]
+            }
+          ],
+          "strings": [
+            "text/plain",
+            "utf-8",
+            "Cache-Control",
+            "X-Config-Policy",
+            "X-Config-Type",
+            "X-Config-Publishable",
+            "no-store",
+            "health-lifecycle",
+            "publishable",
+            "config_type",
+            ""
+          ]
+        },
+        {
+          "name": "publish_status",
+          "line": 163,
+          "args": [
+            "request"
+          ],
+          "calls": [
+            {
+              "name": "build_publish_snapshot",
+              "line": 168,
+              "string_args": []
+            },
+            {
+              "name": "web.json_response",
+              "line": 172,
+              "string_args": []
+            }
+          ],
+          "strings": [
+            "mode",
+            "policy_available",
+            "total_configs",
+            "policy_tracked",
+            "publishable",
+            "suppressed",
+            "missing_policy_record",
+            "allowed_states",
+            "production_delete",
+            "production-output-filter",
+            "healthy",
+            "recovered"
+          ]
+        },
+        {
+          "name": "install_publish_routes",
+          "line": 204,
+          "args": [
+            "app"
+          ],
+          "calls": [
+            {
+              "name": "app.get",
+              "line": 208,
+              "string_args": [
+                "_ht18_publish_installed"
+              ]
+            },
+            {
+              "name": "app.router.add_get",
+              "line": 220,
+              "string_args": [
+                "/sub/all"
+              ]
+            },
+            {
+              "name": "app.router.add_get",
+              "line": 226,
+              "string_args": [
+                "/sub/{config_type}"
+              ]
+            },
+            {
+              "name": "app.router.add_get",
+              "line": 232,
+              "string_args": [
+                "/api/publish/status"
+              ]
+            }
+          ],
+          "strings": [
+            "_ht18_publish_installed",
+            "_ht18_publish_installed",
+            "/sub/all",
+            "/sub/{config_type}",
+            "/api/publish/status"
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "module": "aiohttp",
+          "names": [
+            "web"
+          ]
+        },
+        {
+          "module": "filter",
+          "names": [
+            "build_publish_snapshot"
+          ]
+        }
+      ]
+    },
+    "/opt/config-location/app/panel/publish_read_model.py": {
+      "functions": [
+        {
+          "name": "_safe_dict",
+          "line": 16,
+          "args": [
+            "value"
+          ],
+          "calls": [
+            {
+              "name": "isinstance",
+              "line": 20,
+              "string_args": []
+            }
+          ],
+          "strings": []
+        },
+        {
+          "name": "_discover_publish_status",
+          "line": 29,
+          "args": [],
+          "calls": [
+            {
+              "name": "range",
+              "line": 76,
+              "string_args": []
+            },
+            {
+              "name": "set",
+              "line": 111,
+              "string_args": []
+            },
+            {
+              "name": "time.sleep",
+              "line": 305,
+              "string_args": []
+            },
+            {
+              "name": "build_publish_snapshot",
+              "line": 80,
+              "string_args": []
+            },
+            {
+              "name": "_read_json",
+              "line": 82,
+              "string_args": []
+            },
+            {
+              "name": "index.get",
+              "line": 145,
+              "string_args": []
+            },
+            {
+              "name": "lower",
+              "line": 158,
+              "string_args": []
+            },
+            {
+              "name": "bool",
+              "line": 166,
+              "string_args": []
+            },
+            {
+              "name": "bool",
+              "line": 222,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 227,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 232,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 237,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 242,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 247,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 252,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 257,
+              "string_args": []
+            },
+            {
+              "name": "sorted",
+              "line": 278,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 285,
+              "string_args": []
+            },
+            {
+              "name": "bool",
+              "line": 290,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 69,
+              "string_args": []
+            },
+            {
+              "name": "_policy_index",
+              "line": 87,
+              "string_args": []
+            },
+            {
+              "name": "isinstance",
+              "line": 115,
+              "string_args": []
+            },
+            {
+              "name": "record.get",
+              "line": 122,
+              "string_args": [
+                "id"
+              ]
+            },
+            {
+              "name": "record.get",
+              "line": 123,
+              "string_args": [
+                "config_id"
+              ]
+            },
+            {
+              "name": "snapshot_ids.add",
+              "line": 130,
+              "string_args": []
+            },
+            {
+              "name": "isinstance",
+              "line": 149,
+              "string_args": []
+            },
+            {
+              "name": "item.get",
+              "line": 167,
+              "string_args": [
+                "publish_eligible"
+              ]
+            },
+            {
+              "name": "len",
+              "line": 202,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 263,
+              "string_args": []
+            },
+            {
+              "name": "int",
+              "line": 270,
+              "string_args": []
+            },
+            {
+              "name": "type",
+              "line": 66,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 105,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 131,
+              "string_args": []
+            },
+            {
+              "name": "strip",
+              "line": 158,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 279,
+              "string_args": []
+            },
+            {
+              "name": "type",
+              "line": 102,
+              "string_args": []
+            },
+            {
+              "name": "str",
+              "line": 158,
+              "string_args": []
+            },
+            {
+              "name": "item.get",
+              "line": 159,
+              "string_args": [
+                "policy_state",
+                ""
+              ]
+            }
+          ],
+          "strings": [
+            "\n    PANEL_A7_R5_COHERENT_CANONICAL_STATUS\n\n    Canonical eligibility remains owned exclusively by:\n\n        app.publish.filter.build_publish_snapshot()\n\n    Healthy/recovered are only a breakdown of the exact\n    publishable IDs returned by that canonical snapshot.\n\n    Because production state changes continuously, we retry\n    briefly until snapshot + policy view are coherent.\n    ",
+            "healthy",
+            "recovered",
+            "_source",
+            "available",
+            "mode",
+            "policy_available",
+            "total_configs",
+            "policy_tracked",
+            "publishable",
+            "suppressed",
+            "missing_policy_record",
+            "healthy",
+            "recovered",
+            "eligible_by_state",
+            "allowed_states",
+            "breakdown_unresolved",
+            "coherent",
+            "coherence_attempt",
+            "production_delete",
+            "app.publish.filter.build_publish_snapshot",
+            "production-output-filter",
+            "_source",
+            "available",
+            "error",
+            "app.publish.filter.build_publish_snapshot",
+            "snapshot_unavailable",
+            "_source",
+            "available",
+            "error",
+            "message",
+            "app.publish.filter",
+            "healthy",
+            "recovered",
+            "healthy",
+            "recovered",
+            "_source",
+            "available",
+            "error",
+            "message",
+            "app.publish.filter.build_publish_snapshot",
+            "id",
+            "config_id",
+            "publish_eligible",
+            "healthy",
+            "recovered",
+            "healthy",
+            "recovered",
+            "policy_state",
+            ""
+          ]
+        },
+        {
+          "name": "_discover_routes",
+          "line": 322,
+          "args": [],
+          "calls": [
+            {
+              "name": "set",
+              "line": 337,
+              "string_args": []
+            },
+            {
+              "name": "app.router.routes",
+              "line": 339,
+              "string_args": []
+            },
+            {
+              "name": "sorted",
+              "line": 359,
+              "string_args": []
+            },
+            {
+              "name": "create_app",
+              "line": 330,
+              "string_args": []
+            },
+            {
+              "name": "isinstance",
+              "line": 346,
+              "string_args": []
+            },
+            {
+              "name": "path.startswith",
+              "line": 353,
+              "string_args": [
+                "/sub/"
+              ]
+            },
+            {
+              "name": "found.add",
+              "line": 356,
+              "string_args": []
+            }
+          ],
+          "strings": [
+            "/sub/",
+            "/sub"
+          ]
+        },
+        {
+          "name": "_classify_routes",
+          "line": 362,
+          "args": [
+            "routes"
+          ],
+          "calls": [
+            {
+              "name": "path.lower",
+              "line": 376,
+              "string_args": []
+            },
+            {
+              "name": "append",
+              "line": 380,
+              "string_args": []
+            },
+            {
+              "name": "append",
+              "line": 389,
+              "string_args": []
+            },
+            {
+              "name": "append",
+              "line": 398,
+              "string_args": []
+            },
+            {
+              "name": "append",
+              "line": 404,
+              "string_args": []
+            }
+          ],
+          "strings": [
+            "all",
+            "type",
+            "country",
+            "other",
+            "/sub/all",
+            "{config_type}",
+            "{type}",
+            "all",
+            "{country",
+            "/country/",
+            "type",
+            "country",
+            "other"
+          ]
+        },
+        {
+          "name": "_known_types",
+          "line": 412,
+          "args": [],
+          "calls": [],
+          "strings": [
+            "vless",
+            "vmess",
+            "trojan",
+            "ss",
+            "wireguard",
+            "json_xray"
+          ]
+        },
+        {
+          "name": "publish_summary",
+          "line": 424,
+          "args": [],
+          "calls": [
+            {
+              "name": "_discover_publish_status",
+              "line": 426,
+              "string_args": []
+            },
+            {
+              "name": "_discover_routes",
+              "line": 428,
+              "string_args": []
+            },
+            {
+              "name": "_classify_routes",
+              "line": 430,
+              "string_args": []
+            },
+            {
+              "name": "_known_types",
+              "line": 453,
+              "string_args": []
+            },
+            {
+              "name": "type_links.append",
+              "line": 455,
+              "string_args": []
+            },
+            {
+              "name": "route_template.replace",
+              "line": 461,
+              "string_args": [
+                "{config_type}"
+              ]
+            }
+          ],
+          "strings": [
+            "type",
+            "publish_status",
+            "routes",
+            "route_classes",
+            "links",
+            "{config_type}",
+            "all",
+            "types",
+            "country_templates",
+            "other",
+            "/sub/all",
+            "country",
+            "other",
+            "type",
+            "path",
+            "/sub/all",
+            "{config_type}"
+          ]
+        }
+      ],
+      "imports": [
+        {
+          "module": "__future__",
+          "names": [
+            "annotations"
+          ]
+        },
+        {
+          "module": "typing",
+          "names": [
+            "Any"
+          ]
+        },
+        {
+          "module": "pathlib",
+          "names": [
+            "Path"
+          ]
+        },
+        {
+          "module": null,
+          "names": [
+            "inspect"
+          ]
+        },
+        {
+          "module": null,
+          "names": [
+            "re"
+          ]
+        }
+      ]
+    }
+  },
+  "route_candidates": [
+    {
+      "file": "/opt/config-location/app/publish/http.py",
+      "function": "install_publish_routes",
+      "line": 204,
+      "strings": [
+        "_ht18_publish_installed",
+        "_ht18_publish_installed",
+        "/sub/all",
+        "/sub/{config_type}",
+        "/api/publish/status"
+      ]
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "_discover_routes",
+      "line": 322,
+      "strings": [
+        "/sub/",
+        "/sub"
+      ]
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "_classify_routes",
+      "line": 362,
+      "strings": [
+        "all",
+        "type",
+        "country",
+        "other",
+        "/sub/all",
+        "{config_type}",
+        "{type}",
+        "all",
+        "{country",
+        "/country/",
+        "type",
+        "country",
+        "other"
+      ]
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "publish_summary",
+      "line": 424,
+      "strings": [
+        "type",
+        "publish_status",
+        "routes",
+        "route_classes",
+        "links",
+        "{config_type}",
+        "all",
+        "types",
+        "country_templates",
+        "other",
+        "/sub/all",
+        "country",
+        "other",
+        "type",
+        "path",
+        "/sub/all",
+        "{config_type}"
+      ]
+    }
+  ],
+  "sub_all_candidates": [
+    {
+      "file": "/opt/config-location/app/publish/http.py",
+      "function": "install_publish_routes",
+      "line": 204
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "_classify_routes",
+      "line": 362
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "publish_summary",
+      "line": 424
+    }
+  ],
+  "country_candidates": [
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "_classify_routes",
+      "line": 362
+    },
+    {
+      "file": "/opt/config-location/app/panel/publish_read_model.py",
+      "function": "publish_summary",
+      "line": 424
+    }
+  ],
+  "cross_file_calls": [
+    {
+      "from_file": "/opt/config-location/app/publish/http.py",
+      "from_function": "subscription_all",
+      "to_function": "_subscription_text",
+      "line": 78
+    },
+    {
+      "from_file": "/opt/config-location/app/publish/http.py",
+      "from_function": "subscription_type",
+      "to_function": "_subscription_text",
+      "line": 130
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_discover_publish_status",
+      "line": 426
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_discover_routes",
+      "line": 428
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_classify_routes",
+      "line": 430
+    },
+    {
+      "from_file": "/opt/config-location/app/panel/publish_read_model.py",
+      "from_function": "publish_summary",
+      "to_function": "_known_types",
+      "line": 453
+    }
+  ],
+  "production_mutation": false,
+  "service_restart": false
+}
