@@ -1,0 +1,23 @@
+Phase:
+phase5-final-fresh-country-projection-fix
+
+Result:
+FAILED
+
+Rollback:
+NO
+
+Fix:
+Refresh production country projection once per Country request.
+
+Config mutation:
+NONE
+
+Canonical country-store mutation:
+NONE
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-final-fresh-country-projection-fix-20260905-150818.json
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-final-fresh-country-projection-fix-20260905-150818.log

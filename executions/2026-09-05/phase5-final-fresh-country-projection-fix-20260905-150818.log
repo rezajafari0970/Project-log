@@ -1,0 +1,58 @@
+================================================
+ PHASE 5 FINAL FIX
+ FRESH COUNTRY PROJECTION PER REQUEST
+================================================
+
+========== [1/9] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/9] BACKUP ==========
+BACKUP_OK
+
+========== [3/9] PATCH ==========
+REFRESH_IMPORT=READY
+COUNTRY_REQUEST_REFRESH=INSTALLED
+
+========== [4/9] STATIC CONTRACT ==========
+4:from app.country.production_publish_projection import country_code_for_config, refresh as refresh_country_projection
+36:    refresh_country_projection()
+COMPILE_OK
+
+========== [5/9] OFFLINE CONTRACT ==========
+COUNT= 127
+PUBLISHABLE= 533
+CACHE_BEFORE= CacheInfo(hits=0, misses=0, maxsize=1, currsize=0)
+CACHE_AFTER= CacheInfo(hits=532, misses=1, maxsize=1, currsize=1)
+OFFLINE_REFRESH_CONTRACT_OK
+
+========== [6/9] PANEL RESTART ==========
+PANEL_ACTIVE=active
+
+========== [7/9] LIVE FRESHNESS ==========
+AR: expected=1 live=0 http=200
+AT: expected=2 live=1 http=200
+AU: expected=20 live=0 http=200
+BG: expected=2 live=1 http=200
+CA: expected=8 live=4 http=200
+DE: expected=127 live=16 http=200
+EE: expected=1 live=0 http=200
+ES: expected=2 live=2 http=200
+FI: expected=9 live=5 http=200
+FR: expected=8 live=3 http=200
+GB: expected=59 live=9 http=200
+IT: expected=4 live=0 http=200
+JP: expected=8 live=5 http=200
+LV: expected=1 live=1 http=200
+MY: expected=1 live=0 http=200
+NL: expected=113 live=19 http=200
+NO: expected=3 live=2 http=200
+PL: expected=12 live=4 http=200
+SE: expected=5 live=1 http=200
+SG: expected=7 live=4 http=200
+TR: expected=1 live=0 http=200
+US: expected=44 live=30 http=200
+ZA: expected=1 live=1 http=200
+
+COUNTRIES_TESTED= 23
+COUNTRIES_FAILED= 20
+FAILED= [{'code': 'AR', 'expected': 1, 'live': 0}, {'code': 'AT', 'expected': 2, 'live': 1}, {'code': 'AU', 'expected': 20, 'live': 0}, {'code': 'BG', 'expected': 2, 'live': 1}, {'code': 'CA', 'expected': 8, 'live': 4}, {'code': 'DE', 'expected': 127, 'live': 16}, {'code': 'EE', 'expected': 1, 'live': 0}, {'code': 'FI', 'expected': 9, 'live': 5}, {'code': 'FR', 'expected': 8, 'live': 3}, {'code': 'GB', 'expected': 59, 'live': 9}, {'code': 'IT', 'expected': 4, 'live': 0}, {'code': 'JP', 'expected': 8, 'live': 5}, {'code': 'MY', 'expected': 1, 'live': 0}, {'code': 'NL', 'expected': 113, 'live': 19}, {'code': 'NO', 'expected': 3, 'live': 2}, {'code': 'PL', 'expected': 12, 'live': 4}, {'code': 'SE', 'expected': 5, 'live': 1}, {'code': 'SG', 'expected': 7, 'live': 4}, {'code': 'TR', 'expected': 1, 'live': 0}, {'code': 'US', 'expected': 44, 'live': 30}]
