@@ -1,0 +1,20 @@
+================================================
+ PHASE 5 PASS 6D.3
+ DEDICATED PRODUCTION COUNTRY ROUTES
+================================================
+
+========== [1/12] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/12] BACKUP ==========
+BACKUP_OK
+
+========== [3/12] SUB ALL BASELINE ==========
+HTTP_BEFORE=200
+SIZE_BEFORE=115374
+SHA_BEFORE=c6ac470b3642cb45759f1e53f65ad177e2d456c5cae13d48feff9e2e2bed9e66
+
+========== [4/12] SNAPSHOT CONTRACT ==========
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+AssertionError

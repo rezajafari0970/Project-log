@@ -1,0 +1,46 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6d3-dedicated-production-country-subscription-routes
+
+Result:
+FAILED
+
+Start:
+2026-09-05T14:29:07+00:00
+
+End:
+2026-09-05T14:29:09+00:00
+
+Mode:
+DEDICATED PRODUCTION COUNTRY SUBSCRIPTION ROUTES
+
+Production Country endpoint:
+/sub/country/{country_code}
+
+Existing /sub/all mutation:
+NO LOGICAL CHANGE REQUIRED
+
+Existing /sub/{config_type} mutation:
+NO LOGICAL CHANGE REQUIRED
+
+Rollback:
+NO
+
+Config mutation:
+NONE
+
+Country canonical store mutation:
+NONE
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6d3-dedicated-production-country-subscription-routes-20260905-142907.json
+
+Backup:
+/root/3245/phase5-pass6d3-dedicated-production-country-subscription-routes-backup-20260905-142907
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6d3-dedicated-production-country-subscription-routes-20260905-142907.log
+
+Errors:
+
