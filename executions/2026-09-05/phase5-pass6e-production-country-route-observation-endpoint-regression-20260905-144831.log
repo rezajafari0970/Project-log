@@ -1,0 +1,159 @@
+================================================
+ PHASE 5 PASS 6E
+ PRODUCTION COUNTRY ROUTE OBSERVATION
+ ENDPOINT REGRESSION
+================================================
+
+========== [1/10] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/10] PRODUCTION HASH BASELINE ==========
+HTTP_PY_HASH_BEFORE=28cb21ed96bde94f333c903c838b0fd371d838c45105838986f3a3adaf1690d3
+
+========== [3/10] TARGET DISCOVERY ==========
+SNAPSHOT_PUBLISHABLE= 516
+COUNTRIES= ['DE', 'NL', 'GB', 'US', 'AU']
+COUNTRY_COUNTS= {'DE': 121, 'NL': 107, 'GB': 60, 'US': 43, 'AU': 14}
+CONFIG_TYPE= vless
+CONFIG_TYPE_COUNT= 419
+TARGET_DISCOVERY_OK
+COUNTRIES=DE NL GB US AU
+CONFIG_TYPE=vless
+
+========== [4/10] OBSERVATION ==========
+
+---------- CYCLE 1/5 ----------
+CYCLE_1_COMPLETE
+
+---------- CYCLE 2/5 ----------
+CYCLE_2_COMPLETE
+
+---------- CYCLE 3/5 ----------
+CYCLE_3_COMPLETE
+
+---------- CYCLE 4/5 ----------
+CYCLE_4_COMPLETE
+
+---------- CYCLE 5/5 ----------
+CYCLE_5_COMPLETE
+
+========== [5/10] ANALYSIS ==========
+{
+  "country_count_series": {
+    "DE": [
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "NL": [
+      17,
+      17,
+      17,
+      17,
+      17
+    ],
+    "GB": [
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "US": [
+      29,
+      29,
+      29,
+      29,
+      29
+    ],
+    "AU": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "unknown_count_series": [
+    409,
+    409,
+    409,
+    409,
+    408
+  ],
+  "metrics": {
+    "sub_all_size_min": 109480,
+    "sub_all_size_max": 109672,
+    "sub_all_size_churn_percent": 0.175,
+    "average_latency_seconds": 0.236,
+    "max_latency_seconds": 0.9757
+  },
+  "gates": {
+    "sub_all_http_200": true,
+    "sub_type_http_200": true,
+    "country_http_200": true,
+    "unknown_http_200": true,
+    "invalid_http_404": true,
+    "country_source_header": true,
+    "unknown_source_header": true,
+    "country_header_body_count_match": true,
+    "unknown_header_body_count_match": true,
+    "sub_all_no_catastrophic_churn": true,
+    "max_latency_le_10s": true
+  },
+  "stable": true
+}
+
+========== [6/10] FRESHNESS ==========
+FIRST_CYCLE= 2026-09-05T14:48:33+00:00
+LAST_CYCLE= 2026-09-05T14:50:00+00:00
+FRESHNESS_MONOTONIC=YES
+
+========== [7/10] SERVICE REGRESSION ==========
+config-location-panel.service ACTIVE=active
+config-location-country-worker.service ACTIVE=active
+config-location-country-event-consumer.service ACTIVE=active
+SERVICE_REGRESSION_OK
+
+========== [8/10] PRODUCTION IMMUTABILITY ==========
+HTTP_PY_HASH_BEFORE=28cb21ed96bde94f333c903c838b0fd371d838c45105838986f3a3adaf1690d3
+HTTP_PY_HASH_AFTER=28cb21ed96bde94f333c903c838b0fd371d838c45105838986f3a3adaf1690d3
+PRODUCTION_CODE_UNCHANGED=YES
+
+========== [9/10] FINAL GATE ==========
+STABLE= True
+GATE_SUB_ALL_HTTP_200=True
+GATE_SUB_TYPE_HTTP_200=True
+GATE_COUNTRY_HTTP_200=True
+GATE_UNKNOWN_HTTP_200=True
+GATE_INVALID_HTTP_404=True
+GATE_COUNTRY_SOURCE_HEADER=True
+GATE_UNKNOWN_SOURCE_HEADER=True
+GATE_COUNTRY_HEADER_BODY_COUNT_MATCH=True
+GATE_UNKNOWN_HEADER_BODY_COUNT_MATCH=True
+GATE_SUB_ALL_NO_CATASTROPHIC_CHURN=True
+GATE_MAX_LATENCY_LE_10S=True
+SUB_ALL_SIZE_CHURN_PERCENT= 0.175
+AVERAGE_LATENCY_SECONDS= 0.236
+MAX_LATENCY_SECONDS= 0.9757
+ENDPOINT_REGRESSION_GATE_PASS
+COUNTRY_ROUTE_STABILITY_GATE_PASS
+PRODUCTION_OBSERVATION_GATE_PASS
+
+========== [10/10] FINAL ==========
+COUNTRY_PRODUCTION_ROUTE=STABLE
+COUNTRY_SOURCE=CANONICAL_PROJECTION_V2
+SUB_ALL_REGRESSION=PASS
+SUB_TYPE_REGRESSION=PASS
+COUNTRY_ENDPOINT_REGRESSION=PASS
+FRESHNESS_GATE=PASS
+SERVICE_REGRESSION=PASS
+PRODUCTION_CODE_UNCHANGED=YES
+PRODUCTION_MUTATION=NO
+PUBLISH_MUTATION=NO
+ENDPOINT_MUTATION=NO
+SERVICE_RESTART=NO
+
+PHASE5_PASS6E_SUCCESS

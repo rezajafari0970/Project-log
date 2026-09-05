@@ -1,0 +1,19 @@
+{
+  "snapshot_publishable": 516,
+  "countries": [
+    "DE",
+    "NL",
+    "GB",
+    "US",
+    "AU"
+  ],
+  "selected_country_counts": {
+    "DE": 121,
+    "NL": 107,
+    "GB": 60,
+    "US": 43,
+    "AU": 14
+  },
+  "config_type": "vless",
+  "config_type_count": 419
+}

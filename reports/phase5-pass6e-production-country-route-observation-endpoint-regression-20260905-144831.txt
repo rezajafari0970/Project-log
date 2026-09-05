@@ -1,0 +1,43 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6e-production-country-route-observation-endpoint-regression
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T14:48:32+00:00
+
+End:
+2026-09-05T14:50:04+00:00
+
+Mode:
+PRODUCTION COUNTRY ROUTE OBSERVATION / ENDPOINT REGRESSION
+
+Cycles:
+5
+
+Production mutation:
+NONE
+
+Publish mutation:
+NONE
+
+Endpoint mutation:
+NONE
+
+Service restart:
+NONE
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6e-production-country-route-observation-endpoint-regression-20260905-144831.json
+
+Observation:
+/root/project-log/discovery/2026-09-05/phase5-pass6e-production-country-route-observation-endpoint-regression-20260905-144831-cycles
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6e-production-country-route-observation-endpoint-regression-20260905-144831.log
+
+Errors:
+

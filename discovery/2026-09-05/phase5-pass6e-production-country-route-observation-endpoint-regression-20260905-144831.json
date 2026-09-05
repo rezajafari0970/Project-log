@@ -1,0 +1,480 @@
+{
+  "phase": "phase5-pass6e-production-country-route-observation-endpoint-regression",
+  "mode": "production_observation",
+  "cycles": 5,
+  "targets": {
+    "snapshot_publishable": 516,
+    "countries": [
+      "DE",
+      "NL",
+      "GB",
+      "US",
+      "AU"
+    ],
+    "selected_country_counts": {
+      "DE": 121,
+      "NL": 107,
+      "GB": 60,
+      "US": 43,
+      "AU": 14
+    },
+    "config_type": "vless",
+    "config_type_count": 419
+  },
+  "country_count_series": {
+    "DE": [
+      16,
+      16,
+      16,
+      16,
+      16
+    ],
+    "NL": [
+      17,
+      17,
+      17,
+      17,
+      17
+    ],
+    "GB": [
+      10,
+      10,
+      10,
+      10,
+      10
+    ],
+    "US": [
+      29,
+      29,
+      29,
+      29,
+      29
+    ],
+    "AU": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "unknown_count_series": [
+    409,
+    409,
+    409,
+    409,
+    408
+  ],
+  "metrics": {
+    "sub_all_size_min": 109480,
+    "sub_all_size_max": 109672,
+    "sub_all_size_churn_percent": 0.175,
+    "average_latency_seconds": 0.236,
+    "max_latency_seconds": 0.9757
+  },
+  "gates": {
+    "sub_all_http_200": true,
+    "sub_type_http_200": true,
+    "country_http_200": true,
+    "unknown_http_200": true,
+    "invalid_http_404": true,
+    "country_source_header": true,
+    "unknown_source_header": true,
+    "country_header_body_count_match": true,
+    "unknown_header_body_count_match": true,
+    "sub_all_no_catastrophic_churn": true,
+    "max_latency_le_10s": true
+  },
+  "stable": true,
+  "rows": [
+    {
+      "cycle": 1,
+      "timestamp": "2026-09-05T14:48:33+00:00",
+      "all": {
+        "http": 200,
+        "seconds": 0.124187,
+        "size": 109672
+      },
+      "type": {
+        "http": 200,
+        "seconds": 0.155528,
+        "size": 84613
+      },
+      "unknown": {
+        "http": 200,
+        "seconds": 0.194437,
+        "size": 85639,
+        "header_count": 409,
+        "lines": 409,
+        "source": "canonical-projection-v2"
+      },
+      "invalid": {
+        "http": 404,
+        "seconds": 0.00196,
+        "size": 14
+      },
+      "all_sha256": "27552859a8eea40970f78f9d6cbcae8269524a8dcb8036e145266ba930bac63d",
+      "all_lines": 516,
+      "type_lines": 419,
+      "countries": {
+        "DE": {
+          "http": 200,
+          "seconds": 0.160538,
+          "size": 2451,
+          "header_count": 16,
+          "lines": 16,
+          "source": "canonical-projection-v2",
+          "sha256": "730de0cb731872b9a12d7360c69826053ecc49da1e31adb023a2a15b24112450"
+        },
+        "NL": {
+          "http": 200,
+          "seconds": 0.129218,
+          "size": 2472,
+          "header_count": 17,
+          "lines": 17,
+          "source": "canonical-projection-v2",
+          "sha256": "dd999b90cc83720955a936896fcd0e5d4e989a3f5c9f329b2ae9fe9b35205ef4"
+        },
+        "GB": {
+          "http": 200,
+          "seconds": 0.122025,
+          "size": 2227,
+          "header_count": 10,
+          "lines": 10,
+          "source": "canonical-projection-v2",
+          "sha256": "10ed88423ecd561573cac177bf2e41475f7eec669a85759c698b95727ee26d2a"
+        },
+        "US": {
+          "http": 200,
+          "seconds": 0.104909,
+          "size": 9002,
+          "header_count": 29,
+          "lines": 29,
+          "source": "canonical-projection-v2",
+          "sha256": "ebcb76fc30ba56dad4bb18528dd35b78fc36cbe05f780b95a28fac35d321c0ac"
+        },
+        "AU": {
+          "http": 200,
+          "seconds": 0.11257,
+          "size": 0,
+          "header_count": 0,
+          "lines": 0,
+          "source": "canonical-projection-v2",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "cycle": 2,
+      "timestamp": "2026-09-05T14:48:54+00:00",
+      "all": {
+        "http": 200,
+        "seconds": 0.146856,
+        "size": 109672
+      },
+      "type": {
+        "http": 200,
+        "seconds": 0.166874,
+        "size": 84613
+      },
+      "unknown": {
+        "http": 200,
+        "seconds": 0.223311,
+        "size": 85639,
+        "header_count": 409,
+        "lines": 409,
+        "source": "canonical-projection-v2"
+      },
+      "invalid": {
+        "http": 404,
+        "seconds": 0.054357,
+        "size": 14
+      },
+      "all_sha256": "27552859a8eea40970f78f9d6cbcae8269524a8dcb8036e145266ba930bac63d",
+      "all_lines": 516,
+      "type_lines": 419,
+      "countries": {
+        "DE": {
+          "http": 200,
+          "seconds": 0.199244,
+          "size": 2451,
+          "header_count": 16,
+          "lines": 16,
+          "source": "canonical-projection-v2",
+          "sha256": "730de0cb731872b9a12d7360c69826053ecc49da1e31adb023a2a15b24112450"
+        },
+        "NL": {
+          "http": 200,
+          "seconds": 0.116716,
+          "size": 2472,
+          "header_count": 17,
+          "lines": 17,
+          "source": "canonical-projection-v2",
+          "sha256": "dd999b90cc83720955a936896fcd0e5d4e989a3f5c9f329b2ae9fe9b35205ef4"
+        },
+        "GB": {
+          "http": 200,
+          "seconds": 0.161595,
+          "size": 2227,
+          "header_count": 10,
+          "lines": 10,
+          "source": "canonical-projection-v2",
+          "sha256": "10ed88423ecd561573cac177bf2e41475f7eec669a85759c698b95727ee26d2a"
+        },
+        "US": {
+          "http": 200,
+          "seconds": 0.113908,
+          "size": 9002,
+          "header_count": 29,
+          "lines": 29,
+          "source": "canonical-projection-v2",
+          "sha256": "ebcb76fc30ba56dad4bb18528dd35b78fc36cbe05f780b95a28fac35d321c0ac"
+        },
+        "AU": {
+          "http": 200,
+          "seconds": 0.14647,
+          "size": 0,
+          "header_count": 0,
+          "lines": 0,
+          "source": "canonical-projection-v2",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "cycle": 3,
+      "timestamp": "2026-09-05T14:49:16+00:00",
+      "all": {
+        "http": 200,
+        "seconds": 0.22314,
+        "size": 109672
+      },
+      "type": {
+        "http": 200,
+        "seconds": 0.127203,
+        "size": 84613
+      },
+      "unknown": {
+        "http": 200,
+        "seconds": 0.217612,
+        "size": 85639,
+        "header_count": 409,
+        "lines": 409,
+        "source": "canonical-projection-v2"
+      },
+      "invalid": {
+        "http": 404,
+        "seconds": 0.002349,
+        "size": 14
+      },
+      "all_sha256": "27552859a8eea40970f78f9d6cbcae8269524a8dcb8036e145266ba930bac63d",
+      "all_lines": 516,
+      "type_lines": 419,
+      "countries": {
+        "DE": {
+          "http": 200,
+          "seconds": 0.150238,
+          "size": 2451,
+          "header_count": 16,
+          "lines": 16,
+          "source": "canonical-projection-v2",
+          "sha256": "730de0cb731872b9a12d7360c69826053ecc49da1e31adb023a2a15b24112450"
+        },
+        "NL": {
+          "http": 200,
+          "seconds": 0.36846,
+          "size": 2472,
+          "header_count": 17,
+          "lines": 17,
+          "source": "canonical-projection-v2",
+          "sha256": "dd999b90cc83720955a936896fcd0e5d4e989a3f5c9f329b2ae9fe9b35205ef4"
+        },
+        "GB": {
+          "http": 200,
+          "seconds": 0.550634,
+          "size": 2227,
+          "header_count": 10,
+          "lines": 10,
+          "source": "canonical-projection-v2",
+          "sha256": "10ed88423ecd561573cac177bf2e41475f7eec669a85759c698b95727ee26d2a"
+        },
+        "US": {
+          "http": 200,
+          "seconds": 0.267804,
+          "size": 9002,
+          "header_count": 29,
+          "lines": 29,
+          "source": "canonical-projection-v2",
+          "sha256": "ebcb76fc30ba56dad4bb18528dd35b78fc36cbe05f780b95a28fac35d321c0ac"
+        },
+        "AU": {
+          "http": 200,
+          "seconds": 0.203709,
+          "size": 0,
+          "header_count": 0,
+          "lines": 0,
+          "source": "canonical-projection-v2",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "cycle": 4,
+      "timestamp": "2026-09-05T14:49:38+00:00",
+      "all": {
+        "http": 200,
+        "seconds": 0.403538,
+        "size": 109672
+      },
+      "type": {
+        "http": 200,
+        "seconds": 0.189137,
+        "size": 84613
+      },
+      "unknown": {
+        "http": 200,
+        "seconds": 0.384462,
+        "size": 85639,
+        "header_count": 409,
+        "lines": 409,
+        "source": "canonical-projection-v2"
+      },
+      "invalid": {
+        "http": 404,
+        "seconds": 0.00673,
+        "size": 14
+      },
+      "all_sha256": "27552859a8eea40970f78f9d6cbcae8269524a8dcb8036e145266ba930bac63d",
+      "all_lines": 516,
+      "type_lines": 419,
+      "countries": {
+        "DE": {
+          "http": 200,
+          "seconds": 0.281335,
+          "size": 2451,
+          "header_count": 16,
+          "lines": 16,
+          "source": "canonical-projection-v2",
+          "sha256": "730de0cb731872b9a12d7360c69826053ecc49da1e31adb023a2a15b24112450"
+        },
+        "NL": {
+          "http": 200,
+          "seconds": 0.177763,
+          "size": 2472,
+          "header_count": 17,
+          "lines": 17,
+          "source": "canonical-projection-v2",
+          "sha256": "dd999b90cc83720955a936896fcd0e5d4e989a3f5c9f329b2ae9fe9b35205ef4"
+        },
+        "GB": {
+          "http": 200,
+          "seconds": 0.166809,
+          "size": 2227,
+          "header_count": 10,
+          "lines": 10,
+          "source": "canonical-projection-v2",
+          "sha256": "10ed88423ecd561573cac177bf2e41475f7eec669a85759c698b95727ee26d2a"
+        },
+        "US": {
+          "http": 200,
+          "seconds": 0.150077,
+          "size": 9002,
+          "header_count": 29,
+          "lines": 29,
+          "source": "canonical-projection-v2",
+          "sha256": "ebcb76fc30ba56dad4bb18528dd35b78fc36cbe05f780b95a28fac35d321c0ac"
+        },
+        "AU": {
+          "http": 200,
+          "seconds": 0.165922,
+          "size": 0,
+          "header_count": 0,
+          "lines": 0,
+          "source": "canonical-projection-v2",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "cycle": 5,
+      "timestamp": "2026-09-05T14:50:00+00:00",
+      "all": {
+        "http": 200,
+        "seconds": 0.232998,
+        "size": 109480
+      },
+      "type": {
+        "http": 200,
+        "seconds": 0.4086,
+        "size": 84421
+      },
+      "unknown": {
+        "http": 200,
+        "seconds": 0.44317,
+        "size": 85447,
+        "header_count": 408,
+        "lines": 408,
+        "source": "canonical-projection-v2"
+      },
+      "invalid": {
+        "http": 404,
+        "seconds": 0.003213,
+        "size": 14
+      },
+      "all_sha256": "0f95f283469eab73857b11842b67af6152c02189a82c759e05101b1ab4c3508d",
+      "all_lines": 515,
+      "type_lines": 418,
+      "countries": {
+        "DE": {
+          "http": 200,
+          "seconds": 0.288891,
+          "size": 2451,
+          "header_count": 16,
+          "lines": 16,
+          "source": "canonical-projection-v2",
+          "sha256": "730de0cb731872b9a12d7360c69826053ecc49da1e31adb023a2a15b24112450"
+        },
+        "NL": {
+          "http": 200,
+          "seconds": 0.97565,
+          "size": 2472,
+          "header_count": 17,
+          "lines": 17,
+          "source": "canonical-projection-v2",
+          "sha256": "dd999b90cc83720955a936896fcd0e5d4e989a3f5c9f329b2ae9fe9b35205ef4"
+        },
+        "GB": {
+          "http": 200,
+          "seconds": 0.269982,
+          "size": 2227,
+          "header_count": 10,
+          "lines": 10,
+          "source": "canonical-projection-v2",
+          "sha256": "10ed88423ecd561573cac177bf2e41475f7eec669a85759c698b95727ee26d2a"
+        },
+        "US": {
+          "http": 200,
+          "seconds": 0.180371,
+          "size": 9002,
+          "header_count": 29,
+          "lines": 29,
+          "source": "canonical-projection-v2",
+          "sha256": "ebcb76fc30ba56dad4bb18528dd35b78fc36cbe05f780b95a28fac35d321c0ac"
+        },
+        "AU": {
+          "http": 200,
+          "seconds": 0.234355,
+          "size": 0,
+          "header_count": 0,
+          "lines": 0,
+          "source": "canonical-projection-v2",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  ],
+  "production_mutation": false,
+  "publish_mutation": false,
+  "endpoint_mutation": false,
+  "service_restart": false
+}
