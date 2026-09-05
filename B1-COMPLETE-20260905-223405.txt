@@ -1,0 +1,45 @@
+========== PRECHECK ==========
+BASELINE_COMPILE_OK
+BACKUP=/root/3245/phase5-b1-backup-20260905-222904
+
+========== PATCH ==========
+PATCHED=/opt/config-location/app/country/worker.py
+PATCHED=/opt/config-location/app/country/pipeline.py
+CORRECTED_ATOMIC_PATCH=YES
+
+========== COMPILE PATCH ==========
+PATCH_COMPILE_OK
+
+========== EXISTING FILES ==========
+EXISTING_FILES_MODE_0640=YES
+
+========== RESTART SERVICES ==========
+config-location-country-worker.service=active
+config-location-country-event-consumer.service=active
+config-location-panel.service=active
+SERVICES_OK
+
+========== OBSERVE NEW FILES ==========
+83feee2033ff105b4a9ccd02edd8f4a43959fe754de57aa7bde467fba558cc65.json OWNER=root GROUP=configloc MODE=640 CONFIGLOC_READ=YES
+3e81c955296c1a280e1c9fba29dcc085f65c3214be5b57ff56f90d393c9bae88.json OWNER=root GROUP=configloc MODE=640 CONFIGLOC_READ=YES
+5240fe6bbee2aa2a038aa478fb0cff12fd02e36ddcb74bc9ea8b3d07b42db52a.json OWNER=root GROUP=configloc MODE=640 CONFIGLOC_READ=YES
+846934148f06de3a8ce072f33abf526f127f531bf4596633b87b8ab160a868cc.json OWNER=root GROUP=configloc MODE=640 CONFIGLOC_READ=YES
+7252f593ae41f90833a529ffe8550aa28cc8ddd123080e3ccb80878691eaa0b9.json OWNER=root GROUP=configloc MODE=640 CONFIGLOC_READ=YES
+52664f1be6a6ddf10f3ae047a7e28beeea1176e5928ec7d65a13775523392344.json OWNER=root GROUP=configloc MODE=640 CONFIGLOC_READ=YES
+NEW_FILES=6
+BAD_NEW_FILES=0
+NEW_FILE_CONTRACT=PASS
+
+========== PIPELINE EACCES TEST ==========
+PROJECTION_RECORDS= 5456
+PIPELINE_EACCES=0
+PIPELINE_READ_CONTRACT=PASS
+
+========== ROOT / CONFIGLOC PARITY ==========
+ROOT_PUBLISHABLE= 573
+CONFIGLOC_PUBLISHABLE= 573
+ROOT_UNKNOWN= 101
+CONFIGLOC_UNKNOWN= 102
+ROOT_COUNTRIES= {'AL': 1, 'AR': 1, 'AU': 16, 'BG': 3, 'CA': 9, 'DE': 166, 'EE': 2, 'ES': 4, 'FI': 4, 'FR': 4, 'GB': 53, 'GE': 1, 'GR': 2, 'IL': 2, 'IR': 1, 'IT': 2, 'JP': 9, 'KR': 6, 'LT': 1, 'LV': 2, 'MY': 1, 'NL': 109, 'NO': 4, 'PL': 6, 'RO': 1, 'RS': 2, 'RU': 1, 'SE': 12, 'SG': 6, 'TR': 1, 'US': 39, 'ZA': 1}
+CONFIGLOC_COUNTRIES= {'AL': 1, 'AR': 1, 'AU': 16, 'BG': 3, 'CA': 9, 'DE': 165, 'EE': 2, 'ES': 4, 'FI': 4, 'FR': 4, 'GB': 53, 'GE': 1, 'GR': 2, 'IL': 2, 'IR': 1, 'IT': 2, 'JP': 9, 'KR': 6, 'LT': 1, 'LV': 2, 'MY': 1, 'NL': 109, 'NO': 4, 'PL': 6, 'RO': 1, 'RS': 2, 'RU': 1, 'SE': 12, 'SG': 6, 'TR': 1, 'US': 39, 'ZA': 1}
+ROOT_CONFIGLOC_PARITY_FAILED
