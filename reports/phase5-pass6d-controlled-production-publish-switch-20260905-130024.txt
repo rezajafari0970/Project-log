@@ -1,0 +1,40 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6d-controlled-production-publish-switch
+
+Result:
+FAILED
+
+Start:
+2026-09-05T13:00:24+00:00
+
+End:
+2026-09-05T13:00:25+00:00
+
+Mode:
+CONTROLLED PRODUCTION PUBLISH SWITCH
+
+Rollback:
+NO
+
+Config mutation:
+NONE
+
+Country canonical-store mutation:
+NONE
+
+/sub/all preservation:
+REQUIRED
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6d-controlled-production-publish-switch-20260905-130024.json
+
+Backup:
+/root/3245/phase5-pass6d-controlled-production-publish-switch-backup-20260905-130024
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6d-controlled-production-publish-switch-20260905-130024.log
+
+Errors:
+
