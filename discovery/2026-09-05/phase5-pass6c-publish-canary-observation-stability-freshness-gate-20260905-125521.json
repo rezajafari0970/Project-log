@@ -1,0 +1,189 @@
+{
+  "phase": "phase5-pass6c-publish-canary-observation-stability-freshness-gate",
+  "mode": "observation_only",
+  "cycles": 5,
+  "cycle_seconds": 20,
+  "publishable_series": [
+    575,
+    574,
+    573,
+    574,
+    574
+  ],
+  "resolved_series": [
+    483,
+    482,
+    481,
+    482,
+    482
+  ],
+  "unknown_series": [
+    92,
+    92,
+    92,
+    92,
+    92
+  ],
+  "conflict_series": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "resolved_percent_series": [
+    84.0,
+    83.972,
+    83.944,
+    83.972,
+    83.972
+  ],
+  "group_count_series": [
+    28,
+    28,
+    28,
+    28,
+    28
+  ],
+  "metrics": {
+    "publishable_span": 2,
+    "publishable_churn_percent": 0.348,
+    "resolved_span": 2,
+    "unknown_span": 0,
+    "conflict_span": 0,
+    "resolved_percent_span": 0.056,
+    "group_count_span": 0
+  },
+  "top_group_churn": [
+    {
+      "group": "DE",
+      "min": 135,
+      "max": 136,
+      "span": 1
+    },
+    {
+      "group": "FR",
+      "min": 11,
+      "max": 12,
+      "span": 1
+    },
+    {
+      "group": "GB",
+      "min": 66,
+      "max": 67,
+      "span": 1
+    },
+    {
+      "group": "AL",
+      "min": 1,
+      "max": 1,
+      "span": 0
+    },
+    {
+      "group": "AR",
+      "min": 1,
+      "max": 1,
+      "span": 0
+    },
+    {
+      "group": "AT",
+      "min": 1,
+      "max": 1,
+      "span": 0
+    },
+    {
+      "group": "AU",
+      "min": 13,
+      "max": 13,
+      "span": 0
+    },
+    {
+      "group": "BG",
+      "min": 2,
+      "max": 2,
+      "span": 0
+    },
+    {
+      "group": "CA",
+      "min": 5,
+      "max": 5,
+      "span": 0
+    },
+    {
+      "group": "EE",
+      "min": 1,
+      "max": 1,
+      "span": 0
+    },
+    {
+      "group": "ES",
+      "min": 2,
+      "max": 2,
+      "span": 0
+    },
+    {
+      "group": "FI",
+      "min": 8,
+      "max": 8,
+      "span": 0
+    },
+    {
+      "group": "GR",
+      "min": 2,
+      "max": 2,
+      "span": 0
+    },
+    {
+      "group": "IN",
+      "min": 2,
+      "max": 2,
+      "span": 0
+    },
+    {
+      "group": "IT",
+      "min": 3,
+      "max": 3,
+      "span": 0
+    },
+    {
+      "group": "JP",
+      "min": 9,
+      "max": 9,
+      "span": 0
+    },
+    {
+      "group": "KR",
+      "min": 1,
+      "max": 1,
+      "span": 0
+    },
+    {
+      "group": "LV",
+      "min": 1,
+      "max": 1,
+      "span": 0
+    },
+    {
+      "group": "NL",
+      "min": 128,
+      "max": 128,
+      "span": 0
+    },
+    {
+      "group": "NO",
+      "min": 4,
+      "max": 4,
+      "span": 0
+    }
+  ],
+  "gates": {
+    "zero_conflict": true,
+    "publishable_churn_le_15pct": true,
+    "resolved_percent_swing_le_8": true,
+    "group_count_swing_le_8": true
+  },
+  "stable": true,
+  "production_publish_wiring": false,
+  "sub_all_mutated": false,
+  "endpoint_mutation": false
+}

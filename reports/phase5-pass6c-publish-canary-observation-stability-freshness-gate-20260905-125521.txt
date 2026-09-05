@@ -1,0 +1,37 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6c-publish-canary-observation-stability-freshness-gate
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T12:55:21+00:00
+
+End:
+2026-09-05T12:56:46+00:00
+
+Mode:
+PUBLISH CANARY OBSERVATION / STABILITY GATE
+
+Cycles:
+5
+
+Production publish wiring:
+NO
+
+/sub/all mutation:
+NO
+
+Endpoint mutation:
+NO
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6c-publish-canary-observation-stability-freshness-gate-20260905-125521.json
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6c-publish-canary-observation-stability-freshness-gate-20260905-125521.log
+
+Errors:
+
