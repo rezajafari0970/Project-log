@@ -1,0 +1,100 @@
+================================================
+ PHASE 5 PASS 6D.3B
+ CORRECTED DEDICATED COUNTRY ROUTES
+================================================
+
+========== [1/12] PRECHECK ==========
+PRECHECK_OK
+
+========== [2/12] BACKUP ==========
+BACKUP_OK
+
+========== [3/12] SUB ALL BASELINE ==========
+HTTP_BEFORE=200
+SIZE_BEFORE=110773
+SHA_BEFORE=6bc886d41c9105294e6d91b4f56797427f11a6757f83ceaf6f9c61536282fca1
+
+========== [4/12] SNAPSHOT CONTRACT ==========
+SNAPSHOT_TYPE= PublishSnapshot
+PUBLISHABLE= 520
+CONFIG_TUPLE_COUNT= 520
+SNAPSHOT_CONTRACT_OK
+
+========== [5/12] PATCH HTTP ==========
+PATCHED_FUNCTIONS=_country_subscription_text,subscription_country
+ROUTE_ADDED=/sub/country/{country_code}
+SUB_ALL_HANDLER_LOGIC_UNCHANGED=YES
+SUB_TYPE_HANDLER_LOGIC_UNCHANGED=YES
+PATCH_OK
+
+========== [6/12] COMPILE ==========
+IMPORT_OK
+COUNTRY_HANDLER_PRESENT=YES
+
+========== [7/12] OFFLINE COUNTRY TEST ==========
+TEST_COUNTRY= DE
+TEST_COUNTRY_COUNT= 122
+UNKNOWN_COUNT= 97
+SNAPSHOT_PUBLISHABLE= 520
+OFFLINE_COUNTRY_TEST_OK
+
+========== [8/12] RESTART ==========
+PANEL_ACTIVE=active
+
+========== [9/12] SUB ALL REGRESSION ==========
+HTTP_AFTER=200
+SIZE_AFTER=110773
+SHA_AFTER=6bc886d41c9105294e6d91b4f56797427f11a6757f83ceaf6f9c61536282fca1
+SUB_ALL_REGRESSION_OK
+
+========== [10/12] LIVE COUNTRY ROUTES ==========
+TEST_COUNTRY=DE
+COUNTRY_HTTP=200
+COUNTRY_SIZE=2451
+UNKNOWN_HTTP=200
+INVALID_HTTP=404
+COUNTRY_ROUTE_CANARY_OK
+
+========== [11/12] RUNTIME REGRESSION ==========
+RUNTIME_REGRESSION_OK
+
+========== [12/12] SUMMARY ==========
+{
+  "phase": "phase5-pass6d3b-corrected-dedicated-production-country-routes",
+  "result": "SUCCESS",
+  "production_country_routes": true,
+  "route": "/sub/country/{country_code}",
+  "snapshot_contract": "PublishSnapshot.configs tuple",
+  "country_source": "CANONICAL_PROJECTION_V2",
+  "sub_all_preserved": true,
+  "sub_type_preserved": true,
+  "sub_all_http_before": "200",
+  "sub_all_http_after": "200",
+  "sub_all_size_before": 110773,
+  "sub_all_size_after": 110773,
+  "sub_all_sha_before": "6bc886d41c9105294e6d91b4f56797427f11a6757f83ceaf6f9c61536282fca1",
+  "sub_all_sha_after": "6bc886d41c9105294e6d91b4f56797427f11a6757f83ceaf6f9c61536282fca1",
+  "test_country": "DE",
+  "test_country_http": "200",
+  "test_country_size": 2451,
+  "unknown_http": "200",
+  "invalid_http": "404",
+  "automatic_rollback": true,
+  "rolled_back": false,
+  "config_write": false,
+  "canonical_country_store_write": false
+}
+
+PRODUCTION_COUNTRY_ROUTES=ENABLED
+COUNTRY_SOURCE=CANONICAL_PROJECTION_V2
+SNAPSHOT_CONTRACT=PublishSnapshot.configs
+SUB_ALL_PRESERVED=YES
+SUB_TYPE_PRESERVED=YES
+UNKNOWN_ROUTE=ENABLED
+INVALID_COUNTRY_FAIL_CLOSED=YES
+AUTOMATIC_ROLLBACK=READY
+ROLLED_BACK=NO
+CONFIG_WRITE=NO
+CANONICAL_COUNTRY_STORE_WRITE=NO
+
+PHASE5_PASS6D3B_SUCCESS

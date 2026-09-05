@@ -1,0 +1,40 @@
+CONFIG LOCATION REPORT
+
+Phase:
+phase5-pass6d3b-corrected-dedicated-production-country-routes
+
+Result:
+SUCCESS
+
+Start:
+2026-09-05T14:41:36+00:00
+
+End:
+2026-09-05T14:41:47+00:00
+
+Mode:
+CORRECTED DEDICATED PRODUCTION COUNTRY ROUTES
+
+Production Country endpoint:
+/sub/country/{country_code}
+
+Rollback:
+NO
+
+Config mutation:
+NONE
+
+Canonical Country-store mutation:
+NONE
+
+Summary:
+/root/project-log/discovery/2026-09-05/phase5-pass6d3b-corrected-dedicated-production-country-routes-20260905-144136.json
+
+Backup:
+/root/3245/phase5-pass6d3b-corrected-dedicated-production-country-routes-backup-20260905-144136
+
+Log:
+/root/project-log/executions/2026-09-05/phase5-pass6d3b-corrected-dedicated-production-country-routes-20260905-144136.log
+
+Errors:
+
